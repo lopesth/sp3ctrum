@@ -1,5 +1,7 @@
 # Sp3ctrum_UV-Vis_P4tronus
-UV-vis spectra simulation program through oscillator power calculations. This program uses output files from the Gaussian packet and makes Gaussian convolutions to generate simulation of UV-vis spectra.
+
+
+UV-vis spectra simulation program from oscillator strength results. This program uses output files from the Gaussian quantum chemistry packege and performs gaussian convolutions to simulate any UV-vis spectra.
 
 Unzip the folder in the Home folder and edit .bash_rc (linux) or .bash_profile (macOS) with the following line:
 
