@@ -80,7 +80,7 @@ class Sp3ctrum_UVvis_P4tronum(object):
         return numb_of_points
 
     def take_fwhm(selfself):
-        print("\nWould you like to use the standard Full width at half maximum (3226.22 cm^(-1))?")
+        print("\nWould you like to use the default Full width at half maximum (3226.22 cm^(-1))?")
         while True:
             try:
                 answer = input("If yes, type \'yes\' or \'y\', otherwise, type anything: ").split()[0].lower()
