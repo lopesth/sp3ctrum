@@ -1,10 +1,10 @@
 # UV-Vis Sp3ctrum P4tronus
 
- This program uses output files from the Gaussian quantum chemistry package and performs gaussian convolutions to simulate any UV-vis spectrum. This code aids molecular dynamics simulations to study the overall contribution to the UV-vis spectrum from the selected frames. It enables both overlaid and separated spectra.<br><br>
+This program uses output files from the Gaussian quantum chemistry package and performs gaussian convolutions to simulate any UV-vis spectrum. This code aids molecular dynamics simulations to study the overall contribution to the UV-vis spectrum from the selected frames. It enables both overlaid and separated spectra.<br><br>
 
 <b>Instructions:</b><br><br>
 Download teh latest version released on <a href="https://github.com/lopesth/UV-Vis-Sp3ctrum-P4tronus/releases/download/1.01/Sp3ctrum_UV-Vis_P4tronus.zip"> here </a> and unzip the folder in the Home folder, and edit .bash_rc (linux) or .bash_profile (macOS) with the following line:<br><br>
-<p><small>```alias sp3ctrum_app='python3 ~/sp3ctrum_UV-Vis_P4tronus/sp3ctrum_app.py'```</p></small><br><br>
+<small>```alias sp3ctrum_app='python3 ~/sp3ctrum_UV-Vis_P4tronus/sp3ctrum_app.py'```</small><br><br>
 After that, just run the sp3ctrum_app command in the folder where the .log files are located.
 <br><br><br>
  
