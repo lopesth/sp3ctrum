@@ -1,4 +1,4 @@
-# Sp3ctrum_UV-Vis_P4tronus
+# UV-Vis Sp3ctrum P4tronus
 
 
 UV-vis spectra simulation program from oscillator strength results. This program uses output files from the Gaussian quantum chemistry packege and performs gaussian convolutions to simulate any UV-vis spectra.
