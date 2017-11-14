@@ -1,4 +1,4 @@
-# Constructor of Tools
+# APP Tools Constructor
 
 from .print_spectrum import *
 from .gaussian_conv import *

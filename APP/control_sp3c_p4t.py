@@ -56,7 +56,7 @@ class Sp3ctrum_UVvis_P4tronum(object):
         return range_wl
 
     def take_nmb_ptos(self):
-        print("\nWould you like to use the number of standard points (1000), for wavelength range?")
+        print("\nWould you like to use the default number of points (2000), for wavelength range?")
         while True:
             try:
                 answer = input("If yes, type \'yes\' or \'y\', otherwise, type anything: ").split()[0].lower()
@@ -66,7 +66,7 @@ class Sp3ctrum_UVvis_P4tronum(object):
             except:
                 continue
         if (answer in ["y", "yes"]):
-            numb_of_points = 1000
+            numb_of_points = 2000
         else:
             while True:
                 try:
