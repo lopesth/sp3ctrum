@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 __author__ = ["Thiago Lopes", "Daniel Machado", "Heibbe Oliveira"]
-__credits__ = "LEEDMOL group - Institute of Chemistry at Universidade de Brasília"
+__credits__ = "LEEDMOL group - Institute of Chemistry at Universidade de Brasilia"
 __maintainer__ = "Thiago Lopes"
 __email__ = "lopes.th.o@gmail.com"
 __date__ = "Nov 14 of 2017"
-__version__ = "1.0.1"
+__version__ = "1.1.0"
 
 from APP.tools.start_spc import Opening, Take_Files
 from APP.tools.get_osc import Get_Osc
