@@ -7,7 +7,23 @@ Download the latest version released on <a href="https://github.com/lopesth/UV-V
 <small>```alias sp3ctrum_app='python3 ~/sp3ctrum_UV-Vis_P4tronus/sp3ctrum_app.py'```</small><br><br>
 After that, just run the sp3ctrum_app command in the folder where the .log files are located.
 <br><br><br>
- 
+
+<b>Updates on the way:</b>
+
+- Terminal with answer and friendly questions:
+```
+sp3trum_app - friendly
+```
+
+- Terminal with file with the parameters fed in execution:
+```
+sp3trum_app -file file.in ()
+```
+
+- Graphical User Interface:
+```
+sp3trum_app -gui
+```
  
 <b><i>Powered by:</i></b><br>
  * Thiago Oliveira Lopes ( <a href="http://lattes.cnpq.br/8870631835172791"> Currículo Lattes</a> / <a href="https://twitter.com/thiago_o_lopes"> Twitter </a> / <a href="https://www.linkedin.com/in/thiago-lopes-1972b270"> Linkedin </a> / <a href="https://www.researchgate.net/profile/Thiago_Lopes2"> Research Gate</a>)
