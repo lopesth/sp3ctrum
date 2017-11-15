@@ -12,12 +12,12 @@ After that, just run the sp3ctrum_app command in the folder where the .log files
 
 - Terminal with answer and friendly questions:
 ```
-sp3trum_app - friendly
+sp3trum_app -friendly
 ```
 
 - Terminal with file with the parameters fed in execution:
 ```
-sp3trum_app -file file.in ()
+sp3trum_app -file file.in
 ```
 
 - Graphical User Interface:
