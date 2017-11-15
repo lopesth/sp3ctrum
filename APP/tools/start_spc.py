@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 __author__ = ["Thiago Lopes", "Daniel Machado", "Heibbe Oliveira"]
-__credits__ = "LEEDMOL group - Institute of Chemistry at Universidade de Brasília"
+__credits__ = "LEEDMOL group - Institute of Chemistry at Universidade de Brasilia"
 __maintainer__ = "Thiago Lopes"
 __email__ = "lopes.th.o@gmail.com"
 __date__ = "Nov 14 of 2017"
@@ -42,7 +42,7 @@ class Opening(object):
         print("         |    l   | ")
         print("       _/j  L l\_ | \n")
         print("Welcome to UV-vis Sp3ctrum P4tronus (version {}), your favorite UV-vis Spectrum simulation APP through oscillator strength calculations.\n" .format(self.version))
-        print("This APP was developed by Thiago Lopes, Daniel Machado, Heibbe Oliveira and made available by the LEEDMOL group (Laboratório de Estrutura Eletrônica e Dinâmica Molecular) of the Institute of Chemistry at the Universidade de Brasília (UnB).\n")
+        print("This APP was developed by Thiago Lopes, Daniel Machado, Heibbe Oliveira and made available by the LEEDMOL group (Laboratorio de Estrutura Eletronica e Dinamica Molecular) of the Institute of Chemistry at the Universidade de Brasilia (UnB).\n")
         print("The methodology used in this APP was taken from the source: http://gaussian.com/uvvisplot/")
         print("For now, only calculations coming from the Gaussian package and only with Gaussian convolutions are available to simulate the spectrum.\n")
         print("Make sure all files are in the same Spectrum Patronus folder and are in the output format of the gaussian (\".log\" or \".out\").\n")
