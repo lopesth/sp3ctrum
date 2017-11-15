@@ -8,7 +8,7 @@ __version__ = "1.1.0"
 
 import sys
 
-class Get_PArameters():
+class Get_Parameters():
 
     def __init__(self, namefile):
         self.file = [x.strip() for x in open(namefile, "r").read().split('\n')]
