@@ -25,5 +25,3 @@ if (__name__ == "__main__"):
     choice_interface = sys.argv[-1]
     control_the_flux(choice_interface)
 
-
-    

@@ -1,0 +1,47 @@
+
+
+						Input file with UV-vis Sp3ctrum P4tronus 1.1 parameters
+
+--------------------------------------------------------------------------------------------------------------------
+
+Declare all the files you want to make a spectrum (these files will have their oscillators combined and only one
+spectrum will be formed).
+Type all on a line, separated by commas:
+-> test1.log, test2.log, test3.log
+
+--------------------------------------------------------------------------------------------------------------------
+
+Type the base name for the output files (If the name has more than one word, separate them by '_' and not by space):
+-> exemple
+
+--------------------------------------------------------------------------------------------------------------------
+
+Type the beginning of the range and the end (in nm), separated by commas (only integers or decimals):
+-> 150, 350
+
+--------------------------------------------------------------------------------------------------------------------
+
+Number of points for wavelenght range:
+-> 2000
+
+--------------------------------------------------------------------------------------------------------------------
+
+Full Width at Half Maximum of peaks (cm^-1):
+-> 3226.22
+
+--------------------------------------------------------------------------------------------------------------------
+
+Chart Title? If you do not want the title in the graphic leave it blank (only with the ->):
+-> Teste
+
+--------------------------------------------------------------------------------------------------------------------
+
+Plot System
+You can print using Gnuplot (better graphic, however you need to have gnuplot installed,
+it only works on macOS and Linux)
+Matplotlib (you need to have Matplotlib installed, you can install with the pip: `pip3 install matplotlib`)
+
+Make an X inside the parenthesis of the chosen system:
+( X ) Gnuplot    ( ) Pyplot
+
+---------------------------------------------------- END OF FILE ---------------------------------------------------
