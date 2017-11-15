@@ -31,7 +31,7 @@ class Get_Parameters():
         if pos < 0:
             self.feed_file_corrupted()
         while True:
-            if self.file[pos] == "->":
+            if self.file[pos].split()[0] == "->":
                 break
             else:
                 pos += 1
@@ -39,13 +39,14 @@ class Get_Parameters():
         return pos
 
     def get_names_input(self):
-        target = "output files "
-        pos = self.validad_pos_feed_string(target)
-        files_to_output = self.file[pos].split()[1:]
-        return files_to_output[0]
-
-    def get_name_input(self):
         target = "Declare all the files you want"
+        pos = self.validad_pos_feed_string(target)
+        files_to_input = self.file[pos].split()[1:]
+        files_to_input = [x.split(',')[0] for x in files_to_input]
+        return files_to_input
+
+    def get_name_output(self):
+        target = "output files "
         pos = self.validad_pos_feed_string(target)
         files_to_output = self.file[pos].split()[1]
         return files_to_output
@@ -53,37 +54,42 @@ class Get_Parameters():
     def get_wavelenght_range(self):
         target = "beginning of the wavelenght range"
         pos = self.validad_pos_feed_string(target)
-        wavelenght_range = self.file[pos].split()[1:2]
+        wavelenght_range = self.file[pos].split()[1:3]
+        wavelenght_range = [float(x.split(",")[0]) for x in wavelenght_range]
+        if wavelenght_range[0] > wavelenght_range[1]:
+            self.feed_file_corrupted()
         return wavelenght_range
 
     def get_n_points(self):
         target = "Number of points for wavelenght range"
         pos = self.validad_pos_feed_string(target)
         n_points = self.file[pos].split()[1]
-        return n_points
+        return int(n_points)
 
     def get_fwhm(self):
         target = "Full Width at Half Maximum"
         pos = self.validad_pos_feed_string(target)
         fwhm_found = self.file[pos].split()[1]
-        return fwhm_found
+        return float(fwhm_found)
 
     def get_chart_title(self):
-        target = "Full Width at Half Maximum"
+        target = "If you do not want the title in the graphic leave it"
         pos = self.validad_pos_feed_string(target)
-        fwhm_found = self.file[pos].split()[1]
-        return fwhm_found
+        title = self.file[pos].split()[1]
+        return title
 
     def get_plot_system(self):
         target = "X inside the parenthesis of the chosen"
         pos = self.find_a_list_pos(target)
         if pos < 0:
             self.feed_file_corrupted()
+        y = 0
         while True:
-            if "gnuplot" in self.file[pos].lower() and "x" in list[pos].lower():
+            string_lower = self.file[pos].lower()
+            if "gnuplot" in string_lower and "x" in string_lower:
                 plot_system = "gnuplot"
                 break
-            elif "pyplot" in self.file[pos].lower() and "x" in list[pos].lower():
+            elif "pyplot" in string_lower and "x" in string_lower:
                 plot_system = "pyplot"
                 break
             else:

@@ -10,16 +10,17 @@ from APP.tools.start_spc import Opening, Take_Files
 from APP.tools.get_osc import Get_Osc
 from APP.tools.gaussian_conv import Gaussian_Convolution
 from APP.tools.print_spectrum import Print_Spectrum
-from APP.tools.
+from APP.tools.get_parameters import Get_Parameters
+from APP.tools.get_chart_title import Title_Chart
 import sys
 
 class Sp3ctrum_UVvis_P4tronum(object):
 
     def __init__(self, version):
         self.version = version
+        Opening(self.version).welcome()
 
     def run_friendly_terminal(self):
-        Opening(self.version).welcome()
         answer = True
         while answer:
             self.execute_loop()
@@ -32,6 +33,31 @@ class Sp3ctrum_UVvis_P4tronum(object):
                 except:
                     continue
         print("\nOK. Have a nice day and enjoy your results.\n")
+
+    def run_fed_terminal(self, filename):
+        feed = Get_Parameters(filename)
+        range_wl = feed.get_wavelenght_range()
+        start = range_wl[0]
+        end = range_wl[1]
+        numb_of_points = feed.get_n_points()
+        sdt_wl_cm = feed.get_fwhm()
+        files_to_combine = feed.get_names_input()
+        name_file = feed.get_name_output()
+        title = feed.get_chart_title()
+        plot_system = feed.get_plot_system()
+        total_oscillators = Get_Osc(files_to_combine).take_osc()
+        spectrum = Gaussian_Convolution(total_oscillators, sdt_wl_cm)
+        greater_epslon_osc = spectrum.make_spectrum(start, end, numb_of_points, sdt_wl_cm)
+        spectrum.write_spectrum(name_file)
+        to_print = Print_Spectrum(name_file, start, end, greater_epslon_osc[0], greater_epslon_osc[1], title)
+        to_print.print(plot_system)
+        print("\nOK. Have a nice day and enjoy your results.\n")
+
+    def run_gui(self):
+        print("This is not ready yet...")
+        sys.exit()
+
+
 
     def take_wl_range(self):
         while True:
@@ -121,12 +147,18 @@ class Sp3ctrum_UVvis_P4tronum(object):
         end = float(range_wl[1])
         numb_of_points = self.take_nmb_ptos()
         sdt_wl_cm = self.take_fwhm()
-        self.make_it_happen(files_to_combine, name_file, start, end, sdt_wl_cm, numb_of_points)
-
-
-    def make_it_happen(self, files_to_combine, name_file, start, end, sdt_wl_cm, numb_of_points):
+        title = Title_Chart().to_choose()
         total_oscillators = Get_Osc(files_to_combine).take_osc()
         spectrum = Gaussian_Convolution(total_oscillators, sdt_wl_cm)
         greater_epslon_osc = spectrum.make_spectrum(start, end, numb_of_points, sdt_wl_cm)
         spectrum.write_spectrum(name_file)
-        Print_Spectrum(name_file, start, end, greater_epslon_osc[0], greater_epslon_osc[1])
+        to_print = Print_Spectrum(name_file, start, end, greater_epslon_osc[0], greater_epslon_osc[1], title)
+        plot_system = to_print.print_system()
+        to_print.print(plot_system)
+
+
+
+
+
+
+

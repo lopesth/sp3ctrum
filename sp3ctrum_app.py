@@ -6,22 +6,28 @@ __email__ = "lopes.th.o@gmail.com"
 __date__ = "Nov 14 of 2017"
 __version__ = "1.1.0"
 
-from APP.control_sp3c_p4t import Sp3ctrum_UVvis_P4tronum
+from APP.control_sp3c_p4t import *
 import sys
 
-def control_the_flux(choice_interface):
+def control_the_flux(choice_interface, file_name):
     program = Sp3ctrum_UVvis_P4tronum(__version__)
     if choice_interface == "-file":
-        pass
-        #program.run_powered_terminal
+        program.run_fed_terminal(file_name)
     elif choice_interface == "-friendly":
         program.run_friendly_terminal()
     elif choice_interface == "-gui" or choice_interface == "-gui":
-        pass
-        #program.run_gui()
+        program.run_gui()
+    else:
+        print("Unrecognized Keyword")
+        print("Type -file, -friendly or -gui.")
+        sys.exit()
 
 
 if (__name__ == "__main__"):
-    choice_interface = sys.argv[-1]
-    control_the_flux(choice_interface)
+    choice_interface = sys.argv[1]
+    try:
+        file_name = sys.argv[2]
+    except:
+        file_name = ""
+    control_the_flux(choice_interface, file_name)
 
