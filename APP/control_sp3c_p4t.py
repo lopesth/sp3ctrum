@@ -17,7 +17,7 @@ class Sp3ctrum_UVvis_P4tronum(object):
     def __init__(self, version):
         self.version = version
 
-    def run(self):
+    def run_friendly_terminal(self):
         Opening(self.version).welcome()
         answer = True
         while answer:
