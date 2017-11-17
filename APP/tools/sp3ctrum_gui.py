@@ -10,6 +10,9 @@ from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
 import sys, os, webbrowser
+from APP.tools.gaussian_conv import Gaussian_Convolution
+from APP.tools.get_osc import Get_Osc
+from APP.tools.print_spectrum import Print_Spectrum
 
 
 class Application(Frame):
@@ -17,6 +20,7 @@ class Application(Frame):
         self.toplevel = toplevel
         Frame.__init__(self)
         self.dir = os.getcwd()
+        self.target_dir = ""
         self.toplevel.config(bg='#FFFFFF')
         self.toplevel.geometry('800x610')
         self.toplevel.resizable(width=False, height=False)
@@ -173,8 +177,10 @@ class Application(Frame):
         self.save_dat_bt.configure(state=NORMAL)
         self.run_call_bt.configure(state=DISABLED)
         error = 0
+        start_a = 1
+        end_a = 1
         try:
-            star_a = float(self.wl_rang_start_entry.get())
+            start_a = float(self.wl_rang_start_entry.get())
             self.wl_rang_start_entry.configure(fg="#263A90", bg="#FFFFFF")
         except:
             self.wl_rang_start_entry.configure(bg="#DF0027", fg="#FFFFFF")
@@ -189,7 +195,7 @@ class Application(Frame):
             messagebox.showinfo("Incoherent input values",
                                 "One of the wavelength range values does not make sense.")
             error +=1
-        self.wl_rang = [star_a, end_a]
+        self.wl_rang = [start_a, end_a]
         try:
             self.wl_n_points = int(self.wl_n_points_entry.get())
             self.wl_n_points_entry.configure(fg="#263A90", bg="#FFFFFF")
@@ -216,26 +222,33 @@ class Application(Frame):
             self.output_file_name = "void_name"
         self.title_chart = self.title_entry.get()
         if error < 1:
-            pass
+            self.total_oscillators = Get_Osc(self.filenames).take_osc()
+            self.spectrum = Gaussian_Convolution(self.total_oscillators, self.fwhm)
+            self.plot_limits = self.spectrum.make_spectrum(self.wl_rang[0], self.wl_rang[1], self.wl_n_points)
         else:
             messagebox.showinfo("Error in user-fed values",
                                 "Please correct the marked values.")
-
     def csv_file(self):
-        self.gnuplot_bt.configure(state=NORMAL)
-        self.pyplot_bt.configure(state=NORMAL)
         self.make_spec_bt.configure(state=DISABLED)
+        if len(self.target_dir) < 1:
+            self.target_dir = filedialog.askdirectory()
+        self.spectrum.write_spectrum_csv(self.target_dir +"/"+self.output_file_name)
 
     def dat_file(self):
         self.gnuplot_bt.configure(state=NORMAL)
         self.pyplot_bt.configure(state=NORMAL)
         self.make_spec_bt.configure(state=DISABLED)
+        if len(self.target_dir) < 1:
+            self.target_dir = filedialog.askdirectory()
+        self.spectrum.write_spectrum(self.target_dir +"/"+self.output_file_name)
 
     def gnuplot(self):
-        pass
+        to_print = Print_Spectrum(self.target_dir, self.output_file_name, self.wl_rang[0], self.wl_rang[1], self.plot_limits[0], self.plot_limits[1], self.title_chart)
+        to_print.print("gnuplot")
 
     def pyplot(self):
-        pass
+        to_print = Print_Spectrum(self.target_dir, self.output_file_name, self.wl_rang[0], self.wl_rang[1], self.plot_limits[0], self.plot_limits[1], self.title_chart)
+        to_print.print("pyplot")
 
     def restart(self):
         self.save_csv_bt.configure(state=DISABLED)
@@ -268,7 +281,6 @@ class Application(Frame):
         text_to_show = "The UV-VIs Sp3trum P4tronum APP is in version {}, released in {}." .format(__version__, __date__)
         messagebox.showinfo("UV-Vis Sp3ctrum P4tronum",
                             text_to_show)
-
     def open_manual(self):
         operational_system = sys.platform
         if operational_system == 'win32':
@@ -327,7 +339,5 @@ class Second_Window(Frame):
         p2 =Label(photo_container,image=foto2,background="#FFFFFF")
         p2.pack(padx=35, pady=20)
         photo_container.pack(side="left")
-        Button(t, text = "LEEDMOL Facebook Page", font = "Helvetica", command = facebook_buttom)
+        Button(t, text = "LEEDMOL Facebook Page", font = "Helvetica", command = self.facebook_buttom)
 
-        def facebook_buttom():
-            webbrowser.open("https://www.facebook.com/leedmol/")

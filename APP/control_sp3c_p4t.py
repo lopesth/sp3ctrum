@@ -12,13 +12,14 @@ from APP.tools.gaussian_conv import Gaussian_Convolution
 from APP.tools.print_spectrum import Print_Spectrum
 from APP.tools.get_parameters import Get_Parameters
 from APP.tools.get_chart_title import Title_Chart
-import sys
+import sys, os
 
 class Sp3ctrum_UVvis_P4tronum(object):
 
     def __init__(self, version):
         self.version = version
         Opening(self.version).welcome()
+        self.dir = os.getcwd()
 
     def run_friendly_terminal(self):
         answer = True
@@ -47,9 +48,9 @@ class Sp3ctrum_UVvis_P4tronum(object):
         plot_system = feed.get_plot_system()
         total_oscillators = Get_Osc(files_to_combine).take_osc()
         spectrum = Gaussian_Convolution(total_oscillators, sdt_wl_cm)
-        greater_epslon_osc = spectrum.make_spectrum(start, end, numb_of_points, sdt_wl_cm)
+        greater_epslon_osc = spectrum.make_spectrum(start, end, numb_of_points)
         spectrum.write_spectrum(name_file)
-        to_print = Print_Spectrum(name_file, start, end, greater_epslon_osc[0], greater_epslon_osc[1], title)
+        to_print = Print_Spectrum(self.dir, name_file, start, end, greater_epslon_osc[0], greater_epslon_osc[1], title)
         to_print.print(plot_system)
         print("\nOK. Have a nice day and enjoy your results.\n")
 
@@ -146,7 +147,7 @@ class Sp3ctrum_UVvis_P4tronum(object):
         spectrum = Gaussian_Convolution(total_oscillators, sdt_wl_cm)
         greater_epslon_osc = spectrum.make_spectrum(start, end, numb_of_points, sdt_wl_cm)
         spectrum.write_spectrum(name_file)
-        to_print = Print_Spectrum(name_file, start, end, greater_epslon_osc[0], greater_epslon_osc[1], title)
+        to_print = Print_Spectrum(self.dir, name_file, start, end, greater_epslon_osc[0], greater_epslon_osc[1], title)
         plot_system = to_print.print_system()
         to_print.print(plot_system)
 
