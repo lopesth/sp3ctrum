@@ -7,7 +7,9 @@ __date__ = "Nov 14 of 2017"
 __version__ = "1.1.0"
 
 from APP.control_sp3c_p4t import *
-import sys
+from APP.tools.sp3ctrum_gui import *
+from tkinter import *
+
 
 def control_the_flux(choice_interface, file_name):
     program = Sp3ctrum_UVvis_P4tronum(__version__)
@@ -15,8 +17,11 @@ def control_the_flux(choice_interface, file_name):
         program.run_fed_terminal(file_name)
     elif choice_interface == "-friendly":
         program.run_friendly_terminal()
-    elif choice_interface == "-gui" or choice_interface == "-gui":
-        program.run_gui()
+    elif choice_interface == "-gui" or choice_interface == "":
+        root = Tk()
+        root.title("Sp3ctrum")
+        app = Application(root)
+        mainloop()
     else:
         print("Unrecognized Keyword")
         print("Type -file, -friendly or -gui.")
@@ -30,4 +35,5 @@ if (__name__ == "__main__"):
     except:
         file_name = ""
     control_the_flux(choice_interface, file_name)
+
 

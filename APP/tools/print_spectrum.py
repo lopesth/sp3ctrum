@@ -6,7 +6,9 @@ __email__ = "lopes.th.o@gmail.com"
 __date__ = "Nov 14 of 2017"
 __version__ = "1.1.0"
 
-import matplotlib.pyplot
+import matplotlib
+matplotlib.use("TkAgg")
+from matplotlib import pyplot
 import os, sys
 
 class Print_Spectrum(object):

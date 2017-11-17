@@ -16,3 +16,4 @@ from .print_spectrum import *
 from .sort_key_maps import *
 from .start_spc import *
 from .get_chart_title import *
+from .sp3ctrum_gui import *

@@ -53,12 +53,6 @@ class Sp3ctrum_UVvis_P4tronum(object):
         to_print.print(plot_system)
         print("\nOK. Have a nice day and enjoy your results.\n")
 
-    def run_gui(self):
-        print("This is not ready yet...")
-        sys.exit()
-
-
-
     def take_wl_range(self):
         while True:
             try:
