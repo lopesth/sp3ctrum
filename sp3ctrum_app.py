@@ -4,7 +4,7 @@ __credits__ = "LEEDMOL group - Institute of Chemistry at Universidade de Brasili
 __maintainer__ = "Thiago Lopes"
 __email__ = "lopes.th.o@gmail.com"
 __date__ = "Nov 14 of 2017"
-__version__ = "1.1.0"
+__version__ = "2.0.1"
 
 from APP.control_sp3c_p4t import *
 from APP.tools.sp3ctrum_gui import *
@@ -19,7 +19,7 @@ def control_the_flux(choice_interface, file_name):
         program.run_friendly_terminal()
     elif choice_interface == "-gui" or choice_interface == "":
         root = Tk()
-        root.title("Sp3ctrum")
+        root.title("UV-Vis Sp3ctrum P4tronum 2.0")
         app = Application(root)
         mainloop()
     else:

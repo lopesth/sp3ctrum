@@ -1,3 +1,11 @@
+# -*- coding: utf-8 -*-
+__author__ = ["Thiago Lopes", "Daniel Machado", "Heibbe Oliveira"]
+__credits__ = "LEEDMOL group - Institute of Chemistry at Universidade de Brasilia"
+__maintainer__ = "Thiago Lopes"
+__email__ = "lopes.th.o@gmail.com"
+__date__ = "Nov 14 of 2017"
+__version__ = "2.0.1"
+
 from tkinter import *
 from tkinter import filedialog
 
@@ -5,7 +13,7 @@ from tkinter import filedialog
 class Application(Frame):
     def __init__(self, toplevel):
         self.toplevel = toplevel
-        self.toplevel.geometry('810x640')
+        self.toplevel.geometry('800x600')
         self.toplevel.resizable(width=False, height=False)
         self.menu = Menu(self.toplevel)
         self.toplevel.configure(menu=self.menu)
