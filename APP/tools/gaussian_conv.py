@@ -4,17 +4,17 @@ __credits__ = "LEEDMOL group - Institute of Chemistry at Universidade de Brasili
 __maintainer__ = "Thiago Lopes"
 __email__ = "lopes.th.o@gmail.com"
 __date__ = "Nov 14 of 2017"
-__version__ = "1.1.0"
+__version__ = "2.0.1"
 
 import numpy, math
 
 class Gaussian_Convolution(object):
 
-    def __init__ (self, osc_map, std_wl_nm):
+    def __init__ (self, osc_map, std_wl_cm):
         self.osc_map = osc_map
-        self.std_wl = std_wl_nm
+        self.std_wl = std_wl_cm
 
-    def make_spectrum(self, start, end, number_of_points, std_wl):
+    def make_spectrum(self, start, end, number_of_points):
         std_wl_nm = 1 / self.std_wl
         std_wl_cm = 1e7 / self.std_wl
         A = 2.174e8
@@ -45,16 +45,26 @@ class Gaussian_Convolution(object):
                 y += values_osc_str
             self.final_map.update({wl : y})
             epslon_list.append(y)
-
         return [sorted(epslon_list)[-1], sorted(osc_list)[-1]]
 
-    def write_spectrum(self, file_to_write, ):
+    def write_spectrum(self, file_to_write):
         file_target_gauss = open(file_to_write+"_spectrum.dat", "w")
         for wl in self.final_map.keys():
-            file_target_gauss.write("%10.2f %15.5f\n" %(wl, self.final_map[wl]))
+            file_target_gauss.write("%10.2f %35.5f\n" %(wl, self.final_map[wl]))
         file_target_gauss.close()
         file_to_write_lits = open(file_to_write + "_rawData.dat", "w")
         for wl_ref in self.osc_map.keys():
             for f_ref in self.osc_map[wl_ref]:
                 file_to_write_lits.write("%10.5f %10.5f\n" %(wl_ref, f_ref))
+        file_to_write_lits.close()
+
+    def write_spectrum_csv(self, file_to_write):
+        file_target_gauss = open(file_to_write + "_spectrum.csv", "w")
+        for wl in self.final_map.keys():
+            file_target_gauss.write("%.2f, %.5f\n" % (wl, self.final_map[wl]))
+        file_target_gauss.close()
+        file_to_write_lits = open(file_to_write + "_rawData.csv", "w")
+        for wl_ref in self.osc_map.keys():
+            for f_ref in self.osc_map[wl_ref]:
+                file_to_write_lits.write("%.5f, %.5f\n" % (wl_ref, f_ref))
         file_to_write_lits.close()
