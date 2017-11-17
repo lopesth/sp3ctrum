@@ -2,10 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="83330f49-8b02-4520-bbdc-866d02400600" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APP/__init__.py" afterPath="$PROJECT_DIR$/APP/__init__.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APP/control_sp3c_p4t.py" afterPath="$PROJECT_DIR$/APP/control_sp3c_p4t.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APP/tools/__init__.py" afterPath="$PROJECT_DIR$/APP/tools/__init__.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APP/tools/find_a_string_in_file.py" afterPath="$PROJECT_DIR$/APP/tools/find_a_string_in_file.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APP/tools/gaussian_conv.py" afterPath="$PROJECT_DIR$/APP/tools/gaussian_conv.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APP/tools/get_chart_title.py" afterPath="$PROJECT_DIR$/APP/tools/get_chart_title.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APP/tools/get_osc.py" afterPath="$PROJECT_DIR$/APP/tools/get_osc.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APP/tools/get_parameters.py" afterPath="$PROJECT_DIR$/APP/tools/get_parameters.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APP/tools/print_spectrum.py" afterPath="$PROJECT_DIR$/APP/tools/print_spectrum.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APP/tools/sort_key_maps.py" afterPath="$PROJECT_DIR$/APP/tools/sort_key_maps.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py" afterPath="$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APP/tools/start_spc.py" afterPath="$PROJECT_DIR$/APP/tools/start_spc.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sp3ctrum_app.py" afterPath="$PROJECT_DIR$/sp3ctrum_app.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,36 +25,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="sp3ctrum_app.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sp3ctrum_app.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="30" column="28" lean-forward="false" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
-              <folding>
-                <element signature="e#292#326#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="print_spectrum.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/APP/tools/print_spectrum.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="76" column="34" lean-forward="true" selection-start-line="76" selection-start-column="34" selection-end-line="76" selection-end-column="34" />
+            <state relative-caret-position="75">
+              <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sp3ctrum_gui.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py">
+      <file leaf-file-name="get_parameters.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/APP/tools/get_parameters.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="231" column="22" lean-forward="false" selection-start-line="231" selection-start-column="22" selection-end-line="231" selection-end-column="22" />
-              <folding>
-                <element signature="e#292#313#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="150">
+              <caret line="10" column="23" lean-forward="true" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -53,8 +48,80 @@
       <file leaf-file-name="gaussian_conv.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/APP/tools/gaussian_conv.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="58" column="27" lean-forward="false" selection-start-line="58" selection-start-column="27" selection-end-line="58" selection-end-column="27" />
+            <state relative-caret-position="75">
+              <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="find_a_string_in_file.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/APP/tools/find_a_string_in_file.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/APP/tools/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LICENSE" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/LICENSE">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5055">
+              <caret line="337" column="24" lean-forward="false" selection-start-line="337" selection-start-column="24" selection-end-line="337" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="get_osc.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/APP/tools/get_osc.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="get_chart_title.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/APP/tools/get_chart_title.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sp3ctrum_gui.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+              <folding>
+                <element signature="e#292#313#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sort_key_maps.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/APP/tools/sort_key_maps.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -105,19 +172,19 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/file_to_feed_sp3ctrum.in" />
+        <option value="$PROJECT_DIR$/APP/control_sp3c_p4t.py" />
+        <option value="$PROJECT_DIR$/sp3ctrum_app.py" />
+        <option value="$PROJECT_DIR$/APP/__init__.py" />
         <option value="$PROJECT_DIR$/APP/tools/start_spc.py" />
+        <option value="$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py" />
         <option value="$PROJECT_DIR$/APP/tools/sort_key_maps.py" />
+        <option value="$PROJECT_DIR$/APP/tools/print_spectrum.py" />
         <option value="$PROJECT_DIR$/APP/tools/get_parameters.py" />
         <option value="$PROJECT_DIR$/APP/tools/get_osc.py" />
         <option value="$PROJECT_DIR$/APP/tools/get_chart_title.py" />
+        <option value="$PROJECT_DIR$/APP/tools/gaussian_conv.py" />
         <option value="$PROJECT_DIR$/APP/tools/find_a_string_in_file.py" />
         <option value="$PROJECT_DIR$/APP/tools/__init__.py" />
-        <option value="$PROJECT_DIR$/APP/__init__.py" />
-        <option value="$PROJECT_DIR$/sp3ctrum_app.py" />
-        <option value="$PROJECT_DIR$/APP/control_sp3c_p4t.py" />
-        <option value="$PROJECT_DIR$/APP/tools/print_spectrum.py" />
-        <option value="$PROJECT_DIR$/APP/tools/gaussian_conv.py" />
-        <option value="$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py" />
       </list>
     </option>
   </component>
@@ -149,7 +216,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -172,6 +238,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -206,8 +273,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="479" y="23" width="1846" height="1057" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16019955" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16186252" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -215,7 +283,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32952183" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.48128897" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.48128897" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -262,14 +330,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/APP/tools/sort_key_maps.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="78" lean-forward="false" selection-start-line="2" selection-start-column="78" selection-end-line="2" selection-end-column="78" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sp3ctrum_app.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -384,9 +444,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-          <folding>
-            <element signature="e#317#353#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -452,9 +510,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="22" lean-forward="true" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-          <folding>
-            <element signature="e#317#353#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -530,9 +586,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="22" lean-forward="true" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-          <folding>
-            <element signature="e#317#353#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -546,13 +600,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Google Drive/source_code/Ring_1.0_python3/omegavalue.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="975">
-          <caret line="65" column="0" lean-forward="false" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/Google Drive/source_code/Ring_1.0_python3/omegavalue.py" />
     <entry file="file://$PROJECT_DIR$/file_to_feed_sp3ctrum.in">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
@@ -564,73 +612,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="23" column="4" lean-forward="false" selection-start-line="23" selection-start-column="4" selection-end-line="25" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APP/tools/start_spc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="21" lean-forward="false" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APP/tools/sort_key_maps.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="21" lean-forward="false" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APP/tools/get_chart_title.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="21" lean-forward="false" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APP/tools/get_osc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="21" lean-forward="false" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APP/tools/find_a_string_in_file.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="21" lean-forward="false" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APP/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="21" lean-forward="false" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APP/tools/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="21" lean-forward="false" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-          <folding>
-            <element signature="e#317#353#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APP/tools/get_parameters.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-517">
-          <caret line="6" column="21" lean-forward="false" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -638,7 +619,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
           <caret line="104" column="18" lean-forward="false" selection-start-line="104" selection-start-column="8" selection-end-line="104" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -646,14 +626,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
           <caret line="22" column="37" lean-forward="false" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/APP/control_sp3c_p4t.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="150" column="45" lean-forward="true" selection-start-line="150" selection-start-column="45" selection-end-line="150" selection-end-column="45" />
+        <state relative-caret-position="75">
+          <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
           <folding>
             <element signature="e#292#343#0" expanded="true" />
           </folding>
@@ -662,37 +641,109 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sp3ctrum_app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="28" lean-forward="false" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
+        <state relative-caret-position="45">
+          <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
           <folding>
             <element signature="e#292#326#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APP/tools/gaussian_conv.py">
+    <entry file="file://$PROJECT_DIR$/APP/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="58" column="27" lean-forward="false" selection-start-line="58" selection-start-column="27" selection-end-line="58" selection-end-column="27" />
+        <state relative-caret-position="75">
+          <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APP/tools/print_spectrum.py">
+    <entry file="file://$PROJECT_DIR$/APP/tools/start_spc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="76" column="34" lean-forward="true" selection-start-line="76" selection-start-column="34" selection-end-line="76" selection-end-column="34" />
+        <state relative-caret-position="75">
+          <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="231" column="22" lean-forward="false" selection-start-line="231" selection-start-column="22" selection-end-line="231" selection-end-column="22" />
+        <state relative-caret-position="75">
+          <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
           <folding>
             <element signature="e#292#313#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APP/tools/sort_key_maps.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APP/tools/print_spectrum.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APP/tools/get_parameters.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="23" lean-forward="true" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APP/tools/get_osc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APP/tools/get_chart_title.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APP/tools/gaussian_conv.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APP/tools/find_a_string_in_file.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APP/tools/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LICENSE">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5055">
+          <caret line="337" column="24" lean-forward="false" selection-start-line="337" selection-start-column="24" selection-end-line="337" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
