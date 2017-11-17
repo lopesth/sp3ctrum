@@ -29,11 +29,12 @@ def control_the_flux(choice_interface, file_name):
 
 
 if (__name__ == "__main__"):
-    choice_interface = sys.argv[1]
     try:
         file_name = sys.argv[2]
+        choice_interface = sys.argv[1]
     except:
         file_name = ""
+        choice_interface = ""
     control_the_flux(choice_interface, file_name)
 
 
