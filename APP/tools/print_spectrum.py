@@ -6,38 +6,32 @@ __email__ = "lopes.th.o@gmail.com"
 __date__ = "Nov 14 of 2017"
 __version__ = "1.1.0"
 
-import matplotlib.pyplot
+import matplotlib
+matplotlib.use("TkAgg")
+from matplotlib import pyplot
 import os, sys
 
 class Print_Spectrum(object):
 
-    def __init__(self, file_name, start_wl, end_wl, end_epslon, end_osc):
+    def __init__(self, file_name, start_wl, end_wl, end_epslon, end_osc, title):
         self.file_name = file_name
         self.start_wl = start_wl
         self.end_wl = end_wl
         self.end_osc = end_osc
         self.end_epslon = end_epslon
+        self.title = title
+
+    def print_system(self):
+        plot_system = ""
         print("You can print using Gnuplot (better graphic, however you need to have gnuplot installed, it only works on macOS and Linux) or Matplotlib (you need to have Matplotlib installed, you can install with the pip: `pip3 install matplotlib`.")
-        while True:
-            try:
-                answer = input("\nWould you like to post a title on your chart? Type \'yes\' or \'y\' for yes, otherwise, type anything: ").split()[0].lower() in ["y", "yes"]
-                break
-            except KeyboardInterrupt:
-                sys.exit()
-            except:
-                continue
-        if answer:
-            self.title = input("Title your title of choice: ")
-        else:
-            self.title = ""
         while(True):
             try:
                 answer = input("\nType (1) to Gnuplot and (2) to Matplotlib:")
                 if answer == "1":
-                    self.print_gnuplot()
+                    plot_system = "gnuplot"
                     break
                 elif answer == "2":
-                    self.print_matplotlib()
+                    plot_system = "pyplot"
                     break
                 else:
                     continue
@@ -45,7 +39,16 @@ class Print_Spectrum(object):
                 sys.exit()
             except:
                 continue
+        return plot_system
 
+    def print(self, plot_system):
+        if plot_system == "gnuplot":
+            self.print_gnuplot()
+        elif plot_system == "pyplot":
+            self.print_matplotlib()
+        else:
+            print("Unrecognized printing system")
+            sys.exit()
 
     def print_gnuplot(self):
         folder = os.popen("pwd", 'r', 1).read().split('\n')[0]

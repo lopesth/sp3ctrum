@@ -5,16 +5,16 @@
 Declare all the files you want to make a spectrum (these files will have their oscillators combined and only one
 spectrum will be formed).
 Type all on a line, separated by commas:
--> test1.log, test2.log, test3.log
+-> teste1.log, teste2.log
 
 --------------------------------------------------------------------------------------------------------------------
 
 Type the base name for the output files (If the name has more than one word, separate them by '_' and not by space):
--> exemple
+-> teste_name
 
 --------------------------------------------------------------------------------------------------------------------
 
-Type the beginning of the range and the end (in nm), separated by commas (only integers or decimals):
+Type the beginning of the wavelenght range and the end (in nm), separated by commas (only integers or decimals):
 -> 150, 350
 
 --------------------------------------------------------------------------------------------------------------------
@@ -37,9 +37,10 @@ Chart Title? If you do not want the title in the graphic leave it blank (only wi
 Plot System
 You can print using Gnuplot (better graphic, however you need to have gnuplot installed,
 it only works on macOS and Linux)
-Matplotlib (you need to have Matplotlib installed, you can install with the pip: `pip3 install matplotlib`)
+Pyplot (you need to have Matplotlib installed, you can install with the pip: `pip3 install matplotlib`)
 
 Make an X inside the parenthesis of the chosen system:
-( X ) Gnuplot    ( ) Pyplot
+(   ) Gnuplot
+( X ) Pyplot
 
 ---------------------------------------------------- END OF FILE ---------------------------------------------------
