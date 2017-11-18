@@ -1,14 +1,9 @@
 
 <h1>UV-Vis Sp3ctrum P4tronum</h1>
-
-<p>This code aids molecular dynamics simulations to study the overall contribution to the UV-vis spectrum from the selected frames. It enables both overlaid and separated spectra.</p>
-
 <figure>
-  <img src="https://github.com/lopesth/UV-Vis-Sp3ctrum-P4tronus/blob/master/icons/sp3ctrum.png" alt="Minha Figura">	
-  <figcaption>Informações da Figura</figcaption>
+  <img src="https://github.com/lopesth/UV-Vis-Sp3ctrum-P4tronus/blob/master/icons/sp3ctrum.png" alt="sp3ctrum">	
 </figure>
-
-
+<p>This code aids molecular dynamics simulations to study the overall contribution to the UV-vis spectrum from the selected frames. It enables both overlaid and separated spectra.</p>
 
 <h2>Instructions:</h2>
 Download the latest version released on <a href="https://github.com/lopesth/https://github.com/lopesth/UV-Vis-Sp3ctrum-P4tronus/archive/2.0.1.zip"> here </a> and unzip the folder in the Home folder.
