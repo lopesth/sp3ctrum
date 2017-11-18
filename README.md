@@ -8,7 +8,7 @@ Download the latest version released on <a href="https://github.com/lopesth/http
 After that, just run the sp3ctrum_app command in the folder where the .log files are located.
 <br><br><br>
 
-<b>Updates on the way:</b>
+<b>Modes:</b>
 
 - Terminal with answer and friendly questions:
 ```
