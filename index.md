@@ -32,7 +32,7 @@ Professor Dr. Heibbe C. B. de Oliveira<br>
 <a href="http://lattes.cnpq.br/5995553993631378"> Currículo Lattes</a>  / <a href="https://www.researchgate.net/profile/Heibbe_De_Oliveira2">Research Gate</a>
 <h3>Research Group</h3>
 <figure>
-  <img src="https://github.com/lopesth/UV-Vis-Sp3ctrum-P4tronus/blob/master/icons/leedmol.png" alt="LEEDMOL">	
+  <img src="https://uploaddeimagens.com.br/imagens/leedmol-png" alt="LEEDMOL">	
 </figure>
 Laboratório de Estrutura Eletrônica e Dinâmica Molecular (LEEDMOL).
 <a href="https://www.facebook.com/leedmol/" > Facebook </a>
