@@ -4,7 +4,6 @@
 <p>This code aids molecular dynamics simulations to study the overall contribution to the UV-vis spectrum from the selected frames. It enables both overlaid and separated spectra.</p>
 <figure>
   <img src="https://github.com/lopesth/UV-Vis-Sp3ctrum-P4tronus/blob/master/icons/leedmol.png" alt="Minha Figura">	
-  <figcaption>Informações da Figura</figcaption>
 </figure>
 <figure>
   <img src="https://github.com/lopesth/UV-Vis-Sp3ctrum-P4tronus/blob/master/icons/sp3ctrum.png" alt="Minha Figura">	
