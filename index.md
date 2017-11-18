@@ -1,7 +1,7 @@
 
 <h1>UV-Vis Sp3ctrum P4tronum</h1>
 <figure>
-  <img src="/icons/sp3ctrum.png" alt="sp3ctrum">	
+  <img src="icons/sp3ctrum.png" alt="sp3ctrum">	
 </figure>
 <p>This code aids molecular dynamics simulations to study the overall contribution to the UV-vis spectrum from the selected frames. It enables both overlaid and separated spectra.</p>
 
