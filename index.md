@@ -16,26 +16,19 @@ After that, edit .bash_rc (linux) or .bash_profile (macOS) with the following li
 After that, just run the sp3ctrum_app command in the folder where the .log files are located.
 <h4>Modes:</h4>
 
-- Terminal with answer and friendly questions:
+- Terminal with answer and friendly questions:<br>
 <code>sp3trum_app -friendly</code>
-- Terminal with file with the parameters fed in execution:
+- Terminal with file with the parameters fed in execution:<br>
 <code>sp3trum_app -file file.in</code>
-- Graphical User Interface:
+- Graphical User Interface:<br>
 <code>sp3trum_app -gui</code>
 
 <br>
 <h3>Windows:</h3>
 For Windows, you will need to install <a href="https://www.python.org/ftp/python/3.6.3/python-3.6.3-amd64.exe"> Python3.6 </a>, after that, add Python installation path to Windows <code>PATH</code> in <code>ENVIRONMENT VARIABLE</code>.
 After that run sp3ctrum_app.py by double clicking.
-<br>
-
-
-
-
-
-
+<br><br>
 <h2>Powered by:</h2>
-
 <h3>Programmer</h3>
 Thiago Oliveira Lopes<br>
 <a href="http://lattes.cnpq.br/8870631835172791"> Currículo Lattes</a> / <a href="https://twitter.com/thiago_o_lopes"> Twitter </a> / <a href="https://www.linkedin.com/in/thiago-lopes-1972b270"> Linkedin </a> / <a href="https://www.researchgate.net/profile/Thiago_Lopes2"> Research Gate</a>
