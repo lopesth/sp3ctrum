@@ -1,12 +1,12 @@
 
 <h1>UV-Vis Sp3ctrum P4tronum</h1>
 <figure>
-  <img src="https://github.com/lopesth/UV-Vis-Sp3ctrum-P4tronus/blob/master/icons/sp3ctrum.png" alt="sp3ctrum">	
+  <img src="/icons/sp3ctrum.png" alt="sp3ctrum">	
 </figure>
 <p>This code aids molecular dynamics simulations to study the overall contribution to the UV-vis spectrum from the selected frames. It enables both overlaid and separated spectra.</p>
 
 <h2>Instructions:</h2>
-Download the latest version released on <a href="https://github.com/lopesth/https://github.com/lopesth/UV-Vis-Sp3ctrum-P4tronus/archive/2.0.1.zip"> here </a> and unzip the folder in the Home folder.
+Download the latest version released on <a href="https://github.com/lopesth/UV-Vis-Sp3ctrum-P4tronus/archive/2.0.1.zip"> here </a> and unzip the folder in the Home folder.
 <br>
 <h3>Linux or macOS:</h3>
 If you do not have Python 3 installed, install, preferably by <code>apt-get install python3.6</code> (Ubuntu or another Debian-based), <code>yum install python3.6</code> (Fedora or Fedora-based) or <a href="https://brew.sh/index_pt-br.html">Homebrew<a> or <a href="https://www.macports.org">Macports<a> (macOS).
@@ -34,5 +34,8 @@ Professor Dr. Heibbe C. B. de Oliveira<br>
 <figure>
   <img src="https://uploaddeimagens.com.br/imagens/leedmol-png" alt="LEEDMOL">	
 </figure>
+
+<img src="img/screenshot2.PNG" class="img-responsive" alt=""> </div>
+
 Laboratório de Estrutura Eletrônica e Dinâmica Molecular (LEEDMOL).
 <a href="https://www.facebook.com/leedmol/" > Facebook </a>
