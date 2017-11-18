@@ -1,32 +1,31 @@
 # UV-Vis Sp3ctrum P4tronus
 
-This program uses output files from the Gaussian quantum chemistry package and performs gaussian convolutions to simulate any UV-vis spectrum. This code aids molecular dynamics simulations to study the overall contribution to the UV-vis spectrum from the selected frames. It enables both overlaid and separated spectra.<br><br>
+This program uses output files from the Gaussian quantum chemistry package and performs gaussian convolutions to simulate any UV-vis spectrum. This code aids molecular dynamics simulations to study the overall contribution to the UV-vis spectrum from the selected frames. It enables both overlaid and separated spectra.
 
-<b>Instructions:</b><br><br>
-Download the latest version released on <a href="https://github.com/lopesth/UV-Vis-Sp3ctrum-P4tronus/releases/download/1.0.1/Sp3ctrum_UV-Vis_P4tronus1.01.zip"> here </a> and unzip the folder in the Home folder, and edit .bash_rc (linux) or .bash_profile (macOS) with the following line:<br>
-<small>```alias sp3ctrum_app='python3 ~/sp3ctrum_UV-Vis_P4tronus/sp3ctrum_app.py'```</small><br><br>
-After that, just run the sp3ctrum_app command in the folder where the .log files are located.
-<br><br><br>
+Instructions:
+Download the latest version released on and unzip the folder in the Home folder.
 
-<b>Updates on the way:</b>
+Linux or macOS:
+If you do not have Python 3 installed.
+Install, preferably by 'apt-get install python3.6' (Ubuntu or another Debian-based), 'yum install python3.6' (Fedora or Fedora-based) orHomebrew or Macports(macOS).
 
-- Terminal with answer and friendly questions:
-```
-sp3trum_app -friendly
-```
+After that, edit .bash_rc (linux) or .bash_profile (macOS) with the following line:
+alias sp3ctrum_app='python3 ~/sp3ctrum_UV-Vis_P4tronus/sp3ctrum_app.py'
 
-- Terminal with file with the parameters fed in execution:
-```
-sp3trum_app -file file.in
-```
+After that, just run the sp3ctrum_app command in terminal:
+- Terminal with answer and friendly questions: 'sp3trum_app -friendly'
+- Terminal with file with the parameters fed in execution: 'sp3trum_app -file file.in
+- Graphical User Interface: 'sp3trum_app -gui'
 
-- Graphical User Interface:
-```
-sp3trum_app -gui
-```
- 
-<b><i>Powered by:</i></b><br>
- * Thiago Oliveira Lopes ( <a href="http://lattes.cnpq.br/8870631835172791"> Currículo Lattes</a> / <a href="https://twitter.com/thiago_o_lopes"> Twitter </a> / <a href="https://www.linkedin.com/in/thiago-lopes-1972b270"> Linkedin </a> / <a href="https://www.researchgate.net/profile/Thiago_Lopes2"> Research Gate</a>)
- * Daniel Francsico Scalabrini Machado ( <a href="http://lattes.cnpq.br/9791047274773689"> Currículo Lattes</a> / <a href="https://www.researchgate.net/profile/Daniel_Francisco_Machado">Research Gate</a>)
- * Professor Dr. Heibbe C. B. de Oliveira (<a href="http://lattes.cnpq.br/5995553993631378"> Currículo Lattes</a>  / <a href="https://www.researchgate.net/profile/Heibbe_De_Oliveira2">Research Gate</a>)
- * LEEDMOL Group (<a href="https://www.facebook.com/leedmol/" > Facebook </a>).
+Windows:
+For Windows, you will need to install Python3.6, after that, add Python installation path to Windows PATH< in ENVIRONMENT VARIABLE.
+After that run sp3ctrum_app.py by double clicking.
+
+Some python packages needed to run the application
+- Tkinter
+- Numpy
+- Matplotlib
+
+In most installations these packages are already installed, but if any are missing, it can be installed with: 
+'pip3 install PACKAGE_NAME'
+
