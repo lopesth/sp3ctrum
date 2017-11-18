@@ -1,7 +1,7 @@
 
 <h1>UV-Vis Sp3ctrum P4tronum</h1>
 <figure>
-  <img src="icons/sp3ctrum.png" alt="sp3ctrum">	
+  <img src="index/sp3ctrum.png" alt="sp3ctrum">	
 </figure>
 <p>This code aids molecular dynamics simulations to study the overall contribution to the UV-vis spectrum from the selected frames. It enables both overlaid and separated spectra.</p>
 
@@ -32,20 +32,20 @@ Professor Dr. Heibbe C. B. de Oliveira<br>
 <a href="http://lattes.cnpq.br/5995553993631378"> Currículo Lattes</a>  / <a href="https://www.researchgate.net/profile/Heibbe_De_Oliveira2">Research Gate</a>
 <h3>Research Group</h3>
 <figure>
-  <img src="icons/leedmol.png" alt="LEEDMOL">	
+  <img src="index/leedmol.png" alt="LEEDMOL">	
 </figure>
 Laboratório de Estrutura Eletrônica e Dinâmica Molecular (LEEDMOL).
 <a href="https://www.facebook.com/leedmol/" > Facebook </a>
 
 <h2>Screen Shots</h2>
 <figure>
-  <img src="icons/screen_shot_1.png" alt="sp3ctrum">	
+  <img src="index/screen_shot_1.png" alt="sp3ctrum">	
 </figure>
 <figure>
-  <img src="icons/screen_Shot2.png" alt="sp3ctrum">	
+  <img src="index/screen_Shot2.png" alt="sp3ctrum">	
 </figure>
 <figure>
-  <img src="icons/screen_Shot_3.png" alt="sp3ctrum">	
+  <img src="index/screen_Shot_3.png" alt="sp3ctrum">	
 </figure>
 
 
