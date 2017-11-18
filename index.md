@@ -6,6 +6,10 @@
   <img src="https://github.com/lopesth/UV-Vis-Sp3ctrum-P4tronus/blob/master/icons/leedmol.png" alt="Minha Figura">	
   <figcaption>Informações da Figura</figcaption>
 </figure>
+<figure>
+  <img src="https://github.com/lopesth/UV-Vis-Sp3ctrum-P4tronus/blob/master/icons/sp3ctrum.png" alt="Minha Figura">	
+  <figcaption>Informações da Figura</figcaption>
+</figure>
 
 
 
