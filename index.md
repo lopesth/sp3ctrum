@@ -7,13 +7,14 @@
 <br>
 Download the latest version released on <a href="https://github.com/lopesth/https://github.com/lopesth/UV-Vis-Sp3ctrum-P4tronus/archive/2.0.1.zip"> here </a> and unzip the folder in the Home folder.
 <h4>Linux or macOS:</h4>
-If you do not have Python 3 installed, install, preferably by apt-get install python3.6 (Ubuntu or another Debian-based), yum install python3.6 (Fedora or Fedora-based) or Homebrew or Macports (macOS).
+If you do not have Python 3 installed, install, preferably by apt-get install python3.6 (Ubuntu or another Debian-based), yum install python3.6 (Fedora or Fedora-based) or <a href="https://brew.sh/index_pt-br.html">Homebrew<a> or <a href="https://www.macports.org">Macports<a> (macOS).
 
 After that, edit .bash_rc (linux) or .bash_profile (macOS) with the following line:<br>
 <small>```alias sp3ctrum_app='python3 ~/sp3ctrum_UV-Vis_P4tronus/sp3ctrum_app.py'```</small><br><br>
 After that, just run the sp3ctrum_app command in the folder where the .log files are located.
 <br>
 <h4>Windows:</h4>
+For Windows, you will need to install <a href="https://www.python.org/ftp/python/3.6.3/python-3.6.3-amd64.exe"> Python3.6 </a>
 <br>
 
 
