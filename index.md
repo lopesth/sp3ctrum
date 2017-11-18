@@ -18,17 +18,7 @@ If you do not have Python 3 installed, install, preferably by <code>apt-get inst
 
 <br>
 <h3>Windows:</h3>
-For Windows, you will need to install <a href="https://www.python.org/ftp/python/3.6.3/python-3.6.3-amd64.exe"> Python3.6 </a>, after that, add Python installation path to Windows <code>PATH</code> in <code>ENVIRONMENT VARIABLE</code>.
-After that run sp3ctrum_app.py by double clicking.<br><br>
-
-<h3>Some python packages needed to run the application</h3>
-- Tkinter<br>
-- Numpy<br>
-- Matplotlib>br>
-
-In most installations these packages are already installed, but if any are missing, it can be installed with:<br>
-<code>pip3 install PACKAGE_NAME</code>
-<br><br>
+For Windows, you will need to install <a href="https://www.python.org/ftp/python/3.6.3/python-3.6.3-amd64.exe"> Python3.6.
 
 <h2>Powered by:</h2>
 <h3>Programmer</h3>
