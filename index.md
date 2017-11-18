@@ -3,10 +3,18 @@
 
 <p>This code aids molecular dynamics simulations to study the overall contribution to the UV-vis spectrum from the selected frames. It enables both overlaid and separated spectra.</p>
 
-Download the latest version released on <a href="https://github.com/lopesth/https://github.com/lopesth/UV-Vis-Sp3ctrum-P4tronus/archive/2.0.1.zip"> here </a> and unzip the folder in the Home folder, and edit .bash_rc (linux) or .bash_profile (macOS) with the following line:<br><br>
+<h1>Instructions:</h1>
+<br>
+Download the latest version released on <a href="https://github.com/lopesth/https://github.com/lopesth/UV-Vis-Sp3ctrum-P4tronus/archive/2.0.1.zip"> here </a> and unzip the folder in the Home folder.
+<h4>Linux or macOS:</h4>
+If you do not have Python 3 installed, install, preferably by apt-get install python3.6 (Ubuntu or another Debian-based), yum install python3.6 (Fedora or Fedora-based) or Homebrew or Macports (macOS).
+
+After that, edit .bash_rc (linux) or .bash_profile (macOS) with the following line:<br>
 <small>```alias sp3ctrum_app='python3 ~/sp3ctrum_UV-Vis_P4tronus/sp3ctrum_app.py'```</small><br><br>
 After that, just run the sp3ctrum_app command in the folder where the .log files are located.
-<br><br><br>
+<br>
+<h4>Windows:</h4>
+<br>
 
 
 <h2>Modes:</h2>
