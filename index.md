@@ -10,13 +10,11 @@ Download the latest version released on <a href="https://github.com/lopesth/http
 If you do not have Python 3 installed, install, preferably by <code>apt-get install python3.6</code> (Ubuntu or another Debian-based), <code>yum install python3.6</code> (Fedora or Fedora-based) or <a href="https://brew.sh/index_pt-br.html">Homebrew<a> or <a href="https://www.macports.org">Macports<a> (macOS).
 <h4>Modes:</h4>
 - Terminal with answer and friendly questions:<br>
-<code>sp3trum_app -friendly</code>
+<code>sp3trum_app -friendly</code><br>
 - Terminal with file with the parameters fed in execution:<br>
-<code>sp3trum_app -file file.in</code>
+<code>sp3trum_app -file file.in</code><br>
 - Graphical User Interface:<br>
-<code>sp3trum_app -gui</code>
-
-<br>
+<code>sp3trum_app -gui</code><br>
 <h3>Windows:</h3>
 For Windows, you will need to install <a href="https://www.python.org/ftp/python/3.6.3/python-3.6.3-amd64.exe"> Python3.6.
 
