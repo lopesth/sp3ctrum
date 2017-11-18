@@ -21,13 +21,13 @@ If you do not have Python 3 installed, install, preferably by <code>apt-get inst
 For Windows, you will need to install <a href="https://www.python.org/ftp/python/3.6.3/python-3.6.3-amd64.exe"> Python3.6.
 
 <h2>Powered by:</h2>
-<h3>Programmer</h3>
+<h4>Programmer</h4>
 Thiago Oliveira Lopes<br>
 <a href="http://lattes.cnpq.br/8870631835172791"> Currículo Lattes</a> / <a href="https://twitter.com/thiago_o_lopes"> Twitter </a> / <a href="https://www.linkedin.com/in/thiago-lopes-1972b270"> Linkedin </a> / <a href="https://www.researchgate.net/profile/Thiago_Lopes2"> Research Gate</a>
-<h3></h3>
+<h4></h4>
 Daniel Francsico Scalabrini Machado<br>
 <a href="http://lattes.cnpq.br/9791047274773689"> Currículo Lattes</a> / <a href="https://www.researchgate.net/profile/Daniel_Francisco_Machado">Research Gate</a>
-<h3>Advisor</h3>
+<h4>Advisor</h4>
 Professor Dr. Heibbe C. B. de Oliveira<br>
 <a href="http://lattes.cnpq.br/5995553993631378"> Currículo Lattes</a>  / <a href="https://www.researchgate.net/profile/Heibbe_De_Oliveira2">Research Gate</a>
 <h3>Research Group</h3>
