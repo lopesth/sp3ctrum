@@ -6,34 +6,35 @@
 <h1>Instructions:</h1>
 <br>
 Download the latest version released on <a href="https://github.com/lopesth/https://github.com/lopesth/UV-Vis-Sp3ctrum-P4tronus/archive/2.0.1.zip"> here </a> and unzip the folder in the Home folder.
-<h4>Linux or macOS:</h4>
+<br><br>
+<h3>Linux or macOS:</h3>
 If you do not have Python 3 installed, install, preferably by <code>apt-get install python3.6</code> (Ubuntu or another Debian-based), <code>yum install python3.6</code> (Fedora or Fedora-based) or <a href="https://brew.sh/index_pt-br.html">Homebrew<a> or <a href="https://www.macports.org">Macports<a> (macOS).
 
 After that, edit .bash_rc (linux) or .bash_profile (macOS) with the following line:<br>
 <small>```alias sp3ctrum_app='python3 ~/sp3ctrum_UV-Vis_P4tronus/sp3ctrum_app.py'```</small><br><br>
 After that, just run the sp3ctrum_app command in the folder where the .log files are located.
-<br>
-<h4>Windows:</h4>
-For Windows, you will need to install <a href="https://www.python.org/ftp/python/3.6.3/python-3.6.3-amd64.exe"> Python3.6 </a>, after that, add Python installation path to Windows <code>PATH</code> in <code>ENVIRONMENT VARIABLE</code>.
-<br>
-
-
-<h2>Modes:</h2>
+<h4>Modes:</h4>
 
 - Terminal with answer and friendly questions:
 ```
 sp3trum_app -friendly
 ```
-
 - Terminal with file with the parameters fed in execution:
 ```
 sp3trum_app -file file.in
 ```
-
 - Graphical User Interface:
 ```
 sp3trum_app -gui
 ```
+<br><br>
+<h3>Windows:</h3>
+For Windows, you will need to install <a href="https://www.python.org/ftp/python/3.6.3/python-3.6.3-amd64.exe"> Python3.6 </a>, after that, add Python installation path to Windows <code>PATH</code> in <code>ENVIRONMENT VARIABLE</code>.
+After that run sp3ctrum_app.py by double clicking.
+<br>
+
+
+
 
 
 
