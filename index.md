@@ -18,7 +18,7 @@ If you do not have Python 3 installed, install, preferably by <code>apt-get inst
 <h3>Windows:</h3>
 For Windows, you will need to install <a href="https://www.python.org/ftp/python/3.6.3/python-3.6.3-amd64.exe"> Python3.6.
 
-<h2>Powered by:</h2>
+<h1>Powered by:</h1>
 <h4>Programmer</h4>
 Thiago Oliveira Lopes<br>
 <a href="http://lattes.cnpq.br/8870631835172791"> Currículo Lattes</a> / <a href="https://twitter.com/thiago_o_lopes"> Twitter </a> / <a href="https://www.linkedin.com/in/thiago-lopes-1972b270"> Linkedin </a> / <a href="https://www.researchgate.net/profile/Thiago_Lopes2"> Research Gate</a>
