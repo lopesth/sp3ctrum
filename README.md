@@ -28,4 +28,7 @@ Some python packages needed to run the application
 
 In most installations these packages are already installed, but if any are missing, it can be installed with: 
 'pip3 install PACKAGE_NAME'
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
