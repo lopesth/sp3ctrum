@@ -20,7 +20,7 @@ Daniel Francsico Scalabrini Machado<br>
 <a href="http://lattes.cnpq.br/9791047274773689"> Currículo Lattes</a> / <a href="https://www.researchgate.net/profile/Daniel_Francisco_Machado">Research Gate</a>
 <h3>Advisor</h3>
 Professor Dr. Heibbe C. B. de Oliveira<br>
-Currículo Lattes / Research Gate<br>
+<a href="http://lattes.cnpq.br/5995553993631378"> Currículo Lattes</a>  / <a href="https://www.researchgate.net/profile/Heibbe_De_Oliveira2">Research Gate</a>
 <h3>Research Group</h3>
 Laboratório de Estrutura Eletrônica e Dinâmica Molecular (LEEDMOL).
 <a href="https://www.facebook.com/leedmol/" > Facebook </a>
