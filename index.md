@@ -11,22 +11,18 @@ Download the latest version released on <a href="https://github.com/lopesth/http
 If you do not have Python 3 installed, install, preferably by <code>apt-get install python3.6</code> (Ubuntu or another Debian-based), <code>yum install python3.6</code> (Fedora or Fedora-based) or <a href="https://brew.sh/index_pt-br.html">Homebrew<a> or <a href="https://www.macports.org">Macports<a> (macOS).
 
 After that, edit .bash_rc (linux) or .bash_profile (macOS) with the following line:<br>
-<small>```alias sp3ctrum_app='python3 ~/sp3ctrum_UV-Vis_P4tronus/sp3ctrum_app.py'```</small><br><br>
+<code>alias sp3ctrum_app='python3 ~/sp3ctrum_UV-Vis_P4tronus/sp3ctrum_app.py'</code>
+<br>
 After that, just run the sp3ctrum_app command in the folder where the .log files are located.
 <h4>Modes:</h4>
 
 - Terminal with answer and friendly questions:
-```
-sp3trum_app -friendly
-```
+<code>sp3trum_app -friendly</code>
 - Terminal with file with the parameters fed in execution:
-```
-sp3trum_app -file file.in
-```
+<code>sp3trum_app -file file.in</code>
 - Graphical User Interface:
-```
-sp3trum_app -gui
-```
+<code>sp3trum_app -gui</code>
+
 <br>
 <h3>Windows:</h3>
 For Windows, you will need to install <a href="https://www.python.org/ftp/python/3.6.3/python-3.6.3-amd64.exe"> Python3.6 </a>, after that, add Python installation path to Windows <code>PATH</code> in <code>ENVIRONMENT VARIABLE</code>.
