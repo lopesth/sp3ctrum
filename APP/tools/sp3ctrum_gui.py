@@ -17,6 +17,7 @@ from APP.tools.print_spectrum import Print_Spectrum
 
 class Application(Frame):
     def __init__(self, toplevel):
+        self.src = os.path.realpath(__file__).replace("APP/tools/sp3ctrum_gui.py", "")
         self.toplevel = toplevel
         Frame.__init__(self)
         self.dir = os.getcwd()
@@ -144,8 +145,8 @@ class Application(Frame):
         self.box_container_interval_3 = Frame(self.toplevel, bg='#FFFFFF')
         self.box_container_interval_3.pack()
         self.all_logos_container = Frame(self.toplevel, background="#8EF0F7", relief=RIDGE, borderwidth=3, width=610)
-        self.logo1 = PhotoImage(file=self.dir+"/icons/sp3ctrum_b.gif")
-        self.logo2 = PhotoImage(file=self.dir+"/icons/leedmol_b.gif")
+        self.logo1 = PhotoImage(file=self.src+"icons/sp3ctrum_b.gif")
+        self.logo2 = PhotoImage(file=self.src+"icons/leedmol_b.gif")
         self.logos_title_container = Frame(self.all_logos_container, background="#8EF0F7", borderwidth=5, width=300)
         self.lg1_title = Label(self.logos_title_container,   text="UV-Vis", background="#8EF0F7",
                                font="Helvetica 23 bold italic", fg="#62338C").grid(row=0, column=0)
