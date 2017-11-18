@@ -39,7 +39,7 @@ Laboratório de Estrutura Eletrônica e Dinâmica Molecular (LEEDMOL).
 
 <h2>Screen Shots</h2>
 <figure>
-  <img src="icons/screen_shot_1.png" alt="sp3ctrum" align="left">	
+  <img src="icons/screen_shot_1.png" alt="sp3ctrum">	
 </figure>
 <figure>
   <img src="icons/screen_Shot_2.png" alt="sp3ctrum">	
