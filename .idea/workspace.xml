@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="83330f49-8b02-4520-bbdc-866d02400600" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py" afterPath="$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py" />
-    </list>
+    <list default="true" id="83330f49-8b02-4520-bbdc-866d02400600" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -107,8 +104,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="473" />
-    <option name="y" value="23" />
+    <option name="x" value="1166" />
+    <option name="y" value="65" />
     <option name="width" value="1846" />
     <option name="height" value="1057" />
   </component>
@@ -184,7 +181,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="473" y="23" width="1846" height="1057" extended-state="0" />
+    <frame x="1166" y="65" width="1846" height="1057" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16518848" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
