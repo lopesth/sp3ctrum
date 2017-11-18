@@ -7,7 +7,7 @@
 <br>
 Download the latest version released on <a href="https://github.com/lopesth/https://github.com/lopesth/UV-Vis-Sp3ctrum-P4tronus/archive/2.0.1.zip"> here </a> and unzip the folder in the Home folder.
 <h4>Linux or macOS:</h4>
-If you do not have Python 3 installed, install, preferably by apt-get install python3.6 (Ubuntu or another Debian-based), yum install python3.6 (Fedora or Fedora-based) or <a href="https://brew.sh/index_pt-br.html">Homebrew<a> or <a href="https://www.macports.org">Macports<a> (macOS).
+If you do not have Python 3 installed, install, preferably by <code>apt-get install python3.6</code> (Ubuntu or another Debian-based), yum install python3.6 (Fedora or Fedora-based) or <a href="https://brew.sh/index_pt-br.html">Homebrew<a> or <a href="https://www.macports.org">Macports<a> (macOS).
 
 After that, edit .bash_rc (linux) or .bash_profile (macOS) with the following line:<br>
 <small>```alias sp3ctrum_app='python3 ~/sp3ctrum_UV-Vis_P4tronus/sp3ctrum_app.py'```</small><br><br>
