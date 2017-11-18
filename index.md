@@ -14,7 +14,7 @@ After that, edit .bash_rc (linux) or .bash_profile (macOS) with the following li
 After that, just run the sp3ctrum_app command in the folder where the .log files are located.
 <br>
 <h4>Windows:</h4>
-For Windows, you will need to install <a href="https://www.python.org/ftp/python/3.6.3/python-3.6.3-amd64.exe"> Python3.6 </a>
+For Windows, you will need to install <a href="https://www.python.org/ftp/python/3.6.3/python-3.6.3-amd64.exe"> Python3.6 </a>, after that, add Python installation path to Windows <code>PATH</code> in <code>ENVIRONMENT VARIABLE</code>.
 <br>
 
 
