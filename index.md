@@ -8,13 +8,7 @@ Download the latest version released on <a href="https://github.com/lopesth/http
 <br>
 <h3>Linux or macOS:</h3>
 If you do not have Python 3 installed, install, preferably by <code>apt-get install python3.6</code> (Ubuntu or another Debian-based), <code>yum install python3.6</code> (Fedora or Fedora-based) or <a href="https://brew.sh/index_pt-br.html">Homebrew<a> or <a href="https://www.macports.org">Macports<a> (macOS).
-
-After that, edit .bash_rc (linux) or .bash_profile (macOS) with the following line:<br>
-<code>alias sp3ctrum_app='python3 ~/sp3ctrum_UV-Vis_P4tronus/sp3ctrum_app.py'</code>
-<br>
-After that, just run the sp3ctrum_app command in the folder where the .log files are located.
 <h4>Modes:</h4>
-
 - Terminal with answer and friendly questions:<br>
 <code>sp3trum_app -friendly</code>
 - Terminal with file with the parameters fed in execution:<br>
@@ -34,7 +28,7 @@ After that run sp3ctrum_app.py by double clicking.<br><br>
 
 In most installations these packages are already installed, but if any are missing, it can be installed with:<br>
 <code>pip3 install PACKAGE_NAME</code>
-<br>
+<br><br>
 
 <h2>Powered by:</h2>
 <h3>Programmer</h3>
