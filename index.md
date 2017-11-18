@@ -6,7 +6,7 @@
 <p>This code aids molecular dynamics simulations to study the overall contribution to the UV-vis spectrum from the selected frames. It enables both overlaid and separated spectra.</p>
 
 <h2>Instructions:</h2>
-Download the latest version released on <a href="https://github.com/lopesth/UV-Vis-Sp3ctrum-P4tronus/archive/2.0.1.zip"> here </a> and unzip the folder in the Home folder.
+Download the latest version released on <a href="https://github.com/lopesth/UV-Vis-Sp3ctrum-P4tronus/archive/2.0.2.zip"> here </a> and unzip the folder in the Home folder.
 <br>
 <h3>Linux or macOS:</h3>
 If you do not have Python 3 installed, install, preferably by <code>apt-get install python3.6</code> (Ubuntu or another Debian-based), <code>yum install python3.6</code> (Fedora or Fedora-based) or <a href="https://brew.sh/index_pt-br.html">Homebrew<a> or <a href="https://www.macports.org">Macports<a> (macOS).
