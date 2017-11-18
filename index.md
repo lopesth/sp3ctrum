@@ -2,6 +2,12 @@
 <h1>UV-Vis Sp3ctrum P4tronum</h1>
 
 <p>This code aids molecular dynamics simulations to study the overall contribution to the UV-vis spectrum from the selected frames. It enables both overlaid and separated spectra.</p>
+<figure>
+  <img src="https://github.com/lopesth/UV-Vis-Sp3ctrum-P4tronus/blob/master/icons/leedmol.png" alt="Minha Figura">	
+  <figcaption>Informações da Figura</figcaption>
+</figure>
+
+
 
 <h2>Instructions:</h2>
 Download the latest version released on <a href="https://github.com/lopesth/https://github.com/lopesth/UV-Vis-Sp3ctrum-P4tronus/archive/2.0.1.zip"> here </a> and unzip the folder in the Home folder.
@@ -19,7 +25,7 @@ If you do not have Python 3 installed, install, preferably by <code>apt-get inst
 For Windows, you will need to install <a href="https://www.python.org/ftp/python/3.6.3/python-3.6.3-amd64.exe"> Python3.6.
 
 <h2>Powered by:</h2>
-<h5>Programmer</h5>
+<h4>Programmer</h4>
 Thiago Oliveira Lopes<br>
 <a href="http://lattes.cnpq.br/8870631835172791"> Currículo Lattes</a> / <a href="https://twitter.com/thiago_o_lopes"> Twitter </a> / <a href="https://www.linkedin.com/in/thiago-lopes-1972b270"> Linkedin </a> / <a href="https://www.researchgate.net/profile/Thiago_Lopes2"> Research Gate</a>
 <h4>Writer</h4>
