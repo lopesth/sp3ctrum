@@ -17,7 +17,7 @@ from APP.tools.print_spectrum import Print_Spectrum
 
 class Application(Frame):
     def __init__(self, toplevel):
-        self.src = os.path.realpath(__file__).replace("APP/tools/sp3ctrum_gui.py", "")
+        self.src = os.path.realpath(__file__).replace("tools/sp3ctrum_gui.py", "")
         self.toplevel = toplevel
         Frame.__init__(self)
         self.dir = os.getcwd()
@@ -38,7 +38,7 @@ class Application(Frame):
         self.filemenufilapp = Menu(self.menu, fg="#62338C")
         self.menu.add_cascade(label="UV-vis Sp3ctrum P4tronum", menu=self.filemenufilapp)
         self.filemenufilapp.add_command(label="Version", command=self.show_version)
-        self.filemenufilapp.add_command(label="About us", command=Second_Window(self.toplevel, self.dir).tell_about_us)
+        self.filemenufilapp.add_command(label="About us", command=Second_Window(self.toplevel, self.src).tell_about_us)
         self.filemenufilehelp = Menu(self.menu, fg="#62338C")
         self.menu.add_cascade(label="Help", menu=self.filemenufilehelp)
         self.filemenufilehelp.add_command(label="Manual", command=self.open_manual)
