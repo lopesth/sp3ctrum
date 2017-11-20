@@ -9,7 +9,7 @@ Linux or macOS:
 If you do not have Python 3 installed.
 Install, preferably by 'apt-get install python3.6' (Ubuntu or another Debian-based), 'yum install python3.6' (Fedora or Fedora-based) orHomebrew or Macports(macOS).
 
-After that, edit .bash_rc (linux) or .bash_profile (macOS) with the following line:
+After that, edit ~/.bash_rc (linux) or ~/.bash_profile (macOS) with the following line:
 alias sp3ctrum_app='python3 ~/sp3ctrum_UV-Vis_P4tronus/sp3ctrum_app.py'
 
 After that, just run the sp3ctrum_app command in terminal:
