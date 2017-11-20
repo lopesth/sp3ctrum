@@ -18,7 +18,7 @@ After that, just run the sp3ctrum_app command in terminal:
 - Graphical User Interface: 'sp3trum_app -gui'
 
 Windows:
-For Windows, you will need to install Python3.6, after that, add Python installation path to Windows PATH< in ENVIRONMENT VARIABLE.
+For Windows, you will need to install Python3.6, after that, add Python installation path to Windows PATH in ENVIRONMENT VARIABLE.
 After that run sp3ctrum_app.py by double clicking.
 
 Some python packages needed to run the application
