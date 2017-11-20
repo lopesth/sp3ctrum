@@ -10,16 +10,16 @@ class Transitions(object):
             self.osc_force = float(osc_force)
             self.homo = homo
             self.transitions = []
-            for transitions_sep in transitions:
-                transitions_raw = transitions_sep.split('->')
-                self.transitions.append([int(transitions_raw[0]), int(transitions_raw[1])])
+            for transitions_raw in transitions:
+                self.transitions.append([int(transitions_raw.split()[0]), int(transitions_raw.split()[1])])
             self.contrib = [float(x) for x in contrib]
+            self.contrbutionPercent()
         except:
-            print("Error in Transition(obeject)")
+            print("Error in Transition(object)")
             sys.exit()
 
-    def contrbution(self):
-        pass
+    def contrbutionPercent(self):
+        self.contrib_percent = [x*x*2*100 for x in self.contrib]
 
 class FrontierOrbitals(object):
 
@@ -55,15 +55,24 @@ class TransitionContribution(object):
             transitions_in_file = []
             cont_transtions = []
             while ("->" in line):
-                x = [x for x in line.split()]
-                transitions_in_file.append(x[0]+x[1])
-                cont_transtions.append(x[2])
+                x = [x for x in line.split("->")]
+                transitions_in_file.append(x[0]+x[1].split()[0])
+                cont_transtions.append(x[1].split()[1])
                 number_of_line+=1
                 line = myFile[number_of_line]
             self.states.append(Transitions(state+1, y[6], y[8].split("=")[1], transitions_in_file, cont_transtions, self.orbitals.homo))
+        for state in self.states:
+            print(state.homo)
+            for i in range(0, len(state.contrib_percent)):
+                print(state.wavelength)
+                print(state.contrib_percent[i], state.transitions[i])
 
 
 if __name__ == "__main__":
-    file_ = "/Users/thiagolopes/Downloads/TD_Epinefrina_LC-wPBE_49000_OPT.log"
-    x = TransitionContribution(file_)
-    w = FrontierOrbitals(file_)
+    #file_ = "/Users/thiagolopes/Downloads/TD_Epinefrina_Tuned_LC-wPBE_49000.log"
+    #x = TransitionContribution(file_)
+    #w = FrontierOrbitals(file_)
+
+    file__ = "/Users/thiagolopes/Downloads/TD_Epinefrina_LC-wPBE_49000_OPT.log"
+    x = TransitionContribution(file__)
+    w = FrontierOrbitals(file__)
