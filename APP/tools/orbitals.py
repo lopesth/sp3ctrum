@@ -14,12 +14,35 @@ class Transitions(object):
                 self.transitions.append([int(transitions_raw.split()[0]), int(transitions_raw.split()[1])])
             self.contrib = [float(x) for x in contrib]
             self.contrbutionPercent()
+            self.translateTransition()
         except:
             print("Error in Transition(object)")
             sys.exit()
 
     def contrbutionPercent(self):
         self.contrib_percent = [x*x*2*100 for x in self.contrib]
+
+    def translateTransition(self):
+        self.transleted_transitions = []
+        for i in range(0, len(self.transitions)):
+            arrow_fletching = self.translateOrbital(self.transitions[i][0])
+            arrow_head = self.translateOrbital(self.transitions[i][1])
+            self.transleted_transitions.append([arrow_fletching, arrow_head])
+
+    def translateOrbital(self, orbital):
+        lumo = self.homo +1
+        if orbital < self.homo:
+            translatedOrbital = "HOMO"+str(orbital-self.homo)
+        elif orbital > lumo:
+            translatedOrbital = "LUMO+" + str(orbital - lumo)
+        elif orbital == lumo:
+            translatedOrbital = "LUMO"
+        else:
+            translatedOrbital = "HOMO"
+        return translatedOrbital
+
+    def getTransitions(self):
+        return [self.excitedState, self.wavelength, self.transleted_transitions, self.contrib_percent]
 
 class FrontierOrbitals(object):
 
@@ -61,12 +84,11 @@ class TransitionContribution(object):
                 number_of_line+=1
                 line = myFile[number_of_line]
             self.states.append(Transitions(state+1, y[6], y[8].split("=")[1], transitions_in_file, cont_transtions, self.orbitals.homo))
-        for state in self.states:
-            print(state.homo)
-            for i in range(0, len(state.contrib_percent)):
-                print(state.wavelength)
-                print(state.contrib_percent[i], state.transitions[i])
 
+    def getTransitions(self):
+        x = []
+        for state in self.states:
+            x.append(state.getTransitions())
 
 if __name__ == "__main__":
     #file_ = "/Users/thiagolopes/Downloads/TD_Epinefrina_Tuned_LC-wPBE_49000.log"
@@ -74,5 +96,5 @@ if __name__ == "__main__":
     #w = FrontierOrbitals(file_)
 
     file__ = "/Users/thiagolopes/Downloads/TD_Epinefrina_LC-wPBE_49000_OPT.log"
-    x = TransitionContribution(file__)
+    x = TransitionContribution(file__).getTransitions()
     w = FrontierOrbitals(file__)
