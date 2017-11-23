@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="83330f49-8b02-4520-bbdc-866d02400600" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APP/control_sp3c_p4t.py" afterPath="$PROJECT_DIR$/APP/control_sp3c_p4t.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py" afterPath="$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sp3ctrum_app.py" afterPath="$PROJECT_DIR$/sp3ctrum_app.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APP/tools/print_spectrum.py" afterPath="$PROJECT_DIR$/APP/tools/print_spectrum.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,14 +13,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="sp3ctrum_gui.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="sp3ctrum_gui.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="383">
-              <caret line="62" column="81" lean-forward="false" selection-start-line="62" selection-start-column="75" selection-end-line="62" selection-end-column="81" />
-              <folding>
-                <element signature="e#292#313#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="165">
+              <caret line="11" column="23" lean-forward="false" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="print_spectrum.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/APP/tools/print_spectrum.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="535">
+              <caret line="87" column="57" lean-forward="false" selection-start-line="87" selection-start-column="57" selection-end-line="87" selection-end-column="57" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -39,7 +44,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>fg</find>
       <find>NEW</find>
       <find>entry</find>
       <find>lis</find>
@@ -69,6 +73,7 @@
       <find>padding</find>
       <find>2.0</find>
       <find>Spectrum</find>
+      <find>box_container_adv</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -81,7 +86,6 @@
         <option value="$PROJECT_DIR$/APP/__init__.py" />
         <option value="$PROJECT_DIR$/APP/tools/start_spc.py" />
         <option value="$PROJECT_DIR$/APP/tools/sort_key_maps.py" />
-        <option value="$PROJECT_DIR$/APP/tools/print_spectrum.py" />
         <option value="$PROJECT_DIR$/APP/tools/get_parameters.py" />
         <option value="$PROJECT_DIR$/APP/tools/get_osc.py" />
         <option value="$PROJECT_DIR$/APP/tools/get_chart_title.py" />
@@ -95,6 +99,7 @@
         <option value="$PROJECT_DIR$/APP/control_sp3c_p4t.py" />
         <option value="$PROJECT_DIR$/sp3ctrum_app.py" />
         <option value="$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py" />
+        <option value="$PROJECT_DIR$/APP/tools/print_spectrum.py" />
       </list>
     </option>
   </component>
@@ -105,10 +110,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1618" />
+    <option name="x" value="2115" />
     <option name="y" value="23" />
-    <option name="width" value="1846" />
-    <option name="height" value="1057" />
+    <option name="width" value="1386" />
+    <option name="height" value="877" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -182,10 +187,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1618" y="23" width="1846" height="1057" extended-state="0" />
+    <frame x="2115" y="23" width="1386" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16851442" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22619048" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -193,7 +198,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32952183" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25155926" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3094629" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -529,14 +534,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APP/tools/print_spectrum.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/icons/__init__.py" />
     <entry file="file:///Volumes/LOPESxHDD/benzoselenodiazois/scripts/benzo.py" />
     <entry file="file://$PROJECT_DIR$/APP/tools/get_parameters.py">
@@ -607,11 +604,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="62" column="81" lean-forward="false" selection-start-line="62" selection-start-column="75" selection-end-line="62" selection-end-column="81" />
-          <folding>
-            <element signature="e#292#313#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="165">
+          <caret line="11" column="23" lean-forward="false" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APP/tools/print_spectrum.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="535">
+          <caret line="87" column="57" lean-forward="false" selection-start-line="87" selection-start-column="57" selection-end-line="87" selection-end-column="57" />
+          <folding />
         </state>
       </provider>
     </entry>

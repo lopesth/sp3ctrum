@@ -4,23 +4,29 @@ __credits__ = "LEEDMOL group - Institute of Chemistry at Universidade de Brasili
 __maintainer__ = "Thiago Lopes"
 __email__ = "lopes.th.o@gmail.com"
 __date__ = "Nov 17 of 2017"
-__version__ = "2.0.1"
+__version__ = "3.0"
 
 import matplotlib
 matplotlib.use("TkAgg")
 from matplotlib import pyplot
 import os, sys
+from PIL import Image
+from PIL import PngImagePlugin
 
 class Print_Spectrum(object):
 
-    def __init__(self, dir_target, file_name, start_wl, end_wl, end_epslon, end_osc, title):
+    def __init__(self, dir_target, file_name, start_wl, end_wl, end_epslon, end_osc, title, resol = 600, osc_color = "#4F4233", curve_color = "#020041", exp_curv_color = "#76449C"):
         self.file_name = file_name
+        self.resol = resol
         self.start_wl = start_wl
         self.end_wl = end_wl
         self.end_osc = end_osc
         self.end_epslon = end_epslon
         self.title = title
         self.dir_target = dir_target
+        self.osc_color = osc_color
+        self.curve_color = curve_color
+        self.exp_curv_color = exp_curv_color
 
     def print_system(self):
         plot_system = ""
@@ -52,12 +58,14 @@ class Print_Spectrum(object):
             sys.exit()
 
     def print_gnuplot(self):
-        gnuplot_command1 = "gnuplot -e \'set term png transparent size 2560,1920; set lmargin screen 0.1; set rmargin screen 0.9 ; set output \""+self.dir_target+"/"+self.file_name+".png\"; set xlabel \"Waveleght (nm)\" font \"Verdana,35\" offset 0,-3,0; set ylabel \"Molar Absorptivity (L/mol.cm)\" font \"Verdana,35\" offset -6, 0, 0; set format y2 \"%.2f\"; "
+        name_file = self.dir_target + "/" + self.file_name + "_gnuplot.png"
+        gnuplot_command1 = "gnuplot -e \'set term png transparent size 2560,1920; set lmargin screen 0.1; set rmargin screen 0.9 ; set output \""+name_file+"\"; set xlabel \"Waveleght (nm)\" font \"Verdana,35\" offset 0,-3,0; set ylabel \"Molar Absorptivity (L/mol.cm)\" font \"Verdana,35\" offset -6, 0, 0; set format y2 \"%.2f\"; "
         if len(self.title) > 0 :
             gnuplot_command1 = gnuplot_command1 + " set title \""+self.title+"\" font \"Verdana,25\" offset 0, -1, 0;"
         gnuplot_command2 = "set xrange ["+str(self.start_wl)+":"+str(self.end_wl)+"]; set yrange [0:"+str(self.end_epslon+(self.end_epslon*0.05))+"]; set y2range [0:"+str(self.end_osc+(self.end_osc*0.05))+"]; set y2label \"Oscillator Strength (arbitrary units)\" font \"Verdana,35\" offset 6,0,0; set key off; set xtics font \"Verdana,25\" nomirror offset 0,-1,0; set ytics font \"Verdana,25\" nomirror; set y2tics font \"Verdana,25\";plot \""+self.dir_target+"/"+self.file_name+"_spectrum.dat\" using 1:2 axis x1y1 with line linewidth 6.000, \""+self.dir_target+"/"+self.file_name+"_rawData.dat\" using 1:2 axis x1y2 with impulses linewidth 6.000' "
         os.popen(gnuplot_command1 + gnuplot_command2, 'r', 1)
         print("The file named {} was saved in your working directory" .format(self.file_name+".png"))
+        MetaDataPrint(name_file).reSave()
 
 
     def print_matplotlib(self):
@@ -73,17 +81,35 @@ class Print_Spectrum(object):
             for line in myFile:
                 wl_ref.append(float(line.split()[0]))
                 osc_ref.append(float(line.split()[1]))
-        graph = matplotlib.pyplot.figure()
+        graph = matplotlib.pyplot.figure(figsize=(8,6))
         a = graph.add_subplot(111)
         b = a.twinx()
-        line1, = a.plot(wl, epslon, linestyle = 'solid', fillstyle ='none')
+        line1, = a.plot(wl, epslon, linestyle = 'solid', color=self.curve_color, fillstyle ='none')
         line2, = b.plot(wl_ref, osc_ref, visible = False)
         for i in range(len(wl_ref)):
-            b.vlines(wl_ref[i], 0, osc_ref[i], colors='red', lw =2)
+            b.vlines(wl_ref[i], 0, osc_ref[i], colors=self.osc_color, lw =2)
         graph.tight_layout()
         b.set_ylabel("Oscillator Strength (arbitrary unit)")
         a.set_ylabel("Molar Absorptivity (L/mol.cm)")
         a.set_xlabel("Wavelength (nm)")
         if len(self.title) > 0:
             matplotlib.pyplot.title(self.title)
+        name_file = self.dir_target+"/"+self.file_name+"_pyplot.png"
+        graph.subplots_adjust(top=0.9, bottom=0.1, left=0.11, right=0.89, hspace=0.25,
+                    wspace=0.35)
+        graph.savefig(name_file, transparent=True, dpi=self.resol)
+        MetaDataPrint(name_file).reSave()
         matplotlib.pyplot.show()
+
+class MetaDataPrint(object):
+
+    def __init__(self, target):
+        self.target = target
+        self.file = Image.open(self.target)
+
+    def reSave(self):
+        meta = PngImagePlugin.PngInfo()
+        meta.add_text("Created by", "UV-Vis Sp3ctrum P4tronum")
+        meta.add_text("Version", __version__)
+        meta.add_text("Powered by", __credits__)
+        self.file.save(self.target, pnginfo=meta)
