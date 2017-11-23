@@ -4,7 +4,7 @@ __credits__ = "LEEDMOL group - Institute of Chemistry at Universidade de Brasili
 __maintainer__ = "Thiago Lopes"
 __email__ = "lopes.th.o@gmail.com"
 __date__ = "Nov 17 of 2017"
-__version__ = "2.0.1"
+__version__ = "3.0"
 
 from APP.tools.start_spc import Opening, Take_Files
 from APP.tools.get_osc import Get_Osc
