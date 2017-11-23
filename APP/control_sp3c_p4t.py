@@ -45,13 +45,11 @@ class Sp3ctrum_UVvis_P4tronum(object):
         files_to_combine = feed.get_names_input()
         name_file = feed.get_name_output()
         title = feed.get_chart_title()
-        plot_system = feed.get_plot_system()
         total_oscillators = Get_Osc(files_to_combine).take_osc()
         spectrum = Gaussian_Convolution(total_oscillators, sdt_wl_cm)
         greater_epslon_osc = spectrum.make_spectrum(start, end, numb_of_points)
         spectrum.write_spectrum(name_file)
-        to_print = Print_Spectrum(self.dir, name_file, start, end, greater_epslon_osc[0], greater_epslon_osc[1], title)
-        to_print.print(plot_system)
+        Print_Spectrum(self.dir, name_file, start, end, greater_epslon_osc[0], greater_epslon_osc[1], title).print_matplotlib()
         print("\nOK. Have a nice day and enjoy your results.\n")
 
     def take_wl_range(self):
@@ -147,10 +145,7 @@ class Sp3ctrum_UVvis_P4tronum(object):
         spectrum = Gaussian_Convolution(total_oscillators, sdt_wl_cm)
         greater_epslon_osc = spectrum.make_spectrum(start, end, numb_of_points, sdt_wl_cm)
         spectrum.write_spectrum(name_file)
-        to_print = Print_Spectrum(self.dir, name_file, start, end, greater_epslon_osc[0], greater_epslon_osc[1], title)
-        plot_system = to_print.print_system()
-        to_print.print(plot_system)
-
+        Print_Spectrum(self.dir, name_file, start, end, greater_epslon_osc[0], greater_epslon_osc[1], title).print_matplotlib()
 
 
 
