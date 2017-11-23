@@ -12,6 +12,8 @@ from matplotlib import pyplot
 import os, sys
 from PIL import Image
 from PIL import PngImagePlugin
+import tkinter as tk
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 class Print_Spectrum(object):
 
@@ -28,51 +30,13 @@ class Print_Spectrum(object):
         self.curve_color = curve_color
         self.exp_curv_color = exp_curv_color
 
-    def print_system(self):
-        plot_system = ""
-        print("You can print using Gnuplot (better graphic, however you need to have gnuplot installed, it only works on macOS and Linux) or Matplotlib (you need to have Matplotlib installed, you can install with the pip: `pip3 install matplotlib`.")
-        while(True):
-            try:
-                answer = input("\nType (1) to Gnuplot and (2) to Matplotlib:")
-                if answer == "1":
-                    plot_system = "gnuplot"
-                    break
-                elif answer == "2":
-                    plot_system = "pyplot"
-                    break
-                else:
-                    continue
-            except KeyboardInterrupt:
-                sys.exit()
-            except:
-                continue
-        return plot_system
-
-    def print(self, plot_system):
-        if plot_system == "gnuplot":
-            self.print_gnuplot()
-        elif plot_system == "pyplot":
-            self.print_matplotlib()
-        else:
-            print("Unrecognized printing system")
-            sys.exit()
-
-    def print_gnuplot(self):
-        name_file = self.dir_target + "/" + self.file_name + "_gnuplot.png"
-        gnuplot_command1 = "gnuplot -e \'set term png transparent size 2560,1920; set lmargin screen 0.1; set rmargin screen 0.9 ; set output \""+name_file+"\"; set xlabel \"Waveleght (nm)\" font \"Verdana,35\" offset 0,-3,0; set ylabel \"Molar Absorptivity (L/mol.cm)\" font \"Verdana,35\" offset -6, 0, 0; set format y2 \"%.2f\"; "
-        if len(self.title) > 0 :
-            gnuplot_command1 = gnuplot_command1 + " set title \""+self.title+"\" font \"Verdana,25\" offset 0, -1, 0;"
-        gnuplot_command2 = "set xrange ["+str(self.start_wl)+":"+str(self.end_wl)+"]; set yrange [0:"+str(self.end_epslon+(self.end_epslon*0.05))+"]; set y2range [0:"+str(self.end_osc+(self.end_osc*0.05))+"]; set y2label \"Oscillator Strength (arbitrary units)\" font \"Verdana,35\" offset 6,0,0; set key off; set xtics font \"Verdana,25\" nomirror offset 0,-1,0; set ytics font \"Verdana,25\" nomirror; set y2tics font \"Verdana,25\";plot \""+self.dir_target+"/"+self.file_name+"_spectrum.dat\" using 1:2 axis x1y1 with line linewidth 6.000, \""+self.dir_target+"/"+self.file_name+"_rawData.dat\" using 1:2 axis x1y2 with impulses linewidth 6.000' "
-        os.popen(gnuplot_command1 + gnuplot_command2, 'r', 1)
-        print("The file named {} was saved in your working directory" .format(self.file_name+".png"))
-        MetaDataPrint(name_file).reSave()
-
 
     def print_matplotlib(self):
         wl = []
         epslon = []
         wl_ref = []
         osc_ref = []
+        matplotlib.use("TkAgg")
         with open(self.dir_target+"/"+self.file_name+"_spectrum.dat") as myFile:
             for line in myFile:
                 wl.append(float(line.split()[0]))
@@ -81,25 +45,42 @@ class Print_Spectrum(object):
             for line in myFile:
                 wl_ref.append(float(line.split()[0]))
                 osc_ref.append(float(line.split()[1]))
-        graph = matplotlib.pyplot.figure(figsize=(8,6))
-        a = graph.add_subplot(111)
+        self.graph = matplotlib.pyplot.figure(figsize=(8,6))
+        a = self.graph.add_subplot(111)
         b = a.twinx()
         line1, = a.plot(wl, epslon, linestyle = 'solid', color=self.curve_color, fillstyle ='none')
         line2, = b.plot(wl_ref, osc_ref, visible = False)
         for i in range(len(wl_ref)):
             b.vlines(wl_ref[i], 0, osc_ref[i], colors=self.osc_color, lw =2)
-        graph.tight_layout()
+        self.graph.tight_layout()
         b.set_ylabel("Oscillator Strength (arbitrary unit)")
         a.set_ylabel("Molar Absorptivity (L/mol.cm)")
         a.set_xlabel("Wavelength (nm)")
         if len(self.title) > 0:
             matplotlib.pyplot.title(self.title)
-        name_file = self.dir_target+"/"+self.file_name+"_pyplot.png"
-        graph.subplots_adjust(top=0.9, bottom=0.1, left=0.11, right=0.89, hspace=0.25,
+        self.name_file = self.dir_target+"/"+self.file_name+".png"
+        self.graph.subplots_adjust(top=0.9, bottom=0.1, left=0.11, right=0.89, hspace=0.25,
                     wspace=0.35)
-        graph.savefig(name_file, transparent=True, dpi=self.resol)
-        MetaDataPrint(name_file).reSave()
-        matplotlib.pyplot.show()
+        self.graph.savefig(self.name_file, transparent=True, dpi=self.resol)
+        MetaDataPrint(self.name_file).reSave()
+
+    def show(self):
+        self.root = tk.Tk()
+        self.root.protocol("WM_DELETE_WINDOW", self.root_out())
+        self.root.title("self.fraph " + self.name_file)
+        canvas = FigureCanvasTkAgg(self.graph, master=self.root)
+        canvas.show()
+        canvas.get_tk_widget().pack(side="top")
+
+        y = tk.Frame(self.root)
+        x = tk.Button(y, text = "Quit", command=self.root_out)
+        x.pack()
+        y.pack(side="top")
+        tk.mainloop()
+
+    def root_out(self):
+        self.root.quit()
+        self.root.destroy()
 
 class MetaDataPrint(object):
 
@@ -113,3 +94,5 @@ class MetaDataPrint(object):
         meta.add_text("Version", __version__)
         meta.add_text("Powered by", __credits__)
         self.file.save(self.target, pnginfo=meta)
+
+

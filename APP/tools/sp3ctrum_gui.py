@@ -21,6 +21,7 @@ class Application(Frame):
     def __init__(self, toplevel):
         self.src = os.path.realpath(__file__).replace("tools/sp3ctrum_gui.py", "")
         self.toplevel = toplevel
+        self.toplevel.protocol("WM_DELETE_WINDOW", self.leave)
         self.toplevel.configure(bg="#8EF0F7")
         Frame.__init__(self)
         self.dir = os.getcwd()
@@ -100,44 +101,42 @@ class Application(Frame):
         self.note4_struct.pack()
         self.note5_struct = Frame(self.note, background="#FFFFFF")
         self.note5_struct.pack()
+        self.note6_struct = Frame(self.note, background="#FFFFFF")
+        self.note6_struct.pack()
         self.note.add(self.note1_struct, text="Files")
         self.note.add(self.note2_struct, text="Spectrum Parameters")
         self.note.add(self.note3_struct, text="Plot Details")
         self.note.add(self.note4_struct, text="Versus Experimental Values")
-        self.note.add(self.note5_struct, text="Advanced Options")
+        self.note.add(self.note5_struct, text="MD Options")
+        self.note.add(self.note6_struct, text="Advanced Options")
         self.note.tab(self.note2_struct, state="disabled")
         self.note.tab(self.note3_struct, state="disabled")
         self.note.tab(self.note4_struct, state="disabled")
         self.note.tab(self.note5_struct, state="disabled")
+        self.note.tab(self.note6_struct, state="disabled")
 
     def guiButtons(self):
         self.run_but_container = Frame(self.toplevel, bg="#8EF0F7")
         self.make_spec_bt = Button(
-            self.run_but_container, text="Calculate the spectrum", background="#8EF0F7", font="Helvetica", command=self.make_spectrum,
+            self.run_but_container, text="Calculate Spectrum", background="#8EF0F7", font="Helvetica", command=self.make_spectrum,
             highlightbackground="#8EF0F7", pady=2, relief=FLAT, borderwidth=0
         )
         self.make_spec_bt.configure(state=DISABLED)
         self.make_spec_bt.grid(row = 0, column = 0, padx=5)
-        self.save_csv_bt = Button(
+        self.save_adv_bt = Button(
             self.run_but_container, text="Save advanced data", font="Helvetica", command=self.adv_file,
             highlightbackground="#8EF0F7", pady=2, relief=FLAT
         )
-        self.save_csv_bt.configure(state=DISABLED)
-        self.save_csv_bt.grid(row = 0, column = 1, padx=5)
-        self.save_dat_bt = Button(
+        self.save_adv_bt.configure(state=DISABLED)
+        self.save_adv_bt.grid(row = 0, column = 1, padx=5)
+        self.save_simp_bt = Button(
             self.run_but_container, text="Save simple data", font="Helvetica", command=self.simple_file,
             highlightbackground="#8EF0F7", pady=2, relief=FLAT
         )
-        self.save_dat_bt.configure(state=DISABLED)
-        self.save_dat_bt.grid(row = 0, column = 2, padx=5)
-        self.gnuplot_bt = Button(
-            self.run_but_container, text="Plot with Gnuplot", font="Helvetica", command=self.gnuplot,
-            highlightbackground ="#8EF0F7", pady=2, relief=FLAT
-        )
-        self.gnuplot_bt.configure(state=DISABLED)
-        self.gnuplot_bt.grid(row = 0, column = 3, padx=5)
+        self.save_simp_bt.configure(state=DISABLED)
+        self.save_simp_bt.grid(row = 0, column = 2, padx=5)
         self.pyplot_bt = Button(
-            self.run_but_container, text="Plot with Pyplot", font="Helvetica", command=self.pyplot,
+            self.run_but_container, text="Plot Spectrum", font="Helvetica", command=self.pyplot,
             highlightbackground ="#8EF0F7", pady=2, relief=FLAT
         )
         self.pyplot_bt.configure(state=DISABLED)
@@ -161,7 +160,7 @@ class Application(Frame):
         ).pack(anchor=NW, pady=5, padx=20)
         self.open_files_BT = Frame(self.note1_struct)
         self.rb1_choice_file_type = Radiobutton(
-            self.open_files_BT, text="Single Files", variable=self.choice_file_type,
+            self.open_files_BT, text="Single File", variable=self.choice_file_type,
             value=0, command=self.enable_file_bt
         )
         self.rb1_choice_file_type.pack(side="left")
@@ -171,6 +170,13 @@ class Application(Frame):
             value=1, command=self.enable_file_bt
         )
         self.rb2_choice_file_type.pack(side="left")
+
+        self.rb3_choice_file_type = Radiobutton(
+            self.open_files_BT, text="Multiple Files from MD", variable=self.choice_file_type,
+            value=2, command=self.enable_file_bt
+        )
+        self.rb3_choice_file_type.pack(side="left")
+
         self.run_call_bt = Button(
             self.open_files_BT, text="Open files", font="Helvetica", state=DISABLED, command=self.select_files
         )
@@ -259,13 +265,37 @@ class Application(Frame):
         self.title_entry.pack(side="left")
         self.box_container_plot.pack(pady=5)
 
+        self.box_container_colors = Frame(self.note3_struct, relief=FLAT, borderwidth=1)
+        self.title_color_curve = Label(self.box_container_colors, text="Color of Curve (CSS Hex Style):",
+                                font="Helvetica", fg="#DF0027", background="#FFFFFF").pack(side="left")
+        self.entry_color_curve = Entry(self.box_container_colors, width=10, fg="#263A90", borderwidth=2, relief=RIDGE)
+        self.entry_color_curve.insert(END, '#020041')
+        self.entry_color_curve.pack(side="left")
+
+        self.title_color_drop = Label(self.box_container_colors, text="Color of Oscillators (CSS Hex Style):",
+                                font="Helvetica", fg="#DF0027", background="#FFFFFF").pack(side="left")
+        self.entry_color_drop = Entry(self.box_container_colors, width=10, fg="#263A90", borderwidth=2, relief=RIDGE)
+        self.entry_color_drop.insert(END, '#4F4233')
+        self.entry_color_drop.pack(side="left")
+        self.box_container_colors.pack(side="top", pady=5)
+
+        self.box_container_res = Frame(self.note3_struct, relief=FLAT, borderwidth=1)
+        self.title_res = Label(self.box_container_res, text="Resolution of Plot (dpi):",
+                                font="Helvetica", fg="#DF0027", background="#FFFFFF").pack(side="left")
+        self.entry_res = Entry(self.box_container_res, width=10, fg="#263A90", borderwidth=2, relief=RIDGE)
+        self.entry_res.insert(END, '600')
+        self.box_container_res.pack(side="top", pady=5)
+
 
 
     def guiTab4(self):
         pass
 
     def guiTab5(self):
-        self.box_container_adv = Frame(self.note5_struct, relief=FLAT, borderwidth=1)
+        pass
+
+    def guiTab6(self):
+        self.box_container_adv = Frame(self.note6_struct, relief=FLAT, borderwidth=1)
         self.name_output = Label(self.box_container_adv, text="Base of Output Names:",
                                  font="Helvetica 14 bold", fg="#DF0027", background="#FFFFFF").pack(side="left")
         self.output_entry = Entry(self.box_container_adv, width=60, fg="#263A90", borderwidth=2, relief=RIDGE)
@@ -300,10 +330,13 @@ class Application(Frame):
                 initialdir="/", filetypes=[("Gaussian LOG files","*.log"), ("Gaussian OUTPUTS files","*.out")]
             )
             self.filenames = [self.filenames]
-        else:
+        elif self.choice_file_type.get() == 1:
             self.filenames = filedialog.askopenfilenames(
                 initialdir="/", filetypes=[("Gaussian LOG files","*.log"), ("Gaussian OUTPUTS files","*.out")]
             )
+        else:
+            pass
+            self.filenames = []
         for filename in self.filenames:
             fn_div = filename.split('/')
             self.file_name_box.insert(END,
@@ -317,9 +350,8 @@ class Application(Frame):
         self.note.tab(self.note5_struct, state="normal")
 
     def make_spectrum(self):
-        self.save_csv_bt.configure(state=NORMAL)
-        self.save_dat_bt.configure(state=NORMAL)
-        self.gnuplot_bt.configure(state=DISABLED)
+        self.save_adv_bt.configure(state=NORMAL)
+        self.save_simp_bt.configure(state=NORMAL)
         self.pyplot_bt.configure(state=DISABLED)
         error = 0
         start_a = 1
@@ -374,37 +406,31 @@ class Application(Frame):
         else:
             messagebox.showinfo("Error in user-fed values",
                                 "Please correct the marked values.")
+
     def adv_file(self):
         if len(self.target_dir) < 1:
             self.target_dir = filedialog.askdirectory()
 
 
     def simple_file(self):
-        self.gnuplot_bt.configure(state=NORMAL)
         self.pyplot_bt.configure(state=NORMAL)
         if len(self.target_dir) < 1:
             self.target_dir = filedialog.askdirectory()
         self.spectrum.write_spectrum_csv(self.target_dir + "/" + self.output_file_name)
         self.spectrum.write_spectrum(self.target_dir +"/"+self.output_file_name)
 
-    def gnuplot(self):
-        to_print = Print_Spectrum(
-            self.target_dir, self.output_file_name, self.wl_rang[0], self.wl_rang[1],
-            self.plot_limits[0], self.plot_limits[1], self.title_chart
-        )
-        to_print.print("gnuplot")
-
     def pyplot(self):
-        to_print = Print_Spectrum(
+        x = Print_Spectrum(
             self.target_dir, self.output_file_name, self.wl_rang[0],
-            self.wl_rang[1], self.plot_limits[0], self.plot_limits[1], self.title_chart
+            self.wl_rang[1], self.plot_limits[0], self.plot_limits[1], self.title_chart, 600,"#4F4233","#020041", "#76449C"
         )
-        to_print.print("pyplot")
+        x.print_matplotlib()
+        x.show()
+        self.pyplot_bt.configure(state=DISABLED)
 
     def restart(self):
         self.save_csv_bt.configure(state=DISABLED)
         self.save_dat_bt.configure(state=DISABLED)
-        self.gnuplot_bt.configure(state=DISABLED)
         self.pyplot_bt.configure(state=DISABLED)
         self.make_spec_bt.configure(state=DISABLED)
         self.run_call_bt.configure(state=NORMAL)
@@ -430,7 +456,8 @@ class Application(Frame):
         self.note.tab(self.note5_struct, state="disabled")
 
     def leave(self):
-        sys.exit()
+        self.toplevel.quit()
+        self.toplevel.destroy()
 
     def show_version(self):
         text_to_show = "The UV-VIs Sp3trum P4tronum APP is in version {}, released in {}." .format(
