@@ -66,7 +66,6 @@ class Print_Spectrum(object):
         a.set_xlabel("Wavelength (nm)")
         if len(self.title) > 0:
             matplotlib.pyplot.title(self.title)
-
         self.name_file = self.dir_target+"/"+self.dir_target.split("/")[-1]+".png"
         self.graph.subplots_adjust(top=0.9, bottom=0.1, left=0.11, right=0.89, hspace=0.25,wspace=0.35)
         self.graph.savefig(self.name_file, transparent=True, dpi=self.resol)
@@ -79,59 +78,54 @@ class Print_Spectrum(object):
         canvas = FigureCanvasTkAgg(self.graph, master=self.root)
         canvas.show()
         canvas.get_tk_widget().pack(side="top")
-
         self.graph_window = tk.Frame(self.root)
         self.button_cont = tk.Frame(self.graph_window)
         self.quit_button = tk.Button(self.button_cont, text = "Quit", command=self.root_out)
         self.quit_button.pack(side = "left")
-        self.second_derivative = tk.Button(self.button_cont, text = "Second Derivative", command=self.secondDerivative)
+        self.second_derivative = tk.Button(self.button_cont, text = "Second Derivative Plots", command=self.secondDerivative)
         self.second_derivative.pack(sid="left")
         self.button_cont.pack()
         self.graph_window.pack(side="top")
         tk.mainloop()
-
 
     def root_out(self):
         self.root.quit()
         self.root.destroy()
 
     def secondDerivative(self):
-        for i in range(0, len(self.file_names)):
-            x = SecondDerivative(
-                self.log_names[i], self.dir_target, self.start_wl, self.end_wl, self.title,
-                self.resol, self.osc_color[i], self.curve_color[i], self.epslon_list[i], self.wl_list[i]
+        x = SecondDerivative(
+                self.log_names, self.dir_target, self.start_wl, self.end_wl, self.title,
+                self.resol,  self.curve_color, self.epslon_list, self.wl_list
             )
+        tk.messagebox.showinfo("2nd Derivative Plots", "Second derivative images saved in working directory")
 
 
 class SecondDerivative(object):
 
-    def __init__(self, file_name, dir_target, start_wl, end_wl, title, resol, osc_color, curve_color, epslon, wl):
+    def __init__(self, file_name, dir_target, start_wl, end_wl, title, resol, curve_color, epslon, wl):
         self.file_name = file_name
         self.dir_target = dir_target
         self.start_wl = start_wl
         self.end_wl = end_wl
         self.title = title
         self.resol = resol
-        self.osc_color = osc_color
         self.curve_color = curve_color
         self.epslon = epslon
         self.wl = wl
-        print(self.file_name)
-        Derivative = FiniteDifferenceDerivative(self.epslon, self.wl).symmetricDerivative()
-        SecondDerivative = FiniteDifferenceDerivative(Derivative[0], Derivative[1]).symmetricDerivative()
-
-
-        self.graph = matplotlib.pyplot.figure(figsize=(8, 6))
-        a = self.graph.add_subplot(111)
-        a.plot(SecondDerivative[1], SecondDerivative[0], linestyle='solid', color=self.curve_color, fillstyle='none')
-        self.graph.tight_layout()
-        a.set_xlabel("Wavelength (nm)")
-        a.set_ylabel("Second Derivative of Molar Absorptivity (L/mol.cm)")
-
-        self.name_file = self.dir_target + "/" + (self.file_name.split("/")[-1]).split(".")[0] + "_2derivative.png"
-        self.graph.subplots_adjust(top=0.9, bottom=0.1, left=0.11, right=0.89, hspace=0.25, wspace=0.35)
-        self.graph.savefig(self.name_file, transparent=True, dpi=self.resol)
-        MetaDataPrint(self.name_file).reSave()
+        self.graph = []
+        for i in range(0, len(self.file_name), 1):
+            Derivative = FiniteDifferenceDerivative(self.epslon[i], self.wl[i]).symmetricDerivative()
+            SecondDerivative = FiniteDifferenceDerivative(Derivative[0], Derivative[1]).symmetricDerivative()
+            graph = matplotlib.pyplot.figure(figsize=(8, 6))
+            a = graph.add_subplot(111)
+            a.plot(SecondDerivative[1], SecondDerivative[0], linestyle='solid', color=self.curve_color[i], fillstyle='none')
+            graph.tight_layout()
+            a.set_xlabel("Wavelength (nm)")
+            a.set_ylabel("Second Derivative of Molar Absorptivity (L/mol.cm)")
+            name_file = self.dir_target + "/" + (self.file_name[i].split("/")[-1]).split(".")[0] + "_2derivative.png"
+            graph.subplots_adjust(top=0.9, bottom=0.1, left=0.11, right=0.89, hspace=0.25, wspace=0.35)
+            graph.savefig(name_file, transparent=True, dpi=self.resol)
+            MetaDataPrint(name_file).reSave()
 
 class MetaDataPrint(object):
 

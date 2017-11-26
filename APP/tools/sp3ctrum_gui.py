@@ -517,6 +517,7 @@ class Application(Frame):
                 self.wl_rang[1], self.title_chart, int( self.entry_res.get()),
                 self.osc_color, self.curve_color, "0", self.filenames
             )
+
         x.print_matplotlib()
         x.show()
         self.pyplot_bt.configure(state=DISABLED)
