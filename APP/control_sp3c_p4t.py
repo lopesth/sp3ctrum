@@ -146,9 +146,3 @@ class Sp3ctrum_UVvis_P4tronum(object):
         greater_epslon_osc = spectrum.make_spectrum(start, end, numb_of_points, sdt_wl_cm)
         spectrum.write_spectrum(name_file)
         Print_Spectrum(self.dir, name_file, start, end, greater_epslon_osc[0], greater_epslon_osc[1], title).print_matplotlib()
-
-
-
-
-
-

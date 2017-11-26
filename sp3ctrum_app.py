@@ -27,7 +27,6 @@ def control_the_flux(choice_interface, file_name):
         print("Type -file, -friendly or -gui.")
         sys.exit()
 
-
 if (__name__ == "__main__"):
     try:
         file_name = sys.argv[2]

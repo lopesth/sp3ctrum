@@ -11,7 +11,7 @@ from tkinter import filedialog
 from tkinter import messagebox
 from tkinter import ttk
 from tkinter import Button
-import sys, os, webbrowser
+import sys, os, webbrowser, time
 from APP.tools.gaussian_conv import Gaussian_Convolution
 from APP.tools.get_osc import Get_Osc
 from APP.tools.print_spectrum import Print_Spectrum
@@ -19,13 +19,14 @@ from APP.tools.print_spectrum import Print_Spectrum
 
 class Application(Frame):
     def __init__(self, toplevel):
+        Frame.__init__(self, toplevel)
         self.src = os.path.realpath(__file__).replace("tools/sp3ctrum_gui.py", "")
         self.toplevel = toplevel
         self.toplevel.protocol("WM_DELETE_WINDOW", self.leave)
         self.toplevel.configure(bg="#8EF0F7")
         Frame.__init__(self)
         self.dir = os.getcwd()
-        self.target_dir = ""
+        self.filenames = []
         self.toplevel.config()
         self.toplevel.geometry("800x650")
         self.toplevel.resizable(width=False, height=False)
@@ -37,6 +38,7 @@ class Application(Frame):
         self.guiTab3()
         self.guiTab4()
         self.guiTab5()
+        self.guiTab6()
         self.guiButtons()
         self.guiLogos()
 
@@ -231,7 +233,7 @@ class Application(Frame):
         self.wl_n_points_entry = Entry(
             self.box_container_line1_2, width=5, fg="#263A90", borderwidth=2, relief=RIDGE
         )
-        self.wl_n_points_entry.insert(END, '2000')
+        self.wl_n_points_entry.insert(END, '10000')
         self.wl_n_points_entry.pack()
         self.box_container_line1_2.pack()
         self.box_container_line1.pack(side="left")
@@ -264,27 +266,46 @@ class Application(Frame):
         self.title_entry = Entry(self.box_container_plot, width=60, fg="#263A90", borderwidth=2, relief=RIDGE)
         self.title_entry.pack(side="left")
         self.box_container_plot.pack(pady=5)
+        self.box_container_curve_colors = Frame(self.note3_struct, relief=FLAT, borderwidth=1)
 
-        self.box_container_colors = Frame(self.note3_struct, relief=FLAT, borderwidth=1)
-        self.title_color_curve = Label(self.box_container_colors, text="Color of Curve (CSS Hex Style):",
+        self.title_color_curve = Label(self.box_container_curve_colors, text="Color of Curve (CSS Hex Style, for each .log file):",
                                 font="Helvetica", fg="#DF0027", background="#FFFFFF").pack(side="left")
-        self.entry_color_curve = Entry(self.box_container_colors, width=10, fg="#263A90", borderwidth=2, relief=RIDGE)
-        self.entry_color_curve.insert(END, '#020041')
-        self.entry_color_curve.pack(side="left")
+        self.entry_color_curve_list = []
 
-        self.title_color_drop = Label(self.box_container_colors, text="Color of Oscillators (CSS Hex Style):",
+        for i in range(0, 5, 1):
+            entry_color_curve1 = Entry(self.box_container_curve_colors, width=7, fg="#263A90", borderwidth=2, relief=RIDGE)
+            entry_color_curve1.insert(END, '#020041')
+            entry_color_curve1.pack(side="left")
+            self.entry_color_curve_list.append(entry_color_curve1)
+
+        self.box_container_curve_colors.pack(side="top", pady=5, anchor=W, padx=10)
+
+        self.box_container_drop_colors = Frame(self.note3_struct, relief=FLAT, borderwidth=1)
+        self.title_color_drop = Label(self.box_container_drop_colors, text="Color of Oscillators (CSS Hex Style, for each .log file):",
                                 font="Helvetica", fg="#DF0027", background="#FFFFFF").pack(side="left")
-        self.entry_color_drop = Entry(self.box_container_colors, width=10, fg="#263A90", borderwidth=2, relief=RIDGE)
-        self.entry_color_drop.insert(END, '#4F4233')
-        self.entry_color_drop.pack(side="left")
-        self.box_container_colors.pack(side="top", pady=5)
+        self.entry_color_drop_list = []
+
+        for i in range(0, 5, 1):
+            entry_color_drop = Entry(self.box_container_drop_colors, width=7, fg="#263A90", borderwidth=2, relief=RIDGE)
+            entry_color_drop.insert(END, '#4F4233')
+            entry_color_drop.pack(side="left")
+            self.entry_color_drop_list.append(entry_color_drop)
+        self.box_container_drop_colors.pack(side="top", pady=5, anchor=W, padx=10)
+
+        for i in range(1, 5, 1):
+            self.entry_color_drop_list[i].delete(0, END)
+            self.entry_color_curve_list[i].delete(0, END)
+            self.entry_color_curve_list[i].configure(state="disabled", borderwidth=0)
+            self.entry_color_drop_list[i].configure(state="disabled", borderwidth=0)
+
 
         self.box_container_res = Frame(self.note3_struct, relief=FLAT, borderwidth=1)
         self.title_res = Label(self.box_container_res, text="Resolution of Plot (dpi):",
                                 font="Helvetica", fg="#DF0027", background="#FFFFFF").pack(side="left")
-        self.entry_res = Entry(self.box_container_res, width=10, fg="#263A90", borderwidth=2, relief=RIDGE)
-        self.entry_res.insert(END, '600')
-        self.box_container_res.pack(side="top", pady=5)
+        self.entry_res = Entry(self.box_container_res, width=4, fg="#263A90", borderwidth=2, relief=RIDGE)
+        self.entry_res.insert(END, '300')
+        self.entry_res.pack()
+        self.box_container_res.pack(side="top", pady=5, anchor=W, padx=10)
 
 
 
@@ -325,6 +346,7 @@ class Application(Frame):
 
     def select_files(self):
         self.file_name_box.delete(0, END)
+        self.operationMode = self.choice_file_type.get()
         if self.choice_file_type.get() == 0:
             self.filenames = filedialog.askopenfilename(
                 initialdir="/", filetypes=[("Gaussian LOG files","*.log"), ("Gaussian OUTPUTS files","*.out")]
@@ -334,28 +356,45 @@ class Application(Frame):
             self.filenames = filedialog.askopenfilenames(
                 initialdir="/", filetypes=[("Gaussian LOG files","*.log"), ("Gaussian OUTPUTS files","*.out")]
             )
+            for i in range(1, len(self.filenames), 1):
+                self.entry_color_curve_list[i].configure(state="normal", borderwidth=2)
+                self.entry_color_drop_list[i].configure(state="normal", borderwidth=2)
+                self.entry_color_curve_list[i].insert(END, '#020041')
+                self.entry_color_drop_list[i].insert(END, '#4F4233')
+
         else:
-            pass
-            self.filenames = []
+            self.md = MDfilenames(self)
+            self.toplevel.wait_window(self.md.window)
+            self.filenames = self.md.returnFileNames()
         for filename in self.filenames:
             fn_div = filename.split('/')
-            self.file_name_box.insert(END,
-                                      ".../"+fn_div[-4]+"/"+fn_div[-3]+"/"+fn_div[-2]+"/"+fn_div[-1])
-        self.make_spec_bt.configure(state=NORMAL)
-        self.output_entry.delete(0, END)
-        self.output_entry.insert(END, self.filenames[-1].split("/")[-2].lower())
+            self.file_name_box.insert(
+                END, ".../"+fn_div[-4]+"/"+fn_div[-3]+"/"+fn_div[-2]+"/"+fn_div[-1]
+            )
+        self.target_dir = "/".join(self.filenames[-1].split("/")[0:-1])
         self.note.tab(self.note2_struct, state="normal")
         self.note.tab(self.note3_struct, state="normal")
         self.note.tab(self.note4_struct, state="normal")
         self.note.tab(self.note5_struct, state="normal")
+        self.note.tab(self.note6_struct, state="normal")
+        self.make_spec_bt.configure(state=NORMAL)
+        self.output_entry.delete(0, END)
+        self.output_entry.insert(0, self.filenames[-1].split("/")[-2].lower())
 
     def make_spectrum(self):
-        self.save_adv_bt.configure(state=NORMAL)
-        self.save_simp_bt.configure(state=NORMAL)
-        self.pyplot_bt.configure(state=DISABLED)
+        if self.operationMode == 0:
+            self.makeSpectrumSingle()
+        elif self.operationMode == 1:
+            self.makeSpectrumMultiple()
+        else:
+            self.makeSpectrumMD()
+
+    def getSimpleValues(self):
         error = 0
         start_a = 1
         end_a = 1
+        self.curve_color = [self.entry_color_curve_list[0].get()]
+        self.osc_color = [self.entry_color_drop_list[0].get()]
         try:
             start_a = float(self.wl_rang_start_entry.get())
             self.wl_rang_start_entry.configure(fg="#263A90", bg="#FFFFFF")
@@ -399,38 +438,92 @@ class Application(Frame):
         if len(self.output_file_name) == 0:
             self.output_file_name = "void_name"
         self.title_chart = self.title_entry.get()
+        return error
+
+    def makeSpectrumSingle(self):
+        self.pyplot_bt.configure(state=DISABLED)
+        error = self.getSimpleValues()
         if error < 1:
-            self.total_oscillators = Get_Osc(self.filenames).take_osc()
-            self.spectrum = Gaussian_Convolution(self.total_oscillators, self.fwhm)
-            self.plot_limits = self.spectrum.make_spectrum(self.wl_rang[0], self.wl_rang[1], self.wl_n_points)
+            self.spectrumUnited()
         else:
             messagebox.showinfo("Error in user-fed values",
                                 "Please correct the marked values.")
 
+    def makeSpectrumMD(self):
+        self.pyplot_bt.configure(state=DISABLED)
+        error = self.getSimpleValues()
+        if error < 1:
+            self.spectrumUnited()
+        else:
+            messagebox.showinfo("Error in user-fed values",
+                                "Please correct the marked values.")
+
+
+    def makeSpectrumMultiple(self):
+        self.pyplot_bt.configure(state=DISABLED)
+        error = self.getSimpleValues()
+        self.total_oscillators = []
+        self.output_file_names=[]
+        num = 1
+        if error < 1:
+            for spectrum_divided in self.filenames:
+                self.total_oscillators = Get_Osc([spectrum_divided]).take_osc()
+                self.spectrum = Gaussian_Convolution(self.total_oscillators, self.fwhm)
+                self.plot_limits = self.spectrum.make_spectrum(self.wl_rang[0], self.wl_rang[1], self.wl_n_points)
+                self.spectrum.write_spectrum(self.target_dir + "/" + self.output_file_name+"_"+str(num))
+                self.output_file_names.append(self.output_file_name+"_"+str(num))
+                num+=1
+            self.pyplot_bt.configure(state=NORMAL)
+            self.save_adv_bt.configure(state=NORMAL)
+            self.save_simp_bt.configure(state=NORMAL)
+        else:
+            messagebox.showinfo("Error in user-fed values",
+                                "Please correct the marked values.")
+
+
+    def spectrumUnited(self):
+        self.total_oscillators = Get_Osc(self.filenames).take_osc()
+        self.spectrum = Gaussian_Convolution(self.total_oscillators, self.fwhm)
+        self.plot_limits = self.spectrum.make_spectrum(self.wl_rang[0], self.wl_rang[1], self.wl_n_points)
+        self.spectrum.write_spectrum(self.target_dir + "/" + self.output_file_name)
+        self.save_adv_bt.configure(state=NORMAL)
+        self.save_simp_bt.configure(state=NORMAL)
+        self.pyplot_bt.configure(state=NORMAL)
+
+
     def adv_file(self):
-        if len(self.target_dir) < 1:
-            self.target_dir = filedialog.askdirectory()
+        pass
 
 
     def simple_file(self):
-        self.pyplot_bt.configure(state=NORMAL)
-        if len(self.target_dir) < 1:
-            self.target_dir = filedialog.askdirectory()
-        self.spectrum.write_spectrum_csv(self.target_dir + "/" + self.output_file_name)
-        self.spectrum.write_spectrum(self.target_dir +"/"+self.output_file_name)
+        pass
+
 
     def pyplot(self):
-        x = Print_Spectrum(
-            self.target_dir, self.output_file_name, self.wl_rang[0],
-            self.wl_rang[1], self.plot_limits[0], self.plot_limits[1], self.title_chart, 600,"#4F4233","#020041", "#76449C"
-        )
+        if self.operationMode == 1:
+            self.curve_color = []
+            self.osc_color = []
+            for i in range(0, len(self.filenames), 1):
+                self.curve_color.append(self.entry_color_curve_list[i].get())
+                self.osc_color.append(self.entry_color_drop_list[i].get())
+            x = Print_Spectrum(
+                self.target_dir, self.output_file_names, self.wl_rang[0],
+                self.wl_rang[1], self.title_chart, int( self.entry_res.get()),
+                self.osc_color, self.curve_color, "0", self.filenames
+            )
+        else:
+            x = Print_Spectrum(
+                self.target_dir, [self.output_file_name], self.wl_rang[0],
+                self.wl_rang[1], self.title_chart, int( self.entry_res.get()),
+                self.osc_color, self.curve_color, "0", self.filenames
+            )
         x.print_matplotlib()
         x.show()
         self.pyplot_bt.configure(state=DISABLED)
 
     def restart(self):
-        self.save_csv_bt.configure(state=DISABLED)
-        self.save_dat_bt.configure(state=DISABLED)
+        self.save_adv_bt.configure(state=DISABLED)
+        self.save_simp_bt.configure(state=DISABLED)
         self.pyplot_bt.configure(state=DISABLED)
         self.make_spec_bt.configure(state=DISABLED)
         self.run_call_bt.configure(state=NORMAL)
@@ -454,6 +547,7 @@ class Application(Frame):
         self.note.tab(self.note3_struct, state="disabled")
         self.note.tab(self.note4_struct, state="disabled")
         self.note.tab(self.note5_struct, state="disabled")
+        self.note.tab(self.note6_struct, state="disabled")
 
     def leave(self):
         self.toplevel.quit()
@@ -466,6 +560,7 @@ class Application(Frame):
         messagebox.showinfo(
             "UV-Vis Sp3ctrum P4tronum", text_to_show
         )
+
     def open_manual(self):
         operational_system = sys.platform
         if operational_system == 'win32':
@@ -482,6 +577,169 @@ class Application(Frame):
 
     def enable_file_bt(self):
         self.run_call_bt.configure(state=NORMAL)
+
+class MDfilenames(Frame):
+
+    def __init__(self, toplevel):
+        self.toplevel = toplevel
+        self.window = Toplevel(self.toplevel)
+        self.continue_loop = True
+        self.filenames = []
+        self.window.geometry("400x270")
+        self.window.configure(background="#FFFFFF")
+        self.window.wm_title("Multiple Files from MD")
+        self.text_container=Frame(self.window)
+        self.text1= Label(
+            self.text_container, text="For MD frame analysis, it is necessary that all files ",
+            font="Helvetica 14", fg="#263A90", background="#FFFFFF"
+        ).pack(side="top")
+        self.text2 = Label(
+            self.text_container, text="have names with the following names pattern:", font="Helvetica 14",
+            fg="#263A90", background="#FFFFFF"
+        ).pack(side="top")
+        self.text3 = Label(
+            self.text_container, text="initialName_FRAME_finalName.log", font="Helvetica 14 bold",
+            fg="#263A90", background="#FFFFFF"
+        ).pack(side="top", pady=5)
+        self.text_container.pack()
+        self.name_pattern_box = Frame(self.window, borderwidth=2, relief=RIDGE, background="#FFFFFF")
+        self.name_values = Label(self.name_pattern_box, text="Range of Uncorrelated Frames", font="Helvetica",
+                                 fg="#DF0027", bg="#FFFFFF").pack()
+        self.name_pattern_box_2 = Frame(self.name_pattern_box)
+        self.name_title2_1 = Label(
+            self.name_pattern_box_2, text="Inital:", font="Helvetica", fg="#DF0027", bg="#FFFFFF"
+        ).pack(side = "left", fill=BOTH, padx = 5, pady = 5)
+        self.step_initial = Entry(
+            self.name_pattern_box_2, fg="#263A90", width=7, borderwidth=2, relief=RIDGE
+        )
+        self.step_initial.pack(side="left", anchor=NE, padx=5, pady=5)
+        self.name_title2_2 = Label(
+            self.name_pattern_box_2, text="Step:", font="Helvetica", fg="#DF0027", bg="#FFFFFF"
+        ).pack(side = "left", fill=BOTH, padx = 5, pady = 5)
+        self.step_step = Entry(
+            self.name_pattern_box_2, fg="#263A90", width=5, borderwidth=2, relief=RIDGE
+        )
+        self.step_step.pack(side="left", anchor=NE, padx=5, pady=5)
+        self.name_title2_3 = Label(
+            self.name_pattern_box_2, text="Final:", font="Helvetica", fg="#DF0027", bg="#FFFFFF"
+        ).pack(side = "left", fill=BOTH, padx = 5, pady = 5)
+        self.step_final = Entry(
+            self.name_pattern_box_2, fg="#263A90", width=7, borderwidth=2, relief=RIDGE
+        )
+        self.step_final.pack(side="left", anchor=NE, padx=5, pady=5)
+        self.name_pattern_box_2.pack()
+
+        self.name_pattern_box_1 = Frame(self.name_pattern_box)
+        self.name_title1 = Label(
+            self.name_pattern_box_1, text="Inital Name Pattern:", font="Helvetica", fg="#DF0027", bg="#FFFFFF"
+        ).pack(side = "left", fill=BOTH, padx = 5, pady = 5)
+        self.name_initial = Entry(
+            self.name_pattern_box_1, fg="#263A90", width=24, borderwidth=2, relief=RIDGE
+        )
+        self.name_initial.pack(side = "left", anchor=NE, padx = 5, pady = 5)
+        self.name_pattern_box_1.pack()
+        self.name_pattern_box_4 = Frame(self.name_pattern_box)
+        self.name_title3 = Label(
+            self.name_pattern_box_4, text="Final Name Pattern:", font="Helvetica", fg="#DF0027", bg="#FFFFFF"
+        ).pack(side = "left", fill=BOTH, padx = 5, pady = 5)
+        self.name_final = Entry(
+            self.name_pattern_box_4, fg="#263A90", width=24, borderwidth=2, relief=RIDGE
+        )
+        self.name_final.pack(side="left", anchor=NE, padx=5, pady=5)
+        self.name_pattern_box_4.pack()
+        self.name_pattern_box.pack()
+        self.step_pattern_box = Frame(self.window, background="#FFFFFF")
+
+        self.step_pattern_box.pack(pady=5)
+
+        self.bt_container = Frame(self.window, background="#FFFFFF")
+
+        self.folder_bt = Button(
+            self.bt_container, text="Directory files", background="#8EF0F7", font="Helvetica",
+            command=self.openDirectory,
+            highlightbackground="#FFFFFF", pady=2, relief=FLAT, borderwidth=0
+        )
+        self.folder_bt.grid(row =0, column =0)
+
+        self.submit_bt = Button(
+            self.bt_container, text="Submit Files", background="#8EF0F7", font="Helvetica",
+            command=self.submit_md,
+            highlightbackground="#FFFFFF", pady=2, relief=FLAT, borderwidth=0
+        )
+        self.submit_bt.configure(state=DISABLED)
+        self.submit_bt.grid(row =0, column =1)
+        self.bt_container.pack()
+
+    def openDirectory(self):
+        self.dir = filedialog.askdirectory()
+        self.submit_bt.configure(state=NORMAL)
+
+    def submit_md(self):
+        error = 0
+        try:
+            range_init = int(self.step_initial.get())
+            self.step_initial.configure(bg="#FFFFFF", fg="#000000")
+        except:
+            messagebox.showinfo("Incoherent input values",
+                                "The starting number of frames range must be integer.")
+            self.step_initial.configure(bg="#DF0027", fg="#FFFFFF")
+            error += 1
+        try:
+            range_end =  int(self.step_final.get())
+            self.step_final.configure(bg="#FFFFFF", fg="#000000")
+        except:
+            messagebox.showinfo("Incoherent input values",
+                                "The final number of frames range must be integer.")
+            self.step_final.configure(bg="#DF0027", fg="#FFFFFF")
+            error += 1
+        try:
+            range_step = int(self.step_step.get())
+            self.step_step.configure(bg="#FFFFFF", fg="#000000")
+        except:
+            messagebox.showinfo("Incoherent input values",
+                                "The increment number of the frame range must be integer.")
+            self.step_step.configure(bg="#DF0027", fg="#FFFFFF")
+            error += 1
+        name_init = str(self.name_initial.get()).strip()
+        name_end = str(self.name_final.get()).strip()
+        not_find = 0
+        for step in range(range_init, range_end+1, range_step):
+            if len(name_end) > 0:
+                filename = name_init+"_"+str(step)+"_"+name_end
+                try:
+                    test = open(self.dir+"/"+filename+".log")
+                    self.filenames.append(self.dir+"/"+filename+".log")
+                except:
+                    try:
+                        test = open(self.dir + "/" + filename + ".out")
+                        self.filenames.append(self.dir + "/" + filename + ".out")
+                    except:
+                        not_find+=1
+                        print(self.dir + "/" + filename + ".out")
+            else:
+                filename = name_init + "_" + str(step)
+                try:
+                    test = open(self.dir+"/"+filename+".log")
+                    self.filenames.append(self.dir + "/" + filename + ".log")
+                except:
+                    try:
+                        test = open(self.dir + "/" + filename + ".out")
+                        self.filenames.append(self.dir + "/" + filename + ".out")
+                    except:
+                        not_find+=1
+                        print(self.dir + "/" + filename + ".log")
+        if not_find > 0:
+            resp = messagebox.askyesno(
+                "Incoherent input values", str(not_find)+ " files were not found, do you want to continue? If not, check the file names.")
+            if resp == False:
+                pass
+            else:
+                self.window.destroy()
+        else:
+            self.window.destroy()
+
+    def returnFileNames(self):
+        return self.filenames
 
 class Second_Window(Frame):
 
@@ -541,4 +799,3 @@ class Second_Window(Frame):
         p2.pack(padx=35, pady=20)
         photo_container.pack(side="left")
         Button(t, text = "LEEDMOL Facebook Page", font = "Helvetica", command = self.facebook_buttom)
-
