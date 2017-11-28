@@ -73,7 +73,7 @@ class Get_Parameters():
         return float(fwhm_found)
 
     def get_chart_title(self):
-        target = "If you do not want the title in the graphic leave it"
+        target = "If you do not want the title in the self.fraphic leave it"
         pos = self.validad_pos_feed_string(target)
         title = self.file[pos].split()[1]
         return title

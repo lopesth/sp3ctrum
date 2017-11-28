@@ -58,13 +58,3 @@ class Gaussian_Convolution(object):
                 file_to_write_lits.write("%10.5f %10.5f\n" %(wl_ref, f_ref))
         file_to_write_lits.close()
 
-    def write_spectrum_csv(self, file_to_write):
-        file_target_gauss = open(file_to_write + "_spectrum.csv", "w")
-        for wl in self.final_map.keys():
-            file_target_gauss.write("%.2f, %.5f\n" % (wl, self.final_map[wl]))
-        file_target_gauss.close()
-        file_to_write_lits = open(file_to_write + "_rawData.csv", "w")
-        for wl_ref in self.osc_map.keys():
-            for f_ref in self.osc_map[wl_ref]:
-                file_to_write_lits.write("%.5f, %.5f\n" % (wl_ref, f_ref))
-        file_to_write_lits.close()

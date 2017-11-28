@@ -18,3 +18,4 @@ from .start_spc import *
 from .get_chart_title import *
 from .sp3ctrum_gui import *
 from .orbitals import TransitionContribution
+from .differential import FiniteDifferenceDerivative
