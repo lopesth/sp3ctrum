@@ -16,7 +16,6 @@ from APP.tools.gaussian_conv import Gaussian_Convolution
 from APP.tools.get_osc import Get_Osc
 from APP.tools.print_spectrum import Print_Spectrum
 
-
 class Application(Frame):
     def __init__(self, toplevel):
         Frame.__init__(self, toplevel)
@@ -41,6 +40,7 @@ class Application(Frame):
         self.guiTab6()
         self.guiButtons()
         self.guiLogos()
+
 
     def setStyle(self):
         self.style = ttk.Style()
@@ -148,6 +148,8 @@ class Application(Frame):
     def guiTab1(self):
         self.choice_file_type = IntVar()
         self.choice_log_type = IntVar()
+        self.choice_file_type.set(0)
+        self.choice_log_type.set(0)
         self.choice_log_type=Label(
             self.note1_struct, text="Output Type Files:", font="Helvetica 14 bold", fg="#263A90", background="#FFFFFF"
         ).pack(anchor=NW, pady=5, padx=20)
@@ -161,14 +163,9 @@ class Application(Frame):
             font="Helvetica 14 bold", fg="#263A90", background="#FFFFFF"
         ).pack(anchor=NW, pady=5, padx=20)
         self.open_files_BT = Frame(self.note1_struct)
-        self.rb1_choice_file_type = Radiobutton(
-            self.open_files_BT, text="Single File", variable=self.choice_file_type,
-            value=0, command=self.enable_file_bt
-        )
-        self.rb1_choice_file_type.pack(side="left")
 
         self.rb2_choice_file_type = Radiobutton(
-            self.open_files_BT, text="Multiple Files", variable=self.choice_file_type,
+            self.open_files_BT, text="Independent Files", variable=self.choice_file_type,
             value=1, command=self.enable_file_bt
         )
         self.rb2_choice_file_type.pack(side="left")
@@ -260,6 +257,8 @@ class Application(Frame):
         self.box_container_out.pack()
 
     def guiTab3(self):
+        self.plottypes = IntVar()
+        self.plottypes.set(0)
         self.box_container_plot = Frame(self.note3_struct, relief=FLAT, borderwidth=1)
         self.name_title = Label(self.box_container_plot, text="Title of the Plots (Optional):",
                                 font="Helvetica 14 bold", fg="#DF0027", background="#FFFFFF").pack(side="left")
@@ -306,7 +305,19 @@ class Application(Frame):
         self.entry_res.insert(END, '300')
         self.entry_res.pack()
         self.box_container_res.pack(side="top", pady=5, anchor=W, padx=10)
+        self.checkbuttonplot_box=Frame(self.note3_struct, relief=FLAT, borderwidth=1)
+        self.checkbuttonplot_name=Label(
+            self.checkbuttonplot_box, text="Plot Types:", fg="#DF0027", background="#FFFFFF").pack(side="left")
+        self.checkbuttonplot1 = Radiobutton(
+            self.checkbuttonplot_box, text="Independent Plots", variable=self.plottypes, value=1, command=self.enablePlot)
+        self.checkbuttonplot2 = Radiobutton(
+            self.checkbuttonplot_box, text="Overlay Plots", variable=self.plottypes, value=2, command=self.enablePlot)
+        self.checkbuttonplot1.pack(side="left")
+        self.checkbuttonplot2.pack(side="left")
+        self.checkbuttonplot_box.pack(side="top", pady=5, anchor=W, padx=10)
 
+    def enablePlot(self):
+        self.pyplot_bt.configure(state=NORMAL)
 
 
     def guiTab4(self):
@@ -347,21 +358,25 @@ class Application(Frame):
     def select_files(self):
         self.file_name_box.delete(0, END)
         self.operationMode = self.choice_file_type.get()
-        if self.choice_file_type.get() == 0:
-            self.filenames = filedialog.askopenfilename(
+        if self.choice_file_type.get() == 1:
+            self.filenames = []
+            self.filenames_ = filedialog.askopenfilenames(
                 initialdir="/", filetypes=[("Gaussian LOG files","*.log"), ("Gaussian OUTPUTS files","*.out")]
             )
-            self.filenames = [self.filenames]
-        elif self.choice_file_type.get() == 1:
-            self.filenames = filedialog.askopenfilenames(
-                initialdir="/", filetypes=[("Gaussian LOG files","*.log"), ("Gaussian OUTPUTS files","*.out")]
-            )
+            if len(self.filenames_) > 4:
+                messagebox.showinfo(
+                    "Maximum number of files", "Let's use only the first 4 files of the input."
+                )
+            for filename in self.filenames_[0:4]:
+                self.filenames.append(filename)
+
             for i in range(1, len(self.filenames), 1):
                 self.entry_color_curve_list[i].configure(state="normal", borderwidth=2)
                 self.entry_color_drop_list[i].configure(state="normal", borderwidth=2)
+                self.entry_color_curve_list[i].delete(0, END)
+                self.entry_color_drop_list[i].delete(0, END)
                 self.entry_color_curve_list[i].insert(END, '#020041')
                 self.entry_color_drop_list[i].insert(END, '#4F4233')
-
         else:
             self.md = MDfilenames(self)
             self.toplevel.wait_window(self.md.window)
@@ -369,7 +384,7 @@ class Application(Frame):
         for filename in self.filenames:
             fn_div = filename.split('/')
             self.file_name_box.insert(
-                END, ".../"+fn_div[-4]+"/"+fn_div[-3]+"/"+fn_div[-2]+"/"+fn_div[-1]
+                    END, ".../"+fn_div[-4]+"/"+fn_div[-3]+"/"+fn_div[-2]+"/"+fn_div[-1]
             )
         self.target_dir = "/".join(self.filenames[-1].split("/")[0:-1])
         self.note.tab(self.note2_struct, state="normal")
@@ -382,10 +397,8 @@ class Application(Frame):
         self.output_entry.insert(0, self.filenames[-1].split("/")[-2].lower())
 
     def make_spectrum(self):
-        if self.operationMode == 0:
-            self.makeSpectrumSingle()
-        elif self.operationMode == 1:
-            self.makeSpectrumMultiple()
+        if self.choice_file_type.get() == 1:
+            self.makeSpectrum()
         else:
             self.makeSpectrumMD()
 
@@ -440,17 +453,9 @@ class Application(Frame):
         self.title_chart = self.title_entry.get()
         return error
 
-    def makeSpectrumSingle(self):
-        self.pyplot_bt.configure(state=DISABLED)
-        error = self.getSimpleValues()
-        if error < 1:
-            self.spectrumUnited()
-        else:
-            messagebox.showinfo("Error in user-fed values",
-                                "Please correct the marked values.")
-
     def makeSpectrumMD(self):
         self.pyplot_bt.configure(state=DISABLED)
+        self.output_file_names=self.output_file_name
         error = self.getSimpleValues()
         if error < 1:
             self.spectrumUnited()
@@ -458,9 +463,7 @@ class Application(Frame):
             messagebox.showinfo("Error in user-fed values",
                                 "Please correct the marked values.")
 
-
-    def makeSpectrumMultiple(self):
-        self.pyplot_bt.configure(state=DISABLED)
+    def makeSpectrum(self):
         error = self.getSimpleValues()
         self.total_oscillators = []
         self.output_file_names=[]
@@ -473,7 +476,6 @@ class Application(Frame):
                 self.spectrum.write_spectrum(self.target_dir + "/" + self.output_file_name+"_"+str(num))
                 self.output_file_names.append(self.output_file_name+"_"+str(num))
                 num+=1
-            self.pyplot_bt.configure(state=NORMAL)
             self.save_adv_bt.configure(state=NORMAL)
             self.save_simp_bt.configure(state=NORMAL)
         else:
@@ -488,7 +490,6 @@ class Application(Frame):
         self.spectrum.write_spectrum(self.target_dir + "/" + self.output_file_name)
         self.save_adv_bt.configure(state=NORMAL)
         self.save_simp_bt.configure(state=NORMAL)
-        self.pyplot_bt.configure(state=NORMAL)
 
 
     def adv_file(self):
@@ -500,7 +501,13 @@ class Application(Frame):
 
 
     def pyplot(self):
-        if self.operationMode == 1:
+        if self.choice_file_type == 2:
+            x = Print_Spectrum(
+                self.target_dir, [self.output_file_name], self.wl_rang[0],
+                self.wl_rang[1], self.title_chart, int(self.entry_res.get()),
+                self.osc_color, self.curve_color, "0", self.filenames, self.plottypes.get()
+            )
+        else:
             self.curve_color = []
             self.osc_color = []
             for i in range(0, len(self.filenames), 1):
@@ -509,17 +516,11 @@ class Application(Frame):
             x = Print_Spectrum(
                 self.target_dir, self.output_file_names, self.wl_rang[0],
                 self.wl_rang[1], self.title_chart, int( self.entry_res.get()),
-                self.osc_color, self.curve_color, "0", self.filenames
-            )
-        else:
-            x = Print_Spectrum(
-                self.target_dir, [self.output_file_name], self.wl_rang[0],
-                self.wl_rang[1], self.title_chart, int( self.entry_res.get()),
-                self.osc_color, self.curve_color, "0", self.filenames
+                self.osc_color, self.curve_color, "0", self.filenames,  self.plottypes.get()
             )
 
         x.print_matplotlib()
-        x.show()
+
         self.pyplot_bt.configure(state=DISABLED)
 
     def restart(self):
