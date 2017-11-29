@@ -250,7 +250,7 @@ class Application(Frame):
             self.box_container_fwhm, text='Full Width at Half Maximum',
             font="Helvetica 16 bold", fg="#DF0027", background="#FFFFFF"
         ).pack(fill=X)
-        self.fwhm_name2 = Label(self.box_container_fwhm, text=u'FWHM ( cm\u207B\u2071 ):',
+        self.fwhm_name2 = Label(self.box_container_fwhm, text=u'FWHM (cm\u207B\u00B9):',
                                 font="Helvetica 16 bold", fg="#DF0027", background="#FFFFFF").pack(fill=X)
         self.fwhm_entry = Entry(self.box_container_fwhm, width=7, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")
         self.fwhm_entry.insert(END, '3226.22')
@@ -662,14 +662,14 @@ class MDfilenames(Frame):
         self.folder_bt = Button(
             self.bt_container, text="Directory files", background="#FFFFFF", font="Helvetica",
             command=self.openDirectory,
-            highlightbackground="#FFFFFF", pady=2, relief=RIDGE, borderwidth=2
+            highlightbackground="#FFFFFF", pady=2
         )
         self.folder_bt.grid(row =0, column =0)
 
         self.submit_bt = Button(
             self.bt_container, text="Submit Files", background="#FFFFFF", font="Helvetica",
             command=self.submit_md,
-            highlightbackground="#FFFFFF", pady=2, relief=RIDGE, borderwidth=2
+            highlightbackground="#FFFFFF", pady=2
         )
         self.submit_bt.configure(state=DISABLED)
         self.submit_bt.grid(row =0, column =1)

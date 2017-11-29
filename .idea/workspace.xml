@@ -21,8 +21,8 @@
           <file leaf-file-name="print_spectrum.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/APP/tools/print_spectrum.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="60">
-                  <caret line="4" column="25" lean-forward="false" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
+                <state relative-caret-position="-63">
+                  <caret line="37" column="42" lean-forward="true" selection-start-line="37" selection-start-column="42" selection-end-line="37" selection-end-column="42" />
                   <folding />
                 </state>
               </provider>
@@ -35,14 +35,14 @@
           <file leaf-file-name="sp3ctrum_gui.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="111">
-                  <caret line="664" column="78" lean-forward="false" selection-start-line="664" selection-start-column="78" selection-end-line="664" selection-end-column="78" />
+                <state relative-caret-position="448">
+                  <caret line="155" column="35" lean-forward="true" selection-start-line="155" selection-start-column="35" selection-end-line="155" selection-end-column="35" />
                   <folding>
                     <element signature="e#292#313#0" expanded="true" />
-                    <element signature="e#28301#28353#0" expanded="false" />
-                    <element signature="e#28391#28618#0" expanded="false" />
-                    <element signature="e#28976#29114#0" expanded="false" />
-                    <element signature="e#29154#29194#0" expanded="false" />
+                    <element signature="e#28299#28351#0" expanded="false" />
+                    <element signature="e#28389#28616#0" expanded="false" />
+                    <element signature="e#28974#29112#0" expanded="false" />
+                    <element signature="e#29152#29192#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -131,8 +131,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="44" />
-    <option name="y" value="23" />
+    <option name="x" value="525" />
+    <option name="y" value="26" />
     <option name="width" value="2442" />
     <option name="height" value="1054" />
   </component>
@@ -208,7 +208,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="44" y="23" width="2442" height="1054" extended-state="0" />
+    <frame x="525" y="26" width="2442" height="1054" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.062916666" sideWeight="0.4942717" order="0" side_tool="false" content_ui="combo" />
@@ -620,22 +620,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/APP/tools/print_spectrum.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="25" lean-forward="false" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
+        <state relative-caret-position="-63">
+          <caret line="37" column="42" lean-forward="true" selection-start-line="37" selection-start-column="42" selection-end-line="37" selection-end-column="42" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="664" column="78" lean-forward="false" selection-start-line="664" selection-start-column="78" selection-end-line="664" selection-end-column="78" />
+        <state relative-caret-position="448">
+          <caret line="155" column="35" lean-forward="true" selection-start-line="155" selection-start-column="35" selection-end-line="155" selection-end-column="35" />
           <folding>
             <element signature="e#292#313#0" expanded="true" />
-            <element signature="e#28301#28353#0" expanded="false" />
-            <element signature="e#28391#28618#0" expanded="false" />
-            <element signature="e#28976#29114#0" expanded="false" />
-            <element signature="e#29154#29194#0" expanded="false" />
+            <element signature="e#28299#28351#0" expanded="false" />
+            <element signature="e#28389#28616#0" expanded="false" />
+            <element signature="e#28974#29112#0" expanded="false" />
+            <element signature="e#29152#29192#0" expanded="false" />
           </folding>
         </state>
       </provider>
