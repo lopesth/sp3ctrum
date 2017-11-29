@@ -593,7 +593,7 @@ class MDfilenames(Frame):
         self.window.geometry("400x270")
         self.window.configure(background="#FFFFFF")
         self.window.wm_title("Multiple Files from MD")
-        self.text_container=Frame(self.window)
+        self.text_container=Frame(self.window, background="#FFFFFF")
         self.text1= Label(
             self.text_container, text="For MD frame analysis, it is necessary that all files ",
             font="Helvetica 14", fg="#263A90", background="#FFFFFF"
@@ -610,45 +610,45 @@ class MDfilenames(Frame):
         self.name_pattern_box = Frame(self.window, borderwidth=2, relief=RIDGE, background="#FFFFFF")
         self.name_values = Label(self.name_pattern_box, text="Range of Uncorrelated Frames", font="Helvetica",
                                  fg="#DF0027", bg="#FFFFFF").pack()
-        self.name_pattern_box_2 = Frame(self.name_pattern_box)
+        self.name_pattern_box_2 = Frame(self.name_pattern_box, background="#FFFFFF")
         self.name_title2_1 = Label(
             self.name_pattern_box_2, text="Inital:", font="Helvetica", fg="#DF0027", bg="#FFFFFF"
         ).pack(side = "left", fill=BOTH, padx = 5, pady = 5)
         self.step_initial = Entry(
-            self.name_pattern_box_2, fg="#263A90", width=7, borderwidth=2, relief=RIDGE
+            self.name_pattern_box_2, fg="#263A90", width=7, borderwidth=2, relief=RIDGE, background="#FFFFFF"
         )
         self.step_initial.pack(side="left", anchor=NE, padx=5, pady=5)
         self.name_title2_2 = Label(
             self.name_pattern_box_2, text="Step:", font="Helvetica", fg="#DF0027", bg="#FFFFFF"
         ).pack(side = "left", fill=BOTH, padx = 5, pady = 5)
         self.step_step = Entry(
-            self.name_pattern_box_2, fg="#263A90", width=5, borderwidth=2, relief=RIDGE
+            self.name_pattern_box_2, fg="#263A90", width=5, borderwidth=2, relief=RIDGE, background="#FFFFFF"
         )
         self.step_step.pack(side="left", anchor=NE, padx=5, pady=5)
         self.name_title2_3 = Label(
             self.name_pattern_box_2, text="Final:", font="Helvetica", fg="#DF0027", bg="#FFFFFF"
         ).pack(side = "left", fill=BOTH, padx = 5, pady = 5)
         self.step_final = Entry(
-            self.name_pattern_box_2, fg="#263A90", width=7, borderwidth=2, relief=RIDGE
+            self.name_pattern_box_2, fg="#263A90", width=7, borderwidth=2, relief=RIDGE, background="#FFFFFF"
         )
         self.step_final.pack(side="left", anchor=NE, padx=5, pady=5)
         self.name_pattern_box_2.pack()
 
-        self.name_pattern_box_1 = Frame(self.name_pattern_box)
+        self.name_pattern_box_1 = Frame(self.name_pattern_box, background="#FFFFFF")
         self.name_title1 = Label(
             self.name_pattern_box_1, text="Inital Name Pattern:", font="Helvetica", fg="#DF0027", bg="#FFFFFF"
         ).pack(side = "left", fill=BOTH, padx = 5, pady = 5)
         self.name_initial = Entry(
-            self.name_pattern_box_1, fg="#263A90", width=24, borderwidth=2, relief=RIDGE
+            self.name_pattern_box_1, fg="#263A90", width=24, borderwidth=2, relief=RIDGE, background="#FFFFFF"
         )
         self.name_initial.pack(side = "left", anchor=NE, padx = 5, pady = 5)
         self.name_pattern_box_1.pack()
-        self.name_pattern_box_4 = Frame(self.name_pattern_box)
+        self.name_pattern_box_4 = Frame(self.name_pattern_box, background="#FFFFFF")
         self.name_title3 = Label(
             self.name_pattern_box_4, text="Final Name Pattern:", font="Helvetica", fg="#DF0027", bg="#FFFFFF"
         ).pack(side = "left", fill=BOTH, padx = 5, pady = 5)
         self.name_final = Entry(
-            self.name_pattern_box_4, fg="#263A90", width=24, borderwidth=2, relief=RIDGE
+            self.name_pattern_box_4, fg="#263A90", width=24, borderwidth=2, relief=RIDGE, background="#FFFFFF"
         )
         self.name_final.pack(side="left", anchor=NE, padx=5, pady=5)
         self.name_pattern_box_4.pack()
@@ -660,7 +660,7 @@ class MDfilenames(Frame):
         self.bt_container = Frame(self.window, background="#FFFFFF")
 
         self.folder_bt = Button(
-            self.bt_container, text="Directory files", background="#8EF0F7", font="Helvetica",
+            self.bt_container, text="Directory files", background="#FFFFFF", font="Helvetica",
             command=self.openDirectory,
             highlightbackground="#FFFFFF", pady=2, relief=FLAT, borderwidth=0
         )
