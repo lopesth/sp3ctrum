@@ -11,7 +11,7 @@ from tkinter import filedialog
 from tkinter import messagebox
 from tkinter import ttk
 from tkinter import Button
-import sys, os, webbrowser, time
+import sys, os, webbrowser
 from APP.tools.gaussian_conv import Gaussian_Convolution
 from APP.tools.get_osc import Get_Osc
 from APP.tools.print_spectrum import Print_Spectrum
@@ -481,7 +481,6 @@ class Application(Frame):
         else:
             messagebox.showinfo("Error in user-fed values",
                                 "Please correct the marked values.")
-
 
     def spectrumUnited(self):
         self.total_oscillators = Get_Osc(self.filenames).take_osc()
