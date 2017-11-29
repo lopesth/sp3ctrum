@@ -139,7 +139,8 @@ class Application(Frame):
         self.save_simp_bt.grid(row = 0, column = 2, padx=5)
         self.pyplot_bt = Button(
             self.run_but_container, text="Plot Spectrum", font="Helvetica", command=self.pyplot,
-            highlightbackground ="#8EF0F7", pady=2, relief=FLAT
+            highlightbackground ="#8EF0F7", pady=2,
+            relief=FLAT
         )
         self.pyplot_bt.configure(state=DISABLED)
         self.pyplot_bt.grid(row = 0, column = 4, padx=5)
@@ -154,7 +155,7 @@ class Application(Frame):
             self.note1_struct, text="Output Type Files:", font="Helvetica 14 bold", fg="#263A90", background="#FFFFFF"
         ).pack(anchor=NW, pady=5, padx=20)
         self.rb1_choice_log_type = Radiobutton(
-            self.note1_struct, text="Gaussian (G09 and G16)", variable=self.choice_log_type, value=0
+            self.note1_struct, text="Gaussian (G09 and G16)", variable=self.choice_log_type, value=0, background="#FFFFFF"
         )
         self.rb1_choice_log_type.pack(anchor=NW, padx=20)
         self.rb1_choice_log_type.select()
@@ -166,7 +167,7 @@ class Application(Frame):
 
         self.rb2_choice_file_type = Radiobutton(
             self.open_files_BT, text="Independent Files", variable=self.choice_file_type,
-            value=1, command=self.enable_file_bt
+            value=1, command=self.enable_file_bt, background="#FFFFFF"
         )
         self.rb2_choice_file_type.pack(side="left")
 
@@ -177,12 +178,12 @@ class Application(Frame):
         self.rb3_choice_file_type.pack(side="left")
 
         self.run_call_bt = Button(
-            self.open_files_BT, text="Open files", font="Helvetica", state=DISABLED, command=self.select_files
+            self.open_files_BT, text="Open files", font="Helvetica", state=DISABLED, command=self.select_files, background="#FFFFFF"
         )
         self.run_call_bt.pack(side="left")
         self.open_files_BT.pack(anchor=NW, pady=5, padx=20)
 
-        self.file_container = Frame(self.note1_struct)
+        self.file_container = Frame(self.note1_struct, background="#FFFFFF")
         self.file_titles = Label(
             self.file_container, text="Selected Files:", font="Helvetica 25 bold", fg="#263A90", background="#FFFFFF"
         )
