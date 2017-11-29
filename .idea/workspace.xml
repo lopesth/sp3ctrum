@@ -35,14 +35,14 @@
           <file leaf-file-name="sp3ctrum_gui.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="403">
-                  <caret line="253" column="35" lean-forward="false" selection-start-line="253" selection-start-column="35" selection-end-line="253" selection-end-column="35" />
+                <state relative-caret-position="409">
+                  <caret line="315" column="143" lean-forward="false" selection-start-line="315" selection-start-column="143" selection-end-line="315" selection-end-column="143" />
                   <folding>
                     <element signature="e#292#313#0" expanded="true" />
-                    <element signature="e#27971#28023#0" expanded="false" />
-                    <element signature="e#28061#28288#0" expanded="false" />
-                    <element signature="e#28646#28784#0" expanded="false" />
-                    <element signature="e#28824#28864#0" expanded="false" />
+                    <element signature="e#28213#28265#0" expanded="false" />
+                    <element signature="e#28303#28530#0" expanded="false" />
+                    <element signature="e#28888#29026#0" expanded="false" />
+                    <element signature="e#29066#29106#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -131,9 +131,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="195" />
-    <option name="y" value="105" />
-    <option name="width" value="2211" />
+    <option name="x" value="70" />
+    <option name="y" value="110" />
+    <option name="width" value="2337" />
     <option name="height" value="1054" />
   </component>
   <component name="ProjectView">
@@ -208,10 +208,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="195" y="105" width="2211" height="1054" extended-state="0" />
+    <frame x="70" y="110" width="2337" height="1054" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.06961734" sideWeight="0.4942717" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.065795206" sideWeight="0.4942717" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -628,14 +628,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="253" column="35" lean-forward="false" selection-start-line="253" selection-start-column="35" selection-end-line="253" selection-end-column="35" />
+        <state relative-caret-position="409">
+          <caret line="315" column="143" lean-forward="false" selection-start-line="315" selection-start-column="143" selection-end-line="315" selection-end-column="143" />
           <folding>
             <element signature="e#292#313#0" expanded="true" />
-            <element signature="e#27971#28023#0" expanded="false" />
-            <element signature="e#28061#28288#0" expanded="false" />
-            <element signature="e#28646#28784#0" expanded="false" />
-            <element signature="e#28824#28864#0" expanded="false" />
+            <element signature="e#28213#28265#0" expanded="false" />
+            <element signature="e#28303#28530#0" expanded="false" />
+            <element signature="e#28888#29026#0" expanded="false" />
+            <element signature="e#29066#29106#0" expanded="false" />
           </folding>
         </state>
       </provider>

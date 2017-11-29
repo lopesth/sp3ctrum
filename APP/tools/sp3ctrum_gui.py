@@ -263,33 +263,33 @@ class Application(Frame):
     def guiTab3(self):
         self.plottypes = IntVar()
         self.plottypes.set(0)
-        self.box_container_plot = Frame(self.note3_struct, relief=FLAT, borderwidth=1)
+        self.box_container_plot = Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
         self.name_title = Label(self.box_container_plot, text="Title of the Plots (Optional):",
                                 font="Helvetica 14 bold", fg="#DF0027", background="#FFFFFF").pack(side="left")
-        self.title_entry = Entry(self.box_container_plot, width=60, fg="#263A90", borderwidth=2, relief=RIDGE)
+        self.title_entry = Entry(self.box_container_plot, width=60, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")
         self.title_entry.pack(side="left")
         self.box_container_plot.pack(pady=5)
-        self.box_container_curve_colors = Frame(self.note3_struct, relief=FLAT, borderwidth=1)
+        self.box_container_curve_colors = Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
 
         self.title_color_curve = Label(self.box_container_curve_colors, text="Color of Curve (CSS Hex Style, for each .log file):",
                                 font="Helvetica", fg="#DF0027", background="#FFFFFF").pack(side="left")
         self.entry_color_curve_list = []
 
         for i in range(0, 5, 1):
-            entry_color_curve1 = Entry(self.box_container_curve_colors, width=7, fg="#263A90", borderwidth=2, relief=RIDGE)
+            entry_color_curve1 = Entry(self.box_container_curve_colors, width=7, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")
             entry_color_curve1.insert(END, '#020041')
             entry_color_curve1.pack(side="left")
             self.entry_color_curve_list.append(entry_color_curve1)
 
         self.box_container_curve_colors.pack(side="top", pady=5, anchor=W, padx=10)
 
-        self.box_container_drop_colors = Frame(self.note3_struct, relief=FLAT, borderwidth=1)
+        self.box_container_drop_colors = Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
         self.title_color_drop = Label(self.box_container_drop_colors, text="Color of Oscillators (CSS Hex Style, for each .log file):",
                                 font="Helvetica", fg="#DF0027", background="#FFFFFF").pack(side="left")
         self.entry_color_drop_list = []
 
         for i in range(0, 5, 1):
-            entry_color_drop = Entry(self.box_container_drop_colors, width=7, fg="#263A90", borderwidth=2, relief=RIDGE)
+            entry_color_drop = Entry(self.box_container_drop_colors, width=7, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")
             entry_color_drop.insert(END, '#4F4233')
             entry_color_drop.pack(side="left")
             self.entry_color_drop_list.append(entry_color_drop)
@@ -302,20 +302,20 @@ class Application(Frame):
             self.entry_color_drop_list[i].configure(state="disabled", borderwidth=0)
 
 
-        self.box_container_res = Frame(self.note3_struct, relief=FLAT, borderwidth=1)
+        self.box_container_res = Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
         self.title_res = Label(self.box_container_res, text="Resolution of Plot (dpi):",
                                 font="Helvetica", fg="#DF0027", background="#FFFFFF").pack(side="left")
-        self.entry_res = Entry(self.box_container_res, width=4, fg="#263A90", borderwidth=2, relief=RIDGE)
+        self.entry_res = Entry(self.box_container_res, width=4, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")
         self.entry_res.insert(END, '300')
         self.entry_res.pack()
         self.box_container_res.pack(side="top", pady=5, anchor=W, padx=10)
-        self.checkbuttonplot_box=Frame(self.note3_struct, relief=FLAT, borderwidth=1)
+        self.checkbuttonplot_box=Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
         self.checkbuttonplot_name=Label(
             self.checkbuttonplot_box, text="Plot Types:", fg="#DF0027", background="#FFFFFF").pack(side="left")
         self.checkbuttonplot1 = Radiobutton(
-            self.checkbuttonplot_box, text="Independent Plots", variable=self.plottypes, value=1, command=self.enablePlot)
+            self.checkbuttonplot_box, text="Independent Plots", variable=self.plottypes, value=1, command=self.enablePlot, background="#FFFFFF")
         self.checkbuttonplot2 = Radiobutton(
-            self.checkbuttonplot_box, text="Overlay Plots", variable=self.plottypes, value=2, command=self.enablePlot)
+            self.checkbuttonplot_box, text="Overlay Plots", variable=self.plottypes, value=2, command=self.enablePlot, background="#FFFFFF")
         self.checkbuttonplot1.pack(side="left")
         self.checkbuttonplot2.pack(side="left")
         self.checkbuttonplot_box.pack(side="top", pady=5, anchor=W, padx=10)
