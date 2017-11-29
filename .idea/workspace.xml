@@ -15,7 +15,7 @@
     <favorites_list name="UV-Vis-Sp3ctrum-P4tronus" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5216638">
+    <splitter split-orientation="horizontal" split-proportion="0.50445986">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="print_spectrum.py" pinned="false" current-in-tab="true">
@@ -35,14 +35,14 @@
           <file leaf-file-name="sp3ctrum_gui.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="143">
-                  <caret line="119" column="50" lean-forward="false" selection-start-line="119" selection-start-column="50" selection-end-line="119" selection-end-column="50" />
+                <state relative-caret-position="403">
+                  <caret line="253" column="35" lean-forward="false" selection-start-line="253" selection-start-column="35" selection-end-line="253" selection-end-column="35" />
                   <folding>
                     <element signature="e#292#313#0" expanded="true" />
-                    <element signature="e#27641#27693#0" expanded="false" />
-                    <element signature="e#27731#27958#0" expanded="false" />
-                    <element signature="e#28316#28454#0" expanded="false" />
-                    <element signature="e#28494#28534#0" expanded="false" />
+                    <element signature="e#27971#28023#0" expanded="false" />
+                    <element signature="e#28061#28288#0" expanded="false" />
+                    <element signature="e#28646#28784#0" expanded="false" />
+                    <element signature="e#28824#28864#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -628,14 +628,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="119" column="50" lean-forward="false" selection-start-line="119" selection-start-column="50" selection-end-line="119" selection-end-column="50" />
+        <state relative-caret-position="403">
+          <caret line="253" column="35" lean-forward="false" selection-start-line="253" selection-start-column="35" selection-end-line="253" selection-end-column="35" />
           <folding>
             <element signature="e#292#313#0" expanded="true" />
-            <element signature="e#27641#27693#0" expanded="false" />
-            <element signature="e#27731#27958#0" expanded="false" />
-            <element signature="e#28316#28454#0" expanded="false" />
-            <element signature="e#28494#28534#0" expanded="false" />
+            <element signature="e#27971#28023#0" expanded="false" />
+            <element signature="e#28061#28288#0" expanded="false" />
+            <element signature="e#28646#28784#0" expanded="false" />
+            <element signature="e#28824#28864#0" expanded="false" />
           </folding>
         </state>
       </provider>
