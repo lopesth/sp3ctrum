@@ -662,14 +662,14 @@ class MDfilenames(Frame):
         self.folder_bt = Button(
             self.bt_container, text="Directory files", background="#FFFFFF", font="Helvetica",
             command=self.openDirectory,
-            highlightbackground="#FFFFFF", pady=2, relief=FLAT, borderwidth=0
+            highlightbackground="#FFFFFF", pady=2, relief=RIDGE, borderwidth=2
         )
         self.folder_bt.grid(row =0, column =0)
 
         self.submit_bt = Button(
             self.bt_container, text="Submit Files", background="#FFFFFF", font="Helvetica",
             command=self.submit_md,
-            highlightbackground="#FFFFFF", pady=2, relief=FLAT, borderwidth=0
+            highlightbackground="#FFFFFF", pady=2, relief=RIDGE, borderwidth=2
         )
         self.submit_bt.configure(state=DISABLED)
         self.submit_bt.grid(row =0, column =1)
