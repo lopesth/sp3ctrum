@@ -331,7 +331,7 @@ class Application(Frame):
         pass
 
     def guiTab6(self):
-        self.box_container_adv = Frame(self.note6_struct, relief=FLAT, borderwidth=, background="#FFFFFF"1)
+        self.box_container_adv = Frame(self.note6_struct, relief=FLAT, borderwidth=, background="#FFFFFF")
         self.name_output = Label(self.box_container_adv, text="Base of Output Names:",
                                  font="Helvetica 14 bold", fg="#DF0027", background="#FFFFFF").pack(side="left")
         self.output_entry = Entry(self.box_container_adv, width=60, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")

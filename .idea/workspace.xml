@@ -35,14 +35,14 @@
           <file leaf-file-name="sp3ctrum_gui.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="287">
-                  <caret line="335" column="93" lean-forward="false" selection-start-line="335" selection-start-column="93" selection-end-line="335" selection-end-column="93" />
+                <state relative-caret-position="257">
+                  <caret line="333" column="105" lean-forward="true" selection-start-line="333" selection-start-column="105" selection-end-line="333" selection-end-column="105" />
                   <folding>
                     <element signature="e#292#313#0" expanded="true" />
-                    <element signature="e#28301#28353#0" expanded="false" />
-                    <element signature="e#28391#28618#0" expanded="false" />
-                    <element signature="e#28976#29114#0" expanded="false" />
-                    <element signature="e#29154#29194#0" expanded="false" />
+                    <element signature="e#28300#28352#0" expanded="false" />
+                    <element signature="e#28390#28617#0" expanded="false" />
+                    <element signature="e#28975#29113#0" expanded="false" />
+                    <element signature="e#29153#29193#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -628,14 +628,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="335" column="93" lean-forward="false" selection-start-line="335" selection-start-column="93" selection-end-line="335" selection-end-column="93" />
+        <state relative-caret-position="257">
+          <caret line="333" column="105" lean-forward="true" selection-start-line="333" selection-start-column="105" selection-end-line="333" selection-end-column="105" />
           <folding>
             <element signature="e#292#313#0" expanded="true" />
-            <element signature="e#28301#28353#0" expanded="false" />
-            <element signature="e#28391#28618#0" expanded="false" />
-            <element signature="e#28976#29114#0" expanded="false" />
-            <element signature="e#29154#29194#0" expanded="false" />
+            <element signature="e#28300#28352#0" expanded="false" />
+            <element signature="e#28390#28617#0" expanded="false" />
+            <element signature="e#28975#29113#0" expanded="false" />
+            <element signature="e#29153#29193#0" expanded="false" />
           </folding>
         </state>
       </provider>
