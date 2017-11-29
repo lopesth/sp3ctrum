@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="83330f49-8b02-4520-bbdc-866d02400600" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py" afterPath="$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,15 +35,14 @@
           <file leaf-file-name="sp3ctrum_gui.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="436">
-                  <caret line="95" column="44" lean-forward="false" selection-start-line="95" selection-start-column="44" selection-end-line="95" selection-end-column="44" />
+                <state relative-caret-position="345">
+                  <caret line="23" column="13" lean-forward="true" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
                   <folding>
                     <element signature="e#292#313#0" expanded="true" />
-                    <element signature="e#27478#27530#0" expanded="false" />
-                    <element signature="e#27568#27795#0" expanded="false" />
-                    <element signature="e#27832#28119#0" expanded="false" />
-                    <element signature="e#28153#28291#0" expanded="false" />
-                    <element signature="e#28331#28371#0" expanded="false" />
+                    <element signature="e#27619#27671#0" expanded="false" />
+                    <element signature="e#27709#27936#0" expanded="false" />
+                    <element signature="e#28294#28432#0" expanded="false" />
+                    <element signature="e#28472#28512#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -133,8 +131,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="133" />
-    <option name="y" value="26" />
+    <option name="x" value="648" />
+    <option name="y" value="255" />
     <option name="width" value="2211" />
     <option name="height" value="1054" />
   </component>
@@ -210,7 +208,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="133" y="26" width="2211" height="1054" extended-state="0" />
+    <frame x="648" y="255" width="2211" height="1054" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.06961734" sideWeight="0.4942717" order="0" side_tool="false" content_ui="combo" />
@@ -621,15 +619,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="436">
-          <caret line="95" column="44" lean-forward="false" selection-start-line="95" selection-start-column="44" selection-end-line="95" selection-end-column="44" />
+        <state relative-caret-position="345">
+          <caret line="23" column="13" lean-forward="true" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
           <folding>
             <element signature="e#292#313#0" expanded="true" />
-            <element signature="e#27478#27530#0" expanded="false" />
-            <element signature="e#27568#27795#0" expanded="false" />
-            <element signature="e#27832#28119#0" expanded="false" />
-            <element signature="e#28153#28291#0" expanded="false" />
-            <element signature="e#28331#28371#0" expanded="false" />
+            <element signature="e#27619#27671#0" expanded="false" />
+            <element signature="e#27709#27936#0" expanded="false" />
+            <element signature="e#28294#28432#0" expanded="false" />
+            <element signature="e#28472#28512#0" expanded="false" />
           </folding>
         </state>
       </provider>

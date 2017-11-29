@@ -19,7 +19,10 @@ from APP.tools.print_spectrum import Print_Spectrum
 class Application(Frame):
     def __init__(self, toplevel):
         Frame.__init__(self, toplevel)
-        self.src = os.path.realpath(__file__).replace("tools/sp3ctrum_gui.py", "")
+        if sys.platform == "win32":
+            self.src = os.path.realpath(__file__).replace("tools\sp3ctrum_gui.py", "")
+        else:
+            self.src = os.path.realpath(__file__).replace("tools/sp3ctrum_gui.py", "")
         self.toplevel = toplevel
         self.toplevel.protocol("WM_DELETE_WINDOW", self.leave)
         self.toplevel.configure(bg="#8EF0F7")
