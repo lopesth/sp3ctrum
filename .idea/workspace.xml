@@ -36,13 +36,13 @@
             <entry file="file://$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="257">
-                  <caret line="333" column="105" lean-forward="true" selection-start-line="333" selection-start-column="105" selection-end-line="333" selection-end-column="105" />
+                  <caret line="333" column="84" lean-forward="false" selection-start-line="333" selection-start-column="84" selection-end-line="333" selection-end-column="84" />
                   <folding>
                     <element signature="e#292#313#0" expanded="true" />
-                    <element signature="e#28300#28352#0" expanded="false" />
-                    <element signature="e#28390#28617#0" expanded="false" />
-                    <element signature="e#28975#29113#0" expanded="false" />
-                    <element signature="e#29153#29193#0" expanded="false" />
+                    <element signature="e#28301#28353#0" expanded="false" />
+                    <element signature="e#28391#28618#0" expanded="false" />
+                    <element signature="e#28976#29114#0" expanded="false" />
+                    <element signature="e#29154#29194#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -131,8 +131,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="70" />
-    <option name="y" value="110" />
+    <option name="x" value="730" />
+    <option name="y" value="62" />
     <option name="width" value="2442" />
     <option name="height" value="1054" />
   </component>
@@ -208,7 +208,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="70" y="110" width="2442" height="1054" extended-state="0" />
+    <frame x="730" y="62" width="2442" height="1054" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.062916666" sideWeight="0.4942717" order="0" side_tool="false" content_ui="combo" />
@@ -629,13 +629,13 @@
     <entry file="file://$PROJECT_DIR$/APP/tools/sp3ctrum_gui.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="257">
-          <caret line="333" column="105" lean-forward="true" selection-start-line="333" selection-start-column="105" selection-end-line="333" selection-end-column="105" />
+          <caret line="333" column="84" lean-forward="false" selection-start-line="333" selection-start-column="84" selection-end-line="333" selection-end-column="84" />
           <folding>
             <element signature="e#292#313#0" expanded="true" />
-            <element signature="e#28300#28352#0" expanded="false" />
-            <element signature="e#28390#28617#0" expanded="false" />
-            <element signature="e#28975#29113#0" expanded="false" />
-            <element signature="e#29153#29193#0" expanded="false" />
+            <element signature="e#28301#28353#0" expanded="false" />
+            <element signature="e#28391#28618#0" expanded="false" />
+            <element signature="e#28976#29114#0" expanded="false" />
+            <element signature="e#29154#29194#0" expanded="false" />
           </folding>
         </state>
       </provider>
