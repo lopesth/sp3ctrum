@@ -590,7 +590,7 @@ class MDfilenames(Frame):
         self.window = Toplevel(self.toplevel)
         self.continue_loop = True
         self.filenames = []
-        self.window.geometry("400x270")
+        self.window.geometry("450x280")
         self.window.configure(background="#FFFFFF")
         self.window.wm_title("Multiple Files from MD")
         self.text_container=Frame(self.window, background="#FFFFFF")
@@ -667,7 +667,7 @@ class MDfilenames(Frame):
         self.folder_bt.grid(row =0, column =0)
 
         self.submit_bt = Button(
-            self.bt_container, text="Submit Files", background="#8EF0F7", font="Helvetica",
+            self.bt_container, text="Submit Files", background="#FFFFFF", font="Helvetica",
             command=self.submit_md,
             highlightbackground="#FFFFFF", pady=2, relief=FLAT, borderwidth=0
         )
