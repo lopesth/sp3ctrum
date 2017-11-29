@@ -123,7 +123,7 @@ class Application(Frame):
     def guiButtons(self):
         self.run_but_container = Frame(self.toplevel, bg="#8EF0F7")
         self.make_spec_bt = Button(
-            self.run_but_container, text="Calculate Spectrum", background="#8EF0F7", font="Helvetica", command=self.make_spectrum,
+            self.run_but_container, text="Calculate Spectrum", font="Helvetica", command=self.make_spectrum,
             highlightbackground="#8EF0F7", pady=2, relief=FLAT, borderwidth=0
         )
         self.make_spec_bt.configure(state=DISABLED)
@@ -166,7 +166,7 @@ class Application(Frame):
             self.note1_struct, text="Choose the type of analysis (with one file or with multiple file overlay):",
             font="Helvetica 14 bold", fg="#263A90", background="#FFFFFF"
         ).pack(anchor=NW, pady=5, padx=20)
-        self.open_files_BT = Frame(self.note1_struct)
+        self.open_files_BT = Frame(self.note1_struct, background="#FFFFFF")
 
         self.rb2_choice_file_type = Radiobutton(
             self.open_files_BT, text="Independent Files", variable=self.choice_file_type,
@@ -176,7 +176,7 @@ class Application(Frame):
 
         self.rb3_choice_file_type = Radiobutton(
             self.open_files_BT, text="Multiple Files from MD", variable=self.choice_file_type,
-            value=2, command=self.enable_file_bt
+            value=2, command=self.enable_file_bt, background="#FFFFFF"
         )
         self.rb3_choice_file_type.pack(side="left")
 
