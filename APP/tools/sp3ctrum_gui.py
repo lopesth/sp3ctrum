@@ -276,7 +276,7 @@ class Application(Frame):
         self.entry_color_curve_list = []
 
         for i in range(0, 5, 1):
-            entry_color_curve1 = Entry(self.box_container_curve_colors, width=7, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")
+            entry_color_curve1 = Entry(self.box_container_curve_colors, width=8, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")
             entry_color_curve1.insert(END, '#020041')
             entry_color_curve1.pack(side="left")
             self.entry_color_curve_list.append(entry_color_curve1)
@@ -289,7 +289,7 @@ class Application(Frame):
         self.entry_color_drop_list = []
 
         for i in range(0, 5, 1):
-            entry_color_drop = Entry(self.box_container_drop_colors, width=7, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")
+            entry_color_drop = Entry(self.box_container_drop_colors, width=8, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")
             entry_color_drop.insert(END, '#4F4233')
             entry_color_drop.pack(side="left")
             self.entry_color_drop_list.append(entry_color_drop)
@@ -298,8 +298,8 @@ class Application(Frame):
         for i in range(1, 5, 1):
             self.entry_color_drop_list[i].delete(0, END)
             self.entry_color_curve_list[i].delete(0, END)
-            self.entry_color_curve_list[i].configure(state="disabled", borderwidth=0)
-            self.entry_color_drop_list[i].configure(state="disabled", borderwidth=0)
+            self.entry_color_curve_list[i].configure(state="disabled", borderwidth=0, background="#FFFFFF")
+            self.entry_color_drop_list[i].configure(state="disabled", borderwidth=0, background="#FFFFFF")
 
 
         self.box_container_res = Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
