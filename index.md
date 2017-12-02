@@ -34,7 +34,7 @@ Professor Dr. Heibbe C. B. de Oliveira<br>
 <figure>
   <img src="index/leedmol.png" alt="LEEDMOL">	
 </figure>
-Laboratório de Estrutura Eletrônica e Dinâmica Molecular (LEEDMOL).
+<a href="http://leedmol.com"> Laboratório de Estrutura Eletrônica e Dinâmica Molecular (LEEDMOL).</a>
 <a href="https://www.facebook.com/leedmol/" > Facebook </a>
 
 <h2>Screen Shots</h2>
