@@ -158,7 +158,8 @@ class Application(Frame):
             self.note1_struct, text="Output Type Files:", font="Helvetica 14 bold", fg="#263A90", background="#FFFFFF"
         ).pack(anchor=NW, pady=5, padx=20)
         self.rb1_choice_log_type = Radiobutton(
-            self.note1_struct, text="Gaussian (G09 and G16)", variable=self.choice_log_type, value=0, background="#FFFFFF"
+            self.note1_struct, text="Gaussian (G09 and G16)", variable=self.choice_log_type,
+            value=0, background="#FFFFFF"
         )
         self.rb1_choice_log_type.pack(anchor=NW, padx=20)
         self.rb1_choice_log_type.select()
@@ -181,7 +182,8 @@ class Application(Frame):
         self.rb3_choice_file_type.pack(side="left")
 
         self.run_call_bt = Button(
-            self.open_files_BT, text="Open files", font="Helvetica", state=DISABLED, command=self.select_files, background="#FFFFFF"
+            self.open_files_BT, text="Open files", font="Helvetica",
+            state=DISABLED, command=self.select_files, background="#FFFFFF"
         )
         self.run_call_bt.pack(side="left")
         self.open_files_BT.pack(anchor=NW, pady=5, padx=20)
@@ -252,7 +254,8 @@ class Application(Frame):
         ).pack(fill=X)
         self.fwhm_name2 = Label(self.box_container_fwhm, text=u'FWHM (cm\u207B\u00B9):',
                                 font="Helvetica 16 bold", fg="#DF0027", background="#FFFFFF").pack(fill=X)
-        self.fwhm_entry = Entry(self.box_container_fwhm, width=7, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")
+        self.fwhm_entry = Entry(
+            self.box_container_fwhm, width=7, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")
         self.fwhm_entry.insert(END, '3226.22')
         self.fwhm_entry.pack()
         self.box_container_fwhm.pack(side="left")
@@ -261,22 +264,24 @@ class Application(Frame):
         self.box_container_out.pack()
 
     def guiTab3(self):
-        self.plottypes = IntVar()
-        self.plottypes.set(0)
         self.box_container_plot = Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
         self.name_title = Label(self.box_container_plot, text="Title of the Plots (Optional):",
                                 font="Helvetica 14 bold", fg="#DF0027", background="#FFFFFF").pack(side="left")
-        self.title_entry = Entry(self.box_container_plot, width=60, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")
+        self.title_entry = Entry(
+            self.box_container_plot, width=60, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")
         self.title_entry.pack(side="left")
         self.box_container_plot.pack(pady=5)
         self.box_container_curve_colors = Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
 
-        self.title_color_curve = Label(self.box_container_curve_colors, text="Color of Curve (CSS Hex Style, for each .log file):",
-                                font="Helvetica", fg="#DF0027", background="#FFFFFF").pack(side="left")
+        self.title_color_curve = Label(
+            self.box_container_curve_colors, text="Color of Curve (CSS Hex Style, for each .log file):",
+            font="Helvetica", fg="#DF0027", background="#FFFFFF").pack(side="left")
         self.entry_color_curve_list = []
 
         for i in range(0, 5, 1):
-            entry_color_curve1 = Entry(self.box_container_curve_colors, width=8, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")
+            entry_color_curve1 = Entry(
+                self.box_container_curve_colors, width=8, fg="#263A90", borderwidth=2,
+                relief=RIDGE, background="#FFFFFF")
             entry_color_curve1.insert(END, '#020041')
             entry_color_curve1.pack(side="left")
             self.entry_color_curve_list.append(entry_color_curve1)
@@ -284,12 +289,15 @@ class Application(Frame):
         self.box_container_curve_colors.pack(side="top", pady=5, anchor=W, padx=10)
 
         self.box_container_drop_colors = Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
-        self.title_color_drop = Label(self.box_container_drop_colors, text="Color of Oscillators (CSS Hex Style, for each .log file):",
+        self.title_color_drop = Label(
+            self.box_container_drop_colors, text="Color of Oscillators (CSS Hex Style, for each .log file):",
                                 font="Helvetica", fg="#DF0027", background="#FFFFFF").pack(side="left")
         self.entry_color_drop_list = []
 
         for i in range(0, 5, 1):
-            entry_color_drop = Entry(self.box_container_drop_colors, width=8, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")
+            entry_color_drop = Entry(
+                self.box_container_drop_colors, width=8, fg="#263A90",
+                borderwidth=2, relief=RIDGE, background="#FFFFFF")
             entry_color_drop.insert(END, '#4F4233')
             entry_color_drop.pack(side="left")
             self.entry_color_drop_list.append(entry_color_drop)
@@ -305,36 +313,74 @@ class Application(Frame):
         self.box_container_res = Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
         self.title_res = Label(self.box_container_res, text="Resolution of Plot (dpi):",
                                 font="Helvetica", fg="#DF0027", background="#FFFFFF").pack(side="left")
-        self.entry_res = Entry(self.box_container_res, width=4, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")
+        self.entry_res = Entry(
+            self.box_container_res, width=4, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")
         self.entry_res.insert(END, '300')
         self.entry_res.pack()
         self.box_container_res.pack(side="top", pady=5, anchor=W, padx=10)
         self.checkbuttonplot_box=Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
+        self.plottypes = IntVar(0)
         self.checkbuttonplot_name=Label(
             self.checkbuttonplot_box, text="Plot Types:", fg="#DF0027", background="#FFFFFF").pack(side="left")
         self.checkbuttonplot1 = Radiobutton(
-            self.checkbuttonplot_box, text="Independent Plots", variable=self.plottypes, value=1, command=self.enablePlot, background="#FFFFFF")
+            self.checkbuttonplot_box, text="Independent Plots", variable=self.plottypes,
+            value=0, background="#FFFFFF")
         self.checkbuttonplot2 = Radiobutton(
-            self.checkbuttonplot_box, text="Overlay Plots", variable=self.plottypes, value=2, command=self.enablePlot, background="#FFFFFF")
+            self.checkbuttonplot_box, text="Overlay Plots", variable=self.plottypes,
+            value=1, background="#FFFFFF")
         self.checkbuttonplot1.pack(side="left")
         self.checkbuttonplot2.pack(side="left")
         self.checkbuttonplot_box.pack(side="top", pady=5, anchor=W, padx=10)
-
-    def enablePlot(self):
-        self.pyplot_bt.configure(state=NORMAL)
 
 
     def guiTab4(self):
         pass
 
     def guiTab5(self):
-        pass
+        self.evol_plot_osc_choice = IntVar(0)
+        self.evol_plot_wl_choice = IntVar(0)
+        self.box_evoltuionOption = Frame( self.note5_struct,relief=FLAT, borderwidth=0, bg = "#FFFFFF")
+        self.box_evoltuionOption_oscillator = Frame(
+            self.box_evoltuionOption, relief=FLAT, borderwidth=0, bg = "#FFFFFF")
+        self.text_oscillator_evolution = Label(
+            self.box_evoltuionOption_oscillator,text="Evolution Plot for Oscillator Forces:", bg = "#FFFFFF"
+        ).pack(side="left", padx=10)
+        self.evol_plot_osc_Nbt = Radiobutton(
+            self.box_evoltuionOption_oscillator, text="No", variable=self.evol_plot_osc_choice,
+            value=0, background="#FFFFFF"
+        )
+        self.evol_plot_osc_Ybt = Radiobutton(
+            self.box_evoltuionOption_oscillator, text="Yes", variable=self.evol_plot_osc_choice,
+            value=1, background="#FFFFFF"
+        )
+        self.evol_plot_osc_Nbt.pack(side="left")
+        self.evol_plot_osc_Ybt.pack(side="left")
+        self.box_evoltuionOption_oscillator.pack(side="top", padx=10, pady=5)
+        self.box_evoltuionOption_wl = Frame(
+            self.box_evoltuionOption, relief=FLAT, borderwidth=0, bg="#FFFFFF")
+        self.text_wl_evolution = Label(
+            self.box_evoltuionOption_wl, text="Evolution Plot for Wavelength:", bg="#FFFFFF"
+        ).pack(side="left", padx=27)
+        self.evol_plot_wl_Nbt = Radiobutton(
+            self.box_evoltuionOption_wl, text="No", variable=self.evol_plot_wl_choice,
+            value=0, background="#FFFFFF"
+        )
+        self.evol_plot_wl_Ybt = Radiobutton(
+            self.box_evoltuionOption_wl, text="Yes", variable=self.evol_plot_wl_choice,
+            value=1, background="#FFFFFF"
+        )
+        self.evol_plot_wl_Nbt.pack(side="left")
+        self.evol_plot_wl_Ybt.pack(side="left")
+        self.box_evoltuionOption_wl.pack(side="top", padx=10, pady=5, anchor=W)
+        self.box_evoltuionOption.pack(side="top", anchor=W)
+
 
     def guiTab6(self):
         self.box_container_adv = Frame(self.note6_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
         self.name_output = Label(self.box_container_adv, text="Base of Output Names:",
                                  font="Helvetica 14 bold", fg="#DF0027", background="#FFFFFF").pack(side="left")
-        self.output_entry = Entry(self.box_container_adv, width=60, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")
+        self.output_entry = Entry(
+            self.box_container_adv, width=60, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")
         self.output_entry.pack(side="left")
         self.box_container_adv.pack(pady=5)
 
@@ -458,7 +504,7 @@ class Application(Frame):
         return error
 
     def makeSpectrumMD(self):
-        self.pyplot_bt.configure(state=DISABLED)
+        self.pyplot_bt.configure(state=NORMAL)
         self.output_file_names=self.output_file_name
         error = self.getSimpleValues()
         if error < 1:
@@ -468,6 +514,7 @@ class Application(Frame):
                                 "Please correct the marked values.")
 
     def makeSpectrum(self):
+        self.pyplot_bt.configure(state=NORMAL)
         error = self.getSimpleValues()
         self.total_oscillators = []
         self.output_file_names=[]

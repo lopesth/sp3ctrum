@@ -33,13 +33,13 @@ class Print_Spectrum(object):
         print(self.log_names)
 
     def print_matplotlib(self):
-        if self.plottypes == 1:
+        if self.plottypes == 0:
             namefiles = []
             for logname in self.log_names:
                 namefiles.append(self.dir_target + "/" + (logname.split("/")[-1]).split(".log")[0] + ".png")
             self.singleGraphs(namefiles)
             self.show(self.graph, ["teste", "teste", "teste", "teste"])
-        elif self.plottypes == 2:
+        elif self.plottypes == 1:
             self.overlayGraph([self.dir_target + "/" + self.dir_target.split("/")[-1] + ".png"])
             self.show(self.graph, [""])
 
