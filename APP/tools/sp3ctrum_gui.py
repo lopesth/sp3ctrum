@@ -567,7 +567,8 @@ class Application(Frame):
                 self.target_dir, self.output_file_names, self.wl_rang[0],
                 self.wl_rang[1], self.title_chart, int( self.entry_res.get()),
                 self.osc_color, self.curve_color, "0", self.filenames,  self.plottypes.get()
-            )
+            if self.evol_plot_wl_choice.get == 1 or  self.evol_plot_osc_choice == 1:
+                pass
 
         x.print_matplotlib()
 
