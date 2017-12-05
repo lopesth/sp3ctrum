@@ -15,6 +15,7 @@ import sys, os, webbrowser
 from APP.tools.gaussian_conv import Gaussian_Convolution
 from APP.tools.get_osc import Get_Osc
 from APP.tools.print_spectrum import Print_Spectrum
+from APP.tools.plotTransitions import PlotTransitions
 
 class Application(Frame):
     def __init__(self, toplevel):
