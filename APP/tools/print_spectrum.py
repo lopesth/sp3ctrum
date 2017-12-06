@@ -4,7 +4,7 @@ __credits__ = "LEEDMOL group - Institute of Chemistry at Universidade de Brasili
 __maintainer__ = "Thiago Lopes"
 __email__ = "lopes.th.o@gmail.com"
 __date__ = "Nov 17 of 2017"
-__version__ = "3.0"
+__version__ = "3.0.1"
 
 import matplotlib
 matplotlib.use("TkAgg")
@@ -30,7 +30,6 @@ class Print_Spectrum(object):
         self.exp_curv_color = exp_curv_color
         self.log_names = log_names
         self.plottypes = plottypes
-        print(self.log_names)
 
     def print_matplotlib(self):
         if self.plottypes == 0:

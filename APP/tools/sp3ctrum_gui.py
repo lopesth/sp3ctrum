@@ -4,7 +4,7 @@ __credits__ = "LEEDMOL group - Institute of Chemistry at Universidade de Brasili
 __maintainer__ = "Thiago Lopes"
 __email__ = "lopes.th.o@gmail.com"
 __date__ = "Nov 17 of 2017"
-__version__ = "2.0.1"
+__version__ = "3.0.1"
 
 from tkinter import *
 from tkinter import filedialog
@@ -546,10 +546,8 @@ class Application(Frame):
     def adv_file(self):
         pass
 
-
     def simple_file(self):
         pass
-
 
     def pyplot(self):
         if self.choice_file_type == 2:
@@ -569,7 +567,7 @@ class Application(Frame):
                 self.wl_rang[1], self.title_chart, int( self.entry_res.get()),
                 self.osc_color, self.curve_color, "0", self.filenames,  self.plottypes.get()
             if self.evol_plot_wl_choice.get == 1 or  self.evol_plot_osc_choice == 1:
-                pass
+                y = PlotTransitions(self.target_dir, self.output_file_names, self.title_chart_evolution, self.filenames, self.evol_plot_wl_choice.get(), self.evol_plot_osc_choice,get())
 
         x.print_matplotlib()
 
