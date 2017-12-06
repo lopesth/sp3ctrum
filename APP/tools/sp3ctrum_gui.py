@@ -568,8 +568,8 @@ class Application(Frame):
                 self.wl_rang[1], self.title_chart, int( self.entry_res.get()),
                 self.osc_color, self.curve_color, "0", self.filenames,  self.plottypes.get())
             x.print_matplotlib()
-            #if self.evol_plot_wl_choice.get == 1 or  self.evol_plot_osc_choice == 1:
-                #y = PlotTransitions(self.target_dir, self.output_file_names, self.title_chart_evolution, self.filenames, self.evol_plot_wl_choice.get(), self.evol_plot_osc_choice,get())
+            if self.evol_plot_wl_choice.get == 1 or  self.evol_plot_osc_choice == 1:
+                y = PlotTransitions(self.target_dir, self.output_file_names, self.title_chart_evolution, self.filenames, self.evol_plot_wl_choice.get(), self.evol_plot_osc_choice,get())
 
 
 
