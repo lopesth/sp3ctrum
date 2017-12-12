@@ -45,7 +45,6 @@ class Application(Frame):
         self.guiButtons()
         self.guiLogos()
 
-
     def setStyle(self):
         self.style = ttk.Style()
 
@@ -170,17 +169,17 @@ class Application(Frame):
         ).pack(anchor=NW, pady=5, padx=20)
         self.open_files_BT = Frame(self.note1_struct, background="#FFFFFF")
 
-        self.rb2_choice_file_type = Radiobutton(
+        self.rb1_choice_file_type = Radiobutton(
             self.open_files_BT, text="Independent Files", variable=self.choice_file_type,
+            value=0, command=self.enable_file_bt, background="#FFFFFF"
+        )
+        self.rb1_choice_file_type.pack(side="left")
+
+        self.rb2_choice_file_type = Radiobutton(
+            self.open_files_BT, text="Multiple Files from MD", variable=self.choice_file_type,
             value=1, command=self.enable_file_bt, background="#FFFFFF"
         )
         self.rb2_choice_file_type.pack(side="left")
-
-        self.rb3_choice_file_type = Radiobutton(
-            self.open_files_BT, text="Multiple Files from MD", variable=self.choice_file_type,
-            value=2, command=self.enable_file_bt, background="#FFFFFF"
-        )
-        self.rb3_choice_file_type.pack(side="left")
 
         self.run_call_bt = Button(
             self.open_files_BT, text="Open files", font="Helvetica",
@@ -275,7 +274,7 @@ class Application(Frame):
         self.box_container_curve_colors = Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
 
         self.title_color_curve = Label(
-            self.box_container_curve_colors, text="Color of Curve (CSS Hex Style, for each .log file):",
+            self.box_container_curve_colors, text="Color of Curve\n(CSS Hex Style, for each .log file):",
             font="Helvetica", fg="#DF0027", background="#FFFFFF").pack(side="left")
         self.entry_color_curve_list = []
 
@@ -284,31 +283,31 @@ class Application(Frame):
                 self.box_container_curve_colors, width=8, fg="#263A90", borderwidth=2,
                 relief=RIDGE, background="#FFFFFF")
             entry_color_curve1.insert(END, '#020041')
-            entry_color_curve1.pack(side="left")
+            entry_color_curve1.pack(side="left", padx=5)
             self.entry_color_curve_list.append(entry_color_curve1)
 
         self.box_container_curve_colors.pack(side="top", pady=5, anchor=W, padx=10)
 
         self.box_container_drop_colors = Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
         self.title_color_drop = Label(
-            self.box_container_drop_colors, text="Color of Oscillators (CSS Hex Style, for each .log file):",
+            self.box_container_drop_colors, text="Color of Oscillators\n(CSS Hex Style, for each .log file):",
                                 font="Helvetica", fg="#DF0027", background="#FFFFFF").pack(side="left")
         self.entry_color_drop_list = []
 
         for i in range(0, 5, 1):
             entry_color_drop = Entry(
                 self.box_container_drop_colors, width=8, fg="#263A90",
-                borderwidth=2, relief=RIDGE, background="#FFFFFF")
+                borderwidth=2, relief=RIDGE,  background="#FFFFFF")
             entry_color_drop.insert(END, '#4F4233')
-            entry_color_drop.pack(side="left")
+            entry_color_drop.pack(side="left", padx=5)
             self.entry_color_drop_list.append(entry_color_drop)
-        self.box_container_drop_colors.pack(side="top", pady=5, anchor=W, padx=10)
+        self.box_container_drop_colors.pack(side="top", pady=10, anchor=W, padx=10)
 
         for i in range(1, 5, 1):
             self.entry_color_drop_list[i].delete(0, END)
             self.entry_color_curve_list[i].delete(0, END)
-            self.entry_color_curve_list[i].configure(state="disabled", borderwidth=0, background="#FFFFFF")
-            self.entry_color_drop_list[i].configure(state="disabled", borderwidth=0, background="#FFFFFF")
+            self.entry_color_curve_list[i].configure(state="disabled", borderwidth=2)
+            self.entry_color_drop_list[i].configure(state="disabled", borderwidth=2)
 
 
         self.box_container_res = Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
@@ -335,7 +334,140 @@ class Application(Frame):
 
 
     def guiTab4(self):
-        pass
+        self.option_experimental = IntVar(0)
+        self.experimental_type = IntVar(0)
+        self.experimental_points_wl = []
+        self.experimental_points_abs = []
+        self.box_option_experimental = Frame(self.note4_struct, relief=FLAT, borderwidth=0, bg = "#FFFFFF")
+        self.text_option_experimental = Label(
+            self.box_option_experimental,text="Plot with experimental data?", bg = "#FFFFFF"
+        ).pack(side="left", padx=10)
+        self.option_experimental_NObt = Radiobutton(
+            self.box_option_experimental, text="No", variable=self.option_experimental,
+            value=0, background="#FFFFFF", command = self.no_experimental_data
+        )
+        self.option_experimental_NObt.pack(side="left", padx=10)
+        self.option_experimental_Ybt = Radiobutton(
+            self.box_option_experimental, text="Yes", variable=self.option_experimental,
+            value=1, background="#FFFFFF", command = self.experimental_data_type
+        )
+        self.option_experimental_Ybt.pack(side="left", padx=10)
+        self.box_option_experimental.pack(side="top", pady=5, anchor=W)
+        self.exp_abs_lines = []
+        self.exp_wl_lines = []
+        self.box_experimental_types = Frame(self.note4_struct, relief=FLAT, borderwidth=0, bg = "#FFFFFF")
+        self.text_experimental_types = Label(
+            self.box_experimental_types,text="Plot of Experimental Values:", bg = "#FFFFFF"
+        )
+        self.text_experimental_types.pack(side="left", padx=10)
+        self.experimental_type_curve_bt = Radiobutton(
+            self.box_experimental_types, text="Curve", variable=self.experimental_type,
+            value=0, background="#FFFFFF", command = self.experimental_data_curve
+        )
+        self.experimental_type_curve_bt.pack(side="left", padx=10)
+        self.experimental_type_ref_bt = Radiobutton(
+            self.box_experimental_types, text="Reference", variable=self.experimental_type,
+            value=1, background="#FFFFFF", command = self.experimental_data_ref
+        )
+        self.experimental_type_ref_bt.pack(side="left", padx=10)
+        self.box_experimental_types.pack(side="top", pady=10,  anchor=W)
+        self.box_experimental_plot = Frame(self.note4_struct, relief=FLAT, borderwidth=0, bg = "#FFFFFF")
+        self.text_experimental_plot = Label(
+            self.box_experimental_plot,text="File with experimental data:", bg = "#FFFFFF"
+        )
+        self.text_experimental_plot.pack(side="left", padx=10)
+        self.buttom_experimental_plot = Button(
+            self.box_experimental_plot, text="Open Files", command = self.open_experimental_data_file
+        )
+        self.buttom_experimental_plot.pack(side="left", padx=10)
+        self.boxList_experimental_plot = Listbox(
+            self.box_experimental_plot, relief=RIDGE, borderwidth=3, width=45,height=1, background="#FFFFFF", fg="#263A90"
+        )
+        self.boxList_experimental_plot.pack(side="left", padx=10)
+        self.box_experimental_plot.pack(side="top", pady=10,  anchor=W)
+
+        self.box_experimental_ref = Frame(self.note4_struct, relief=FLAT, borderwidth=0, bg = "#FFFFFF")
+        self.experimental_ref_text = Label(
+            self.box_experimental_ref, text="Points of the\nexperimental values:", bg = "#FFFFFF"
+        )
+        self.experimental_ref_text.pack(side="left", padx=10)
+        self.box_experimental_ref_wl = Frame(self.box_experimental_ref,relief=FLAT, borderwidth=0, bg = "#FFFFFF")
+        self.experimental_ref_wl_name = Label(
+            self.box_experimental_ref_wl, text="\nWavelength:", bg = "#FFFFFF"
+        )
+        self.experimental_ref_wl_name.pack(side="top", padx=10)
+        for i in range(0, 4, 1):
+            entry_wl_exp = Entry(
+                self.box_experimental_ref_wl, width=8, fg="#263A90",
+                borderwidth=2, relief=RIDGE, background="#FFFFFF"
+            )
+            entry_wl_exp.pack(side="top", padx=10)
+            self.experimental_points_wl.append(entry_wl_exp)
+        self.box_experimental_ref_wl.pack(side="left", padx=10)
+        self.box_experimental_ref_abs = Frame(self.box_experimental_ref,relief=FLAT, borderwidth=0, bg = "#FFFFFF")
+        self.experimental_ref_abs_name = Label(
+            self.box_experimental_ref_abs, text="Molar Absortivity\n(L/mol.cm):", bg = "#FFFFFF"
+        )
+        self.experimental_ref_abs_name.pack(side="top", padx=10)
+        for i in range(0, 4, 1):
+            entry_abs_exp = Entry(
+                self.box_experimental_ref_abs, width=8, fg="#263A90",
+                borderwidth=2, relief=RIDGE, background="#FFFFFF"
+            )
+            entry_abs_exp.pack(side="top", padx=10)
+            self.experimental_points_abs.append(entry_abs_exp)
+        self.box_experimental_ref_abs.pack(side="left", padx=10)
+        self.box_experimental_ref.pack(side="top", pady=10,  anchor=W)
+        self.no_experimental_data()
+
+    def open_experimental_data_file(self):
+        self.experimental_data_file = filedialog.askopenfilename(
+                initialdir="/", filetypes=[("File Data","*.dat")]
+        )
+        self.boxList_experimental_plot.insert(0, self.experimental_data_file)
+
+    def no_experimental_data(self):
+        self.experimental_type_curve_bt.config(state=DISABLED)
+        self.experimental_type_ref_bt.config(state=DISABLED)
+        self.text_experimental_types.config(fg="#BFBFBF")
+        self.no_experimental_data_curve()
+        self.no_experimental_data_ref()
+
+    def experimental_data_type(self):
+        self.experimental_type_curve_bt.config(state=NORMAL)
+        self.experimental_type_ref_bt.config(state=NORMAL)
+        self.text_experimental_types.config(fg="#000000")
+
+    def experimental_data_curve(self):
+        self.no_experimental_data_ref()
+        self.text_experimental_plot.config(fg="#000000")
+        self.buttom_experimental_plot.config(state=NORMAL)
+        self.boxList_experimental_plot.config(state=NORMAL)
+
+    def no_experimental_data_curve(self):
+        self.text_experimental_plot.config(fg="#BFBFBF")
+        self.buttom_experimental_plot.config(state=DISABLED)
+        self.boxList_experimental_plot.delete(0, END)
+        self.boxList_experimental_plot.config(state=DISABLED)
+
+    def experimental_data_ref(self):
+        self.no_experimental_data_curve()
+        self.experimental_ref_text.config(fg="#000000")
+        self.experimental_ref_wl_name.config(fg="#000000")
+        self.experimental_ref_abs_name.config(fg="#000000")
+        for i in range(0, 4, 1):
+            self.experimental_points_wl[i].config(state=NORMAL)
+            self.experimental_points_abs[i].config(state=NORMAL)
+
+    def no_experimental_data_ref(self):
+        self.experimental_ref_text.config(fg="#BFBFBF")
+        self.experimental_ref_wl_name.config(fg="#BFBFBF")
+        self.experimental_ref_abs_name.config(fg="#BFBFBF")
+        for i in range(0, 4, 1):
+            self.experimental_points_wl[i].delete(0, 'end')
+            self.experimental_points_abs[i].delete(0, 'end')
+            self.experimental_points_wl[i].config(state=DISABLED)
+            self.experimental_points_abs[i].config(state=DISABLED)
 
     def guiTab5(self):
         self.evol_plot_osc_choice = IntVar(0)
@@ -409,7 +541,7 @@ class Application(Frame):
     def select_files(self):
         self.file_name_box.delete(0, END)
         self.operationMode = self.choice_file_type.get()
-        if self.choice_file_type.get() == 1:
+        if self.choice_file_type.get() == 0:
             self.filenames = []
             self.filenames_ = filedialog.askopenfilenames(
                 initialdir="/", filetypes=[("Gaussian LOG files","*.log"), ("Gaussian OUTPUTS files","*.out")]
@@ -448,7 +580,7 @@ class Application(Frame):
         self.output_entry.insert(0, self.filenames[-1].split("/")[-2].lower())
 
     def make_spectrum(self):
-        if self.choice_file_type.get() == 1:
+        if self.choice_file_type.get() == 0:
             self.makeSpectrum()
         else:
             self.makeSpectrumMD()
@@ -550,11 +682,11 @@ class Application(Frame):
         pass
 
     def pyplot(self):
-        if self.choice_file_type == 2:
+        if self.choice_file_type.get() == 1:
             x = Print_Spectrum(
-                self.target_dir, [self.output_file_name], self.wl_rang[0],
-                self.wl_rang[1], self.title_chart, int(self.entry_res.get()),
-                self.osc_color, self.curve_color, "0", self.filenames, self.plottypes.get()
+                self.target_dir, [self.output_file_name], self.wl_rang[0], self.wl_rang[1],
+                self.title_chart, int(self.entry_res.get()), self.osc_color, self.curve_color,
+                "0", self.filenames, self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines
             )
             x.print_matplotlib()
         else:
@@ -564,9 +696,9 @@ class Application(Frame):
                 self.curve_color.append(self.entry_color_curve_list[i].get())
                 self.osc_color.append(self.entry_color_drop_list[i].get())
             x = Print_Spectrum(
-                self.target_dir, self.output_file_names, self.wl_rang[0],
-                self.wl_rang[1], self.title_chart, int( self.entry_res.get()),
-                self.osc_color, self.curve_color, "0", self.filenames,  self.plottypes.get())
+                self.target_dir, self.output_file_names, self.wl_rang[0], self.wl_rang[1],
+                self.title_chart, int( self.entry_res.get()), self.osc_color, self.curve_color,
+                "0", self.filenames,  self.plottypes.get()), self.exp_abs_lines, self.exp_wl_lines
             x.print_matplotlib()
             if self.evol_plot_wl_choice.get() == 1 or  self.evol_plot_osc_choice.get() == 1:
                 y = PlotTransitions(self.target_dir, self.output_file_names, self.title_chart_evolution, self.filenames, self.evol_plot_wl_choice.get(), self.evol_plot_osc_choice.get())

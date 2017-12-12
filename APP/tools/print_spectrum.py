@@ -18,7 +18,7 @@ from APP.tools.differential import FiniteDifferenceDerivative
 
 class Print_Spectrum(object):
 
-    def __init__(self, dir_target, file_names, start_wl, end_wl, title, resol, osc_color, curve_color, exp_curv_color, log_names, plottypes):
+    def __init__(self, dir_target, file_names, start_wl, end_wl, title, resol, osc_color, curve_color, exp_curv_color, log_names, plottypes, exp_abs_lines, exp_wl_lines):
         self.file_names = file_names
         self.resol = resol
         self.start_wl = start_wl
@@ -30,6 +30,8 @@ class Print_Spectrum(object):
         self.exp_curv_color = exp_curv_color
         self.log_names = log_names
         self.plottypes = plottypes
+        self.exp_abs_lines =exp_abs_lines
+        self.exp_wl_lines = exp_wl_lines
 
     def print_matplotlib(self):
         if self.plottypes == 0:
@@ -65,7 +67,7 @@ class Print_Spectrum(object):
             line1, = a.plot(wl, epslon, linestyle='solid', color=self.curve_color[i], fillstyle='none')
             line2, = b.plot(wl_ref, osc_ref, visible=False)
             for j in range(len(wl_ref)):
-                b.vlines(wl_ref[j], 0, osc_ref[j], colors=self.osc_color[i], lw=2)
+                b.vlines(wl_ref[j], 0, osc_ref[j], colors=self.osc_color[i], lw=1)
             self.graph[i].tight_layout()
             self.wl_list.append(wl)
             self.epslon_list.append(epslon)
@@ -105,7 +107,7 @@ class Print_Spectrum(object):
             line1, = a.plot(wl, epslon, linestyle = 'solid', color=self.curve_color[num], fillstyle ='none')
             line2, = b.plot(wl_ref, osc_ref, visible = False)
             for i in range(len(wl_ref)):
-                b.vlines(wl_ref[i], 0, osc_ref[i], colors=self.osc_color[num], lw =2)
+                b.vlines(wl_ref[i], 0, osc_ref[i], colors=self.osc_color[num], lw =1)
             self.graph[0].tight_layout()
             b.yaxis.set_visible(False)
             self.wl_list.append(wl)
