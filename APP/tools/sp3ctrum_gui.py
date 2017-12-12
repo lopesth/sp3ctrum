@@ -44,6 +44,8 @@ class Application(Frame):
         self.guiTab6()
         self.guiButtons()
         self.guiLogos()
+        self.exp_abs_lines = []
+        self.exp_wl_lines = []
 
     def setStyle(self):
         self.style = ttk.Style()
@@ -353,8 +355,6 @@ class Application(Frame):
         )
         self.option_experimental_Ybt.pack(side="left", padx=10)
         self.box_option_experimental.pack(side="top", pady=5, anchor=W)
-        self.exp_abs_lines = []
-        self.exp_wl_lines = []
         self.box_experimental_types = Frame(self.note4_struct, relief=FLAT, borderwidth=0, bg = "#FFFFFF")
         self.text_experimental_types = Label(
             self.box_experimental_types,text="Plot of Experimental Values:", bg = "#FFFFFF"
@@ -681,7 +681,23 @@ class Application(Frame):
     def simple_file(self):
         pass
 
+    def get_exp_data(self):
+        if self.option_experimental.get() == 0:
+            pass
+        else:
+            if self.experimental_type.get() == 0:
+                pass
+            else:
+                for i in range(0, 4, 1):
+                    x = self.experimental_points_wl[i].get()
+                    if len(x) > 0:
+                        self.exp_wl_lines.append(float(x))
+                    y = self.experimental_points_abs[i].get()
+                    if len(y) > 0:
+                        self.exp_abs_lines.append(float(y))
+        
     def pyplot(self):
+        self.get_exp_data()
         if self.choice_file_type.get() == 1:
             x = Print_Spectrum(
                 self.target_dir, [self.output_file_name], self.wl_rang[0], self.wl_rang[1],
@@ -698,7 +714,7 @@ class Application(Frame):
             x = Print_Spectrum(
                 self.target_dir, self.output_file_names, self.wl_rang[0], self.wl_rang[1],
                 self.title_chart, int( self.entry_res.get()), self.osc_color, self.curve_color,
-                "0", self.filenames,  self.plottypes.get()), self.exp_abs_lines, self.exp_wl_lines
+                "0", self.filenames,  self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines)
             x.print_matplotlib()
             if self.evol_plot_wl_choice.get() == 1 or  self.evol_plot_osc_choice.get() == 1:
                 y = PlotTransitions(self.target_dir, self.output_file_names, self.title_chart_evolution, self.filenames, self.evol_plot_wl_choice.get(), self.evol_plot_osc_choice.get())
