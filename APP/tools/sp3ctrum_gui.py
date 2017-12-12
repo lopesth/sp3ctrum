@@ -393,7 +393,7 @@ class Application(Frame):
         self.experimental_ref_text.pack(side="left", padx=10)
         self.box_experimental_ref_wl = Frame(self.box_experimental_ref,relief=FLAT, borderwidth=0, bg = "#FFFFFF")
         self.experimental_ref_wl_name = Label(
-            self.box_experimental_ref_wl, text="\nWavelength:", bg = "#FFFFFF"
+            self.box_experimental_ref_wl, text="Wavelength\n(nm):", bg = "#FFFFFF"
         )
         self.experimental_ref_wl_name.pack(side="top", padx=10)
         for i in range(0, 4, 1):
