@@ -63,19 +63,16 @@ class Print_Spectrum(object):
                     wl_ref.append(float(line.split()[0]))
                     osc_ref.append(float(line.split()[1]))
             a = self.graph[i].add_subplot(111)
+            
             b = a.twinx()
             line1, = a.plot(wl, epslon, linestyle='solid', color=self.curve_color[i], fillstyle='none')
             line2, = b.plot(wl_ref, osc_ref, visible=False)
             for j in range(len(wl_ref)):
                 b.vlines(wl_ref[j], 0, osc_ref[j], colors=self.osc_color[i], lw=1)
             if len(self.exp_wl_lines) > 0:
-                c = a.twinx()
-                line3, = c.plot(self.exp_wl_lines, self.exp_abs_lines, visible=False)
                 for ref_exp in range(0, len(self.exp_wl_lines), 1):
-                    c.vlines(self.exp_wl_lines[ref_exp], 0, self.exp_abs_lines[ref_exp], colors="#000000", linestyle='--',)
-                    c.hlines(self.exp_abs_lines[ref_exp],self.start_wl , self.exp_wl_lines[ref_exp], colors="#000000", linestyle='--')
-                c.yaxis.set_visible(False)
-
+                    a.axvline(x=self.exp_wl_lines[ref_exp], linewidth=2, color="#06B41F")
+                    a.axhline(y=self.exp_abs_lines[ref_exp], linewidth=2, color="#FF8F05")
             self.graph[i].tight_layout()
             self.wl_list.append(wl)
             self.epslon_list.append(epslon)
