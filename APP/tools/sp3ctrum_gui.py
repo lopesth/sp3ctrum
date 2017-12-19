@@ -654,7 +654,7 @@ class Application(Frame):
         num = 1
         if error < 1:
             for spectrum_divided in self.filenames:
-                self.total_oscillators = Get_Osc([spectrum_divided]).take_osc()
+                self.total_oscillators = Get_Osc([spectrum_divided]).take_osc(float(self.wl_rang[0])+20,self.wl_rang[1])
                 self.spectrum = Gaussian_Convolution(self.total_oscillators, self.fwhm)
                 self.plot_limits = self.spectrum.make_spectrum(self.wl_rang[0], self.wl_rang[1], self.wl_n_points)
                 self.spectrum.write_spectrum(self.target_dir + "/" + self.output_file_name+"_"+str(num))
@@ -667,7 +667,7 @@ class Application(Frame):
                                 "Please correct the marked values.")
 
     def spectrumUnited(self):
-        self.total_oscillators = Get_Osc(self.filenames).take_osc()
+        self.total_oscillators = Get_Osc(self.filenames).take_osc(float(self.wl_rang[0])+20,self.wl_rang[1])
         self.spectrum = Gaussian_Convolution(self.total_oscillators, self.fwhm)
         self.plot_limits = self.spectrum.make_spectrum(self.wl_rang[0], self.wl_rang[1], self.wl_n_points)
         self.spectrum.write_spectrum(self.target_dir + "/" + self.output_file_name)
@@ -702,7 +702,7 @@ class Application(Frame):
             x = Print_Spectrum(
                 self.target_dir, [self.output_file_name], self.wl_rang[0], self.wl_rang[1],
                 self.title_chart, int(self.entry_res.get()), self.osc_color, self.curve_color,
-                "0", self.filenames, self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines
+                "0", self.filenames, self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines, 1
             )
             x.print_matplotlib()
         else:
@@ -714,7 +714,7 @@ class Application(Frame):
             x = Print_Spectrum(
                 self.target_dir, self.output_file_names, self.wl_rang[0], self.wl_rang[1],
                 self.title_chart, int( self.entry_res.get()), self.osc_color, self.curve_color,
-                "0", self.filenames,  self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines)
+                "0", self.filenames,  self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines, 1)
             x.print_matplotlib()
             if self.evol_plot_wl_choice.get() == 1 or  self.evol_plot_osc_choice.get() == 1:
                 y = PlotTransitions(self.target_dir, self.output_file_names, self.title_chart_evolution, self.filenames, self.evol_plot_wl_choice.get(), self.evol_plot_osc_choice.get())
