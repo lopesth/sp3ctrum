@@ -14,7 +14,7 @@ class Get_Osc(object):
     def __init__(self, files):
         self.list_of_files = files
 
-    def take_osc(self):
+    def take_osc(self, start_wl, end_wl):
         self.list_wl = []
         self.osc_map = {}
         for file_to_grep in self.list_of_files:
@@ -22,7 +22,9 @@ class Get_Osc(object):
             for line in lines:
                 wl_nm = float(line.split()[6])
                 osc_str = float(line.split()[8].split("=")[-1])
-                if (wl_nm in self.list_wl):
+                if float(wl_nm) < float(start_wl) or float(wl_nm) > float(end_wl):
+                    pass
+                elif (wl_nm in self.list_wl):
                     x = []
                     for element in self.osc_map[wl_nm]:
                         x.append(element)
@@ -31,7 +33,6 @@ class Get_Osc(object):
                 else:
                     self.osc_map.update({wl_nm : [osc_str]})
                 self.list_wl.append(wl_nm)
-
         return Sort_Map(self.osc_map).sort_by_keys()
 
 

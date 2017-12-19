@@ -4,7 +4,7 @@ __credits__ = "LEEDMOL group - Institute of Chemistry at Universidade de Brasili
 __maintainer__ = "Thiago Lopes"
 __email__ = "lopes.th.o@gmail.com"
 __date__ = "Nov 17 of 2017"
-__version__ = "3.0"
+__version__ = "3.0.1"
 
 import matplotlib
 matplotlib.use("TkAgg")
@@ -17,8 +17,7 @@ from APP.tools.differential import FiniteDifferenceDerivative
 
 
 class Print_Spectrum(object):
-
-    def __init__(self, dir_target, file_names, start_wl, end_wl, title, resol, osc_color, curve_color, exp_curv_color, log_names, plottypes):
+    def __init__(self, dir_target, file_names, start_wl, end_wl, title, resol, osc_color, curve_color, exp_curv_color, log_names, plottypes, exp_abs_lines, exp_wl_lines, normalize_osc):
         self.file_names = file_names
         self.resol = resol
         self.start_wl = start_wl
@@ -30,7 +29,9 @@ class Print_Spectrum(object):
         self.exp_curv_color = exp_curv_color
         self.log_names = log_names
         self.plottypes = plottypes
-        print(self.log_names)
+        self.exp_abs_lines =exp_abs_lines
+        self.exp_wl_lines = exp_wl_lines
+        self.normalize_osc = normalize_osc
 
     def print_matplotlib(self):
         if self.plottypes == 0:
@@ -43,6 +44,28 @@ class Print_Spectrum(object):
             self.overlayGraph([self.dir_target + "/" + self.dir_target.split("/")[-1] + ".png"])
             self.show(self.graph, [""])
 
+    def take_osc_str_no_norm(self, name):
+        wl = []
+        osc = []
+        with open(name) as myFile:
+            for line in myFile:
+                wl.append(float(line.split()[0]))
+                osc.append(float(line.split()[1]))
+        return [wl, osc]
+    
+    def take_osc_str_norm(self, name):
+        wl = []
+        osc_t = []
+        osc = []
+        with open(name) as myFile:
+            for line in myFile:
+                wl.append(float(line.split()[0]))
+                osc_t.append(float(line.split()[1]))
+        maxOsc = max(osc_t)
+        for osc_element in osc_t:
+            osc.append(osc_element/ maxOsc)
+        return [wl, osc]
+
     def singleGraphs(self, namefiles):
         self.graph = []
         self.wl_list = []
@@ -51,29 +74,41 @@ class Print_Spectrum(object):
             self.graph.append(matplotlib.pyplot.figure(figsize=(8, 6)))
             wl = []
             epslon = []
-            wl_ref = []
-            osc_ref = []
             with open(self.dir_target + "/" + self.file_names[i] + "_spectrum.dat") as myFile:
                 for line in myFile:
                     wl.append(float(line.split()[0]))
                     epslon.append(float(line.split()[1]))
-            with open(self.dir_target + "/" + self.file_names[i] + "_rawData.dat") as myFile:
-                for line in myFile:
-                    wl_ref.append(float(line.split()[0]))
-                    osc_ref.append(float(line.split()[1]))
+            if self.normalize_osc == 1:
+                list_wl_osc = self.take_osc_str_norm(self.dir_target + "/" + self.file_names[i] + "_rawData.dat")
+            else:
+                list_wl_osc = self.take_osc_str_no_norm(self.dir_target + "/" + self.file_names[i] + "_rawData.dat")
+            wl_ref = list_wl_osc[0]
+            osc_ref = list_wl_osc[1]
             a = self.graph[i].add_subplot(111)
             b = a.twinx()
-            line1, = a.plot(wl, epslon, linestyle='solid', color=self.curve_color[i], fillstyle='none')
+            line1, = a.plot(wl, epslon, linestyle='solid', color=self.curve_color[i], fillstyle='none', lw=3)
             line2, = b.plot(wl_ref, osc_ref, visible=False)
             for j in range(len(wl_ref)):
-                b.vlines(wl_ref[j], 0, osc_ref[j], colors=self.osc_color[i], lw=2)
+                b.vlines(wl_ref[j], 0, osc_ref[j], colors=self.osc_color[i], lw=1)
+            if len(self.exp_wl_lines) > 0:
+                for ref_exp in range(0, len(self.exp_wl_lines), 1):
+                    a.axvline(x=self.exp_wl_lines[ref_exp], linewidth=2, color="#06B41F")
+                    a.axhline(y=self.exp_abs_lines[ref_exp], linewidth=2, color="#FF8F05")
             self.graph[i].tight_layout()
             self.wl_list.append(wl)
             self.epslon_list.append(epslon)
             b.yaxis.set_visible(True)
-            b.set_ylabel("Oscillator Strength (arbitrary unit)")
-            a.set_ylabel("Molar Absorptivity (L/mol.cm)")
-            a.set_xlabel("Wavelength (nm)")
+            a.yaxis.set_visible(False)  
+            if self.normalize_osc == 1:
+                b.set_ylabel("Relative Intensity", size=15)
+            else:
+                b.set_ylabel("Oscillator Strength (atomic units)", size=15)
+            a.set_ylabel("Molar Absorptivity (L/mol.cm)", size=15)
+            a.set_xlabel("Wavelength (nm)", size=15)
+            b.yaxis.tick_left()
+            b.yaxis.set_label_position("left")
+            a.tick_params(axis='both', which='major', labelsize=12)
+            b.tick_params(axis='both', which='major', labelsize=12)
             if len(self.title) > 0:
                 matplotlib.pyplot.title(self.title)
             self.print(self.graph[i], namefiles[i])
@@ -82,6 +117,7 @@ class Print_Spectrum(object):
                 a.axes.yaxis.set_ticklabels([])
                 b.axes.yaxis.set_ticklabels([])
                 self.graph[i].set_size_inches(4.0, 3.0)
+            
 
     def overlayGraph(self, namefile):
         self.wl_list = []
@@ -106,7 +142,7 @@ class Print_Spectrum(object):
             line1, = a.plot(wl, epslon, linestyle = 'solid', color=self.curve_color[num], fillstyle ='none')
             line2, = b.plot(wl_ref, osc_ref, visible = False)
             for i in range(len(wl_ref)):
-                b.vlines(wl_ref[i], 0, osc_ref[i], colors=self.osc_color[num], lw =2)
+                b.vlines(wl_ref[i], 0, osc_ref[i], colors=self.osc_color[num], lw =1)
             self.graph[0].tight_layout()
             b.yaxis.set_visible(False)
             self.wl_list.append(wl)
@@ -186,9 +222,9 @@ class Print_Spectrum(object):
 
     def secondDerivative(self):
         x = SecondDerivative(
-                self.log_names, self.dir_target, self.start_wl, self.end_wl, self.title,
-                self.resol,  self.curve_color, self.epslon_list, self.wl_list
-            )
+            self.log_names, self.dir_target, self.start_wl, self.end_wl, self.title,
+            self.resol,  self.curve_color, self.epslon_list, self.wl_list
+        )
         tk.messagebox.showinfo("2nd Derivative Plots", "Second derivative images saved in working directory")
 
 class SecondDerivative(object):
