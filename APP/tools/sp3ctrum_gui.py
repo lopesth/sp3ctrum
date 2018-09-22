@@ -173,15 +173,21 @@ class Application(Frame):
 
         self.rb1_choice_file_type = Radiobutton(
             self.open_files_BT, text="Independent Files", variable=self.choice_file_type,
-            value=0, command=self.enable_file_bt, background="#FFFFFF"
+            value=1, command=self.enable_file_bt, background="#FFFFFF"
         )
         self.rb1_choice_file_type.pack(side="left")
 
         self.rb2_choice_file_type = Radiobutton(
-            self.open_files_BT, text="Multiple Files from MD", variable=self.choice_file_type,
-            value=1, command=self.enable_file_bt, background="#FFFFFF"
+            self.open_files_BT, text="Multiple Files", variable=self.choice_file_type,
+            value=2, command=self.enable_file_bt, background="#FFFFFF"
         )
         self.rb2_choice_file_type.pack(side="left")
+
+        self.rb3_choice_file_type = Radiobutton(
+            self.open_files_BT, text="Multiple Files with a Logical MD Pattern", variable=self.choice_file_type,
+            value=3, command=self.enable_file_bt, background="#FFFFFF"
+        )
+        self.rb3_choice_file_type.pack(side="left")
 
         self.run_call_bt = Button(
             self.open_files_BT, text="Open files", font="Helvetica",
@@ -541,7 +547,7 @@ class Application(Frame):
     def select_files(self):
         self.file_name_box.delete(0, END)
         self.operationMode = self.choice_file_type.get()
-        if self.choice_file_type.get() == 0:
+        if self.choice_file_type.get() == 1:
             self.filenames = []
             self.filenames_ = filedialog.askopenfilenames(
                 initialdir="/", filetypes=[("Gaussian LOG files","*.log"), ("Gaussian OUTPUTS files","*.out")]
@@ -560,7 +566,15 @@ class Application(Frame):
                 self.entry_color_drop_list[i].delete(0, END)
                 self.entry_color_curve_list[i].insert(END, '#020041')
                 self.entry_color_drop_list[i].insert(END, '#4F4233')
-        else:
+
+        if self.choice_file_type.get() == 2:
+            self.filenames = []
+            self.filenames_m = filedialog.askopenfilenames(
+                initialdir="/", filetypes=[("Gaussian LOG files","*.log"), ("Gaussian OUTPUTS files","*.out")]
+            )
+            for filename in self.filenames_m:
+                self.filenames.append(filename)
+        if self.choice_file_type.get() == 3:
             self.md = MDfilenames(self)
             self.toplevel.wait_window(self.md.window)
             self.filenames = self.md.returnFileNames()
