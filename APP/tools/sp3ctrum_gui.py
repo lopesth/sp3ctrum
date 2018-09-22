@@ -46,6 +46,7 @@ class Application(Frame):
         self.guiLogos()
         self.exp_abs_lines = []
         self.exp_wl_lines = []
+        
 
     def setStyle(self):
         self.style = ttk.Style()
@@ -515,13 +516,32 @@ class Application(Frame):
 
 
     def guiTab6(self):
+        self.choice_intensity = IntVar()
+        self.choice_intensity.set(0)
         self.box_container_adv = Frame(self.note6_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
         self.name_output = Label(self.box_container_adv, text="Base of Output Names:",
                                  font="Helvetica 14 bold", fg="#DF0027", background="#FFFFFF").pack(side="left")
         self.output_entry = Entry(
-            self.box_container_adv, width=60, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")
+            self.box_container_adv, width=60, borderwidth=2, relief=RIDGE, background="#FFFFFF")
         self.output_entry.pack(side="left")
-        self.box_container_adv.pack(pady=5)
+        self.box_container_adv.pack(side="top", pady=5, anchor=W)
+        self.box_intensity_Choice = Frame(self.note6_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
+        self.intensity_Choice = Label(
+            self.box_intensity_Choice, text="Spectrum intensity method:",
+            font="Helvetica 14 bold", fg="#DF0027", background="#FFFFFF"
+        ).pack(side="left")
+        self.rb1_choice_intensity = Radiobutton(
+            self.box_intensity_Choice, text="Relative Intensity", variable=self.choice_intensity,
+            value=0, background="#FFFFFF"
+        )
+        self.rb1_choice_intensity.pack(side="left")
+        self.rb2_choice_intensity = Radiobutton(
+            self.box_intensity_Choice, text="Estimated Absorbance", variable=self.choice_intensity,
+            value=1, background="#FFFFFF"
+        )
+        self.rb2_choice_intensity.pack(side="left")
+        self.box_intensity_Choice.pack(side="top", pady=5, anchor=W)
+        
 
 
     def guiLogos(self):
