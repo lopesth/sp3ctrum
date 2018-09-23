@@ -1,4 +1,0 @@
-theme: jekyll-theme-time-machine
-title: UV-Vis Sp3ctrum P4tronum   HOMEPAGE
-description: This program uses output files from the Gaussian quantum chemistry package and performs gaussian convolutions to simulate any UV-vis spectrum. 
-current_version: 2.0.1
