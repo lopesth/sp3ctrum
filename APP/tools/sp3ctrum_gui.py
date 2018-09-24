@@ -46,7 +46,7 @@ class Application(Frame):
         self.guiLogos()
         self.exp_abs_lines = []
         self.exp_wl_lines = []
-        
+
 
     def setStyle(self):
         self.style = ttk.Style()
@@ -273,6 +273,7 @@ class Application(Frame):
         self.box_container_out.pack()
 
     def guiTab3(self):
+        # choice of graph title
         self.box_container_plot = Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
         self.name_title = Label(self.box_container_plot, text="Title of the Plots (Optional):",
                                 font="Helvetica 14 bold", fg="#DF0027", background="#FFFFFF").pack(side="left")
@@ -280,14 +281,16 @@ class Application(Frame):
             self.box_container_plot, width=60, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")
         self.title_entry.pack(side="left")
         self.box_container_plot.pack(pady=5)
-        self.box_container_curve_colors = Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
 
+        # colors of each curves
+        self.box_container_curve_colors = Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
         self.title_color_curve = Label(
             self.box_container_curve_colors, text="Color of Curve\n(CSS Hex Style, for each .log file):",
             font="Helvetica", fg="#DF0027", background="#FFFFFF").pack(side="left")
+
         self.entry_color_curve_list = []
 
-        for i in range(0, 101, 1):
+        for i in range(0, 5, 1):
             entry_color_curve1 = Entry(
                 self.box_container_curve_colors, width=8, fg="#263A90", borderwidth=2,
                 relief=RIDGE, background="#FFFFFF")
@@ -297,13 +300,15 @@ class Application(Frame):
 
         self.box_container_curve_colors.pack(side="top", pady=5, anchor=W, padx=10)
 
+        # colors of each Oscillators
         self.box_container_drop_colors = Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
         self.title_color_drop = Label(
             self.box_container_drop_colors, text="Color of Oscillators\n(CSS Hex Style, for each .log file):",
                                 font="Helvetica", fg="#DF0027", background="#FFFFFF").pack(side="left")
+
         self.entry_color_drop_list = []
 
-        for i in range(0, 101, 1):
+        for i in range(0, 5, 1):
             entry_color_drop = Entry(
                 self.box_container_drop_colors, width=8, fg="#263A90",
                 borderwidth=2, relief=RIDGE,  background="#FFFFFF")
@@ -541,7 +546,7 @@ class Application(Frame):
         )
         self.rb2_choice_intensity.pack(side="left")
         self.box_intensity_Choice.pack(side="top", pady=5, anchor=W)
-        
+
 
 
     def guiLogos(self):
@@ -567,6 +572,8 @@ class Application(Frame):
     def select_files(self):
         self.file_name_box.delete(0, END)
         self.operationMode = self.choice_file_type.get()
+
+        # mode Independent files
         if self.choice_file_type.get() == 0:
             self.filenames = []
             self.filenames_ = filedialog.askopenfilenames(
@@ -579,7 +586,7 @@ class Application(Frame):
             for filename in self.filenames_[0:4]:
                 self.filenames.append(filename)
 
-            for i in range(1, len(self.filenames), 1):
+            for i in range(1, len(self.filenames)):
                 self.entry_color_curve_list[i].configure(state="normal", borderwidth=2)
                 self.entry_color_drop_list[i].configure(state="normal", borderwidth=2)
                 self.entry_color_curve_list[i].delete(0, END)
@@ -587,17 +594,39 @@ class Application(Frame):
                 self.entry_color_curve_list[i].insert(END, '#020041')
                 self.entry_color_drop_list[i].insert(END, '#4F4233')
 
+        # mode multiple files
         elif self.choice_file_type.get() == 1:
             self.filenames = []
+
             self.filenames_m = filedialog.askopenfilenames(
                 initialdir="/", filetypes=[("Gaussian LOG files","*.log"), ("Gaussian OUTPUTS files","*.out")]
             )
+
             for filename in self.filenames_m:
                 self.filenames.append(filename)
+
+            for i in range(1, 5): # tipe intelvals of box 1 ---> 5
+                self.entry_color_curve_list[i].configure(state="disable", borderwidth=2)
+                self.entry_color_drop_list[i].configure(state="disable", borderwidth=2)
+                self.entry_color_curve_list[i].delete(0, END)
+                self.entry_color_drop_list[i].delete(0, END)
+                self.entry_color_curve_list[i].insert(END, '#020041')
+                self.entry_color_drop_list[i].insert(END, '#4F4233')
+
+
         elif self.choice_file_type.get() == 2:
             self.md = MDfilenames(self)
             self.toplevel.wait_window(self.md.window)
             self.filenames = self.md.returnFileNames()
+
+            for i in range(1, 5):
+                self.entry_color_curve_list[i].configure(state="disable", borderwidth=2)
+                self.entry_color_drop_list[i].configure(state="disable", borderwidth=2)
+                self.entry_color_curve_list[i].delete(0, END)
+                self.entry_color_drop_list[i].delete(0, END)
+                self.entry_color_curve_list[i].insert(END, '#020041')
+                self.entry_color_drop_list[i].insert(END, '#4F4233')
+
         for filename in self.filenames:
             fn_div = filename.split('/')
             self.file_name_box.insert(
@@ -606,8 +635,10 @@ class Application(Frame):
         self.target_dir = "/".join(self.filenames[-1].split("/")[0:-1])
         self.note.tab(self.note2_struct, state="normal")
         self.note.tab(self.note3_struct, state="normal")
+
         if self.choice_file_type.get() == 0:
             pass
+
         else:
             self.checkbuttonplot1.configure(state = DISABLED)
             self.checkbuttonplot2.configure(state = DISABLED)
@@ -731,7 +762,7 @@ class Application(Frame):
                 y = self.experimental_points_abs[i].get()
                 if len(y) > 0:
                     self.exp_abs_lines.append(float(y))
-        
+
     def pyplot(self):
         self.get_exp_data()
         if self.choice_file_type.get() == 0:
@@ -755,7 +786,7 @@ class Application(Frame):
                 "0", self.filenames, self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines, self.choice_intensity.get()
             )
             x.print_matplotlib()
-        
+
 
 
         self.pyplot_bt.configure(state=DISABLED)
