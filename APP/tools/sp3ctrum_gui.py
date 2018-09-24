@@ -287,7 +287,7 @@ class Application(Frame):
             font="Helvetica", fg="#DF0027", background="#FFFFFF").pack(side="left")
         self.entry_color_curve_list = []
 
-        for i in range(0, 5, 1):
+        for i in range(0, 101, 1):
             entry_color_curve1 = Entry(
                 self.box_container_curve_colors, width=8, fg="#263A90", borderwidth=2,
                 relief=RIDGE, background="#FFFFFF")
@@ -303,7 +303,7 @@ class Application(Frame):
                                 font="Helvetica", fg="#DF0027", background="#FFFFFF").pack(side="left")
         self.entry_color_drop_list = []
 
-        for i in range(0, 5, 1):
+        for i in range(0, 101, 1):
             entry_color_drop = Entry(
                 self.box_container_drop_colors, width=8, fg="#263A90",
                 borderwidth=2, relief=RIDGE,  background="#FFFFFF")
