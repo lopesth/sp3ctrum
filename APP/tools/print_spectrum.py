@@ -86,7 +86,7 @@ class Print_Spectrum(object):
             osc_ref = list_wl_osc[1]
             a = self.graph[i].add_subplot(111)
             b = a.twinx()
-            line1, = a.plot(wl, epslon, linestyle='solid', color=self.curve_color[i], fillstyle='none', lw=3)
+            line1, = a.plot(wl, epslon, 'o', color=self.curve_color[i], fillstyle='none')
             line2, = b.plot(wl_ref, osc_ref, visible=False)
             for j in range(len(wl_ref)):
                 b.vlines(wl_ref[j], 0, osc_ref[j], colors=self.osc_color[i], lw=1)
@@ -139,7 +139,7 @@ class Print_Spectrum(object):
                     osc_ref.append(float(line.split()[1]))
             a = self.graph[0].add_subplot(111)
             b = a.twinx()
-            line1, = a.plot(wl, epslon, linestyle = 'solid', color=self.curve_color[num], fillstyle ='none')
+            line1, = a.plot(wl, epslon, '-', color=self.curve_color[num], fillstyle ='none')
             line2, = b.plot(wl_ref, osc_ref, visible = False)
             for i in range(len(wl_ref)):
                 b.vlines(wl_ref[i], 0, osc_ref[i], colors=self.osc_color[num], lw =1)
@@ -245,7 +245,7 @@ class SecondDerivative(object):
             SecondDerivative = FiniteDifferenceDerivative(Derivative[0], Derivative[1]).symmetricDerivative()
             graph = matplotlib.pyplot.figure(figsize=(8, 6))
             a = graph.add_subplot(111)
-            a.plot(SecondDerivative[1], SecondDerivative[0], linestyle='solid', color=self.curve_color[i], fillstyle='none')
+            a.plot(SecondDerivative[1], SecondDerivative[0], '.', color=self.curve_color[i], fillstyle='none')
             graph.tight_layout()
             a.set_xlabel("Wavelength (nm)")
             a.set_ylabel("Second Derivative of Molar Absorptivity")
