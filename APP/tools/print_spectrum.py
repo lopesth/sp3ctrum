@@ -78,7 +78,7 @@ class Print_Spectrum(object):
                 for line in myFile:
                     wl.append(float(line.split()[0]))
                     epslon.append(float(line.split()[1]))
-            if self.normalize_osc == 1:
+            if self.normalize_osc == 0:
                 list_wl_osc = self.take_osc_str_norm(self.dir_target + "/" + self.file_names[i] + "_rawData.dat")
             else:
                 list_wl_osc = self.take_osc_str_no_norm(self.dir_target + "/" + self.file_names[i] + "_rawData.dat")
@@ -99,7 +99,7 @@ class Print_Spectrum(object):
             self.epslon_list.append(epslon)
             b.yaxis.set_visible(True)
             a.yaxis.set_visible(False)  
-            if self.normalize_osc == 1:
+            if self.normalize_osc == 0:
                 b.set_ylabel("Relative Intensity", size=15)
             else:
                 b.set_ylabel("Oscillator Strength (atomic units)", size=15)

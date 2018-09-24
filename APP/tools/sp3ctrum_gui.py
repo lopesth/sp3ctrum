@@ -174,19 +174,19 @@ class Application(Frame):
 
         self.rb1_choice_file_type = Radiobutton(
             self.open_files_BT, text="Independent Files", variable=self.choice_file_type,
-            value=1, command=self.enable_file_bt, background="#FFFFFF"
+            value=0, command=self.enable_file_bt, background="#FFFFFF"
         )
         self.rb1_choice_file_type.pack(side="left")
 
         self.rb2_choice_file_type = Radiobutton(
             self.open_files_BT, text="Multiple Files", variable=self.choice_file_type,
-            value=2, command=self.enable_file_bt, background="#FFFFFF"
+            value=1, command=self.enable_file_bt, background="#FFFFFF"
         )
         self.rb2_choice_file_type.pack(side="left")
 
         self.rb3_choice_file_type = Radiobutton(
             self.open_files_BT, text="Multiple Files with a Logical MD Pattern", variable=self.choice_file_type,
-            value=3, command=self.enable_file_bt, background="#FFFFFF"
+            value=2, command=self.enable_file_bt, background="#FFFFFF"
         )
         self.rb3_choice_file_type.pack(side="left")
 
@@ -567,7 +567,7 @@ class Application(Frame):
     def select_files(self):
         self.file_name_box.delete(0, END)
         self.operationMode = self.choice_file_type.get()
-        if self.choice_file_type.get() == 1:
+        if self.choice_file_type.get() == 0:
             self.filenames = []
             self.filenames_ = filedialog.askopenfilenames(
                 initialdir="/", filetypes=[("Gaussian LOG files","*.log"), ("Gaussian OUTPUTS files","*.out")]
@@ -587,14 +587,14 @@ class Application(Frame):
                 self.entry_color_curve_list[i].insert(END, '#020041')
                 self.entry_color_drop_list[i].insert(END, '#4F4233')
 
-        if self.choice_file_type.get() == 2:
+        elif self.choice_file_type.get() == 1:
             self.filenames = []
             self.filenames_m = filedialog.askopenfilenames(
                 initialdir="/", filetypes=[("Gaussian LOG files","*.log"), ("Gaussian OUTPUTS files","*.out")]
             )
             for filename in self.filenames_m:
                 self.filenames.append(filename)
-        if self.choice_file_type.get() == 3:
+        elif self.choice_file_type.get() == 2:
             self.md = MDfilenames(self)
             self.toplevel.wait_window(self.md.window)
             self.filenames = self.md.returnFileNames()
@@ -606,6 +606,11 @@ class Application(Frame):
         self.target_dir = "/".join(self.filenames[-1].split("/")[0:-1])
         self.note.tab(self.note2_struct, state="normal")
         self.note.tab(self.note3_struct, state="normal")
+        if self.choice_file_type.get() == 0:
+            pass
+        else:
+            self.checkbuttonplot1.configure(state = DISABLED)
+            self.checkbuttonplot2.configure(state = DISABLED)
         self.note.tab(self.note4_struct, state="normal")
         self.note.tab(self.note5_struct, state="normal")
         self.note.tab(self.note6_struct, state="normal")
@@ -719,27 +724,17 @@ class Application(Frame):
         if self.option_experimental.get() == 0:
             pass
         else:
-            if self.experimental_type.get() == 0:
-                pass
-            else:
-                for i in range(0, 4, 1):
-                    x = self.experimental_points_wl[i].get()
-                    if len(x) > 0:
-                        self.exp_wl_lines.append(float(x))
-                    y = self.experimental_points_abs[i].get()
-                    if len(y) > 0:
-                        self.exp_abs_lines.append(float(y))
+            for i in range(0, 4, 1):
+                x = self.experimental_points_wl[i].get()
+                if len(x) > 0:
+                    self.exp_wl_lines.append(float(x))
+                y = self.experimental_points_abs[i].get()
+                if len(y) > 0:
+                    self.exp_abs_lines.append(float(y))
         
     def pyplot(self):
         self.get_exp_data()
-        if self.choice_file_type.get() == 1:
-            x = Print_Spectrum(
-                self.target_dir, [self.output_file_name], self.wl_rang[0], self.wl_rang[1],
-                self.title_chart, int(self.entry_res.get()), self.osc_color, self.curve_color,
-                "0", self.filenames, self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines, 1
-            )
-            x.print_matplotlib()
-        else:
+        if self.choice_file_type.get() == 0:
             self.curve_color = []
             self.osc_color = []
             for i in range(0, len(self.filenames), 1):
@@ -748,11 +743,19 @@ class Application(Frame):
             x = Print_Spectrum(
                 self.target_dir, self.output_file_names, self.wl_rang[0], self.wl_rang[1],
                 self.title_chart, int( self.entry_res.get()), self.osc_color, self.curve_color,
-                "0", self.filenames,  self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines, 1)
+                "0", self.filenames,  self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines, self.choice_intensity.get())
             x.print_matplotlib()
             if self.evol_plot_wl_choice.get() == 1 or  self.evol_plot_osc_choice.get() == 1:
                 y = PlotTransitions(self.target_dir, self.output_file_names, self.title_chart_evolution, self.filenames, self.evol_plot_wl_choice.get(), self.evol_plot_osc_choice.get())
 
+        else:
+            x = Print_Spectrum(
+                self.target_dir, [self.output_file_name], self.wl_rang[0], self.wl_rang[1],
+                self.title_chart, int(self.entry_res.get()), self.osc_color, self.curve_color,
+                "0", self.filenames, self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines, self.choice_intensity.get()
+            )
+            x.print_matplotlib()
+        
 
 
         self.pyplot_bt.configure(state=DISABLED)

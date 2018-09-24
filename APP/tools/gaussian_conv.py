@@ -38,7 +38,6 @@ class Gaussian_Convolution(object):
                     else:
                         total_map.update({wl:[epslon]})
 
-
         for wl in total_map.keys():
             y = 0
             for values_osc_str in total_map[wl]:
