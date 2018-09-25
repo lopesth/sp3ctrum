@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 __author__ = ["Sandro Brito", "Mateus Barbosa", "Ueslei Vasconcelos", "Daniel Machado", "Thiago Lopes", "Heibbe Oliveira"]
-__credits__ = "LEEDMOL group - Institute of Chemistry at Universidade de Brasilia and Universidade Federal de Goiás"
+__credits__ = ["LEEDMOL Research group", "Institute of Chemistry at Universidade de Brasilia", "Institute of Chemistry at Universidade Federal de Goiás"]
 __maintainer__ = ["Thiago Lopes", "Sandro Brito"]
 __email__ = ["lopes.th.o@gmail.com", "brittosandro@gmail.com"]
 __date__ = "Set 28 of 2018"
@@ -1037,9 +1037,11 @@ class Second_Window(Frame):
         l1 = Label(text_container,
                    text="This program was a collaboration of:", background="#FFFFFF", font="Helvetica 20 bold",
                                  fg="#020041")
+        author_text = ", \n".join(__author__[0:-1])+"\n and "+__author__[-1]+"."
+        credits_text = "\n".join(__credits__)
         l1_1 = Label(
             text_container,
-            text="Thiago Oliveira Lopes, \nDaniel Francsico Scalabrini Machado,\nHeibbe C. B. de Oliveira\nand the entire LEEDMOL team.\n\n\n",
+            text=author_text+"\n",
             background="#FFFFFF", fg="#DF0027", font="Helvetica 16"
         )
         l1.pack(side="top", padx=40)
@@ -1048,7 +1050,7 @@ class Second_Window(Frame):
                                  fg="#020041")
         l3_1 = Label(
             text_container,
-            text="LEEDMOL Research Group\n(Lab. de Estrutura Eletrônica e Dinâmica Molecular)\nInstitute of Chemistry at Universidade de Brasília.\n\n\n",
+            text=credits_text+"\n\n",
             font="Helvetica 16", background="#FFFFFF", fg="#DF0027"
         )
         l3.pack(side="top", padx=40)
