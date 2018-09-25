@@ -6,7 +6,7 @@ __email__ = ["lopes.th.o@gmail.com", "brittosandro@gmail.com"]
 __date__ = "Set 28 of 2018"
 __version__ = "1.0.0"
 
-import numpy, math
+import numpy as np
 
 class Gaussian_Convolution(object):
 
@@ -16,8 +16,8 @@ class Gaussian_Convolution(object):
 
     def make_spectrum(self, start, end, number_of_points):
         std_wl_nm = 1 / self.std_wl
-        std_wl_cm = 1e7 / self.std_wl
-        A = 2.174e8
+        std_wl_cm = np.power(10, 7) / self.std_wl
+        A = 2.174*np.power(10, 8)
         self.final_map = {}
         total_map = {}
         epslon_list = []
@@ -25,12 +25,12 @@ class Gaussian_Convolution(object):
         for wl_ref in self.osc_map.keys():
             for f_i in self.osc_map[wl_ref]:
                 osc_list.append(f_i)
-                for wl in numpy.arange(start, end, (end - start)/number_of_points):
-                    freq_ref = 1/wl_ref
-                    freq = 1/wl
+                for wl in np.arange(start, end, (end - start)/number_of_points):
+                    freq_ref = 1 / wl_ref
+                    freq = 1 / wl
                     B = f_i / std_wl_cm
-                    C = ((freq_ref - freq)/std_wl_nm)**2
-                    epslon = A*B*math.exp(-2.7726*C)
+                    C = (np.power(((freq_ref - freq) / std_wl_nm), 2))
+                    epslon = A*B*np.exp(-2.7726*C)
                     if wl in total_map.keys():
                         x = total_map[wl]
                         x.append(epslon)
@@ -57,4 +57,3 @@ class Gaussian_Convolution(object):
             for f_ref in self.osc_map[wl_ref]:
                 file_to_write_lits.write("%10.5f %10.5f\n" %(wl_ref, f_ref))
         file_to_write_lits.close()
-
