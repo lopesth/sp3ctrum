@@ -244,8 +244,18 @@ class SecondDerivative(object):
             Derivative = FiniteDifferenceDerivative(self.epslon[i], self.wl[i]).symmetricDerivative()
             SecondDerivative = FiniteDifferenceDerivative(Derivative[0], Derivative[1]).symmetricDerivative()
             graph = matplotlib.pyplot.figure(figsize=(8, 6))
+            minimalY = min(SecondDerivative[0])
+            counter = 0
+            for y in SecondDerivative[0]:
+                counter +=1 
+                if y == minimalY:
+                    minimalX = (Derivative[1][counter])
             a = graph.add_subplot(111)
             a.plot(SecondDerivative[1], SecondDerivative[0], linestyle='solid', color=self.curve_color[i], fillstyle='none')
+            a.plot(minimalX,minimalY,'ro') 
+            a.annotate(str(minimalX) + " nm", xy=(minimalX +2, minimalY -2), xytext=(minimalX +30, minimalY +30),
+                bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=0.5),
+        arrowprops=dict(arrowstyle = '->', connectionstyle='arc3,rad=0'))
             graph.tight_layout()
             a.set_xlabel("Wavelength (nm)")
             a.set_ylabel("Second Derivative of Molar Absorptivity")
