@@ -607,27 +607,18 @@ class Application(Frame):
             for filename in self.filenames_m:
                 self.filenames.append(filename)
 
-            for i in range(1, len(self.filenames)): # tipe intelvals of box 1 ---> 5
-                self.entry_color_curve_list[i].configure(state="disable", borderwidth=2)
-                self.entry_color_drop_list[i].configure(state="disable", borderwidth=2)
-                self.entry_color_curve_list[i].delete(0, END)
-                self.entry_color_drop_list[i].delete(0, END)
-                self.entry_color_curve_list[i].insert(END, '#020041')
-                self.entry_color_drop_list[i].insert(END, '#4F4233')
+            self.clean_color_box(1)
+            self.entry_color_curve_list[1].insert(END, '#020041')
+            self.entry_color_drop_list[1].insert(END, '#4F4233')
 
 
         elif self.choice_file_type.get() == 2:
             self.md = MDfilenames(self)
             self.toplevel.wait_window(self.md.window)
             self.filenames = self.md.returnFileNames()
-
-            for i in range(1, len(self.filenames)):
-                self.entry_color_curve_list[i].configure(state="disable", borderwidth=2)
-                self.entry_color_drop_list[i].configure(state="disable", borderwidth=2)
-                self.entry_color_curve_list[i].delete(0, END)
-                self.entry_color_drop_list[i].delete(0, END)
-                self.entry_color_curve_list[i].insert(END, '#020041')
-                self.entry_color_drop_list[i].insert(END, '#4F4233')
+            self.clean_color_box(1)
+            self.entry_color_curve_list[1].insert(END, '#020041')
+            self.entry_color_drop_list[1].insert(END, '#4F4233')
 
         for filename in self.filenames:
             fn_div = filename.split('/')
