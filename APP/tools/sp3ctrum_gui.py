@@ -317,12 +317,7 @@ class Application(Frame):
             self.entry_color_drop_list.append(entry_color_drop)
         self.box_container_drop_colors.pack(side="top", pady=10, anchor=W, padx=10)
 
-        for i in range(1, 5, 1):
-            self.entry_color_drop_list[i].delete(0, END)
-            self.entry_color_curve_list[i].delete(0, END)
-            self.entry_color_curve_list[i].configure(state="disabled", borderwidth=2)
-            self.entry_color_drop_list[i].configure(state="disabled", borderwidth=2)
-
+        self.clean_color_box(1)
 
         self.box_container_res = Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
         self.title_res = Label(self.box_container_res, text="Resolution of Plot (dpi):",
@@ -345,6 +340,13 @@ class Application(Frame):
         self.checkbuttonplot1.pack(side="left")
         self.checkbuttonplot2.pack(side="left")
         self.checkbuttonplot_box.pack(side="top", pady=5, anchor=W, padx=10)
+
+    def clean_color_box(self, firstItem):
+        for i in range(firstItem, 5, 1):
+            self.entry_color_drop_list[i].delete(0, END)
+            self.entry_color_curve_list[i].delete(0, END)
+            self.entry_color_curve_list[i].configure(state="disabled", borderwidth=2)
+            self.entry_color_drop_list[i].configure(state="disabled", borderwidth=2)
 
 
     def guiTab4(self):
@@ -581,11 +583,11 @@ class Application(Frame):
             )
             if len(self.filenames_) > 4:
                 messagebox.showinfo(
-                    "Maximum number of files", "Let's use only the first 4 files of the input."
+                    "Maximum number of files", "Let's use only the first 5 files of the input."
                 )
-            for filename in self.filenames_[0:4]:
+            for filename in self.filenames_[0:5]:
                 self.filenames.append(filename)
-
+            self.clean_color_box(len(self.filenames))
             for i in range(1, len(self.filenames)):
                 self.entry_color_curve_list[i].configure(state="normal", borderwidth=2)
                 self.entry_color_drop_list[i].configure(state="normal", borderwidth=2)
@@ -605,7 +607,7 @@ class Application(Frame):
             for filename in self.filenames_m:
                 self.filenames.append(filename)
 
-            for i in range(1, 5): # tipe intelvals of box 1 ---> 5
+            for i in range(1, len(self.filenames)): # tipe intelvals of box 1 ---> 5
                 self.entry_color_curve_list[i].configure(state="disable", borderwidth=2)
                 self.entry_color_drop_list[i].configure(state="disable", borderwidth=2)
                 self.entry_color_curve_list[i].delete(0, END)
@@ -619,7 +621,7 @@ class Application(Frame):
             self.toplevel.wait_window(self.md.window)
             self.filenames = self.md.returnFileNames()
 
-            for i in range(1, 5):
+            for i in range(1, len(self.filenames)):
                 self.entry_color_curve_list[i].configure(state="disable", borderwidth=2)
                 self.entry_color_drop_list[i].configure(state="disable", borderwidth=2)
                 self.entry_color_curve_list[i].delete(0, END)
