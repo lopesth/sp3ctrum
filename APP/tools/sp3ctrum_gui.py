@@ -137,12 +137,7 @@ class Application(Frame):
         )
         self.save_adv_bt.configure(state=DISABLED)
         self.save_adv_bt.grid(row = 0, column = 1, padx=5)
-        self.save_simp_bt = Button(
-            self.run_but_container, text="Save simple data", font="Helvetica", command=self.simple_file,
-            highlightbackground="#8EF0F7", pady=2, relief=FLAT
-        )
-        self.save_simp_bt.configure(state=DISABLED)
-        self.save_simp_bt.grid(row = 0, column = 2, padx=5)
+
         self.pyplot_bt = Button(
             self.run_but_container, text="Plot Spectrum", font="Helvetica", command=self.pyplot,
             highlightbackground ="#8EF0F7", pady=2,
@@ -549,8 +544,6 @@ class Application(Frame):
         self.rb2_choice_intensity.pack(side="left")
         self.box_intensity_Choice.pack(side="top", pady=5, anchor=W)
 
-
-
     def guiLogos(self):
         self.all_logos_container = Frame(self.toplevel, background="#8EF0F7", borderwidth=0)
         self.logo1 = PhotoImage(file=self.src+"icons/sp3ctrum_b.gif")
@@ -572,6 +565,8 @@ class Application(Frame):
         self.all_logos_container.pack()
 
     def select_files(self):
+        self.save_adv_bt.configure(state="disable")
+        self.pyplot_bt.configure(state="disable")
         self.file_name_box.delete(0, END)
         self.operationMode = self.choice_file_type.get()
 
@@ -588,7 +583,7 @@ class Application(Frame):
             for filename in self.filenames_[0:5]:
                 self.filenames.append(filename)
             self.clean_color_box(len(self.filenames))
-            for i in range(1, len(self.filenames)):
+            for i in range(0, len(self.filenames)):
                 self.entry_color_curve_list[i].configure(state="normal", borderwidth=2)
                 self.entry_color_drop_list[i].configure(state="normal", borderwidth=2)
                 self.entry_color_curve_list[i].delete(0, END)
@@ -630,13 +625,17 @@ class Application(Frame):
         self.note.tab(self.note3_struct, state="normal")
 
         if self.choice_file_type.get() == 0:
-            pass
+            self.note.tab(self.note4_struct, state="normal")
 
         else:
+            if self.choice_file_type.get() == 1:
+                self.note.tab(self.note5_struct, state="disable")
+                self.note.tab(self.note4_struct, state="disable")
+            if self.choice_file_type.get() == 2:
+                self.note.tab(self.note5_struct, state="normal")
+                self.note.tab(self.note4_struct, state="disable")
             self.checkbuttonplot1.configure(state = DISABLED)
             self.checkbuttonplot2.configure(state = DISABLED)
-        self.note.tab(self.note4_struct, state="normal")
-        self.note.tab(self.note5_struct, state="normal")
         self.note.tab(self.note6_struct, state="normal")
         self.make_spec_bt.configure(state=NORMAL)
         self.output_entry.delete(0, END)
@@ -647,6 +646,8 @@ class Application(Frame):
             self.makeSpectrum()
         else:
             self.makeSpectrumMD()
+        messagebox.showinfo("Simple Data Saved","The files with the simplified data were saved in the working directory")
+
 
     def getSimpleValues(self):
         error = 0
@@ -724,7 +725,6 @@ class Application(Frame):
                 self.output_file_names.append(self.output_file_name+"_"+str(num))
                 num+=1
             self.save_adv_bt.configure(state=NORMAL)
-            self.save_simp_bt.configure(state=NORMAL)
         else:
             messagebox.showinfo("Error in user-fed values",
                                 "Please correct the marked values.")

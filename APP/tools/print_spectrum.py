@@ -74,6 +74,8 @@ class Print_Spectrum(object):
             self.graph.append(matplotlib.pyplot.figure(figsize=(8, 6)))
             wl = []
             epslon = []
+            wl_ref = []
+            osc_ref = []
             with open(self.dir_target + "/" + self.file_names[i] + "_spectrum.dat") as myFile:
                 for line in myFile:
                     wl.append(float(line.split()[0]))
@@ -82,6 +84,10 @@ class Print_Spectrum(object):
                 list_wl_osc = self.take_osc_str_norm(self.dir_target + "/" + self.file_names[i] + "_rawData.dat")
             else:
                 list_wl_osc = self.take_osc_str_no_norm(self.dir_target + "/" + self.file_names[i] + "_rawData.dat")
+                with open(self.dir_target+"/"+self.file_names[i]+"_rawData.dat") as myFile:
+                    for line in myFile:
+                        wl_ref.append(float(line.split()[0]))
+                        osc_ref.append(float(line.split()[1]))
             wl_ref = list_wl_osc[0]
             osc_ref = list_wl_osc[1]
             a = self.graph[i].add_subplot(111)
@@ -98,14 +104,17 @@ class Print_Spectrum(object):
             self.wl_list.append(wl)
             self.epslon_list.append(epslon)
             b.yaxis.set_visible(True)
-            a.yaxis.set_visible(False)  
+            a.yaxis.set_visible(True)  
             if self.normalize_osc == 0:
                 b.set_ylabel("Relative Intensity", size=15)
+                a.yaxis.set_visible(False)
             else:
                 b.set_ylabel("Oscillator Strength (atomic units)", size=15)
-            a.set_ylabel("Molar Absorptivity (L/mol.cm)", size=15)
+                a.set_ylabel("Molar Absorptivity (L/mol.cm)", size=15)
+                a.yaxis.set_label_position("right")
             a.set_xlabel("Wavelength (nm)", size=15)
             b.yaxis.tick_left()
+            a.yaxis.tick_right()
             b.yaxis.set_label_position("left")
             a.tick_params(axis='both', which='major', labelsize=12)
             b.tick_params(axis='both', which='major', labelsize=12)
@@ -129,14 +138,20 @@ class Print_Spectrum(object):
             epslon = []
             wl_ref = []
             osc_ref = []
-            with open(self.dir_target+"/"+self.file_name+"_spectrum.dat") as myFile:
+            with open(self.dir_target + "/" + self.file_name + "_spectrum.dat") as myFile:
                 for line in myFile:
                     wl.append(float(line.split()[0]))
                     epslon.append(float(line.split()[1]))
-            with open(self.dir_target+"/"+self.file_name+"_rawData.dat") as myFile:
-                for line in myFile:
-                    wl_ref.append(float(line.split()[0]))
-                    osc_ref.append(float(line.split()[1]))
+            if self.normalize_osc == 0:
+                list_wl_osc = self.take_osc_str_norm(self.dir_target + "/" + self.file_name + "_rawData.dat")
+            else:
+                list_wl_osc = self.take_osc_str_no_norm(self.dir_target + "/" + self.file_name + "_rawData.dat")
+                with open(self.dir_target+"/"+self.file_name+"_rawData.dat") as myFile:
+                    for line in myFile:
+                        wl_ref.append(float(line.split()[0]))
+                        osc_ref.append(float(line.split()[1]))
+            wl_ref = list_wl_osc[0]
+            osc_ref = list_wl_osc[1]
             a = self.graph[0].add_subplot(111)
             b = a.twinx()
             line1, = a.plot(wl, epslon, linestyle='solid', color=self.curve_color[num], fillstyle ='none')
@@ -148,8 +163,17 @@ class Print_Spectrum(object):
             self.wl_list.append(wl)
             self.epslon_list.append(epslon)
         b.yaxis.set_visible(True)
-        b.set_ylabel("Oscillator Strength (arbitrary unit)")
-        a.set_ylabel("Molar Absorptivity (L/mol.cm)")
+        a.yaxis.set_visible(True)
+        if self.normalize_osc == 0:
+                b.set_ylabel("Relative Intensity", size=15)
+                a.yaxis.set_visible(False)
+        else:
+            b.set_ylabel("Oscillator Strength (atomic units)", size=15)
+            a.set_ylabel("Molar Absorptivity (L/mol.cm)", size=15)
+            a.yaxis.set_label_position("right")
+        b.yaxis.tick_left()
+        a.yaxis.tick_right()
+        b.yaxis.set_label_position("left")
         a.set_xlabel("Wavelength (nm)")
         if len(self.title) > 0:
             matplotlib.pyplot.title(self.title)
