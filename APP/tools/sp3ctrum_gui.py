@@ -343,7 +343,6 @@ class Application(Frame):
             self.entry_color_curve_list[i].configure(state="disabled", borderwidth=2)
             self.entry_color_drop_list[i].configure(state="disabled", borderwidth=2)
 
-
     def guiTab4(self):
         self.option_experimental = IntVar(0)
         self.experimental_type = IntVar(0)
@@ -439,13 +438,6 @@ class Application(Frame):
         self.box_experimental_ref_abs.pack(side="left", padx=10)
         self.box_experimental_ref.pack(side="top", pady=10,  anchor=W)
         self.no_experimental_data()
-        
-
-    def open_experimental_data_file(self):
-        self.experimental_data_file = filedialog.askopenfilename(
-                initialdir="/", filetypes=[("File Data","*.dat")]
-        )
-        self.boxList_experimental_plot.insert(0, self.experimental_data_file)
 
     def no_experimental_data(self):
         self.experimental_type_curve_bt.config(state=DISABLED)
@@ -560,6 +552,7 @@ class Application(Frame):
         )
         self.rb2_choice_intensity.pack(side="left")
         self.box_intensity_Choice.pack(side="top", pady=5, anchor=W)
+
     def guiLogos(self):
         self.all_logos_container = Frame(self.toplevel, background="#8EF0F7", borderwidth=0)
         self.logo1 = PhotoImage(file=self.src+"icons/sp3ctrum_b.gif")
@@ -768,6 +761,7 @@ class Application(Frame):
             self.exp_wl_lines = []
         else:
             if self.experimental_type == 0:
+                
                 self.exp_abs_lines = []
                 self.exp_wl_lines = []
             else:
@@ -779,6 +773,15 @@ class Application(Frame):
                     y = self.experimental_points_abs[i].get()
                     if len(y) > 0:
                         self.exp_abs_lines.append(float(y))
+
+    def open_experimental_data_file(self):
+        messagebox.showinfo(
+                    "Experimental curve file", "The File that contains the experimental spectrum must be a two-column .dat text file.\nThe first column should be the wavelength (nm), while the second should be the Molar Absorptivity (L/mol.cm)."
+                )
+        self.experimental_data_file = filedialog.askopenfilename(
+                initialdir="/", filetypes=[("File Data","*.dat")]
+        )
+        self.boxList_experimental_plot.insert(0, self.experimental_data_file)
 
     def pyplot(self):
         self.get_exp_data()
@@ -804,8 +807,6 @@ class Application(Frame):
                 "0", self.filenames, self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines, self.entry_color_exp.get(), self.choice_intensity.get()
             )
             x.print_matplotlib()
-
-
 
         self.pyplot_bt.configure(state=DISABLED)
 

@@ -301,9 +301,11 @@ class MetaDataPrint(object):
 
     def reSave(self):
         meta = PngImagePlugin.PngInfo()
+        print(meta)
         meta.add_text("Created by", "UV-Vis Sp3ctrum P4tronum")
         meta.add_text("Version", __version__)
         meta.add_text("Powered by", __credits__[0])
-        self.file.save(self.target, pnginfo=meta)
+        self.file.save(self.target, 'PNG', pnginfo=meta)
 
 
+ 
