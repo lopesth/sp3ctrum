@@ -815,7 +815,7 @@ class Application(Frame):
             x = Print_Spectrum(
                 self.target_dir, [self.output_file_name], self.wl_rang[0], self.wl_rang[1],
                 self.title_chart, int(self.entry_res.get()), self.osc_color, self.curve_color,
-                "0", self.filenames, self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines, self.entry_color_exp.get(), self.choice_intensity.get()
+                "0", self.filenames, self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines, self.entry_color_exp.get(), self.choice_intensity.get(), len(self.filenames)
             )
             x.print_matplotlib()
 
@@ -1007,7 +1007,7 @@ class MDfilenames(Frame):
             if len(name_end) > 0:
                 filename = name_init+"_"+str(step)+"_"+name_end
                 try:
-                    test = open(self.dir+"/"+filename+".log")
+                    test = open(self.dir+"/"+filename+".log", encoding="utf8", errors='ignore')
                     self.filenames.append(self.dir+"/"+filename+".log")
                 except:
                     try:
@@ -1023,7 +1023,7 @@ class MDfilenames(Frame):
                     self.filenames.append(self.dir + "/" + filename + ".log")
                 except:
                     try:
-                        test = open(self.dir + "/" + filename + ".out")
+                        test = open(self.dir + "/" + filename + ".out", encoding="utf8", errors='ignore')
                         self.filenames.append(self.dir + "/" + filename + ".out")
                     except:
                         not_find+=1

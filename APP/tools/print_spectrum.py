@@ -17,7 +17,7 @@ from APP.tools.differential import FiniteDifferenceDerivative
 
 
 class Print_Spectrum(object):
-    def __init__(self, dir_target, file_names, start_wl, end_wl, title, resol, osc_color, curve_color, exp_curv_color, log_names, plottypes, exp_abs_lines, exp_wl_lines, expColor, normalize_osc):
+    def __init__(self, dir_target, file_names, start_wl, end_wl, title, resol, osc_color, curve_color, exp_curv_color, log_names, plottypes, exp_abs_lines, exp_wl_lines, expColor, normalize_osc, numberOfFiles = 1):
         self.file_names = file_names
         self.resol = resol
         self.start_wl = start_wl
@@ -34,6 +34,7 @@ class Print_Spectrum(object):
         self.exp_wl_lines = exp_wl_lines
         self.expColor = expColor
         self.normalize_osc = normalize_osc
+        self.numberOfFiles = numberOfFiles
 
     def print_matplotlib(self):
         if self.plottypes == 0:
@@ -81,7 +82,7 @@ class Print_Spectrum(object):
             with open(self.dir_target + "/" + self.file_names[i] + "_spectrum.dat") as myFile:
                 for line in myFile:
                     wl.append(float(line.split()[0]))
-                    epslon.append(float(line.split()[1]))
+                    epslon.append(float(line.split()[1])/self.numberOfFiles)
             if self.normalize_osc == 0:
                 list_wl_osc = self.take_osc_str_norm(self.dir_target + "/" + self.file_names[i] + "_rawData.dat")
             else:
@@ -147,7 +148,7 @@ class Print_Spectrum(object):
             with open(self.dir_target + "/" + self.file_name + "_spectrum.dat") as myFile:
                 for line in myFile:
                     wl.append(float(line.split()[0]))
-                    epslon.append(float(line.split()[1]))
+                    epslon.append(float(line.split()[1])/self.numberOfFiles)
             if self.normalize_osc == 0:
                 list_wl_osc = self.take_osc_str_norm(self.dir_target + "/" + self.file_name + "_rawData.dat")
             else:
