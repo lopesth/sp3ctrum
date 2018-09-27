@@ -364,6 +364,17 @@ class Application(Frame):
         )
         self.option_experimental_Ybt.pack(side="left", padx=10)
         self.box_option_experimental.pack(side="top", pady=5, anchor=W)
+        self.box_experimental_color = Frame(self.note4_struct, relief=FLAT, borderwidth=0, bg = "#FFFFFF")
+        self.text_experimental_color = Label(
+            self.box_experimental_color,text="Color of Plot of Experimental:", bg = "#FFFFFF"
+        )
+        self.text_experimental_color.pack(side="left", padx=10)
+        self.entry_color_exp = Entry(
+                self.box_experimental_color, width=8, fg="#263A90",
+                borderwidth=2, relief=RIDGE,  background="#FFFFFF")
+        self.entry_color_exp.pack(side="left", padx=5)
+        self.box_experimental_color.pack(side="top", pady=5, anchor=W)
+
         self.box_experimental_types = Frame(self.note4_struct, relief=FLAT, borderwidth=0, bg = "#FFFFFF")
         self.text_experimental_types = Label(
             self.box_experimental_types,text="Plot of Experimental Values:", bg = "#FFFFFF"
@@ -428,6 +439,7 @@ class Application(Frame):
         self.box_experimental_ref_abs.pack(side="left", padx=10)
         self.box_experimental_ref.pack(side="top", pady=10,  anchor=W)
         self.no_experimental_data()
+        
 
     def open_experimental_data_file(self):
         self.experimental_data_file = filedialog.askopenfilename(
@@ -438,14 +450,20 @@ class Application(Frame):
     def no_experimental_data(self):
         self.experimental_type_curve_bt.config(state=DISABLED)
         self.experimental_type_ref_bt.config(state=DISABLED)
+        self.text_experimental_color.config(fg="#BFBFBF")
         self.text_experimental_types.config(fg="#BFBFBF")
+        self.entry_color_exp.config(state="disable")
         self.no_experimental_data_curve()
         self.no_experimental_data_ref()
 
     def experimental_data_type(self):
         self.experimental_type_curve_bt.config(state=NORMAL)
         self.experimental_type_ref_bt.config(state=NORMAL)
+        self.entry_color_exp.config(state=NORMAL)
+        self.entry_color_exp.delete(0, 'end')
+        self.entry_color_exp.insert(END, '#957532')
         self.text_experimental_types.config(fg="#000000")
+        self.text_experimental_color.config(fg="#000000")
 
     def experimental_data_curve(self):
         self.no_experimental_data_ref()
@@ -519,7 +537,7 @@ class Application(Frame):
 
     def guiTab6(self):
         self.choice_intensity = IntVar()
-        self.choice_intensity.set(0)
+        self.choice_intensity.set(1)
         self.box_container_adv = Frame(self.note6_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
         self.name_output = Label(self.box_container_adv, text="Base of Output Names:",
                                  font="Helvetica 14 bold", fg="#DF0027", background="#FFFFFF").pack(side="left")
@@ -533,17 +551,15 @@ class Application(Frame):
             font="Helvetica 14 bold", fg="#DF0027", background="#FFFFFF"
         ).pack(side="left")
         self.rb1_choice_intensity = Radiobutton(
-            self.box_intensity_Choice, text="Relative Intensity", variable=self.choice_intensity,
-            value=0, background="#FFFFFF"
+            self.box_intensity_Choice, text="Relative Intensity", variable=self.choice_intensity, value=0, background="#FFFFFF", command = self.expButt
         )
         self.rb1_choice_intensity.pack(side="left")
         self.rb2_choice_intensity = Radiobutton(
             self.box_intensity_Choice, text="Estimated Absorbance", variable=self.choice_intensity,
-            value=1, background="#FFFFFF"
+            value=1, background="#FFFFFF", command = self.expButt
         )
         self.rb2_choice_intensity.pack(side="left")
         self.box_intensity_Choice.pack(side="top", pady=5, anchor=W)
-
     def guiLogos(self):
         self.all_logos_container = Frame(self.toplevel, background="#8EF0F7", borderwidth=0)
         self.logo1 = PhotoImage(file=self.src+"icons/sp3ctrum_b.gif")
@@ -563,6 +579,12 @@ class Application(Frame):
         self.lg2 = Label(self.all_logos_container, image=self.logo2, background="#8EF0F7",
                          height=150, width=250).grid(row=0, column=2)
         self.all_logos_container.pack()
+
+    def expButt(self):
+        if self.choice_intensity.get() == 1:
+            self.note.tab(self.note4_struct, state="normal")
+        else:
+            self.note.tab(self.note4_struct, state="disable")
 
     def select_files(self):
         self.save_adv_bt.configure(state="disable")
@@ -647,7 +669,6 @@ class Application(Frame):
         else:
             self.makeSpectrumMD()
         messagebox.showinfo("Simple Data Saved","The files with the simplified data were saved in the working directory")
-
 
     def getSimpleValues(self):
         error = 0
@@ -741,20 +762,23 @@ class Application(Frame):
     def adv_file(self):
         pass
 
-    def simple_file(self):
-        pass
-
     def get_exp_data(self):
         if self.option_experimental.get() == 0:
-            pass
+            self.exp_abs_lines = []
+            self.exp_wl_lines = []
         else:
-            for i in range(0, 4, 1):
-                x = self.experimental_points_wl[i].get()
-                if len(x) > 0:
-                    self.exp_wl_lines.append(float(x))
-                y = self.experimental_points_abs[i].get()
-                if len(y) > 0:
-                    self.exp_abs_lines.append(float(y))
+            if self.experimental_type == 0:
+                self.exp_abs_lines = []
+                self.exp_wl_lines = []
+            else:
+                self.exp_wl_lines = []
+                for i in range(0, 4, 1):
+                    x = self.experimental_points_wl[i].get()
+                    if len(x) > 0:
+                        self.exp_wl_lines.append(float(x))
+                    y = self.experimental_points_abs[i].get()
+                    if len(y) > 0:
+                        self.exp_abs_lines.append(float(y))
 
     def pyplot(self):
         self.get_exp_data()
@@ -767,7 +791,8 @@ class Application(Frame):
             x = Print_Spectrum(
                 self.target_dir, self.output_file_names, self.wl_rang[0], self.wl_rang[1],
                 self.title_chart, int( self.entry_res.get()), self.osc_color, self.curve_color,
-                "0", self.filenames,  self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines, self.choice_intensity.get())
+                "0", self.filenames,  self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines, self.entry_color_exp.get(), self.choice_intensity.get()
+            )
             x.print_matplotlib()
             if self.evol_plot_wl_choice.get() == 1 or  self.evol_plot_osc_choice.get() == 1:
                 y = PlotTransitions(self.target_dir, self.output_file_names, self.title_chart_evolution, self.filenames, self.evol_plot_wl_choice.get(), self.evol_plot_osc_choice.get())
@@ -776,7 +801,7 @@ class Application(Frame):
             x = Print_Spectrum(
                 self.target_dir, [self.output_file_name], self.wl_rang[0], self.wl_rang[1],
                 self.title_chart, int(self.entry_res.get()), self.osc_color, self.curve_color,
-                "0", self.filenames, self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines, self.choice_intensity.get()
+                "0", self.filenames, self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines, self.entry_color_exp.get(), self.choice_intensity.get()
             )
             x.print_matplotlib()
 

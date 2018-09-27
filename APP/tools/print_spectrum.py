@@ -17,7 +17,7 @@ from APP.tools.differential import FiniteDifferenceDerivative
 
 
 class Print_Spectrum(object):
-    def __init__(self, dir_target, file_names, start_wl, end_wl, title, resol, osc_color, curve_color, exp_curv_color, log_names, plottypes, exp_abs_lines, exp_wl_lines, normalize_osc):
+    def __init__(self, dir_target, file_names, start_wl, end_wl, title, resol, osc_color, curve_color, exp_curv_color, log_names, plottypes, exp_abs_lines, exp_wl_lines, expColor, normalize_osc):
         self.file_names = file_names
         self.resol = resol
         self.start_wl = start_wl
@@ -29,8 +29,10 @@ class Print_Spectrum(object):
         self.exp_curv_color = exp_curv_color
         self.log_names = log_names
         self.plottypes = plottypes
-        self.exp_abs_lines =exp_abs_lines
+        self.expChoice = len(expColor)
+        self.exp_abs_lines = exp_abs_lines
         self.exp_wl_lines = exp_wl_lines
+        self.expColor = expColor
         self.normalize_osc = normalize_osc
 
     def print_matplotlib(self):
@@ -96,10 +98,6 @@ class Print_Spectrum(object):
             line2, = b.plot(wl_ref, osc_ref, visible=False)
             for j in range(len(wl_ref)):
                 b.vlines(wl_ref[j], 0, osc_ref[j], colors=self.osc_color[i], lw=1)
-            if len(self.exp_wl_lines) > 0:
-                for ref_exp in range(0, len(self.exp_wl_lines), 1):
-                    a.axvline(x=self.exp_wl_lines[ref_exp], linewidth=2, color="#06B41F")
-                    a.axhline(y=self.exp_abs_lines[ref_exp], linewidth=2, color="#FF8F05")
             self.graph[i].tight_layout()
             self.wl_list.append(wl)
             self.epslon_list.append(epslon)
@@ -118,6 +116,12 @@ class Print_Spectrum(object):
             b.yaxis.set_label_position("left")
             a.tick_params(axis='both', which='major', labelsize=12)
             b.tick_params(axis='both', which='major', labelsize=12)
+            if 0 < len(self.exp_wl_lines) < 5:
+                for ref_exp in range(0, len(self.exp_wl_lines), 1):
+                    a.vlines(self.exp_wl_lines[ref_exp], 0, self.exp_abs_lines[ref_exp], colors=self.expColor, lw=1)
+                    a.annotate(str(self.exp_wl_lines[ref_exp]) + " nm", xy=(self.exp_wl_lines[ref_exp] +1, self.exp_abs_lines[ref_exp] -1), xytext=(self.exp_wl_lines[ref_exp] +30, self.exp_abs_lines[ref_exp] +100),
+                bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=1.0),
+        arrowprops=dict(arrowstyle = '->', connectionstyle='arc3,rad=0'))
             if len(self.title) > 0:
                 matplotlib.pyplot.title(self.title)
             self.print(self.graph[i], namefiles[i])
