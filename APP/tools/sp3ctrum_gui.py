@@ -660,6 +660,7 @@ class Application(Frame):
         if self.choice_file_type.get() == 0:
             self.makeSpectrum()
         else:
+            # It is the method for Calculate Gaussian convolution with Multiple Files and Multiple files with a logical MD pattern.
             self.makeSpectrumMD()
         messagebox.showinfo("Simple Data Saved","The files with the simplified data were saved in the working directory")
 
@@ -749,7 +750,6 @@ class Application(Frame):
         self.plot_limits = self.spectrum.make_spectrum(self.wl_rang[0], self.wl_rang[1], self.wl_n_points)
         self.spectrum.write_spectrum(self.target_dir + "/" + self.output_file_name)
         self.save_adv_bt.configure(state=NORMAL)
-        self.save_simp_bt.configure(state=NORMAL)
 
 
     def adv_file(self):

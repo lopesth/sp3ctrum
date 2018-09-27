@@ -35,5 +35,3 @@ if (__name__ == "__main__"):
         file_name = ""
         choice_interface = ""
     control_the_flux(choice_interface, file_name)
-
-
