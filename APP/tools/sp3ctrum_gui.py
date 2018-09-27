@@ -760,11 +760,22 @@ class Application(Frame):
             self.exp_abs_lines = []
             self.exp_wl_lines = []
         else:
-            if self.experimental_type == 0:
-                
-                self.exp_abs_lines = []
-                self.exp_wl_lines = []
+            if self.experimental_type.get() == 0:
+                try:
+                    with open(self.experimental_data_file, encoding="utf8", errors='ignore') as myFile:
+                        for line in myFile:
+                            if len(line.split()) > 0:
+                                wlString, absorbanceString = line.split()
+                                wl = float(wlString)
+                                absorbance = float(absorbanceString)
+                                if wl >= float(self.wl_rang_start_entry.get()):
+                                    if wl <= float(self.wl_rang_end_entry.get()):
+                                        self.exp_wl_lines.append(wl)
+                                        self.exp_abs_lines.append(absorbance)
+                except:
+                    pass
             else:
+                print('here2')
                 self.exp_wl_lines = []
                 for i in range(0, 4, 1):
                     x = self.experimental_points_wl[i].get()

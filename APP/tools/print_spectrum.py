@@ -120,8 +120,10 @@ class Print_Spectrum(object):
                 for ref_exp in range(0, len(self.exp_wl_lines), 1):
                     a.vlines(self.exp_wl_lines[ref_exp], 0, self.exp_abs_lines[ref_exp], colors=self.expColor, lw=1)
                     a.annotate(str(self.exp_wl_lines[ref_exp]) + " nm", xy=(self.exp_wl_lines[ref_exp] +1, self.exp_abs_lines[ref_exp] -1), xytext=(self.exp_wl_lines[ref_exp] +30, self.exp_abs_lines[ref_exp] +100),
-                bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=1.0),
-        arrowprops=dict(arrowstyle = '->', connectionstyle='arc3,rad=0'))
+                    bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=1.0),
+                    arrowprops=dict(arrowstyle = '->', connectionstyle='arc3,rad=0'))
+            elif len(self.exp_wl_lines) > 4:
+                line3, = a.plot(self.exp_wl_lines, self.exp_abs_lines, linestyle='solid', color=self.expColor, fillstyle='none')
             if len(self.title) > 0:
                 matplotlib.pyplot.title(self.title)
             self.print(self.graph[i], namefiles[i])
@@ -195,7 +197,7 @@ class Print_Spectrum(object):
         if len(graph) == 1:
             self.graph_window = tk.Frame(self.root)
             canvas = FigureCanvasTkAgg(graph[0], master=self.graph_window)
-            canvas.show()
+            canvas.draw()
             canvas.get_tk_widget().pack(side="top")
             titlecanvas = tk.Label(self.graph_window, text=name[0]).pack(side="top")
             self.button_cont = tk.Frame(self.graph_window)
@@ -301,7 +303,6 @@ class MetaDataPrint(object):
 
     def reSave(self):
         meta = PngImagePlugin.PngInfo()
-        print(meta)
         meta.add_text("Created by", "UV-Vis Sp3ctrum P4tronum")
         meta.add_text("Version", __version__)
         meta.add_text("Powered by", __credits__[0])
