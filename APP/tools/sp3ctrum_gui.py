@@ -775,7 +775,6 @@ class Application(Frame):
                 except:
                     pass
             else:
-                print('here2')
                 self.exp_wl_lines = []
                 for i in range(0, 4, 1):
                     x = self.experimental_points_wl[i].get()
@@ -808,10 +807,11 @@ class Application(Frame):
                 "0", self.filenames,  self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines, self.entry_color_exp.get(), self.choice_intensity.get()
             )
             x.print_matplotlib()
-            if self.evol_plot_wl_choice.get() == 1 or  self.evol_plot_osc_choice.get() == 1:
-                y = PlotTransitions(self.target_dir, self.output_file_names, self.title_chart_evolution, self.filenames, self.evol_plot_wl_choice.get(), self.evol_plot_osc_choice.get())
 
         else:
+            if self.evol_plot_wl_choice.get() == 1 or self.evol_plot_osc_choice.get() == 1:
+                y = PlotTransitions(self.target_dir, self.output_file_names, "", self.filenames, self.evol_plot_wl_choice.get(), self.evol_plot_osc_choice.get(), 300)
+                y.plot_pyplot([1,2,3], "#000000")
             x = Print_Spectrum(
                 self.target_dir, [self.output_file_name], self.wl_rang[0], self.wl_rang[1],
                 self.title_chart, int(self.entry_res.get()), self.osc_color, self.curve_color,
