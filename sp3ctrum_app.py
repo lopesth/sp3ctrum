@@ -27,11 +27,19 @@ def control_the_flux(choice_interface, file_name):
         print("Type -file, -friendly or -gui.")
         sys.exit()
 
-if (__name__ == "__main__"):
+if __name__ == "__main__":
+
     try:
-        file_name = sys.argv[2]
         choice_interface = sys.argv[1]
+        file_name = sys.argv[2]
     except:
-        file_name = ""
-        choice_interface = ""
+        try:
+            if choice_interface == "-friendly":
+                file_name = ""
+            elif choice_interface == "-gui" or choice_interface == "":
+                file_name = ""
+        except:
+            choice_interface = ""
+            file_name = ""
+
     control_the_flux(choice_interface, file_name)
