@@ -9,6 +9,7 @@ __version__ = "1.0.0"
 import matplotlib
 matplotlib.use("TkAgg")
 from matplotlib import pyplot
+from os import remove
 from PIL import Image
 from PIL import PngImagePlugin
 import tkinter as tk
@@ -46,11 +47,17 @@ class Print_Spectrum(object):
         elif self.plottypes == 1:
             self.overlayGraph([self.dir_target + "/" + self.dir_target.split("/")[-1] + ".png"])
             self.show(self.graph, [""])
+        try:
+            for i in range(0, len(self.file_names), 1):
+                remove(self.dir_target + "/" + self.file_names[i] + "_spectrum.dat")
+                remove(self.dir_target + "/" + self.file_names[i] + "_rawData.dat")
+        except:
+            pass
 
     def take_osc_str_no_norm(self, name):
         wl = []
         osc = []
-        with open(name) as myFile:
+        with open(name, encoding="utf8", errors='ignore') as myFile:
             for line in myFile:
                 wl.append(float(line.split()[0]))
                 osc.append(float(line.split()[1]))
@@ -60,7 +67,7 @@ class Print_Spectrum(object):
         wl = []
         osc_t = []
         osc = []
-        with open(name) as myFile:
+        with open(name, encoding="utf8", errors='ignore') as myFile:
             for line in myFile:
                 wl.append(float(line.split()[0]))
                 osc_t.append(float(line.split()[1]))
@@ -87,7 +94,7 @@ class Print_Spectrum(object):
                 list_wl_osc = self.take_osc_str_norm(self.dir_target + "/" + self.file_names[i] + "_rawData.dat")
             else:
                 list_wl_osc = self.take_osc_str_no_norm(self.dir_target + "/" + self.file_names[i] + "_rawData.dat")
-                with open(self.dir_target+"/"+self.file_names[i]+"_rawData.dat") as myFile:
+                with open(self.dir_target+"/"+self.file_names[i]+"_rawData.dat", encoding="utf8", errors='ignore') as myFile:
                     for line in myFile:
                         wl_ref.append(float(line.split()[0]))
                         osc_ref.append(float(line.split()[1]))
@@ -145,7 +152,7 @@ class Print_Spectrum(object):
             epslon = []
             wl_ref = []
             osc_ref = []
-            with open(self.dir_target + "/" + self.file_name + "_spectrum.dat") as myFile:
+            with open(self.dir_target + "/" + self.file_name + "_spectrum.dat", encoding="utf8", errors='ignore') as myFile:
                 for line in myFile:
                     wl.append(float(line.split()[0]))
                     epslon.append(float(line.split()[1])/self.numberOfFiles)
@@ -153,7 +160,7 @@ class Print_Spectrum(object):
                 list_wl_osc = self.take_osc_str_norm(self.dir_target + "/" + self.file_name + "_rawData.dat")
             else:
                 list_wl_osc = self.take_osc_str_no_norm(self.dir_target + "/" + self.file_name + "_rawData.dat")
-                with open(self.dir_target+"/"+self.file_name+"_rawData.dat") as myFile:
+                with open(self.dir_target+"/"+self.file_name+"_rawData.dat", encoding="utf8", errors='ignore') as myFile:
                     for line in myFile:
                         wl_ref.append(float(line.split()[0]))
                         osc_ref.append(float(line.split()[1]))

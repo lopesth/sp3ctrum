@@ -27,7 +27,7 @@ class PlotTransitions(object):
 		for rawData in output_file_names:
 			rawData_osc_list = []
 			rawData_wl_list = []
-			with open(rawData) as myFile:
+			with open(self.target_dir+"/"+rawData+"_rawData.dat", encoding="utf8", errors='ignore') as myFile:
 				for line in myFile:
 					y = line.split()
 					rawData_osc_list.append(float(y[1]))

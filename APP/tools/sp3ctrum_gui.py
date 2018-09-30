@@ -16,6 +16,7 @@ from APP.tools.gaussian_conv import Gaussian_Convolution
 from APP.tools.get_osc import Get_Osc
 from APP.tools.print_spectrum import Print_Spectrum
 from APP.tools.plotTransitions import PlotTransitions
+from APP.tools.advancedSave import saveAdvancedSimple
 
 class Application(Frame):
     def __init__(self, toplevel):
@@ -132,7 +133,7 @@ class Application(Frame):
         self.make_spec_bt.configure(state=DISABLED)
         self.make_spec_bt.grid(row = 0, column = 0, padx=5)
         self.save_adv_bt = Button(
-            self.run_but_container, text="Save advanced data", font="Helvetica", command=self.adv_file,
+            self.run_but_container, text="Save the Data", font="Helvetica", command=self.adv_file,
             highlightbackground="#8EF0F7", pady=2, relief=FLAT
         )
         self.save_adv_bt.configure(state=DISABLED)
@@ -662,7 +663,6 @@ class Application(Frame):
         else:
             # It is the method for Calculate Gaussian convolution with Multiple Files and Multiple files with a logical MD pattern.
             self.makeSpectrumMD()
-        messagebox.showinfo("Simple Data Saved","The files with the simplified data were saved in the working directory")
 
     def getSimpleValues(self):
         error = 0
@@ -753,7 +753,23 @@ class Application(Frame):
 
 
     def adv_file(self):
-        pass
+        if self.choice_file_type.get() == 0:
+            for i in range(0, len(self.filenames)):
+                toSave = saveAdvancedSimple(self.filenames[i], self.target_dir + "/" + self.output_file_names[i]+"_spectrum.dat")
+        else:
+            try:
+                os.remove(self.output_file_name+"_spectrum.dat")
+            except:
+                pass
+            for i in range(0, len(self.filenames)):
+                if i == len(self.filenames)-1:
+                    toSave = saveAdvancedSimple(self.filenames[i], self.target_dir + "/" + self.output_file_name+"_spectrum.dat", False)
+                else:
+                    toSave = saveAdvancedSimple(self.filenames[i], self.target_dir + "/" + self.output_file_name+"_spectrum.dat", False, False)
+        concordPlural = (False if len(self.filenames) == 1 or self.choice_file_type.get() != 0 else True)
+        titSave = ("Files Saved" if concordPlural else "File Saved")
+        messagSave = ("All files have" if concordPlural else "The file has")
+        messagebox.showinfo(titSave, messagSave + " already been saved in the working directory")
 
     def get_exp_data(self):
         if self.option_experimental.get() == 0:
@@ -775,7 +791,6 @@ class Application(Frame):
                 except:
                     pass
             else:
-                print('here2')
                 self.exp_wl_lines = []
                 for i in range(0, 4, 1):
                     x = self.experimental_points_wl[i].get()
@@ -808,10 +823,11 @@ class Application(Frame):
                 "0", self.filenames,  self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines, self.entry_color_exp.get(), self.choice_intensity.get()
             )
             x.print_matplotlib()
-            if self.evol_plot_wl_choice.get() == 1 or  self.evol_plot_osc_choice.get() == 1:
-                y = PlotTransitions(self.target_dir, self.output_file_names, self.title_chart_evolution, self.filenames, self.evol_plot_wl_choice.get(), self.evol_plot_osc_choice.get())
 
         else:
+            if self.evol_plot_wl_choice.get() == 1 or self.evol_plot_osc_choice.get() == 1:
+                y = PlotTransitions(self.target_dir, self.output_file_names, "", self.filenames, self.evol_plot_wl_choice.get(), self.evol_plot_osc_choice.get(), 300)
+                y.plot_pyplot([1,2,3], "#000000")
             x = Print_Spectrum(
                 self.target_dir, [self.output_file_name], self.wl_rang[0], self.wl_rang[1],
                 self.title_chart, int(self.entry_res.get()), self.osc_color, self.curve_color,

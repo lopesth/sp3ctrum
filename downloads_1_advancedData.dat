@@ -1,0 +1,104 @@
+_______________________________________________________________
+
+------ Advanced Data from file Acroleina_water_15_1c.log ------
+
+_______________________________________________________________
+
+ Excitation energies and oscillator strengths:
+
+                   Wavelenght (nm)  Oscillator Force
+ Excited State 01:     305.15            0.0001 
+ Excited State 02:     215.02            0.2701 
+ Excited State 03:     184.49            0.0042 
+ Excited State 04:     170.95            0.0002 
+ Excited State 05:     169.21            0.0048 
+ Excited State 06:     159.21            0.0032 
+ Excited State 07:     155.87            0.0013 
+ Excited State 08:     151.55            0.0017 
+ Excited State 09:     148.80            0.0003 
+ Excited State 10:     147.96            0.0288 
+ Excited State 11:     147.70            0.0295 
+ Excited State 12:     147.40            0.0144 
+ Excited State 13:     146.42            0.0088 
+ Excited State 14:     145.92            0.0719 
+ Excited State 15:     145.17            0.0021 
+
+Contribution of the pairs of orbitals in the electronic excitation:
+Excitation Number 01:
+       M.O. 79 to 86  ->  71.09%
+       M.O. 79 to 94  ->   2.56%
+       M.O. 83 to 86  ->  14.86%
+
+Excitation Number 02:
+       M.O. 81 to 86  ->  90.31%
+
+Excitation Number 03:
+       M.O. 79 to 86  ->   2.04%
+       M.O. 83 to 86  ->  12.55%
+       M.O. 84 to 86  ->  16.78%
+       M.O. 85 to 86  ->  60.94%
+
+Excitation Number 04:
+       M.O. 62 to 86  ->  88.00%
+       M.O. 85 to 86  ->   2.01%
+
+Excitation Number 05:
+       M.O. 79 to 86  ->  13.89%
+       M.O. 83 to 86  ->  57.90%
+       M.O. 84 to 86  ->  21.90%
+
+Excitation Number 06:
+       M.O. 75 to 86  ->   6.12%
+       M.O. 83 to 86  ->  10.29%
+       M.O. 84 to 86  ->  54.83%
+       M.O. 85 to 86  ->  26.64%
+
+Excitation Number 07:
+       M.O. 75 to 86  ->  86.49%
+       M.O. 85 to 86  ->   3.85%
+
+Excitation Number 08:
+       M.O. 54 to 86  ->   7.36%
+       M.O. 56 to 86  ->  68.12%
+       M.O. 79 to 93  ->   3.09%
+       M.O. 79 to 94  ->   2.65%
+
+Excitation Number 09:
+       M.O. 80 to 86  ->  91.52%
+
+Excitation Number 10:
+       M.O. 82 to 86  ->  80.60%
+       M.O. 82 to 89  ->   2.83%
+       M.O. 82 to 92  ->   2.37%
+
+Excitation Number 11:
+       M.O. 81 to 87  ->  73.01%
+       M.O. 81 to 88  ->   2.27%
+
+Excitation Number 12:
+       M.O. 79 to 87  ->  35.39%
+       M.O. 79 to 88  ->  16.81%
+       M.O. 79 to 89  ->  11.91%
+       M.O. 83 to 87  ->   9.14%
+       M.O. 83 to 88  ->   3.80%
+       M.O. 83 to 89  ->   4.02%
+
+Excitation Number 13:
+       M.O. 65 to 86  ->   2.47%
+       M.O. 73 to 86  ->  85.51%
+       M.O. 74 to 86  ->   2.52%
+
+Excitation Number 14:
+       M.O. 78 to 87  ->  36.14%
+       M.O. 78 to 88  ->  31.91%
+       M.O. 78 to 92  ->   6.49%
+       M.O. 78 to 97  ->   5.04%
+
+Excitation Number 15:
+       M.O. 68 to 86  ->   3.35%
+       M.O. 72 to 86  ->   2.94%
+       M.O. 73 to 86  ->   3.08%
+       M.O. 74 to 86  ->  27.70%
+       M.O. 76 to 86  ->  49.21%
+       M.O. 77 to 86  ->   4.60%
+
