@@ -9,6 +9,7 @@ __version__ = "1.0.0"
 import matplotlib
 matplotlib.use("TkAgg")
 from matplotlib import pyplot
+from os import remove
 from PIL import Image
 from PIL import PngImagePlugin
 import tkinter as tk
@@ -46,6 +47,12 @@ class Print_Spectrum(object):
         elif self.plottypes == 1:
             self.overlayGraph([self.dir_target + "/" + self.dir_target.split("/")[-1] + ".png"])
             self.show(self.graph, [""])
+        try:
+            for i in range(0, len(self.file_names), 1):
+                remove(self.dir_target + "/" + self.file_names[i] + "_spectrum.dat")
+                remove(self.dir_target + "/" + self.file_names[i] + "_rawData.dat")
+        except:
+            pass
 
     def take_osc_str_no_norm(self, name):
         wl = []
