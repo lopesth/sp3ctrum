@@ -76,11 +76,3 @@ class saveAdvancedSimple(object):
                 for line in myFile:
                     saveFile.write("           %s\n" %("                       ".join(line.split())))
         saveFile.close()
-
-
-
-
-
-
-if __name__ == "__main__":
-    x = saveAdvancedSimple("/Users/thiagolopes/Downloads/Acroleina_water_15_1c.log", "/Users/thiagolopes/Downloads/downloads_1_spectrum.dat")
