@@ -753,14 +753,14 @@ class Application(Frame):
 
 
     def adv_file(self):
+        try:
+            os.remove(self.target_dir + "/" + self.output_file_name+"_advancedData.dat")
+        except:
+            pass
         if self.choice_file_type.get() == 0:
             for i in range(0, len(self.filenames)):
                 toSave = saveAdvancedSimple(self.filenames[i], self.target_dir + "/" + self.output_file_names[i]+"_spectrum.dat")
         else:
-            try:
-                os.remove(self.output_file_name+"_spectrum.dat")
-            except:
-                pass
             for i in range(0, len(self.filenames)):
                 if i == len(self.filenames)-1:
                     toSave = saveAdvancedSimple(self.filenames[i], self.target_dir + "/" + self.output_file_name+"_spectrum.dat", False)
