@@ -41,7 +41,6 @@ class Application(Frame):
         self.guiTab2()
         self.guiTab3()
         self.guiTab4()
-        self.guiTab5()
         self.guiTab6()
         self.guiButtons()
         self.guiLogos()
@@ -108,20 +107,16 @@ class Application(Frame):
         self.note3_struct.pack()
         self.note4_struct = Frame(self.note, background="#FFFFFF")
         self.note4_struct.pack()
-        self.note5_struct = Frame(self.note, background="#FFFFFF")
-        self.note5_struct.pack()
         self.note6_struct = Frame(self.note, background="#FFFFFF")
         self.note6_struct.pack()
         self.note.add(self.note1_struct, text="Files")
         self.note.add(self.note2_struct, text="Spectrum Parameters")
         self.note.add(self.note3_struct, text="Plot Details")
         self.note.add(self.note4_struct, text="Versus Experimental Values")
-        self.note.add(self.note5_struct, text="MD Options")
         self.note.add(self.note6_struct, text="Advanced Options")
         self.note.tab(self.note2_struct, state="disabled")
         self.note.tab(self.note3_struct, state="disabled")
         self.note.tab(self.note4_struct, state="disabled")
-        self.note.tab(self.note5_struct, state="disabled")
         self.note.tab(self.note6_struct, state="disabled")
 
     def guiButtons(self):
@@ -489,45 +484,6 @@ class Application(Frame):
             self.experimental_points_wl[i].config(state=DISABLED)
             self.experimental_points_abs[i].config(state=DISABLED)
 
-    def guiTab5(self):
-        self.evol_plot_osc_choice = IntVar(0)
-        self.evol_plot_wl_choice = IntVar(0)
-        self.box_evoltuionOption = Frame( self.note5_struct,relief=FLAT, borderwidth=0, bg = "#FFFFFF")
-        self.box_evoltuionOption_oscillator = Frame(
-            self.box_evoltuionOption, relief=FLAT, borderwidth=0, bg = "#FFFFFF")
-        self.text_oscillator_evolution = Label(
-            self.box_evoltuionOption_oscillator,text="Evolution Plot for Oscillator Forces:", bg = "#FFFFFF"
-        ).pack(side="left", padx=10)
-        self.evol_plot_osc_Nbt = Radiobutton(
-            self.box_evoltuionOption_oscillator, text="No", variable=self.evol_plot_osc_choice,
-            value=0, background="#FFFFFF"
-        )
-        self.evol_plot_osc_Ybt = Radiobutton(
-            self.box_evoltuionOption_oscillator, text="Yes", variable=self.evol_plot_osc_choice,
-            value=1, background="#FFFFFF"
-        )
-        self.evol_plot_osc_Nbt.pack(side="left")
-        self.evol_plot_osc_Ybt.pack(side="left")
-        self.box_evoltuionOption_oscillator.pack(side="top", padx=10, pady=5)
-        self.box_evoltuionOption_wl = Frame(
-            self.box_evoltuionOption, relief=FLAT, borderwidth=0, bg="#FFFFFF")
-        self.text_wl_evolution = Label(
-            self.box_evoltuionOption_wl, text="Evolution Plot for Wavelength:", bg="#FFFFFF"
-        ).pack(side="left", padx=27)
-        self.evol_plot_wl_Nbt = Radiobutton(
-            self.box_evoltuionOption_wl, text="No", variable=self.evol_plot_wl_choice,
-            value=0, background="#FFFFFF"
-        )
-        self.evol_plot_wl_Ybt = Radiobutton(
-            self.box_evoltuionOption_wl, text="Yes", variable=self.evol_plot_wl_choice,
-            value=1, background="#FFFFFF"
-        )
-        self.evol_plot_wl_Nbt.pack(side="left")
-        self.evol_plot_wl_Ybt.pack(side="left")
-        self.box_evoltuionOption_wl.pack(side="top", padx=10, pady=5, anchor=W)
-        self.box_evoltuionOption.pack(side="top", anchor=W)
-
-
     def guiTab6(self):
         self.choice_intensity = IntVar()
         self.choice_intensity.set(1)
@@ -645,10 +601,8 @@ class Application(Frame):
 
         else:
             if self.choice_file_type.get() == 1:
-                self.note.tab(self.note5_struct, state="disable")
                 self.note.tab(self.note4_struct, state="disable")
             if self.choice_file_type.get() == 2:
-                self.note.tab(self.note5_struct, state="normal")
                 self.note.tab(self.note4_struct, state="disable")
             self.checkbuttonplot1.configure(state = DISABLED)
             self.checkbuttonplot2.configure(state = DISABLED)
@@ -862,7 +816,6 @@ class Application(Frame):
         self.note.tab(self.note2_struct, state="disabled")
         self.note.tab(self.note3_struct, state="disabled")
         self.note.tab(self.note4_struct, state="disabled")
-        self.note.tab(self.note5_struct, state="disabled")
         self.note.tab(self.note6_struct, state="disabled")
 
     def leave(self):
