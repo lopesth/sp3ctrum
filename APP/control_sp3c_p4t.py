@@ -145,4 +145,8 @@ class Sp3ctrum_UVvis_P4tronum(object):
         spectrum = Gaussian_Convolution(total_oscillators, sdt_wl_cm)
         greater_epslon_osc = spectrum.make_spectrum(start, end, numb_of_points)
         spectrum.write_spectrum(file_name)
-        #Print_Spectrum(self.dir, file_name, range_wl[0], range_wl[1], title, greater_epslon_osc[0], greater_epslon_osc[1]).print_matplotlib()
+        resolution = 300
+        osc_color = '#ff0000'
+        curve_color = '#ff0000'
+        exp_curv_color = '00ff00'
+        Print_Spectrum(self.dir, file_name, range_wl[0], range_wl[1], title, resolution, osc_color, curve_color, exp_curv_color, greater_epslon_osc[0], greater_epslon_osc[1]).print_matplotlib()
