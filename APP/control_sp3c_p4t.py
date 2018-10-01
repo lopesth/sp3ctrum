@@ -128,7 +128,7 @@ class Sp3ctrum_UVvis_P4tronum(object):
         print("\nType the base name for the output files.")
         while True:
             try:
-                name_file = input("If the name has more than one word, separate them by '_' and not by space: ").split()[0]
+                file_name = input("If the name has more than one word, separate them by '_' and not by space: ").split()[0]
                 break
             except KeyboardInterrupt:
                 sys.exit()
@@ -141,8 +141,8 @@ class Sp3ctrum_UVvis_P4tronum(object):
         numb_of_points = self.take_nmb_ptos()
         sdt_wl_cm = self.take_fwhm()
         title = Title_Chart().to_choose()
-        total_oscillators = Get_Osc(files_to_combine).take_osc()
+        total_oscillators = Get_Osc(files_to_combine).take_osc(start, end)
         spectrum = Gaussian_Convolution(total_oscillators, sdt_wl_cm)
-        greater_epslon_osc = spectrum.make_spectrum(start, end, numb_of_points, sdt_wl_cm)
-        spectrum.write_spectrum(name_file)
-        Print_Spectrum(self.dir, name_file, start, end, greater_epslon_osc[0], greater_epslon_osc[1], title).print_matplotlib()
+        greater_epslon_osc = spectrum.make_spectrum(start, end, numb_of_points)
+        spectrum.write_spectrum(file_name)
+        #Print_Spectrum(self.dir, file_name, range_wl[0], range_wl[1], title, greater_epslon_osc[0], greater_epslon_osc[1]).print_matplotlib()
