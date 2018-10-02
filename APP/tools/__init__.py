@@ -11,7 +11,7 @@ __version__ = "1.0.0"
 from .find_a_string_in_file import *
 from .gaussian_conv import *
 from .get_osc import *
-from .get_parameters import *
+#from .get_parameters import *
 from .print_spectrum import *
 from .sort_key_maps import *
 from .start_spc import *
@@ -21,4 +21,3 @@ from .orbitals import TransitionContribution
 from .differential import FiniteDifferenceDerivative
 from .plotTransitions import PlotTransitions
 from .advancedSave import saveAdvancedSimple
-
