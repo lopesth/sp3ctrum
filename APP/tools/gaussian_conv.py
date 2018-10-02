@@ -22,6 +22,7 @@ class Gaussian_Convolution(object):
         total_map = {}
         epslon_list = []
         osc_list = []
+
         for wl_ref in self.osc_map.keys():
             for f_i in self.osc_map[wl_ref]:
                 osc_list.append(f_i)
@@ -44,15 +45,19 @@ class Gaussian_Convolution(object):
                 y += values_osc_str
             self.final_map.update({wl : y})
             epslon_list.append(y)
+
         return [sorted(epslon_list)[-1], sorted(osc_list)[-1]]
 
     def write_spectrum(self, file_to_write):
         file_target_gauss = open(file_to_write+"_spectrum.dat", "w")
         sorted_keys = sorted(self.final_map.keys())
+
         for wl in sorted_keys:
             file_target_gauss.write("%10.2f %35.5f\n" %(wl, self.final_map[wl]))
         file_target_gauss.close()
+
         file_to_write_lits = open(file_to_write + "_rawData.dat", "w")
+        
         for wl_ref in self.osc_map.keys():
             for f_ref in self.osc_map[wl_ref]:
                 file_to_write_lits.write("%10.5f %10.5f\n" %(wl_ref, f_ref))

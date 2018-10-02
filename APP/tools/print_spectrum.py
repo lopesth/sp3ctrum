@@ -21,6 +21,7 @@ class Print_Spectrum(object):
 
     def __init__(self, dir_target, file_names, start_wl, end_wl, title, resol, osc_color, curve_color,
                  exp_curv_color, log_names, plottypes, exp_abs_lines, exp_wl_lines, expColor, normalize_osc, numberOfFiles = 1):
+
         self.file_names = file_names
         self.resol = resol
         self.start_wl = start_wl
