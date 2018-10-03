@@ -6,7 +6,7 @@ __email__ = ["lopes.th.o@gmail.com", "brittosandro@gmail.com"]
 __date__ = "Set 28 of 2018"
 __version__ = "1.0.0"
 
-from APP.tools.start_spc import Opening, Take_Files
+from APP.tools.start_spc import Opening
 from APP.tools.get_osc import Get_Osc
 from APP.tools.gaussian_conv import Gaussian_Convolution
 from APP.tools.print_spectrum import Print_Spectrum
@@ -20,20 +20,6 @@ class Sp3ctrum_UVvis_P4tronum(object):
         self.version = version
         Opening(self.version).welcome()
         self.dir = os.getcwd()
-
-    def run_friendly_terminal(self):
-        answer = True
-        while answer:
-            self.execute_loop()
-            while True:
-                try:
-                    answer = (input("\nWould you like to run it again? Type \'y\' or \'yes\' to continue: ").split()[0].lower() in ["y", "yes"])
-                    break
-                except KeyboardInterrupt:
-                    sys.exit()
-                except:
-                    continue
-        print("\nOK. Have a nice day and enjoy your results.\n")
 
     def run_fed_terminal(self, filename):
         feed = Get_Parameters(filename)
@@ -122,31 +108,3 @@ class Sp3ctrum_UVvis_P4tronum(object):
                     print("Type a number!")
                     continue
         return sdt_wl_nm
-
-    def execute_loop(self):
-        files_to_combine = Take_Files().get_files()
-        print("\nType the base name for the output files.")
-        while True:
-            try:
-                file_name = input("If the name has more than one word, separate them by '_' and not by space: ").split()[0]
-                break
-            except KeyboardInterrupt:
-                sys.exit()
-            except:
-                continue
-        print("\nType the wavelength range to be processed.")
-        range_wl = self.take_wl_range()
-        start = float(range_wl[0])
-        end = float(range_wl[1])
-        numb_of_points = self.take_nmb_ptos()
-        sdt_wl_cm = self.take_fwhm()
-        title = Title_Chart().to_choose()
-        total_oscillators = Get_Osc(files_to_combine).take_osc(start, end)
-        spectrum = Gaussian_Convolution(total_oscillators, sdt_wl_cm)
-        greater_epslon_osc = spectrum.make_spectrum(start, end, numb_of_points)
-        spectrum.write_spectrum(file_name)
-        resolution = 300
-        osc_color = '#ff0000'
-        curve_color = '#ff0000'
-        exp_curv_color = '00ff00'
-        Print_Spectrum(self.dir, file_name, range_wl[0], range_wl[1], title, resolution, osc_color, curve_color, exp_curv_color, greater_epslon_osc[0], greater_epslon_osc[1]).print_matplotlib()
