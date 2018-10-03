@@ -19,13 +19,13 @@ def control_the_flux(choice_interface, file_name):
 
     elif choice_interface == "-gui" or choice_interface == "":
         root = Tk()
-        root.title("UV-Vis Sp3ctrum P4tronum "+__version__)
+        root.title("UV-Vis Sp3ctrum P4tronum " + __version__)
         app = Application(root)
         mainloop()
 
     else:
         print("Unrecognized Keyword")
-        print("Type -file, -friendly or -gui.")
+        print("Type -gui or -file,.")
         sys.exit()
 
 if __name__ == "__main__":
