@@ -48,8 +48,8 @@ class Velocity_AutoCor_Function(object):
 
     def vacf(self, frame):
         cvv = 0
-        for atom in range(0, 4):
-            cvv = cvv + self.escalarProductVector(self.frames[0][atom], frame[atom]) / self.vectorMagnitude(self.frames[0][atom])
+        for atom in range(0, self.N):
+            cvv = cvv + (self.escalarProductVector(self.frames[0][atom], frame[atom]) )
         return (1/self.N) * cvv
 
     def escalarProductVector(self, vector1, vector2):
@@ -60,10 +60,13 @@ class Velocity_AutoCor_Function(object):
 
 
 if __name__ == "__main__":
-    y = Velocity_AutoCor_Function("/Users/thiagolopes/Downloads/OneDrive-2018-10-02-2/TRAJECTORY", 20000).velocities
+    y = Velocity_AutoCor_Function("/Users/thiagolopes/Downloads/TRAJECTORY", 9000).velocities
     y_max = max(y)
     yNorm = [element/y_max for element in y]
-    x = [x_i for x_i in range(1, 20000+1)]
+    x = [x_i for x_i in range(1, 9000+1)]
     plot = pyplot.plot(x, yNorm)
-    pyplot.show()
+    #pyplot.show()
+    teste = open("/Users/thiagolopes/Downloads/teste.csv", "w")
+    for x2, y2 in zip(x, yNorm):
+        teste.write("{}, {}\n".format(x2, y2))
     
