@@ -6,12 +6,12 @@ __email__ = ["lopes.th.o@gmail.com", "brittosandro@gmail.com"]
 __date__ = "Set 28 of 2018"
 __version__ = "1.0.0"
 
-from APP.tools.start_spc import Opening, Take_Files
-from APP.tools.get_osc import Get_Osc
-from APP.tools.gaussian_conv import Gaussian_Convolution
-from APP.tools.print_spectrum import Print_Spectrum
-from APP.tools.get_parameters import Get_Parameters
-from APP.tools.get_chart_title import Title_Chart
+from APP.start_spc import Opening, Take_Files
+from APP.get_osc import Get_Osc
+from APP.gaussian_conv import Gaussian_Convolution
+from APP.print_spectrum import Print_Spectrum
+from APP.get_parameters import Get_Parameters
+from APP.get_chart_title import Title_Chart
 import sys, os
 
 class Sp3ctrum_UVvis_P4tronum(object):

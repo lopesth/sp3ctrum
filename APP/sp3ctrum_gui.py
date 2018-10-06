@@ -12,19 +12,19 @@ from tkinter import messagebox
 from tkinter import ttk
 from tkinter import Button
 import sys, os, webbrowser
-from APP.tools.gaussian_conv import Gaussian_Convolution
-from APP.tools.get_osc import Get_Osc
-from APP.tools.print_spectrum import Print_Spectrum
-from APP.tools.plotTransitions import PlotTransitions
-from APP.tools.advancedSave import saveAdvancedSimple
+from APP.gaussian_conv import Gaussian_Convolution
+from APP.get_osc import Get_Osc
+from APP.print_spectrum import Print_Spectrum
+from APP.plotTransitions import PlotTransitions
+from APP.advancedSave import saveAdvancedSimple
 
 class Application(Frame):
     def __init__(self, toplevel):
         Frame.__init__(self, toplevel)
         if sys.platform == "win32":
-            self.src = os.path.realpath(__file__).replace("tools\sp3ctrum_gui.py", "")
+            self.src = os.path.realpath(__file__).replace("sp3ctrum_gui.py", "")
         else:
-            self.src = os.path.realpath(__file__).replace("tools/sp3ctrum_gui.py", "")
+            self.src = os.path.realpath(__file__).replace("sp3ctrum_gui.py", "")
         self.toplevel = toplevel
         self.toplevel.protocol("WM_DELETE_WINDOW", self.leave)
         self.toplevel.configure(bg="#8EF0F7")
@@ -165,7 +165,7 @@ class Application(Frame):
 
         self.rb1_choice_file_type = Radiobutton(
             self.open_files_BT, text="Independent Files", variable=self.choice_file_type,
-            value=0, command=self.enable_file_bt, background="#FFFFFF"
+            value=0, command=self.enable_file_bt, background="#FFFFFF", fg="#000000",
         )
         self.rb1_choice_file_type.pack(side="left")
 
@@ -183,7 +183,7 @@ class Application(Frame):
 
         self.run_call_bt = Button(
             self.open_files_BT, text="Open files", font="Helvetica",
-            state=DISABLED, command=self.select_files, background="#FFFFFF"
+            state=DISABLED, command=self.select_files, background="#FFFFFF", fg="#000000", width=8
         )
         self.run_call_bt.pack(side="left")
         self.open_files_BT.pack(anchor=NW, pady=5, padx=20)
@@ -765,30 +765,17 @@ class Application(Frame):
 
     def pyplot(self):
         self.get_exp_data()
-        if self.choice_file_type.get() == 0:
-            self.curve_color = []
-            self.osc_color = []
-            for i in range(0, len(self.filenames), 1):
-                self.curve_color.append(self.entry_color_curve_list[i].get())
-                self.osc_color.append(self.entry_color_drop_list[i].get())
-            x = Print_Spectrum(
-                self.target_dir, self.output_file_names, self.wl_rang[0], self.wl_rang[1],
-                self.title_chart, int( self.entry_res.get()), self.osc_color, self.curve_color,
-                "0", self.filenames,  self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines, self.entry_color_exp.get(), self.choice_intensity.get()
-            )
-            x.print_matplotlib()
-
-        else:
-            if self.evol_plot_wl_choice.get() == 1 or self.evol_plot_osc_choice.get() == 1:
-                y = PlotTransitions(self.target_dir, self.output_file_names, "", self.filenames, self.evol_plot_wl_choice.get(), self.evol_plot_osc_choice.get(), 300)
-                y.plot_pyplot([1,2,3], "#000000")
-            x = Print_Spectrum(
-                self.target_dir, [self.output_file_name], self.wl_rang[0], self.wl_rang[1],
-                self.title_chart, int(self.entry_res.get()), self.osc_color, self.curve_color,
-                "0", self.filenames, self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines, self.entry_color_exp.get(), self.choice_intensity.get(), len(self.filenames)
-            )
-            x.print_matplotlib()
-
+        self.curve_color = []
+        self.osc_color = []
+        for i in range(0, len(self.filenames), 1):
+            self.curve_color.append(self.entry_color_curve_list[i].get())
+            self.osc_color.append(self.entry_color_drop_list[i].get())
+        x = Print_Spectrum(
+            self.target_dir, self.output_file_names, self.wl_rang[0], self.wl_rang[1],
+            self.title_chart, int( self.entry_res.get()), self.osc_color, self.curve_color,
+            "0", self.filenames,  self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines, self.entry_color_exp.get(), self.choice_intensity.get()
+        )
+        x.print_matplotlib()
         self.pyplot_bt.configure(state=DISABLED)
 
     def restart(self):

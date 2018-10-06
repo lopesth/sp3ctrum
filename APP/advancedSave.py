@@ -6,7 +6,7 @@ __email__ = ["lopes.th.o@gmail.com", "brittosandro@gmail.com"]
 __date__ = "Set 28 of 2018"
 __version__ = "1.0.0"
 
-from APP.tools.find_a_string_in_file import Find_a_String 
+from APP.find_a_string_in_file import Find_a_String 
 
 class saveAdvancedSimple(object):
 

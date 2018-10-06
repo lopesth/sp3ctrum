@@ -6,8 +6,8 @@ __email__ = ["lopes.th.o@gmail.com", "brittosandro@gmail.com"]
 __date__ = "Set 28 of 2018"
 __version__ = "1.0.0"
 
-from APP.tools.find_a_string_in_file import Find_a_String
-from APP.tools.sort_key_maps import Sort_Map
+from APP.find_a_string_in_file import Find_a_String
+from APP.sort_key_maps import Sort_Map
 
 class Get_Osc(object):
 
