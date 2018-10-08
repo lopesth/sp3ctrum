@@ -12,19 +12,19 @@ from tkinter import messagebox
 from tkinter import ttk
 from tkinter import Button
 import sys, os, webbrowser
-from APP.tools.gaussian_conv import Gaussian_Convolution
-from APP.tools.get_osc import Get_Osc
-from APP.tools.print_spectrum import Print_Spectrum
-from APP.tools.plotTransitions import PlotTransitions
-from APP.tools.advancedSave import saveAdvancedSimple
+from APP.gaussian_conv import Gaussian_Convolution
+from APP.get_osc import Get_Osc
+from APP.print_spectrum import Print_Spectrum
+from APP.plotTransitions import PlotTransitions
+from APP.advancedSave import saveAdvancedSimple
 
 class Application(Frame):
     def __init__(self, toplevel):
         Frame.__init__(self, toplevel)
         if sys.platform == "win32":
-            self.src = os.path.realpath(__file__).replace("tools\sp3ctrum_gui.py", "")
+            self.src = os.path.realpath(__file__).replace("sp3ctrum_gui.py", "")
         else:
-            self.src = os.path.realpath(__file__).replace("tools/sp3ctrum_gui.py", "")
+            self.src = os.path.realpath(__file__).replace("sp3ctrum_gui.py", "")
         self.toplevel = toplevel
         self.toplevel.protocol("WM_DELETE_WINDOW", self.leave)
         self.toplevel.configure(bg="#8EF0F7")
@@ -41,7 +41,6 @@ class Application(Frame):
         self.guiTab2()
         self.guiTab3()
         self.guiTab4()
-        self.guiTab5()
         self.guiTab6()
         self.guiButtons()
         self.guiLogos()
@@ -73,7 +72,7 @@ class Application(Frame):
                     "background": [("selected", "#62338C"), ("disabled", "#8EF0F7")],
                     "foreground": [("selected", "#FFFFFF"), ("disabled", "#828585")]},
                 "expand": [("selected", [1, 1, 1, 0])],
-            }
+            },
         })
         self.style.theme_use("leedmol")
 
@@ -108,20 +107,16 @@ class Application(Frame):
         self.note3_struct.pack()
         self.note4_struct = Frame(self.note, background="#FFFFFF")
         self.note4_struct.pack()
-        self.note5_struct = Frame(self.note, background="#FFFFFF")
-        self.note5_struct.pack()
         self.note6_struct = Frame(self.note, background="#FFFFFF")
         self.note6_struct.pack()
         self.note.add(self.note1_struct, text="Files")
         self.note.add(self.note2_struct, text="Spectrum Parameters")
         self.note.add(self.note3_struct, text="Plot Details")
         self.note.add(self.note4_struct, text="Versus Experimental Values")
-        self.note.add(self.note5_struct, text="MD Options")
         self.note.add(self.note6_struct, text="Advanced Options")
         self.note.tab(self.note2_struct, state="disabled")
         self.note.tab(self.note3_struct, state="disabled")
         self.note.tab(self.note4_struct, state="disabled")
-        self.note.tab(self.note5_struct, state="disabled")
         self.note.tab(self.note6_struct, state="disabled")
 
     def guiButtons(self):
@@ -170,7 +165,7 @@ class Application(Frame):
 
         self.rb1_choice_file_type = Radiobutton(
             self.open_files_BT, text="Independent Files", variable=self.choice_file_type,
-            value=0, command=self.enable_file_bt, background="#FFFFFF"
+            value=0, command=self.enable_file_bt, background="#FFFFFF", fg="#000000",
         )
         self.rb1_choice_file_type.pack(side="left")
 
@@ -188,7 +183,7 @@ class Application(Frame):
 
         self.run_call_bt = Button(
             self.open_files_BT, text="Open files", font="Helvetica",
-            state=DISABLED, command=self.select_files, background="#FFFFFF"
+            state=DISABLED, command=self.select_files, background="#FFFFFF", fg="#000000", width=8
         )
         self.run_call_bt.pack(side="left")
         self.open_files_BT.pack(anchor=NW, pady=5, padx=20)
@@ -489,45 +484,6 @@ class Application(Frame):
             self.experimental_points_wl[i].config(state=DISABLED)
             self.experimental_points_abs[i].config(state=DISABLED)
 
-    def guiTab5(self):
-        self.evol_plot_osc_choice = IntVar(0)
-        self.evol_plot_wl_choice = IntVar(0)
-        self.box_evoltuionOption = Frame( self.note5_struct,relief=FLAT, borderwidth=0, bg = "#FFFFFF")
-        self.box_evoltuionOption_oscillator = Frame(
-            self.box_evoltuionOption, relief=FLAT, borderwidth=0, bg = "#FFFFFF")
-        self.text_oscillator_evolution = Label(
-            self.box_evoltuionOption_oscillator,text="Evolution Plot for Oscillator Forces:", bg = "#FFFFFF"
-        ).pack(side="left", padx=10)
-        self.evol_plot_osc_Nbt = Radiobutton(
-            self.box_evoltuionOption_oscillator, text="No", variable=self.evol_plot_osc_choice,
-            value=0, background="#FFFFFF"
-        )
-        self.evol_plot_osc_Ybt = Radiobutton(
-            self.box_evoltuionOption_oscillator, text="Yes", variable=self.evol_plot_osc_choice,
-            value=1, background="#FFFFFF"
-        )
-        self.evol_plot_osc_Nbt.pack(side="left")
-        self.evol_plot_osc_Ybt.pack(side="left")
-        self.box_evoltuionOption_oscillator.pack(side="top", padx=10, pady=5)
-        self.box_evoltuionOption_wl = Frame(
-            self.box_evoltuionOption, relief=FLAT, borderwidth=0, bg="#FFFFFF")
-        self.text_wl_evolution = Label(
-            self.box_evoltuionOption_wl, text="Evolution Plot for Wavelength:", bg="#FFFFFF"
-        ).pack(side="left", padx=27)
-        self.evol_plot_wl_Nbt = Radiobutton(
-            self.box_evoltuionOption_wl, text="No", variable=self.evol_plot_wl_choice,
-            value=0, background="#FFFFFF"
-        )
-        self.evol_plot_wl_Ybt = Radiobutton(
-            self.box_evoltuionOption_wl, text="Yes", variable=self.evol_plot_wl_choice,
-            value=1, background="#FFFFFF"
-        )
-        self.evol_plot_wl_Nbt.pack(side="left")
-        self.evol_plot_wl_Ybt.pack(side="left")
-        self.box_evoltuionOption_wl.pack(side="top", padx=10, pady=5, anchor=W)
-        self.box_evoltuionOption.pack(side="top", anchor=W)
-
-
     def guiTab6(self):
         self.choice_intensity = IntVar()
         self.choice_intensity.set(1)
@@ -645,10 +601,8 @@ class Application(Frame):
 
         else:
             if self.choice_file_type.get() == 1:
-                self.note.tab(self.note5_struct, state="disable")
                 self.note.tab(self.note4_struct, state="disable")
             if self.choice_file_type.get() == 2:
-                self.note.tab(self.note5_struct, state="normal")
                 self.note.tab(self.note4_struct, state="disable")
             self.checkbuttonplot1.configure(state = DISABLED)
             self.checkbuttonplot2.configure(state = DISABLED)
@@ -753,14 +707,14 @@ class Application(Frame):
 
 
     def adv_file(self):
+        try:
+            os.remove(self.target_dir + "/" + self.output_file_name+"_advancedData.dat")
+        except:
+            pass
         if self.choice_file_type.get() == 0:
             for i in range(0, len(self.filenames)):
                 toSave = saveAdvancedSimple(self.filenames[i], self.target_dir + "/" + self.output_file_names[i]+"_spectrum.dat")
         else:
-            try:
-                os.remove(self.output_file_name+"_spectrum.dat")
-            except:
-                pass
             for i in range(0, len(self.filenames)):
                 if i == len(self.filenames)-1:
                     toSave = saveAdvancedSimple(self.filenames[i], self.target_dir + "/" + self.output_file_name+"_spectrum.dat", False)
@@ -811,30 +765,17 @@ class Application(Frame):
 
     def pyplot(self):
         self.get_exp_data()
-        if self.choice_file_type.get() == 0:
-            self.curve_color = []
-            self.osc_color = []
-            for i in range(0, len(self.filenames), 1):
-                self.curve_color.append(self.entry_color_curve_list[i].get())
-                self.osc_color.append(self.entry_color_drop_list[i].get())
-            x = Print_Spectrum(
-                self.target_dir, self.output_file_names, self.wl_rang[0], self.wl_rang[1],
-                self.title_chart, int( self.entry_res.get()), self.osc_color, self.curve_color,
-                "0", self.filenames,  self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines, self.entry_color_exp.get(), self.choice_intensity.get()
-            )
-            x.print_matplotlib()
-
-        else:
-            if self.evol_plot_wl_choice.get() == 1 or self.evol_plot_osc_choice.get() == 1:
-                y = PlotTransitions(self.target_dir, self.output_file_names, "", self.filenames, self.evol_plot_wl_choice.get(), self.evol_plot_osc_choice.get(), 300)
-                y.plot_pyplot([1,2,3], "#000000")
-            x = Print_Spectrum(
-                self.target_dir, [self.output_file_name], self.wl_rang[0], self.wl_rang[1],
-                self.title_chart, int(self.entry_res.get()), self.osc_color, self.curve_color,
-                "0", self.filenames, self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines, self.entry_color_exp.get(), self.choice_intensity.get(), len(self.filenames)
-            )
-            x.print_matplotlib()
-
+        self.curve_color = []
+        self.osc_color = []
+        for i in range(0, len(self.filenames), 1):
+            self.curve_color.append(self.entry_color_curve_list[i].get())
+            self.osc_color.append(self.entry_color_drop_list[i].get())
+        x = Print_Spectrum(
+            self.target_dir, self.output_file_names, self.wl_rang[0], self.wl_rang[1],
+            self.title_chart, int( self.entry_res.get()), self.osc_color, self.curve_color,
+            "0", self.filenames,  self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines, self.entry_color_exp.get(), self.choice_intensity.get()
+        )
+        x.print_matplotlib()
         self.pyplot_bt.configure(state=DISABLED)
 
     def restart(self):
@@ -862,7 +803,6 @@ class Application(Frame):
         self.note.tab(self.note2_struct, state="disabled")
         self.note.tab(self.note3_struct, state="disabled")
         self.note.tab(self.note4_struct, state="disabled")
-        self.note.tab(self.note5_struct, state="disabled")
         self.note.tab(self.note6_struct, state="disabled")
 
     def leave(self):

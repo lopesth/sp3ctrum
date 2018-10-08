@@ -7,3 +7,16 @@ __date__ = "Set 28 of 2018"
 __version__ = "1.0.0"
 
 from .control_sp3c_p4t import *
+from .find_a_string_in_file import *
+from .gaussian_conv import *
+from .get_osc import *
+from .get_parameters import *
+from .print_spectrum import *
+from .sort_key_maps import *
+from .start_spc import *
+from .get_chart_title import *
+from .sp3ctrum_gui import *
+from .orbitals import TransitionContribution
+from .differential import FiniteDifferenceDerivative
+from .plotTransitions import PlotTransitions
+from .advancedSave import saveAdvancedSimple

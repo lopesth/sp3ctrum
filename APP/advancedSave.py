@@ -6,7 +6,7 @@ __email__ = ["lopes.th.o@gmail.com", "brittosandro@gmail.com"]
 __date__ = "Set 28 of 2018"
 __version__ = "1.0.0"
 
-from APP.tools.find_a_string_in_file import Find_a_String 
+from APP.find_a_string_in_file import Find_a_String 
 
 class saveAdvancedSimple(object):
 
@@ -23,7 +23,7 @@ class saveAdvancedSimple(object):
         lineStates = []
         self.contributeOsc = {}
         poslist = Find_a_String(self.fileName, " Excited State  ").return_numbers_of_line()
-        poslist.append(Find_a_String(self.fileName, "SavETr").return_numbers_of_line()[0])
+        poslist.append(Find_a_String(self.fileName, "SavETr:").return_numbers_of_line()[0])
         fileList = []
         self.excitations = []
         with open(self.fileName,  encoding="utf8", errors='ignore') as myFile:
@@ -34,14 +34,16 @@ class saveAdvancedSimple(object):
             self.excitations.append(fileList[poslist[i]-1])
             contribute = []
             for lineNum in range(poslist[i], poslist[i+1]):
+                contribLine = []
+                contribLine1 = fileList[lineNum].split("->")
+                contribLine2 = []
+                for contribLine1_1 in contribLine1:
+                    for contribLine1_2 in contribLine1_1.split():
+                        contribLine.append(contribLine1_2)
                 try:  
-                    contribLine = fileList[lineNum].split()
                     int(contribLine[0])
-                    contribute.append([" to ".join([element for element in fileList[lineNum].split()[0:3] if element != "->"]), float(contribLine[3])])
+                    contribute.append([" to ".join(contribLine[0:2]), float(contribLine[2])])
                 except:
-                    try: 
-                        int(fileList[lineNum].split()[2].split(":")[0])
-                    except:
                         pass
             self.contributeOsc.update({num : contribute})
             num += 1

@@ -14,7 +14,7 @@ from PIL import Image
 from PIL import PngImagePlugin
 import tkinter as tk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from APP.tools.differential import FiniteDifferenceDerivative
+from APP.differential import FiniteDifferenceDerivative
 
 
 class Print_Spectrum(object):
@@ -46,7 +46,7 @@ class Print_Spectrum(object):
             for logname in self.log_names:
                 namefiles.append(self.dir_target + "/" + (logname.split("/")[-1]).split(".log")[0] + ".png")
             self.singleGraphs(namefiles)
-            self.show(self.graph, ["teste", "teste", "teste", "teste"])
+            self.show(self.graph, ["", "", "", ""])
         elif self.plottypes == 1:
             self.overlayGraph([self.dir_target + "/" + self.dir_target.split("/")[-1] + ".png"])
             self.show(self.graph, [""])
@@ -218,13 +218,13 @@ class Print_Spectrum(object):
             self.line1_canvas_container=tk.Frame(self.graph_window)
             self.canvas1_container = tk.Frame( self.line1_canvas_container)
             canvas1 = FigureCanvasTkAgg(graph[0], master=self.canvas1_container)
-            canvas1.show()
+            canvas1.draw()
             canvas1.get_tk_widget().pack(side="top")
             titlecanvas1 = tk.Label(self.canvas1_container, text=name[0]).pack(side="top")
             self.canvas1_container.pack(side="left")
             self.canvas2_container = tk.Frame(self.line1_canvas_container)
             canvas2 = FigureCanvasTkAgg(graph[1], master=self.canvas2_container)
-            canvas2.show()
+            canvas2.draw()
             canvas2.get_tk_widget().pack(side="top")
             titlecanvas2 = tk.Label(self.canvas2_container, text=name[1]).pack(side="top")
             self.canvas2_container.pack(side="left")
@@ -234,14 +234,14 @@ class Print_Spectrum(object):
                 self.line2_canvas_container = tk.Frame(self.graph_window)
                 self.canvas3_container = tk.Frame(self.line2_canvas_container)
                 canvas3 = FigureCanvasTkAgg(graph[2], master=self.canvas3_container)
-                canvas3.show()
+                canvas3.draw()
                 canvas3.get_tk_widget().pack(side="top")
                 titlecanvas3 = tk.Label(self.canvas3_container, text=name[2]).pack(side="top")
                 self.canvas3_container.pack(side="left")
                 if len(graph) > 3:
                     self.canvas4_container = tk.Frame(self.line2_canvas_container)
                     canvas4 = FigureCanvasTkAgg(graph[3], master=self.canvas4_container)
-                    canvas4.show()
+                    canvas4.draw()
                     canvas4.get_tk_widget().pack(side="top")
                     titlecanvas4 = tk.Label(self.canvas4_container, text=name[3]).pack(side="top")
                     self.canvas4_container.pack(side="left")
