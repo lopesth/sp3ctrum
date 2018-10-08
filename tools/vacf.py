@@ -91,13 +91,13 @@ def plot(x, y, place, nameFig, colorTaked):
     toPlot = pyplot.plot(x, y, color=colorTaked)
     pyplot.ylabel(nameFig)
     pyplot.ticklabel_format(axis='y', style='sci', scilimits=(0,0))
-    pyplot.xlabel("Frames")
+    pyplot.xlabel("Steps")
     pyplot.savefig(place+"/"+nameFig+".png", dpi=300, transparent=True, format="png")
     pyplot.close()
 
 def printFile(coordinates, abscissaRAW, abscissaFFT, place, var):
     fileW = open(place+"/result_vacf.dat", "w")
-    fileW.write("Cutting point for non-correlated frames: {}\nVariance around the cutting point: {:8.5e}\n\n" .format(var[0], var[1]))
+    fileW.write("Cutting point for non-correlated steps: {} ({} Frames)\nVariance around the cutting point: {:8.5e}\n\n" .format(var[0], var[1], var[2]))
     fileW.write("{:>8s} {:>20.10s} {:>20.10s}\n".format("Frames", "VACF", "FFT of VACF"))
     for x, y1, y2 in zip(coordinates, abscissaRAW, abscissaFFT):
         fileW.write("{:>8d} {:>20.10e} {:20.10e}\n".format(x, y1, y2))
@@ -134,7 +134,7 @@ def var(f, x, n):
         if variance[i-1] < 0.0001:
             i_list.append(i-1)
     try:
-        return [x[(i_list[0]+1)*t], variance[i_list[0]]]
+        return [x[(i_list[0]+1)*t], t*(i_list[0]+1), variance[i_list[0]]]
     except:
         print("The convergence criterion has not been reached. Use a bigger number of Frames.")
         exit(0)
@@ -155,7 +155,6 @@ def controlFlux(filename, n, normAw, color):
     printFile(x, y, f, place, v)
 
 if __name__ == "__main__":
-    '''
     try:
         if argv[1] == "-file" and argv[3] == "-steps" and argv[5] == "-norm":
             filename = str(argv[2])
@@ -170,13 +169,3 @@ if __name__ == "__main__":
             leaveWithError()
     except:
         leaveWithError()
-        '''
-    if argv[1] == "-file" and argv[3] == "-steps" and argv[5] == "-norm":
-        filename = str(argv[2])
-        n = int(argv[4])
-        normAw = True if argv[6].lower() == "yes" else False
-        try:
-            color = argv[8]
-        except:
-            color = "#FF0000"
-        controlFlux(filename, n, normAw, color)
