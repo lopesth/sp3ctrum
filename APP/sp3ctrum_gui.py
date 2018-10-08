@@ -72,7 +72,7 @@ class Application(Frame):
                     "background": [("selected", "#62338C"), ("disabled", "#8EF0F7")],
                     "foreground": [("selected", "#FFFFFF"), ("disabled", "#828585")]},
                 "expand": [("selected", [1, 1, 1, 0])],
-            }
+            },
         })
         self.style.theme_use("leedmol")
 
