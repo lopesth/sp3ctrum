@@ -14,18 +14,18 @@ from tkinter import *
 
 def control_the_flux(choice_interface, file_name):
     program = Sp3ctrum_UVvis_P4tronum(__version__)
+
     if choice_interface == "-file":
         program.run_fed_terminal(file_name)
-    elif choice_interface == "-friendly":
-        program.run_friendly_terminal()
+
     elif choice_interface == "-gui" or choice_interface == "":
         root = Tk()
-        root.title("UV-Vis Sp3ctrum P4tronum "+__version__)
-        app = Application(root)
-        mainloop()
+        root.title("UV-Vis Sp3ctrum P4tronum " + __version__)
+        app = Application(root).mainloop()
+
     else:
         print("Unrecognized Keyword")
-        print("Type -file, -friendly or -gui.")
+        print("Type -gui or -file,.")
         sys.exit()
 
 if __name__ == "__main__":
@@ -35,9 +35,7 @@ if __name__ == "__main__":
         file_name = sys.argv[2]
     except:
         try:
-            if choice_interface == "-friendly":
-                file_name = ""
-            elif choice_interface == "-gui" or choice_interface == "":
+            if choice_interface == "-gui" or choice_interface == "":
                 file_name = ""
         except:
             choice_interface = ""

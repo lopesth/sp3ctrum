@@ -18,7 +18,10 @@ from APP.differential import FiniteDifferenceDerivative
 
 
 class Print_Spectrum(object):
-    def __init__(self, dir_target, file_names, start_wl, end_wl, title, resol, osc_color, curve_color, exp_curv_color, log_names, plottypes, exp_abs_lines, exp_wl_lines, expColor, normalize_osc, numberOfFiles = 1):
+
+    def __init__(self, dir_target, file_names, start_wl, end_wl, title, resol, osc_color, curve_color,
+                 exp_curv_color, log_names, plottypes, exp_abs_lines, exp_wl_lines, expColor, normalize_osc, numberOfFiles = 1):
+
         self.file_names = file_names
         self.resol = resol
         self.start_wl = start_wl
@@ -62,7 +65,7 @@ class Print_Spectrum(object):
                 wl.append(float(line.split()[0]))
                 osc.append(float(line.split()[1]))
         return [wl, osc]
-    
+
     def take_osc_str_norm(self, name):
         wl = []
         osc_t = []
@@ -110,7 +113,7 @@ class Print_Spectrum(object):
             self.wl_list.append(wl)
             self.epslon_list.append(epslon)
             b.yaxis.set_visible(True)
-            a.yaxis.set_visible(True)  
+            a.yaxis.set_visible(True)
             if self.normalize_osc == 0:
                 b.set_ylabel("Relative Intensity", size=15)
                 a.yaxis.set_visible(False)
@@ -140,7 +143,7 @@ class Print_Spectrum(object):
                 a.axes.yaxis.set_ticklabels([])
                 b.axes.yaxis.set_ticklabels([])
                 self.graph[i].set_size_inches(4.0, 3.0)
-            
+
 
     def overlayGraph(self, namefile):
         self.wl_list = []
@@ -285,12 +288,12 @@ class SecondDerivative(object):
             minimalY = min(SecondDerivative[0])
             counter = 0
             for y in SecondDerivative[0]:
-                counter +=1 
+                counter +=1
                 if y == minimalY:
                     minimalX = (Derivative[1][counter])
             a = graph.add_subplot(111)
             a.plot(SecondDerivative[1], SecondDerivative[0], linestyle='solid', color=self.curve_color[i], fillstyle='none')
-            a.plot(minimalX,minimalY,'ro') 
+            a.plot(minimalX,minimalY,'ro')
             a.annotate(str(minimalX) + " nm", xy=(minimalX +2, minimalY -2), xytext=(minimalX +30, minimalY +30),
                 bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=0.5),
         arrowprops=dict(arrowstyle = '->', connectionstyle='arc3,rad=0'))
@@ -315,6 +318,3 @@ class MetaDataPrint(object):
         meta.add_text("Version", __version__)
         meta.add_text("Powered by", __credits__[0])
         self.file.save(self.target, 'PNG', pnginfo=meta)
-
-
- 

@@ -46,34 +46,3 @@ class Opening(object):
         print("The methodology used in this APP was taken from the source: http://gaussian.com/uvvisplot/")
         print("For now, only calculations coming from the Gaussian package and only with Gaussian convolutions are available to simulate the spectrum.\n")
         print("Make sure all files are in the same Spectrum Patronus folder and are in the output format of the gaussian (\".log\" or \".out\").\n")
-
-class Take_Files(object):
-
-    def __init__(self):
-        print("Declare all the files you want to make a spectrum (these files will have their oscillators combined and only one spectrum will be formed).")
-        while True:
-            try:
-                temp_l = input("Type all on a line, separated by commas: ").split(",")
-                self.files_to_use = []
-                for element in temp_l:
-                    self.files_to_use.append(element.strip())
-                if len(temp_l[0]) < 1:
-                    continue
-                    print (len(temp_l[0]))
-                else:
-                    print("\nThe following files will have their oscillators combined:", end=" ")
-                    for x in self.files_to_use:
-                        if x == self.files_to_use[-1]:
-                            print("{}".format(x), end=".\n")
-                        else:
-                            print("{}".format(x), end=", ")
-                    break
-
-            except KeyboardInterrupt:
-                sys.exit()
-            except:
-                continue
-
-
-    def get_files(self):
-        return self.files_to_use
