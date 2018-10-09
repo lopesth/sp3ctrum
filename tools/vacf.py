@@ -7,9 +7,10 @@ __date__ = "Oct 02 of 2018"
 __version__ = "1.0.0"
 
 from matplotlib import pyplot
-from sys import argv
+from sys import argv, platform
 from numpy import fft
 import warnings
+from os import getcwd
 warnings.filterwarnings("ignore")
 
 class Velocity_AutoCor_Function(object):
@@ -71,7 +72,7 @@ class Velocity_AutoCor_Function(object):
         return (float(vector[0])**2 + float(vector[1])**2 + float(vector[2])**2) ** (0.5)
 
 def leaveWithError():
-    print("\n-----------------------------------------------------------------\nFor the correct execution of the tool type:\n\n  > python vacf_sp3ctrum.py -file FILE -steps MAX_STEPS -norm RESP -color HEX_RGB\n\nNote: This tool requires the 3.5 as a minimum version of Python\n-----------------------------------------------------------------\n")
+    print("\n-----------------------------------------------------------------\nFor the correct execution of the tool type:\n\n  > python vacf_sp3ctrum.py -file $FILE -frames $MAX_FRAMES -norm $RESP -color $HEX_RGB\n\n $FILE: the file name with the full file path (If the file is at the same address as vacf_fft.py, you do not need to place the Address.); $MAX_FRAMES: is the number of maximum frames that will be considerated for the calculation; $RESP: yes or no; $HEX_RGB the hexadecimal RGB code of the chosen color.\n\nNote: This tool requires the 3.5 as a minimum version of Python\n-----------------------------------------------------------------\n")
     exit(0)
 
 def vacf(filename, MaxSteps):
@@ -140,7 +141,19 @@ def var(f, x, n):
         exit(0)
 
 def controlFlux(filename, n, normAw, color):
-    place = "/".join(filename.split("/")[0:-1])
+    if platform == "win32":
+        try:
+            place = "\\".join(filename.split("\\")[0:-1])
+        except:
+            place = getcwd()
+            filename = place + "\\" + filename
+    else:
+        try:
+            place = "/".join(filename.split("/")[0:-1])
+        except:
+            place = getcwd()
+            filename = place + "/" + filename
+
     vacf_RAW = vacf(filename, n)
     y = vacf_RAW[0]
     x = vacf_RAW[1]
