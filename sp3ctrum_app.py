@@ -6,8 +6,8 @@ __email__ = ["lopes.th.o@gmail.com", "brittosandro@gmail.com"]
 __date__ = "Set 28 of 2018"
 __version__ = "1.0.0"
 
-from APP.control_sp3c_p4t import *
-from APP.sp3ctrum_gui import *
+from SP3CTRUM.APP.control_sp3c_p4t import *
+from SP3CTRUM.APP.sp3ctrum_gui import *
 from tkinter import *
 
 
