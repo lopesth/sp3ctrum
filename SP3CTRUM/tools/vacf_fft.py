@@ -99,7 +99,7 @@ def plot(x, y, place, nameFig, colorTaked):
 def printFile(coordinates, abscissaRAW, abscissaFFT, place, var):
     fileW = open(place+"/result_vacf.dat", "w")
     fileW.write("Cutting point for non-correlated steps: {} ({} Frames)\nVariance around the cutting point: {:8.5e}\n\n" .format(var[0], var[1], var[2]))
-    fileW.write("{:>8s} {:>20.10s} {:>20.10s}\n".format("Frames", "VACF", "FFT of VACF"))
+    fileW.write("{:>8s} {:>20.10s} {:>20.10s}\n".format("Frames", "VACF", "FFT Real Part of VACF"))
     for x, y1, y2 in zip(coordinates, abscissaRAW, abscissaFFT):
         fileW.write("{:>8d} {:>20.10e} {:20.10e}\n".format(x, y1, y2))
 
@@ -163,7 +163,7 @@ def controlFlux(filename, n, normAw, color):
     f = fourierTr(y).real
     if normAw:
         f = normalize(f)
-    plot(x, f, place, "FFT of VACF", color)
+    plot(x, f, place, "FFT Real Part of VACF", color)
     v = var(f, x, n)
     printFile(x, y, f, place, v)
 
