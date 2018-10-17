@@ -282,19 +282,21 @@ class SecondDerivative(object):
         self.wl = wl
         self.graph = []
         for i in range(0, len(self.file_name), 1):
-            Derivative = FiniteDifferenceDerivative(self.epslon[i], self.wl[i]).symmetricDerivative()
-            SecondDerivative = FiniteDifferenceDerivative(Derivative[0], Derivative[1]).symmetricDerivative()
+            derivative = FiniteDifferenceDerivative(self.epslon[i], self.wl[i])
+            wlPeaks = derivative.criticalpoints
+            second_der = derivative.secondDerivative 
             graph = matplotlib.pyplot.figure(figsize=(8, 6))
-            minimalY = min(SecondDerivative[0])
             counter = 0
-            for y in SecondDerivative[0]:
+            minimalsY = []
+            for x in second_der[1]:
                 counter +=1
-                if y == minimalY:
-                    minimalX = (Derivative[1][counter])
+                if x  in wlPeaks:
+                    minimalsY.append(second_der[0][counter])
             a = graph.add_subplot(111)
-            a.plot(SecondDerivative[1], SecondDerivative[0], linestyle='solid', color=self.curve_color[i], fillstyle='none')
-            a.plot(minimalX,minimalY,'ro')
-            a.annotate(str(minimalX) + " nm", xy=(minimalX +2, minimalY -2), xytext=(minimalX +30, minimalY +30),
+            a.plot(second_der[1], second_der[0], linestyle='solid', color=self.curve_color[i], fillstyle='none')
+            for minimalX, minimalY in zip(wlPeaks, minimalsY):
+                a.plot(minimalX,minimalY,'ro')
+                a.annotate(str(minimalX) + " nm", xy=(minimalX +2, minimalY -2), xytext=(minimalX +30, minimalY +30),
                 bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=0.5),
         arrowprops=dict(arrowstyle = '->', connectionstyle='arc3,rad=0'))
             graph.tight_layout()

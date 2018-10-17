@@ -9,21 +9,33 @@ __version__ = "1.0.0"
 class FiniteDifferenceDerivative(object):
 
     def __init__(self, y_values, x_values):
-        self.f_x = y_values
-        self.x = x_values
-        self.h = abs(self.x[-2]-self.x[-1])
+        f_x = y_values
+        x = x_values
+        h = abs(x[-2]-x[-1])
+        self.firstDerivative = self.__Derivative(f_x, x, h)
+        self.criticalpoints = self.__CP()
+        self.secondDerivative = self.__Derivative(self.firstDerivative[0], self.firstDerivative[1], h)
 
-    def symmetricDerivative(self):
+    def __Derivative(self, f_x, x, h):
         f_line_x = []
-        for i in range(1, len(self.f_x)-1):
-            f_line = (self.f_x[i+1] - self.f_x[i-1])/(2*self.h)
+        for i in range(0, len(f_x)-1, 1):
+            f_line = (f_x[i + 1] - f_x[i]) / (h)
             f_line_x.append(f_line)
-        return [f_line_x, self.x[1:-1]]
+        return [f_line_x, x[0:-1]]
 
-    def regularDerivative(self):
-        f_line_x = []
-        for i in range(0, len(self.f_x)-1, 1):
-            f_line = (self.f_x[i + 1] - self.f_x[i]) / (self.h)
-            f_line_x.append(f_line)
-        return [f_line_x, self.x[0:-1]]
+    def __CP(self):
+        x2 = 0
+        num = 0
+        criticalPoints = []
+        for x in self.firstDerivative[0]:
+            if x == 0:
+                x1 = 0
+            else:
+                x1 = x/abs(x)
+            if x2 - x1 == 2:
+                criticalPoints.append(self.firstDerivative[1][num-1])
+            x2 = x1
+            num +=1
+        return criticalPoints
+
 
