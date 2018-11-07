@@ -14,7 +14,7 @@ from PIL import Image
 from PIL import PngImagePlugin
 import tkinter as tk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-#from SP3CTRUM.APP.differential import FiniteDifferenceDerivative
+from SP3CTRUM.APP.differential import FiniteDifferenceDerivative
 
 
 class Print_Spectrum(object):
@@ -321,6 +321,3 @@ class MetaDataPrint(object):
         meta.add_text("Version", __version__)
         meta.add_text("Powered by", __credits__[0])
         self.file.save(self.target, 'PNG', pnginfo=meta)
-
-if __name__ == '__main__':
-     plot = Print_Spectrum()
