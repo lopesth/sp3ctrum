@@ -10,8 +10,6 @@ from SP3CTRUM.APP.control_sp3c_p4t import *
 from SP3CTRUM.APP.sp3ctrum_gui import *
 from tkinter import *
 
-
-
 def control_the_flux(choice_interface, file_name):
     program = Sp3ctrum_UVvis_P4tronum(__version__)
 
@@ -25,7 +23,7 @@ def control_the_flux(choice_interface, file_name):
 
     else:
         print("Unrecognized Keyword")
-        print("Type -gui or -file,.")
+        print("Type -gui or -file.")
         sys.exit()
 
 if __name__ == "__main__":
