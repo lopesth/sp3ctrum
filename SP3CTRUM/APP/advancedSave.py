@@ -6,15 +6,15 @@ __email__ = ["lopes.th.o@gmail.com", "brittosandro@gmail.com"]
 __date__ = "Set 28 of 2018"
 __version__ = "1.0.0"
 
-from SP3CTRUM.APP.find_a_string_in_file import Find_a_String 
+from SP3CTRUM.APP.find_a_string_in_file import Find_a_String
 
 class saveAdvancedSimple(object):
 
     def __init__(self, fileName, spectrumName, newFile = True, lastTime = True):
-        self.lastTime = lastTime
-        self.newFile = newFile
         self.fileName = fileName
         self.spectrumName = spectrumName
+        self.newFile = newFile
+        self.lastTime = lastTime
         self.rhfAsw = True if len(Find_a_String(self.fileName, "RHF").return_numbers_of_line()) != 0 else False
         self.takeStates()
         self.save()
@@ -40,14 +40,14 @@ class saveAdvancedSimple(object):
                 for contribLine1_1 in contribLine1:
                     for contribLine1_2 in contribLine1_1.split():
                         contribLine.append(contribLine1_2)
-                try:  
+                try:
                     int(contribLine[0])
                     contribute.append([" to ".join(contribLine[0:2]), float(contribLine[2])])
                 except:
                         pass
             self.contributeOsc.update({num : contribute})
             num += 1
-    
+
     def save(self):
         wName = "------ Advanced Data from file " + self.fileName.split("/")[-1] + " ------"
         if self.newFile:
@@ -60,7 +60,7 @@ class saveAdvancedSimple(object):
         saveFile.write("                   Wavelenght (nm)  Oscillator Force\n")
         for excitationNumber in sorted(self.contributeOsc.keys()):
             lineSplited = self.excitations[excitationNumber-1].split()
-            saveFile.write(" Excited State {:02d}:     {}            {} \n" .format(excitationNumber, lineSplited[6], lineSplited[8].split('=')[1])) 
+            saveFile.write(" Excited State {:02d}:     {}            {} \n" .format(excitationNumber, lineSplited[6], lineSplited[8].split('=')[1]))
         saveFile.write("\nContribution of the pairs of orbitals in the electronic excitation:\n")
         if self.rhfAsw:
             for excitationNumber in sorted(self.contributeOsc.keys()):
