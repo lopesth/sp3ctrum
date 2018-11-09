@@ -9,7 +9,7 @@ __version__ = "1.0.0"
 class Find_a_String(object):
 
     def __init__(self, file, lookup):
-        self.file = file
+        self.file = file        # file input
         self.lookup = lookup    # lookup is a string in file
 
     def return_numbers_of_line(self):
@@ -31,11 +31,7 @@ class Find_a_String(object):
 
         lines = []
         with open(self.file) as myFile:
-<<<<<<< HEAD
-            for num, line in enumerate(myFile):
-=======
             for line in myFile:
->>>>>>> fdf72154a2ef250e1442965d814fd426929ba559
                 if self.lookup in line:
                     lines.append(line.split('\n')[0])
         return lines
