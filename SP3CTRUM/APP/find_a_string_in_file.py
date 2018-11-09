@@ -10,9 +10,13 @@ class Find_a_String(object):
 
     def __init__(self, file, lookup):
         self.file = file
-        self.lookup = lookup
+        self.lookup = lookup    # lookup is a string in file
 
     def return_numbers_of_line(self):
+
+        ''' This method receives a file and a string within it and returns a list
+             whose elements are the number of the line in which the string was found. '''
+
         numbers = []
         with open(self.file) as myFile:
             for num, line in enumerate(myFile):
@@ -21,9 +25,17 @@ class Find_a_String(object):
         return numbers
 
     def return_the_line(self):
+
+        ''' This method receives a file and a string within it and returns a list
+             whose elements are the lines containing that string.  '''
+
         lines = []
         with open(self.file) as myFile:
+<<<<<<< HEAD
             for num, line in enumerate(myFile):
+=======
+            for line in myFile:
+>>>>>>> fdf72154a2ef250e1442965d814fd426929ba559
                 if self.lookup in line:
                     lines.append(line.split('\n')[0])
         return lines

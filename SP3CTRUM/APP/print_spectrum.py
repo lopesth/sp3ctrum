@@ -20,7 +20,7 @@ from SP3CTRUM.APP.differential import FiniteDifferenceDerivative
 class Print_Spectrum(object):
 
     def __init__(self, dir_target, file_names, start_wl, end_wl, title, resol, osc_color, curve_color,
-                 exp_curv_color, log_names, plottypes, exp_abs_lines, exp_wl_lines, expColor, normalize_osc, numberOfFiles = 1):
+                  exp_curv_color, log_names, plottypes, exp_abs_lines, exp_wl_lines, expColor, normalize_osc, numberOfFiles = 1):
 
         self.file_names = file_names
         self.resol = resol
@@ -284,7 +284,7 @@ class SecondDerivative(object):
         for i in range(0, len(self.file_name), 1):
             derivative = FiniteDifferenceDerivative(self.epslon[i], self.wl[i])
             wlPeaks = derivative.criticalpoints
-            second_der = derivative.secondDerivative 
+            second_der = derivative.secondDerivative
             graph = matplotlib.pyplot.figure(figsize=(8, 6))
             counter = 0
             minimalsY = []
@@ -295,10 +295,11 @@ class SecondDerivative(object):
             a = graph.add_subplot(111)
             a.plot(second_der[1], second_der[0], linestyle='solid', color=self.curve_color[i], fillstyle='none')
             for minimalX, minimalY in zip(wlPeaks, minimalsY):
-                a.plot(minimalX,minimalY,'ro')
-                a.annotate(str(minimalX) + " nm", xy=(minimalX +2, minimalY -2), xytext=(minimalX +30, minimalY +30),
-                bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=0.5),
-        arrowprops=dict(arrowstyle = '->', connectionstyle='arc3,rad=0'))
+                a.plot(minimalX, minimalY,'ro')
+                a.annotate(str(minimalX) + " nm", xy=(minimalX + 2, minimalY - 2), xytext=(minimalX + 30,
+                            minimalY + 30), bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=0.5),
+                            arrowprops=dict(arrowstyle = '->', connectionstyle='arc3,rad=0')
+                           )
             graph.tight_layout()
             a.set_xlabel("Wavelength (nm)")
             a.set_ylabel("Second Derivative of Molar Absorptivity")

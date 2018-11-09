@@ -9,10 +9,10 @@ __version__ = "1.0.0"
 from SP3CTRUM.APP.find_a_string_in_file import Find_a_String
 
 class saveAdvancedSimple(object):
-    
+
     '''
        This class handles the data in a file, with the takeStates method and
-       writes the data to a new file with the Save method. 
+       writes the data to a new file with the Save method.
     '''
 
     def __init__(self, fileName, spectrumName, newFile = True, lastTime = True):
@@ -25,12 +25,12 @@ class saveAdvancedSimple(object):
         self.save()
 
     def takeStates(self):
-         
+
         '''
            This method does not receive parameters, from the data contained in the file
            self.fileName returns a dictionary whose keys describe the state of the
            and values of the dictionary are lists in which the first element indicates
-           the orbital involved in the transition and the second elements indicates 
+           the orbital involved in the transition and the second elements indicates
            its respective transitions coefficient.
         '''
 
@@ -63,9 +63,9 @@ class saveAdvancedSimple(object):
             num += 1
 
     def save(self):
-        
+
         '''
-           This method is used to record a file with the calculated states 
+           This method is used to record a file with the calculated states
            and the respective contributions of each expo in percentage.
         '''
 
