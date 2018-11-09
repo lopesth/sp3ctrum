@@ -9,6 +9,11 @@ __version__ = "1.0.0"
 from SP3CTRUM.APP.find_a_string_in_file import Find_a_String
 
 class saveAdvancedSimple(object):
+    
+    '''
+       This class handles the data in a file, with the takeStates method and
+       writes the data to a new file with the Save method. 
+    '''
 
     def __init__(self, fileName, spectrumName, newFile = True, lastTime = True):
         self.fileName = fileName
@@ -20,6 +25,15 @@ class saveAdvancedSimple(object):
         self.save()
 
     def takeStates(self):
+         
+        '''
+           This method does not receive parameters, from the data contained in the file
+           self.fileName returns a dictionary whose keys describe the state of the
+           and values of the dictionary are lists in which the first element indicates
+           the orbital involved in the transition and the second elements indicates 
+           its respective transitions coefficient.
+        '''
+
         lineStates = []
         self.contributeOsc = {}
         poslist = Find_a_String(self.fileName, " Excited State  ").return_numbers_of_line()
@@ -49,21 +63,31 @@ class saveAdvancedSimple(object):
             num += 1
 
     def save(self):
+        
+        '''
+           This method is used to record a file with the calculated states 
+           and the respective contributions of each expo in percentage.
+        '''
+
         wName = "------ Advanced Data from file " + self.fileName.split("/")[-1] + " ------"
+
         if self.newFile:
             saveFile = open(self.spectrumName.split("_spectrum.dat")[0]+"_advancedData.dat", "w")
         else:
             saveFile = open(self.spectrumName.split("_spectrum.dat")[0]+"_advancedData.dat", "a")
+
         lineW = ("".join( "_" for num1 in range(0, len(wName))))
         saveFile.write("{}\n\n{}\n\n{}\n\n".format(lineW, wName, lineW))
         saveFile.write(" Excitation energies and oscillator strengths:\n\n")
         saveFile.write("                   Wavelenght (nm)  Oscillator Force\n")
+
         for excitationNumber in sorted(self.contributeOsc.keys()):
             lineSplited = self.excitations[excitationNumber-1].split()
             saveFile.write(" Excited State {:02d}:     {}            {} \n".format(excitationNumber,
                                                                                    lineSplited[6],
                                                                                    lineSplited[8].split('=')[1]))
         saveFile.write("\nContribution of the pairs of orbitals in the electronic excitation:\n")
+
         if self.rhfAsw:
             for excitationNumber in sorted(self.contributeOsc.keys()):
                 saveFile.write("Excitation Number {:02d}:\n" .format(excitationNumber))
