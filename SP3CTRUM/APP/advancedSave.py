@@ -16,8 +16,8 @@ class saveAdvancedSimple(object):
     '''
 
     def __init__(self, fileName, spectrumName, newFile = True, lastTime = True):
-        self.fileName = fileName
-        self.spectrumName = spectrumName
+        self.fileName = fileName           # type file
+        self.spectrumName = spectrumName   # file name
         self.newFile = newFile
         self.lastTime = lastTime
         self.rhfAsw = True if len(Find_a_String(self.fileName, "RHF").return_numbers_of_line()) != 0 else False
@@ -44,13 +44,12 @@ class saveAdvancedSimple(object):
             for line in myFile:
                 fileList.append(line.split('\n')[0])
         num = 1
-        for i in range(0, len(poslist)-1):
+        for i in range(len(poslist)-1):
             self.excitations.append(fileList[poslist[i]-1])
             contribute = []
             for lineNum in range(poslist[i], poslist[i+1]):
                 contribLine = []
                 contribLine1 = fileList[lineNum].split("->")
-                contribLine2 = []
                 for contribLine1_1 in contribLine1:
                     for contribLine1_2 in contribLine1_1.split():
                         contribLine.append(contribLine1_2)
@@ -71,12 +70,15 @@ class saveAdvancedSimple(object):
 
         wName = "------ Advanced Data from file " + self.fileName.split("/")[-1] + " ------"
 
-        if self.newFile:
-            saveFile = open(self.spectrumName.split("_spectrum.dat")[0]+"_advancedData.dat", "w")
-        else:
-            saveFile = open(self.spectrumName.split("_spectrum.dat")[0]+"_advancedData.dat", "a")
+        self.finalName = self.spectrumName.split("_spectrum.dat")[0] + "_advancedData.dat"
 
-        lineW = ("".join( "_" for num1 in range(0, len(wName))))
+        if self.newFile:
+            saveFile = open(self.finalName, "w")
+        else:
+            saveFile = open(self.finalName, "a")
+
+        lineW = ("".join( "_" for num1 in range(0, len(wName)))) # creat a line
+
         saveFile.write("{}\n\n{}\n\n{}\n\n".format(lineW, wName, lineW))
         saveFile.write(" Excitation energies and oscillator strengths:\n\n")
         saveFile.write("                   Wavelenght (nm)  Oscillator Force\n")
@@ -92,12 +94,13 @@ class saveAdvancedSimple(object):
             for excitationNumber in sorted(self.contributeOsc.keys()):
                 saveFile.write("Excitation Number {:02d}:\n" .format(excitationNumber))
                 for contibution in self.contributeOsc[excitationNumber]:
+                    # Molecular orbitals with the contribution percentage of each oscillator
                     saveFile.write("       M.O. {}  -> {:6.2f}%\n" .format(contibution[0], 200*contibution[1]**2))
                 saveFile.write("\n")
         else:
             saveFile.write("The UV-Vis Sp3ctrum P4tronus only calculates the contribution of the pairs of orbitals in the electronic excitation in Restricted Shell systems.\n")
         if self.lastTime:
-            with open(self.spectrumName, encoding="utf8", errors='ignore') as myFile:
+            with open(self.finalName, encoding="utf8", errors='ignore') as myFile:
                 saveFile.write("{}\n\n ---------------------- UV-Vis Spectrum -----------------------\n\n{}\n". format(lineW, lineW))
                 saveFile.write("         Wavelength               Molar Absorptivity\n")
                 saveFile.write("            (nm)                      (L/mol.cm)\n")
