@@ -11,7 +11,7 @@ class FiniteDifferenceDerivative(object):
     def __init__(self, y_values, x_values):
         f_x = y_values
         x = x_values
-        h = abs(x[-2]-x[-1])
+        h = abs(x[-2] - x[-1])
         self.firstDerivative = self.__Derivative(f_x, x, h)
         self.criticalpoints = self.__CP()
         self.secondDerivative = self.__Derivative(self.firstDerivative[0], self.firstDerivative[1], h)
@@ -37,5 +37,3 @@ class FiniteDifferenceDerivative(object):
             x2 = x1
             num +=1
         return criticalPoints
-
-

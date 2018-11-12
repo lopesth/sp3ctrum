@@ -8,6 +8,8 @@ __version__ = "1.0.0"
 
 class Find_a_String(object):
 
+    ''' Class used to handle a file and "remove" strings from interece '''
+
     def __init__(self, file, lookup):
         self.file = file        # file input
         self.lookup = lookup    # lookup is a string in file

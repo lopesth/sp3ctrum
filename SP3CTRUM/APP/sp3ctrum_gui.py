@@ -19,12 +19,15 @@ from SP3CTRUM.APP.plotTransitions import PlotTransitions
 from SP3CTRUM.APP.advancedSave import saveAdvancedSimple
 
 class Application(Frame):
+
     def __init__(self, toplevel):
         Frame.__init__(self, toplevel)
+
         if sys.platform == "win32":
             self.src = os.path.realpath(__file__).replace("sp3ctrum_gui.py", "")
         else:
             self.src = os.path.realpath(__file__).replace("sp3ctrum_gui.py", "")
+
         self.toplevel = toplevel
         self.toplevel.protocol("WM_DELETE_WINDOW", self.leave)
         self.toplevel.configure(bg="#8EF0F7")
@@ -120,82 +123,169 @@ class Application(Frame):
         self.note.tab(self.note6_struct, state="disabled")
 
     def guiButtons(self):
+
         self.run_but_container = Frame(self.toplevel, bg="#8EF0F7")
+
+        #choice option Calculate Spectrum
         self.make_spec_bt = Button(
-            self.run_but_container, text="Calculate Spectrum", font="Helvetica", command=self.make_spectrum,
-            highlightbackground="#8EF0F7", pady=2, relief=FLAT, borderwidth=0
-        )
+                                   self.run_but_container,
+                                   text = "Calculate Spectrum",
+                                   font = "Helvetica",
+                                   command = self.make_spectrum,
+                                   highlightbackground = "#8EF0F7",
+                                   pady = 2,
+                                   relief = FLAT,
+                                   borderwidth = 0
+                                  )
+
         self.make_spec_bt.configure(state=DISABLED)
         self.make_spec_bt.grid(row = 0, column = 0, padx=5)
+
+        # choice option Save the Data
         self.save_adv_bt = Button(
-            self.run_but_container, text="Save the Data", font="Helvetica", command=self.adv_file,
-            highlightbackground="#8EF0F7", pady=2, relief=FLAT
-        )
+                                  self.run_but_container,
+                                  text = "Save the Data",
+                                  font = "Helvetica",
+                                  command = self.adv_file,
+                                  highlightbackground = "#8EF0F7",
+                                  pady = 2,
+                                  relief = FLAT
+                                 )
+
         self.save_adv_bt.configure(state=DISABLED)
         self.save_adv_bt.grid(row = 0, column = 1, padx=5)
 
+        # choice option Plot Spectrum
         self.pyplot_bt = Button(
-            self.run_but_container, text="Plot Spectrum", font="Helvetica", command=self.pyplot,
-            highlightbackground ="#8EF0F7", pady=2,
-            relief=FLAT
-        )
+                                self.run_but_container,
+                                text = "Plot Spectrum",
+                                font = "Helvetica",
+                                command = self.pyplot,
+                                highlightbackground = "#8EF0F7",
+                                pady = 2,
+                                relief = FLAT
+                               )
+
         self.pyplot_bt.configure(state=DISABLED)
         self.pyplot_bt.grid(row = 0, column = 4, padx=5)
+
         self.run_but_container.pack()
 
     def guiTab1(self):
+
         self.choice_file_type = IntVar()
         self.choice_log_type = IntVar()
         self.choice_file_type.set(0)
         self.choice_log_type.set(0)
-        self.choice_log_type=Label(
-            self.note1_struct, text="Output Type Files:", font="Helvetica 14 bold", fg="#263A90", background="#FFFFFF"
-        ).pack(anchor=NW, pady=5, padx=20)
+
+        # structure of the home page.
+        self.choice_log_type = Label(
+                                     self.note1_struct,
+                                     text = "Output Type Files:",
+                                     font = "Helvetica 14 bold",
+                                     fg = "#263A90",
+                                     background = "#FFFFFF"
+                                    ).pack(anchor=NW, pady=5, padx=20)
+
+        # chooses the Gaussian(G09 and G16) attribute
         self.rb1_choice_log_type = Radiobutton(
-            self.note1_struct, text="Gaussian (G09 and G16)", variable=self.choice_log_type,
-            value=0, background="#FFFFFF"
-        )
+                                               self.note1_struct,
+                                               text = "Gaussian (G09 and G16)",
+                                               variable = self.choice_log_type,
+                                               value = 0,
+                                               background = "#FFFFFF"
+                                              )
+
         self.rb1_choice_log_type.pack(anchor=NW, padx=20)
         self.rb1_choice_log_type.select()
+
         self.choice_files_type = Label(
-            self.note1_struct, text="Choose the type of analysis (with one file or with multiple file overlay):",
-            font="Helvetica 14 bold", fg="#263A90", background="#FFFFFF"
-        ).pack(anchor=NW, pady=5, padx=20)
+                                        self.note1_struct,
+                                        text="Choose the type of analysis (with one file or with multiple file overlay):",
+                                        font="Helvetica 14 bold",
+                                        fg="#263A90",
+                                        background="#FFFFFF"
+                                      ).pack(anchor=NW, pady=5, padx=20)
+
         self.open_files_BT = Frame(self.note1_struct, background="#FFFFFF")
 
+        # choice option Independent Files
         self.rb1_choice_file_type = Radiobutton(
-            self.open_files_BT, text="Independent Files", variable=self.choice_file_type,
-            value=0, command=self.enable_file_bt, background="#FFFFFF", fg="#000000",
-        )
+                                                 self.open_files_BT,
+                                                 text = "Independent Files",
+                                                 variable = self.choice_file_type,
+                                                 value = 0,
+                                                 command = self.enable_file_bt,
+                                                 background = "#FFFFFF",
+                                                 fg = "#000000",
+                                               )
+
         self.rb1_choice_file_type.pack(side="left")
 
+        # choice option multiple Files
         self.rb2_choice_file_type = Radiobutton(
-            self.open_files_BT, text="Multiple Files", variable=self.choice_file_type,
-            value=1, command=self.enable_file_bt, background="#FFFFFF"
-        )
+                                                self.open_files_BT,
+                                                text = "Multiple Files",
+                                                variable = self.choice_file_type,
+                                                value = 1,
+                                                command = self.enable_file_bt,
+                                                background = "#FFFFFF"
+                                               )
+
         self.rb2_choice_file_type.pack(side="left")
 
+        # choice option Multiple files with a logical MD pattern
         self.rb3_choice_file_type = Radiobutton(
-            self.open_files_BT, text="Multiple Files with a Logical MD Pattern", variable=self.choice_file_type,
-            value=2, command=self.enable_file_bt, background="#FFFFFF"
-        )
+                                                 self.open_files_BT,
+                                                 text="Multiple Files with a Logical MD Pattern",
+                                                 variable=self.choice_file_type,
+                                                 value=2,
+                                                 command=self.enable_file_bt,
+                                                 background="#FFFFFF"
+                                               )
+
         self.rb3_choice_file_type.pack(side="left")
 
+        # choice option Open Files
         self.run_call_bt = Button(
-            self.open_files_BT, text="Open files", font="Helvetica",
-            state=DISABLED, command=self.select_files, background="#FFFFFF", fg="#000000", width=8
-        )
+                                   self.open_files_BT,
+                                   text="Open files",
+                                   font="Helvetica",
+                                   state=DISABLED,
+                                   command=self.select_files,
+                                   background="#FFFFFF",
+                                   fg="#000000",
+                                   width=8
+                                 )
+
         self.run_call_bt.pack(side="left")
+
+
         self.open_files_BT.pack(anchor=NW, pady=5, padx=20)
 
         self.file_container = Frame(self.note1_struct, background="#FFFFFF")
+
+        # choice file with selected file
         self.file_titles = Label(
-            self.file_container, text="Selected Files:", font="Helvetica 25 bold", fg="#263A90", background="#FFFFFF"
-        )
+                                 self.file_container,
+                                 text="Selected Files:",
+                                 font="Helvetica 25 bold",
+                                 fg="#263A90",
+                                 background="#FFFFFF"
+                                )
+
         self.file_titles.pack(anchor=NW, pady=5, padx=20)
+
         self.file_name_box = Listbox(
-            self.file_container, relief=RIDGE, borderwidth=3, width=82,height=11, background="#8EF0F7", fg="#263A90"
-        )
+                                      self.file_container,
+                                      relief=RIDGE,
+                                      borderwidth=3,
+                                      width=82,
+                                      height=11,
+                                      background="#8EF0F7",
+                                      fg="#263A90"
+                                    )
+
         self.file_name_box.pack(anchor=NW, pady=5, padx=20)
         self.file_container.pack()
 
@@ -207,10 +297,15 @@ class Application(Frame):
         self.box_container_line1 = Frame(self.box_container_in1, relief=FLAT, borderwidth=1, background="#FFFFFF")
         self.box_container_line1_1 = Frame(self.box_container_line1, background="#FFFFFF")
         self.box_container_wl = Frame(self.box_container_line1_1, relief=FLAT, borderwidth=1, background="#FFFFFF")
+
         self.wl_rang_name = Label(
-            self.box_container_line1_1, text="Wavelength Range ( nm ):",
-            font="Helvetica 16 bold", fg="#DF0027", bg="#FFFFFF"
-        ).pack(fill=X)
+                                  self.box_container_line1_1,
+                                  text="Wavelength Range ( nm ):",
+                                  font="Helvetica 16 bold",
+                                  fg="#DF0027",
+                                  bg="#FFFFFF"
+                                 ).pack(fill=X)
+
         self.box_container_line1_1.pack()
         self.box_container_line1_2 = Frame(self.box_container_line1, background="#FFFFFF")
         self.wl_rang_name_s = Label(self.box_container_line1_2, text="Start", font="Helvetica 14",
@@ -537,6 +632,7 @@ class Application(Frame):
             self.note.tab(self.note4_struct, state="disable")
 
     def select_files(self):
+
         self.save_adv_bt.configure(state="disable")
         self.pyplot_bt.configure(state="disable")
         self.file_name_box.delete(0, END)
@@ -546,15 +642,19 @@ class Application(Frame):
         if self.choice_file_type.get() == 0:
             self.filenames = []
             self.filenames_ = filedialog.askopenfilenames(
-                initialdir="/", filetypes=[("Gaussian LOG files","*.log"), ("Gaussian OUTPUTS files","*.out")]
-            )
+                                                          initialdir="/",
+                                                          filetypes=[("Gaussian LOG files","*.log"), ("Gaussian OUTPUTS files","*.out")]
+                                                         )
             if len(self.filenames_) > 4:
                 messagebox.showinfo(
-                    "Maximum number of files", "Let's use only the first 5 files of the input."
-                )
+                                    "Maximum number of files", "Let's use only the first 5 files of the input."
+                                   )
+
             for filename in self.filenames_[0:5]:
                 self.filenames.append(filename)
+
             self.clean_color_box(len(self.filenames))
+
             for i in range(0, len(self.filenames)):
                 self.entry_color_curve_list[i].configure(state="normal", borderwidth=2)
                 self.entry_color_drop_list[i].configure(state="normal", borderwidth=2)
@@ -568,8 +668,9 @@ class Application(Frame):
             self.filenames = []
 
             self.filenames_m = filedialog.askopenfilenames(
-                initialdir="/", filetypes=[("Gaussian LOG files","*.log"), ("Gaussian OUTPUTS files","*.out")]
-            )
+                                                           initialdir="/",
+                                                           filetypes=[("Gaussian LOG files","*.log"), ("Gaussian OUTPUTS files","*.out")]
+                                                          )
 
             for filename in self.filenames_m:
                 self.filenames.append(filename)
@@ -590,8 +691,8 @@ class Application(Frame):
         for filename in self.filenames:
             fn_div = filename.split('/')
             self.file_name_box.insert(
-                    END, ".../"+fn_div[-4]+"/"+fn_div[-3]+"/"+fn_div[-2]+"/"+fn_div[-1]
-            )
+                                      END, ".../"+fn_div[-4]+"/"+fn_div[-3]+"/"+fn_div[-2]+"/"+fn_div[-1]
+                                     )
         self.target_dir = "/".join(self.filenames[-1].split("/")[0:-1])
         self.note.tab(self.note2_struct, state="normal")
         self.note.tab(self.note3_struct, state="normal")
@@ -606,12 +707,14 @@ class Application(Frame):
                 self.note.tab(self.note4_struct, state="disable")
             self.checkbuttonplot1.configure(state = DISABLED)
             self.checkbuttonplot2.configure(state = DISABLED)
+
         self.note.tab(self.note6_struct, state="normal")
         self.make_spec_bt.configure(state=NORMAL)
         self.output_entry.delete(0, END)
         self.output_entry.insert(0, self.filenames[-1].split("/")[-2].lower())
 
     def make_spectrum(self):
+
         if self.choice_file_type.get() == 0:
             self.makeSpectrum()
         else:
@@ -671,7 +774,7 @@ class Application(Frame):
 
     def makeSpectrumMD(self):
         self.pyplot_bt.configure(state=NORMAL)
-        self.output_file_names=[self.output_entry.get()]
+        self.output_file_names = [self.output_entry.get()]
         error = self.getSimpleValues()
         if error < 1:
             self.spectrumUnited()
@@ -680,26 +783,29 @@ class Application(Frame):
                                 "Please correct the marked values.")
 
     def makeSpectrum(self):
+
         self.pyplot_bt.configure(state=NORMAL)
         error = self.getSimpleValues()
         self.total_oscillators = []
         self.output_file_names=[]
+
         num = 1
         if error < 1:
             for spectrum_divided in self.filenames:
-                self.total_oscillators = Get_Osc([spectrum_divided]).take_osc(float(self.wl_rang[0])+20,self.wl_rang[1])
+                self.total_oscillators = Get_Osc([spectrum_divided]).take_osc(float(self.wl_rang[0]) + 20, self.wl_rang[1])
                 self.spectrum = Gaussian_Convolution(self.total_oscillators, self.fwhm)
                 self.plot_limits = self.spectrum.make_spectrum(self.wl_rang[0], self.wl_rang[1], self.wl_n_points)
-                self.spectrum.write_spectrum(self.target_dir + "/" + self.output_file_name+"_"+str(num))
-                self.output_file_names.append(self.output_file_name+"_"+str(num))
-                num+=1
+                self.spectrum.write_spectrum(self.target_dir + "/" + self.output_file_name + "_" + str(num))
+                self.output_file_names.append(self.output_file_name + "_" + str(num))
+                num += 1
             self.save_adv_bt.configure(state=NORMAL)
         else:
             messagebox.showinfo("Error in user-fed values",
                                 "Please correct the marked values.")
 
     def spectrumUnited(self):
-        self.total_oscillators = Get_Osc(self.filenames).take_osc(float(self.wl_rang[0])+20,self.wl_rang[1])
+
+        self.total_oscillators = Get_Osc(self.filenames).take_osc(float(self.wl_rang[0]) + 20, self.wl_rang[1])
         self.spectrum = Gaussian_Convolution(self.total_oscillators, self.fwhm)
         self.plot_limits = self.spectrum.make_spectrum(self.wl_rang[0], self.wl_rang[1], self.wl_n_points)
         self.spectrum.write_spectrum(self.target_dir + "/" + self.output_file_name)
@@ -707,25 +813,29 @@ class Application(Frame):
 
 
     def adv_file(self):
+
         try:
-            os.remove(self.target_dir + "/" + self.output_file_name+"_advancedData.dat")
+            os.remove(self.target_dir + "/" + self.output_file_name + "_advancedData.dat")
         except:
             pass
+
         if self.choice_file_type.get() == 0:
             for i in range(0, len(self.filenames)):
-                toSave = saveAdvancedSimple(self.filenames[i], self.target_dir + "/" + self.output_file_names[i]+"_spectrum.dat")
+                toSave = saveAdvancedSimple(self.filenames[i], self.target_dir + "/" + self.output_file_names[i] + "_spectrum.dat")
         else:
             for i in range(0, len(self.filenames)):
-                if i == len(self.filenames)-1:
-                    toSave = saveAdvancedSimple(self.filenames[i], self.target_dir + "/" + self.output_file_name+"_spectrum.dat", False)
+                if i == len(self.filenames) - 1:
+                    toSave = saveAdvancedSimple(self.filenames[i], self.target_dir + "/" + self.output_file_name + "_spectrum.dat", False)
                 else:
-                    toSave = saveAdvancedSimple(self.filenames[i], self.target_dir + "/" + self.output_file_name+"_spectrum.dat", False, False)
+                    toSave = saveAdvancedSimple(self.filenames[i], self.target_dir + "/" + self.output_file_name + "_spectrum.dat", False, False)
+
         concordPlural = (False if len(self.filenames) == 1 or self.choice_file_type.get() != 0 else True)
         titSave = ("Files Saved" if concordPlural else "File Saved")
         messagSave = ("All files have" if concordPlural else "The file has")
         messagebox.showinfo(titSave, messagSave + " already been saved in the working directory")
 
     def get_exp_data(self):
+
         if self.option_experimental.get() == 0:
             self.exp_abs_lines = []
             self.exp_wl_lines = []
@@ -764,17 +874,26 @@ class Application(Frame):
         self.boxList_experimental_plot.insert(0, self.experimental_data_file)
 
     def pyplot(self):
+
         self.get_exp_data()
         self.curve_color = []
         self.osc_color = []
-        for i in range(0, len(self.filenames), 1):
+
+        for i in range(0, len(self.filenames)):
             self.curve_color.append(self.entry_color_curve_list[i].get())
             self.osc_color.append(self.entry_color_drop_list[i].get())
+
         x = Print_Spectrum(
-            self.target_dir, self.output_file_names, self.wl_rang[0], self.wl_rang[1],
-            self.title_chart, int( self.entry_res.get()), self.osc_color, self.curve_color,
-            "0", self.filenames,  self.plottypes.get(), self.exp_abs_lines, self.exp_wl_lines, self.entry_color_exp.get(), self.choice_intensity.get()
-        )
+                           self.target_dir, self.output_file_names,
+                           self.wl_rang[0], self.wl_rang[1],
+                           self.title_chart, int( self.entry_res.get()),
+                           self.osc_color, self.curve_color,
+                           "0", self.filenames,
+                           self.plottypes.get(), self.exp_abs_lines,
+                           self.exp_wl_lines, self.entry_color_exp.get(),
+                           self.choice_intensity.get()
+                          )
+
         x.print_matplotlib()
         self.pyplot_bt.configure(state=DISABLED)
 

@@ -101,7 +101,7 @@ class saveAdvancedSimple(object):
             saveFile.write("The UV-Vis Sp3ctrum P4tronus only calculates the contribution of the pairs of orbitals in the electronic excitation in Restricted Shell systems.\n")
         if self.lastTime:
             with open(self.finalName, encoding="utf8", errors='ignore') as myFile:
-                saveFile.write("{}\n\n ---------------------- UV-Vis Spectrum -----------------------\n\n{}\n". format(lineW, lineW))
+                saveFile.write("{}\n\n ---------------------- UV-Vis Spectrum -----------------------\n\n{}\n".format(lineW, lineW))
                 saveFile.write("         Wavelength               Molar Absorptivity\n")
                 saveFile.write("            (nm)                      (L/mol.cm)\n")
                 for line in myFile:
