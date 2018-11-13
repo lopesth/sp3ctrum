@@ -80,6 +80,7 @@ class Application(Frame):
         self.style.theme_use("leedmol")
 
     def setMenu(self):
+
         self.menu = Menu(self.toplevel)
         self.toplevel.configure(menu=self.menu)
         self.filemenufile= Menu(self.menu, tearoff=0, fg="#62338C")
@@ -165,7 +166,6 @@ class Application(Frame):
                                 pady = 2,
                                 relief = FLAT
                                )
-
         self.pyplot_bt.configure(state=DISABLED)
         self.pyplot_bt.grid(row = 0, column = 4, padx=5)
 
@@ -290,69 +290,163 @@ class Application(Frame):
         self.file_container.pack()
 
     def guiTab2(self):
+
+        '''
+           This is method create box for insert wavelength range in nm and full width at half maximum
+        '''
+
         self.box_container_interval_2 = Frame(self.note2_struct, background="#FFFFFF")
         self.box_container_interval_2.pack()
-        self.box_container_out = Frame(self.note2_struct, relief=FLAT, borderwidth=1, background="#FFFFFF")
+
+        self.box_container_out = Frame(
+                                        self.note2_struct,
+                                        relief = FLAT,
+                                        borderwidth = 1,
+                                        background="#FFFFFF"
+                                      )
+
         self.box_container_in1 = Frame(self.box_container_out, background="#FFFFFF")
-        self.box_container_line1 = Frame(self.box_container_in1, relief=FLAT, borderwidth=1, background="#FFFFFF")
+
+        self.box_container_line1 = Frame(
+                                          self.box_container_in1,
+                                          relief = FLAT,
+                                          borderwidth = 1,
+                                          background = "#FFFFFF"
+                                        )
         self.box_container_line1_1 = Frame(self.box_container_line1, background="#FFFFFF")
-        self.box_container_wl = Frame(self.box_container_line1_1, relief=FLAT, borderwidth=1, background="#FFFFFF")
 
+        self.box_container_wl = Frame(
+                                       self.box_container_line1_1,
+                                       relief = FLAT,
+                                       borderwidth = 1,
+                                       background = "#FFFFFF"
+                                     )
+
+        # box that contains input information about wavelength and Number of points
         self.wl_rang_name = Label(
-                                  self.box_container_line1_1,
-                                  text="Wavelength Range ( nm ):",
-                                  font="Helvetica 16 bold",
-                                  fg="#DF0027",
-                                  bg="#FFFFFF"
+                                   self.box_container_line1_1,
+                                   text="Wavelength Range (nm):",
+                                   font="Helvetica 16 bold",
+                                   fg="#DF0027",
+                                   bg="#FFFFFF"
                                  ).pack(fill=X)
-
         self.box_container_line1_1.pack()
         self.box_container_line1_2 = Frame(self.box_container_line1, background="#FFFFFF")
-        self.wl_rang_name_s = Label(self.box_container_line1_2, text="Start", font="Helvetica 14",
-                                    fg="#DF0027", background="#FFFFFF").pack(side="left")
+
+        # box start
+        self.wl_rang_name_s = Label(
+                                     self.box_container_line1_2,
+                                     text = "Start",
+                                     font = "Helvetica 14",
+                                     fg = "#DF0027",
+                                     background = "#FFFFFF"
+                                   ).pack(side="left")
+
+        # box that receives the initial input value
         self.wl_rang_start_entry = Entry(
-            self.box_container_line1_2, width=4, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF"
-        )
+                                          self.box_container_line1_2,
+                                          width = 4,
+                                          fg = "#263A90",
+                                          borderwidth = 2,
+                                          relief =
+                                          RIDGE, background="#FFFFFF"
+                                        )
         self.wl_rang_start_entry.insert(END, '150')
         self.wl_rang_start_entry.pack(side="left")
-        self.wl_rang_name_e = Label(self.box_container_line1_2, text="End", font="Helvetica 14",
-                                    fg="#DF0027", background="#FFFFFF").pack(side="left")
+
+        # box end
+        self.wl_rang_name_e = Label(
+                                     self.box_container_line1_2,
+                                     text = "End",
+                                     font = "Helvetica 14",
+                                     fg = "#DF0027",
+                                     background = "#FFFFFF"
+                                   ).pack(side="left")
+
+        # box that receives final input value
         self.wl_rang_end_entry = Entry(
-            self.box_container_line1_2, width=4, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF"
-        )
+                                        self.box_container_line1_2,
+                                        width = 4,
+                                        fg = "#263A90",
+                                        borderwidth = 2,
+                                        relief = RIDGE,
+                                        background = "#FFFFFF"
+                                      )
         self.wl_rang_end_entry.insert(END, '350')
         self.wl_rang_end_entry.pack(side="left")
+
         self.box_container_line1_2.pack()
         self.box_container_line1_2 = Frame(self.box_container_line1, background="#FFFFFF")
+
+        # box that receives total number of points.
         self.wl_n_points_name = Label(
-            self.box_container_line1_2, text="Number of points", fg="#DF0027",
-            font="Helvetica 14", background="#FFFFFF"
-        ).pack()
+                                       self.box_container_line1_2,
+                                       text = "Number of points",
+                                       fg = "#DF0027",
+                                       font = "Helvetica 14",
+                                       background = "#FFFFFF"
+                                     ).pack()
+
         self.wl_n_points_entry = Entry(
-            self.box_container_line1_2, width=5, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF"
-        )
+                                        self.box_container_line1_2,
+                                        width = 5,
+                                        fg = "#263A90",
+                                        borderwidth = 2,
+                                        relief = RIDGE,
+                                        background = "#FFFFFF"
+                                      )
         self.wl_n_points_entry.insert(END, '10000')
         self.wl_n_points_entry.pack()
+
         self.box_container_line1_2.pack()
         self.box_container_line1.pack(side="left")
         self.box_container_line2 = Frame(self.box_container_in1, relief=FLAT, borderwidth=1, background="#FFFFFF")
         self.box_container_div = Frame(self.box_container_in1, relief=FLAT, borderwidth=1, background="#FFFFFF")
+
+        # empty box 
         self.wl_n_points_name = Label(
-            self.box_container_div, text="                                     ",
-            font="Helvetica 14", background="#FFFFFF"
-        ).pack()
+                                       self.box_container_div,
+                                       text = "                                ",
+                                       font = "Helvetica 14",
+                                       background = "#FFFFFF"
+                                     ).pack()
         self.box_container_div.pack(side="left")
-        self.box_container_fwhm = Frame(self.box_container_line2, relief=FLAT, borderwidth=1, background="#FFFFFF")
+
+        self.box_container_fwhm = Frame(
+                                         self.box_container_line2,
+                                         relief = FLAT,
+                                         borderwidth = 1,
+                                         background = "#FFFFFF"
+                                       )
+        # information for box Full width at Half Maximum FWHM (cm-1)
         self.fwhm_name = Label(
-            self.box_container_fwhm, text='Full Width at Half Maximum',
-            font="Helvetica 16 bold", fg="#DF0027", background="#FFFFFF"
-        ).pack(fill=X)
-        self.fwhm_name2 = Label(self.box_container_fwhm, text=u'FWHM (cm\u207B\u00B9):',
-                                font="Helvetica 16 bold", fg="#DF0027", background="#FFFFFF").pack(fill=X)
+                                self.box_container_fwhm,
+                                text = 'Full Width at Half Maximum',
+                                font = "Helvetica 16 bold",
+                                fg = "#DF0027",
+                                background = "#FFFFFF"
+                              ).pack(fill=X)
+
+        self.fwhm_name2 = Label(
+                                 self.box_container_fwhm,
+                                 text = u'FWHM (cm\u207B\u00B9):',
+                                 font = "Helvetica 16 bold",
+                                 fg = "#DF0027",
+                                 background = "#FFFFFF"
+                               ).pack(fill=X)
+
+        # enter the width value with half height.
         self.fwhm_entry = Entry(
-            self.box_container_fwhm, width=7, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")
+                                 self.box_container_fwhm,
+                                 width = 7,
+                                 fg = "#263A90",
+                                 borderwidth = 2,
+                                 relief = RIDGE,
+                                 background = "#FFFFFF"
+                               )
         self.fwhm_entry.insert(END, '3226.22')
         self.fwhm_entry.pack()
+
         self.box_container_fwhm.pack(side="left")
         self.box_container_line2.pack(side="left")
         self.box_container_in1.grid(row=0)
