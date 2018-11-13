@@ -125,6 +125,15 @@ class Application(Frame):
 
     def guiButtons(self):
 
+        '''
+           This method defines  *** Files ***
+           This method defines the attributes of the Uv-vis home page.
+           Allows the user to choose:
+               - Calculate Spectrum;
+               - Save the Data;
+               - Plot Spectrum;
+        '''
+
         self.run_but_container = Frame(self.toplevel, bg="#8EF0F7")
 
         #choice option Calculate Spectrum
@@ -173,6 +182,19 @@ class Application(Frame):
 
     def guiTab1(self):
 
+        '''
+           This method defines  *** Files ***
+           This method defines the attributes of the Uv-vis home page.
+           Allows the user to choose:
+               - Output Type File;
+                  --> Gaussian G09 and G16
+               - Type of Anlysis;
+                  --> Independent files
+                  --> Multiple files
+                  --> Multiple files MD
+               - Selected Files;
+        '''
+
         self.choice_file_type = IntVar()
         self.choice_log_type = IntVar()
         self.choice_file_type.set(0)
@@ -195,17 +217,16 @@ class Application(Frame):
                                                value = 0,
                                                background = "#FFFFFF"
                                               )
-
         self.rb1_choice_log_type.pack(anchor=NW, padx=20)
         self.rb1_choice_log_type.select()
 
         self.choice_files_type = Label(
                                         self.note1_struct,
-                                        text="Choose the type of analysis (with one file or with multiple file overlay):",
-                                        font="Helvetica 14 bold",
-                                        fg="#263A90",
-                                        background="#FFFFFF"
-                                      ).pack(anchor=NW, pady=5, padx=20)
+                                        text = "Choose the type of analysis (with one file or with multiple file overlay):",
+                                        font = "Helvetica 14 bold",
+                                        fg = "#263A90",
+                                        background = "#FFFFFF"
+                                      ).pack(anchor = NW, pady = 5, padx = 20)
 
         self.open_files_BT = Frame(self.note1_struct, background="#FFFFFF")
 
@@ -219,7 +240,6 @@ class Application(Frame):
                                                  background = "#FFFFFF",
                                                  fg = "#000000",
                                                )
-
         self.rb1_choice_file_type.pack(side="left")
 
         # choice option multiple Files
@@ -231,7 +251,6 @@ class Application(Frame):
                                                 command = self.enable_file_bt,
                                                 background = "#FFFFFF"
                                                )
-
         self.rb2_choice_file_type.pack(side="left")
 
         # choice option Multiple files with a logical MD pattern
@@ -243,7 +262,6 @@ class Application(Frame):
                                                  command=self.enable_file_bt,
                                                  background="#FFFFFF"
                                                )
-
         self.rb3_choice_file_type.pack(side="left")
 
         # choice option Open Files
@@ -257,9 +275,7 @@ class Application(Frame):
                                    fg="#000000",
                                    width=8
                                  )
-
         self.run_call_bt.pack(side="left")
-
 
         self.open_files_BT.pack(anchor=NW, pady=5, padx=20)
 
@@ -273,7 +289,6 @@ class Application(Frame):
                                  fg="#263A90",
                                  background="#FFFFFF"
                                 )
-
         self.file_titles.pack(anchor=NW, pady=5, padx=20)
 
         self.file_name_box = Listbox(
@@ -285,14 +300,19 @@ class Application(Frame):
                                       background="#8EF0F7",
                                       fg="#263A90"
                                     )
-
         self.file_name_box.pack(anchor=NW, pady=5, padx=20)
         self.file_container.pack()
 
     def guiTab2(self):
 
         '''
-           This is method create box for insert wavelength range in nm and full width at half maximum
+           This method defines  *** Parameter Spectrum ***
+           This is method create box for insert wavelength range in nm and full width at half maximum.
+           In this method the user can define:
+              - Start wavelength range;
+              - End wavelength range;
+              - Number of points between the wavelength;
+              - Full width at Half Maximum FWHM in (cm-1)
         '''
 
         self.box_container_interval_2 = Frame(self.note2_struct, background="#FFFFFF")
@@ -403,7 +423,7 @@ class Application(Frame):
         self.box_container_line2 = Frame(self.box_container_in1, relief=FLAT, borderwidth=1, background="#FFFFFF")
         self.box_container_div = Frame(self.box_container_in1, relief=FLAT, borderwidth=1, background="#FFFFFF")
 
-        # empty box 
+        # empty box
         self.wl_n_points_name = Label(
                                        self.box_container_div,
                                        text = "                                ",
@@ -453,24 +473,64 @@ class Application(Frame):
         self.box_container_out.pack()
 
     def guiTab3(self):
+
+        '''
+           This method defines  *** Plot Details ***
+           This is method create box for insert:
+               - Title of the plots;
+               - Colors of Curve;
+               - Color of Oscillators;
+               - Resolution of Plot (dpi);
+               - Plot Types
+                  --> Independent plots
+                  --> Overlay Plots
+        '''
+
+
+        self.box_container_plot = Frame(
+                                         self.note3_struct,
+                                         relief = FLAT,
+                                         borderwidth = 0,
+                                         background = "#FFFFFF"
+                                       )
         # choice of graph title
-        self.box_container_plot = Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
-        self.name_title = Label(self.box_container_plot, text="Title of the Plots (Optional):",
-                                font="Helvetica 14 bold", fg="#DF0027", background="#FFFFFF").pack(side="left")
+        self.name_title = Label(
+                                 self.box_container_plot,
+                                 text = "Title of the Plots (Optional):",
+                                 font = "Helvetica 14 bold",
+                                 fg = "#DF0027",
+                                 background = "#FFFFFF"
+                               ).pack(side="left")
+
         self.title_entry = Entry(
-            self.box_container_plot, width=60, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")
+                                  self.box_container_plot,
+                                  width = 60,
+                                  fg = "#263A90",
+                                  borderwidth = 2,
+                                  relief = RIDGE,
+                                  background = "#FFFFFF"
+                                )
         self.title_entry.pack(side="left")
         self.box_container_plot.pack(pady=5)
 
         # colors of each curves
-        self.box_container_curve_colors = Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
+        self.box_container_curve_colors = Frame(
+                                                 self.note3_struct,
+                                                 relief = FLAT,
+                                                 borderwidth = 0,
+                                                 background = "#FFFFFF"
+                                               )
+
         self.title_color_curve = Label(
-            self.box_container_curve_colors, text="Color of Curve\n(CSS Hex Style, for each .log file):",
-            font="Helvetica", fg="#DF0027", background="#FFFFFF").pack(side="left")
+                                        self.box_container_curve_colors,
+                                        text = "Color of Curve\n(CSS Hex Style, for each .log file):",
+                                        font = "Helvetica",
+                                        fg = "#DF0027",
+                                        background = "#FFFFFF"
+                                      ).pack(side="left")
 
-        self.entry_color_curve_list = []
-
-        for i in range(0, 5, 1):
+        self.entry_color_curve_list = []  # list of collors curves
+        for i in range(0, 5):
             entry_color_curve1 = Entry(
                                         self.box_container_curve_colors,
                                         width=8,
@@ -486,48 +546,96 @@ class Application(Frame):
         self.box_container_curve_colors.pack(side="top", pady=5, anchor=W, padx=10)
 
         # colors of each Oscillators
-        self.box_container_drop_colors = Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
+        self.box_container_drop_colors = Frame(
+                                                self.note3_struct,
+                                                relief = FLAT,
+                                                borderwidth = 0,
+                                                background = "#FFFFFF"
+                                              )
         self.title_color_drop = Label(
-            self.box_container_drop_colors, text="Color of Oscillators\n(CSS Hex Style, for each .log file):",
-                                font="Helvetica", fg="#DF0027", background="#FFFFFF").pack(side="left")
+                                       self.box_container_drop_colors,
+                                       text = "Color of Oscillators\n(CSS Hex Style, for each .log file):",
+                                       font = "Helvetica",
+                                       fg = "#DF0027",
+                                       background = "#FFFFFF"
+                                     ).pack(side="left")
 
-        self.entry_color_drop_list = []
-
-        for i in range(0, 5, 1):
+        self.entry_color_drop_list = []  # List of colors Oscillators
+        for i in range(0, 5):
             entry_color_drop = Entry(
-                self.box_container_drop_colors, width=8, fg="#263A90",
-                borderwidth=2, relief=RIDGE,  background="#FFFFFF")
+                                      self.box_container_drop_colors,
+                                      width = 8,
+                                      fg = "#263A90",
+                                      borderwidth = 2,
+                                      relief = RIDGE,
+                                      background = "#FFFFFF"
+                                    )
             entry_color_drop.insert(END, '#4F4233')
             entry_color_drop.pack(side="left", padx=5)
             self.entry_color_drop_list.append(entry_color_drop)
+
         self.box_container_drop_colors.pack(side="top", pady=10, anchor=W, padx=10)
 
         self.clean_color_box(1)
-
+        
         self.box_container_res = Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
-        self.title_res = Label(self.box_container_res, text="Resolution of Plot (dpi):",
-                                font="Helvetica", fg="#DF0027", background="#FFFFFF").pack(side="left")
+
+        self.title_res = Label(
+                                 self.box_container_res,
+                                 text = "Resolution of Plot (dpi):",
+                                 font = "Helvetica",
+                                 fg = "#DF0027",
+                                 background = "#FFFFFF").pack(side="left")
         self.entry_res = Entry(
-            self.box_container_res, width=4, fg="#263A90", borderwidth=2, relief=RIDGE, background="#FFFFFF")
+                                 self.box_container_res,
+                                 width = 4,
+                                 fg = "#263A90",
+                                 borderwidth = 2,
+                                 relief = RIDGE,
+                                 background = "#FFFFFF"
+                              )
         self.entry_res.insert(END, '300')
         self.entry_res.pack()
         self.box_container_res.pack(side="top", pady=5, anchor=W, padx=10)
-        self.checkbuttonplot_box=Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
+
+        self.checkbuttonplot_box = Frame(
+                                         self.note3_struct,
+                                         relief = FLAT,
+                                         borderwidth = 0,
+                                         background = "#FFFFFF"
+                                        )
         self.plottypes = IntVar(0)
-        self.checkbuttonplot_name=Label(
-            self.checkbuttonplot_box, text="Plot Types:", fg="#DF0027", background="#FFFFFF").pack(side="left")
+
+        self.checkbuttonplot_name = Label(
+                                           self.checkbuttonplot_box,
+                                           text = "Plot Types:",
+                                           fg = "#DF0027",
+                                           background = "#FFFFFF"
+                                          ).pack(side="left")
+
         self.checkbuttonplot1 = Radiobutton(
-            self.checkbuttonplot_box, text="Independent Plots", variable=self.plottypes,
-            value=0, background="#FFFFFF")
+                                             self.checkbuttonplot_box,
+                                             text = "Independent Plots",
+                                             variable = self.plottypes,
+                                             value = 0,
+                                             background = "#FFFFFF"
+                                            )
+
         self.checkbuttonplot2 = Radiobutton(
-            self.checkbuttonplot_box, text="Overlay Plots", variable=self.plottypes,
-            value=1, background="#FFFFFF")
+                                             self.checkbuttonplot_box,
+                                             text = "Overlay Plots",
+                                             variable = self.plottypes,
+                                             value = 1,
+                                             background = "#FFFFFF"
+                                            )
+
         self.checkbuttonplot1.pack(side="left")
         self.checkbuttonplot2.pack(side="left")
         self.checkbuttonplot_box.pack(side="top", pady=5, anchor=W, padx=10)
 
+
     def clean_color_box(self, firstItem):
-        for i in range(firstItem, 5, 1):
+        for i in range(firstItem, 5):
             self.entry_color_drop_list[i].delete(0, END)
             self.entry_color_curve_list[i].delete(0, END)
             self.entry_color_curve_list[i].configure(state="disabled", borderwidth=2)
