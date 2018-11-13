@@ -378,8 +378,13 @@ class Application(Frame):
 
         for i in range(0, 5, 1):
             entry_color_curve1 = Entry(
-                self.box_container_curve_colors, width=8, fg="#263A90", borderwidth=2,
-                relief=RIDGE, background="#FFFFFF")
+                                        self.box_container_curve_colors,
+                                        width=8,
+                                        fg="#263A90",
+                                        borderwidth=2,
+                                        relief=RIDGE,
+                                        background="#FFFFFF"
+                                     )
             entry_color_curve1.insert(END, '#020041')
             entry_color_curve1.pack(side="left", padx=5)
             self.entry_color_curve_list.append(entry_color_curve1)
@@ -655,13 +660,14 @@ class Application(Frame):
 
             self.clean_color_box(len(self.filenames))
 
+            # define cor do plots
             for i in range(0, len(self.filenames)):
                 self.entry_color_curve_list[i].configure(state="normal", borderwidth=2)
                 self.entry_color_drop_list[i].configure(state="normal", borderwidth=2)
                 self.entry_color_curve_list[i].delete(0, END)
                 self.entry_color_drop_list[i].delete(0, END)
                 self.entry_color_curve_list[i].insert(END, '#020041')
-                self.entry_color_drop_list[i].insert(END, '#4F4233')
+                self.entry_color_drop_list[i].insert(END, '#4F4233') # define a cor do oscilador
 
         # mode multiple files
         elif self.choice_file_type.get() == 1:
@@ -685,6 +691,7 @@ class Application(Frame):
             self.toplevel.wait_window(self.md.window)
             self.filenames = self.md.returnFileNames()
             self.clean_color_box(1)
+
             self.entry_color_curve_list[1].insert(END, '#020041')
             self.entry_color_drop_list[1].insert(END, '#4F4233')
 
@@ -697,6 +704,7 @@ class Application(Frame):
         self.note.tab(self.note2_struct, state="normal")
         self.note.tab(self.note3_struct, state="normal")
 
+        # representa diferenças entre Independent files e multiple files
         if self.choice_file_type.get() == 0:
             self.note.tab(self.note4_struct, state="normal")
 
@@ -722,11 +730,14 @@ class Application(Frame):
             self.makeSpectrumMD()
 
     def getSimpleValues(self):
-        error = 0
+
+        error = False
         start_a = 1
         end_a = 1
+
         self.curve_color = [self.entry_color_curve_list[0].get()]
         self.osc_color = [self.entry_color_drop_list[0].get()]
+
         try:
             start_a = float(self.wl_rang_start_entry.get())
             self.wl_rang_start_entry.configure(fg="#263A90", bg="#FFFFFF")
@@ -735,7 +746,7 @@ class Application(Frame):
             messagebox.showinfo(
                 "Incoherent input values", "One of the wavelength range values does not make sense."
             )
-            error += 1
+            error = True
         try:
             end_a = float(self.wl_rang_end_entry.get())
             self.wl_rang_end_entry.configure(fg="#263A90", bg="#FFFFFF")
@@ -743,13 +754,17 @@ class Application(Frame):
             self.wl_rang_end_entry.configure(bg="#DF0027", fg="#FFFFFF")
             messagebox.showinfo("Incoherent input values",
                                 "One of the wavelength range values does not make sense.")
-            error +=1
-        self.wl_rang = [start_a, end_a]
+            error = True
+
+        self.wl_rang = [start_a, end_a] # Lembrete : Olhar se isso vai para o Print_Spectrum
+
         try:
             self.wl_n_points = int(self.wl_n_points_entry.get())
             self.wl_n_points_entry.configure(fg="#263A90", bg="#FFFFFF")
+
             if self.wl_n_points < 500:
-                error+=1
+
+                error = True
                 messagebox.showinfo("Incoherent input values",
                                     "The minimum number of points in wavelength range is 500.")
                 self.wl_n_points_entry.configure(bg="#DF0027", fg="#FFFFFF")
@@ -757,7 +772,8 @@ class Application(Frame):
             messagebox.showinfo("Incoherent input values",
                                 "The number of points of wavelength range does not make sense.")
             self.wl_n_points_entry.configure(bg="#DF0027", fg="#FFFFFF")
-            error += 1
+            error = True
+
         try:
             self.fwhm = float(self.fwhm_entry.get())
             self.fwhm_entry.configure(fg="#263A90", bg="#FFFFFF")
@@ -765,18 +781,21 @@ class Application(Frame):
             messagebox.showinfo("Incoherent input values",
                                 "The value of FWHM does not make sense.")
             self.fwhm_entry.configure(bg ="#DF0027", fg="#FFFFFF")
-            error += 1
+            error = True
+
         self.output_file_name = self.output_entry.get()
         if len(self.output_file_name) == 0:
             self.output_file_name = "void_name"
         self.title_chart = self.title_entry.get()
+
         return error
 
     def makeSpectrumMD(self):
         self.pyplot_bt.configure(state=NORMAL)
         self.output_file_names = [self.output_entry.get()]
         error = self.getSimpleValues()
-        if error < 1:
+
+        if error == False:
             self.spectrumUnited()
         else:
             messagebox.showinfo("Error in user-fed values",
@@ -790,7 +809,7 @@ class Application(Frame):
         self.output_file_names=[]
 
         num = 1
-        if error < 1:
+        if error == False:
             for spectrum_divided in self.filenames:
                 self.total_oscillators = Get_Osc([spectrum_divided]).take_osc(float(self.wl_rang[0]) + 20, self.wl_rang[1])
                 self.spectrum = Gaussian_Convolution(self.total_oscillators, self.fwhm)
@@ -856,7 +875,7 @@ class Application(Frame):
                     pass
             else:
                 self.exp_wl_lines = []
-                for i in range(0, 4, 1):
+                for i in range(0, 4):
                     x = self.experimental_points_wl[i].get()
                     if len(x) > 0:
                         self.exp_wl_lines.append(float(x))
@@ -867,7 +886,7 @@ class Application(Frame):
     def open_experimental_data_file(self):
         messagebox.showinfo(
                     "Experimental curve file", "The File that contains the experimental spectrum must be a two-column .dat text file.\nThe first column should be the wavelength (nm), while the second should be the Molar Absorptivity (L/mol.cm)."
-                )
+                           )
         self.experimental_data_file = filedialog.askopenfilename(
                 initialdir="/", filetypes=[("File Data","*.dat")]
         )
@@ -879,9 +898,13 @@ class Application(Frame):
         self.curve_color = []
         self.osc_color = []
 
-        for i in range(0, len(self.filenames)):
-            self.curve_color.append(self.entry_color_curve_list[i].get())
-            self.osc_color.append(self.entry_color_drop_list[i].get())
+        if self.choice_file_type.get() == 0:
+            for i in range(0, len(self.filenames)):
+                self.curve_color.append(self.entry_color_curve_list[i].get())
+                self.osc_color.append(self.entry_color_drop_list[i].get())
+        else:
+            self.curve_color.append(self.entry_color_curve_list[0].get())
+            self.osc_color.append(self.entry_color_drop_list[0].get())
 
         x = Print_Spectrum(
                            self.target_dir, self.output_file_names,
@@ -1037,10 +1060,14 @@ class MDfilenames(Frame):
         self.folder_bt.grid(row =0, column =0)
 
         self.submit_bt = Button(
-            self.bt_container, text="Submit Files", background="#FFFFFF", font="Helvetica",
-            command=self.submit_md,
-            highlightbackground="#FFFFFF", pady=2
-        )
+                                 self.bt_container,
+                                 text = "Submit Files",
+                                 background = "#FFFFFF",
+                                 font = "Helvetica",
+                                 command = self.submit_md,
+                                 highlightbackground = "#FFFFFF",
+                                 pady = 2
+                               )
         self.submit_bt.configure(state=DISABLED)
         self.submit_bt.grid(row =0, column =1)
         self.bt_container.pack()
@@ -1050,7 +1077,7 @@ class MDfilenames(Frame):
         self.submit_bt.configure(state=NORMAL)
 
     def submit_md(self):
-        error = 0
+
         try:
             range_init = int(self.step_initial.get())
             self.step_initial.configure(bg="#FFFFFF", fg="#000000")
@@ -1058,15 +1085,7 @@ class MDfilenames(Frame):
             messagebox.showinfo("Incoherent input values",
                                 "The starting number of frames range must be integer.")
             self.step_initial.configure(bg="#DF0027", fg="#FFFFFF")
-            error += 1
-        try:
-            range_end =  int(self.step_final.get())
-            self.step_final.configure(bg="#FFFFFF", fg="#000000")
-        except:
-            messagebox.showinfo("Incoherent input values",
-                                "The final number of frames range must be integer.")
-            self.step_final.configure(bg="#DF0027", fg="#FFFFFF")
-            error += 1
+
         try:
             range_step = int(self.step_step.get())
             self.step_step.configure(bg="#FFFFFF", fg="#000000")
@@ -1074,38 +1093,47 @@ class MDfilenames(Frame):
             messagebox.showinfo("Incoherent input values",
                                 "The increment number of the frame range must be integer.")
             self.step_step.configure(bg="#DF0027", fg="#FFFFFF")
-            error += 1
+
+        try:
+            range_end =  int(self.step_final.get())
+            self.step_final.configure(bg="#FFFFFF", fg="#000000")
+        except:
+            messagebox.showinfo("Incoherent input values",
+                                "The final number of frames range must be integer.")
+            self.step_final.configure(bg="#DF0027", fg="#FFFFFF")
+
         name_init = str(self.name_initial.get()).strip()
         name_end = str(self.name_final.get()).strip()
         not_find = 0
+
         for step in range(range_init, range_end+1, range_step):
             if len(name_end) > 0:
-                filename = name_init+"_"+str(step)+"_"+name_end
+                filename = name_init + "_" + str(step) + "_" + name_end
+
                 try:
-                    test = open(self.dir+"/"+filename+".log", encoding="utf8", errors='ignore')
-                    self.filenames.append(self.dir+"/"+filename+".log")
-                except:
-                    try:
-                        test = open(self.dir + "/" + filename + ".out")
-                        self.filenames.append(self.dir + "/" + filename + ".out")
-                    except:
-                        not_find+=1
-                        print(self.dir + "/" + filename + ".out")
-            else:
-                filename = name_init + "_" + str(step)
-                try:
-                    test = open(self.dir+"/"+filename+".log")
+                    test = open(self.dir + "/" + filename + ".log", encoding="utf8", errors='ignore')
                     self.filenames.append(self.dir + "/" + filename + ".log")
                 except:
                     try:
                         test = open(self.dir + "/" + filename + ".out", encoding="utf8", errors='ignore')
                         self.filenames.append(self.dir + "/" + filename + ".out")
                     except:
-                        not_find+=1
+                        not_find += 1
+                        print(self.dir + "/" + filename + ".out")
+            else:
+                filename = name_init + "_" + str(step)
+                try:
+                    test = open(self.dir + "/" + filename + ".log", encoding="utf8", errors='ignore')
+                    self.filenames.append(self.dir + "/" + filename + ".log")
+                except:
+                    try:
+                        test = open(self.dir + "/" + filename + ".out", encoding="utf8", errors='ignore')
+                        self.filenames.append(self.dir + "/" + filename + ".out")
+                    except:
+                        not_find += 1
                         print(self.dir + "/" + filename + ".log")
         if not_find > 0:
-            resp = messagebox.askyesno(
-                "Incoherent input values", str(not_find)+ " files were not found, do you want to continue? If not, check the file names.")
+            resp = messagebox.askyesno("Incoherent input values", str(not_find) + " files were not found, do you want to continue? If not, check the file names.")
             if resp == False:
                 pass
             else:
