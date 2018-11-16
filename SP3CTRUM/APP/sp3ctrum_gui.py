@@ -576,8 +576,8 @@ class Application(Frame):
 
         self.box_container_drop_colors.pack(side="top", pady=10, anchor=W, padx=10)
 
-        self.clean_color_box(1)
-        
+        self.clean_color_box(1) # clear box
+
         self.box_container_res = Frame(self.note3_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
 
         self.title_res = Label(
@@ -585,7 +585,9 @@ class Application(Frame):
                                  text = "Resolution of Plot (dpi):",
                                  font = "Helvetica",
                                  fg = "#DF0027",
-                                 background = "#FFFFFF").pack(side="left")
+                                 background = "#FFFFFF"
+                              ).pack(side="left")
+
         self.entry_res = Entry(
                                  self.box_container_res,
                                  width = 4,
@@ -628,13 +630,19 @@ class Application(Frame):
                                              value = 1,
                                              background = "#FFFFFF"
                                             )
-
         self.checkbuttonplot1.pack(side="left")
         self.checkbuttonplot2.pack(side="left")
         self.checkbuttonplot_box.pack(side="top", pady=5, anchor=W, padx=10)
 
 
     def clean_color_box(self, firstItem):
+
+        '''
+           This method removes the information that was entered by the user in relation to the colors of the curves,
+           as well as the colors of the oscillators.
+           The default color is that of the first box.
+        '''
+
         for i in range(firstItem, 5):
             self.entry_color_drop_list[i].delete(0, END)
             self.entry_color_curve_list[i].delete(0, END)
@@ -642,97 +650,201 @@ class Application(Frame):
             self.entry_color_drop_list[i].configure(state="disabled", borderwidth=2)
 
     def guiTab4(self):
+
+        '''
+           This method describes the values of experimental plots.
+        '''
+
         self.option_experimental = IntVar(0)
         self.experimental_type = IntVar(0)
         self.experimental_points_wl = []
         self.experimental_points_abs = []
-        self.box_option_experimental = Frame(self.note4_struct, relief=FLAT, borderwidth=0, bg = "#FFFFFF")
+
+        self.box_option_experimental = Frame(
+                                              self.note4_struct,
+                                              relief = FLAT,
+                                              borderwidth = 0,
+                                              bg = "#FFFFFF"
+                                            )
+
         self.text_option_experimental = Label(
-            self.box_option_experimental,text="Plot with experimental data?", bg = "#FFFFFF"
-        ).pack(side="left", padx=10)
+                                               self.box_option_experimental,
+                                               text = "Plot with experimental data?",
+                                               bg = "#FFFFFF"
+                                             ).pack(side = "left", padx = 10)
+
         self.option_experimental_NObt = Radiobutton(
-            self.box_option_experimental, text="No", variable=self.option_experimental,
-            value=0, background="#FFFFFF", command = self.no_experimental_data
-        )
+                                                     self.box_option_experimental,
+                                                     text = "No",
+                                                     variable = self.option_experimental,
+                                                     value = 0,
+                                                     background = "#FFFFFF",
+                                                     command = self.no_experimental_data
+                                                   )
         self.option_experimental_NObt.pack(side="left", padx=10)
+
         self.option_experimental_Ybt = Radiobutton(
-            self.box_option_experimental, text="Yes", variable=self.option_experimental,
-            value=1, background="#FFFFFF", command = self.experimental_data_type
-        )
+                                                    self.box_option_experimental,
+                                                    text = "Yes",
+                                                    variable = self.option_experimental,
+                                                    value = 1,
+                                                    background = "#FFFFFF",
+                                                    command = self.experimental_data_type
+                                                  )
         self.option_experimental_Ybt.pack(side="left", padx=10)
         self.box_option_experimental.pack(side="top", pady=5, anchor=W)
-        self.box_experimental_color = Frame(self.note4_struct, relief=FLAT, borderwidth=0, bg = "#FFFFFF")
+
+        self.box_experimental_color = Frame(
+                                             self.note4_struct,
+                                             relief = FLAT,
+                                             borderwidth = 0,
+                                             bg = "#FFFFFF"
+                                           )
+
         self.text_experimental_color = Label(
-            self.box_experimental_color,text="Color of Plot of Experimental:", bg = "#FFFFFF"
-        )
+                                              self.box_experimental_color,
+                                              text = "Color of Plot of Experimental:",
+                                              bg = "#FFFFFF"
+                                            )
         self.text_experimental_color.pack(side="left", padx=10)
+
         self.entry_color_exp = Entry(
-                self.box_experimental_color, width=8, fg="#263A90",
-                borderwidth=2, relief=RIDGE,  background="#FFFFFF")
+                                      self.box_experimental_color,
+                                      width = 8,
+                                      fg = "#263A90",
+                                      borderwidth = 2,
+                                      relief = RIDGE,
+                                      background = "#FFFFFF"
+                                    )
         self.entry_color_exp.pack(side="left", padx=5)
         self.box_experimental_color.pack(side="top", pady=5, anchor=W)
 
-        self.box_experimental_types = Frame(self.note4_struct, relief=FLAT, borderwidth=0, bg = "#FFFFFF")
+        self.box_experimental_types = Frame(
+                                             self.note4_struct,
+                                             relief = FLAT,
+                                             borderwidth = 0,
+                                             bg = "#FFFFFF"
+                                           )
+
         self.text_experimental_types = Label(
-            self.box_experimental_types,text="Plot of Experimental Values:", bg = "#FFFFFF"
-        )
+                                              self.box_experimental_types,
+                                              text = "Plot of Experimental Values:",
+                                              bg = "#FFFFFF"
+                                            )
         self.text_experimental_types.pack(side="left", padx=10)
+
         self.experimental_type_curve_bt = Radiobutton(
-            self.box_experimental_types, text="Curve", variable=self.experimental_type,
-            value=0, background="#FFFFFF", command = self.experimental_data_curve
-        )
+                                                       self.box_experimental_types,
+                                                       text = "Curve",
+                                                       variable = self.experimental_type,
+                                                       value = 0,
+                                                       background = "#FFFFFF",
+                                                       command = self.experimental_data_curve
+                                                     )
         self.experimental_type_curve_bt.pack(side="left", padx=10)
+
         self.experimental_type_ref_bt = Radiobutton(
-            self.box_experimental_types, text="Reference", variable=self.experimental_type,
-            value=1, background="#FFFFFF", command = self.experimental_data_ref
-        )
+                                                     self.box_experimental_types,
+                                                     text = "Reference",
+                                                     variable = self.experimental_type,
+                                                     value = 1,
+                                                     background = "#FFFFFF",
+                                                     command = self.experimental_data_ref
+                                                   )
         self.experimental_type_ref_bt.pack(side="left", padx=10)
         self.box_experimental_types.pack(side="top", pady=10,  anchor=W)
-        self.box_experimental_plot = Frame(self.note4_struct, relief=FLAT, borderwidth=0, bg = "#FFFFFF")
+
+        self.box_experimental_plot = Frame(
+                                            self.note4_struct,
+                                            relief = FLAT,
+                                            borderwidth = 0,
+                                            bg = "#FFFFFF"
+                                          )
+
         self.text_experimental_plot = Label(
-            self.box_experimental_plot,text="File with experimental data:", bg = "#FFFFFF"
-        )
+                                             self.box_experimental_plot,
+                                             text = "File with experimental data:",
+                                             bg = "#FFFFFF"
+                                            )
         self.text_experimental_plot.pack(side="left", padx=10)
+
         self.buttom_experimental_plot = Button(
-            self.box_experimental_plot, text="Open Files", command = self.open_experimental_data_file
-        )
+                                                self.box_experimental_plot,
+                                                text = "Open Files",
+                                                command = self.open_experimental_data_file
+                                              )
         self.buttom_experimental_plot.pack(side="left", padx=10)
+
         self.boxList_experimental_plot = Listbox(
-            self.box_experimental_plot, relief=RIDGE, borderwidth=3, width=45,height=1, background="#FFFFFF", fg="#263A90"
-        )
+                                                  self.box_experimental_plot,
+                                                  relief = RIDGE,
+                                                  borderwidth = 3,
+                                                  width = 45,
+                                                  height = 1,
+                                                  background = "#FFFFFF",
+                                                  fg = "#263A90"
+                                                )
         self.boxList_experimental_plot.pack(side="left", padx=10)
         self.box_experimental_plot.pack(side="top", pady=10,  anchor=W)
 
-        self.box_experimental_ref = Frame(self.note4_struct, relief=FLAT, borderwidth=0, bg = "#FFFFFF")
+        self.box_experimental_ref = Frame(
+                                           self.note4_struct,
+                                           relief = FLAT,
+                                           borderwidth = 0,
+                                           bg = "#FFFFFF"
+                                         )
+
         self.experimental_ref_text = Label(
-            self.box_experimental_ref, text="Points of the\nexperimental values:", bg = "#FFFFFF"
-        )
+                                            self.box_experimental_ref,
+                                            text = "Points of the\nexperimental values:",
+                                            bg = "#FFFFFF"
+                                          )
         self.experimental_ref_text.pack(side="left", padx=10)
-        self.box_experimental_ref_wl = Frame(self.box_experimental_ref,relief=FLAT, borderwidth=0, bg = "#FFFFFF")
+
+        self.box_experimental_ref_wl = Frame(
+                                              self.box_experimental_ref,
+                                              relief = FLAT,
+                                              borderwidth = 0,
+                                              bg = "#FFFFFF")
+
         self.experimental_ref_wl_name = Label(
-            self.box_experimental_ref_wl, text="Wavelength\n(nm):", bg = "#FFFFFF"
-        )
+                                               self.box_experimental_ref_wl,
+                                               text = "Wavelength\n(nm):",
+                                               bg = "#FFFFFF"
+                                             )
         self.experimental_ref_wl_name.pack(side="top", padx=10)
-        for i in range(0, 4, 1):
+        for i in range(0, 4):
             entry_wl_exp = Entry(
-                self.box_experimental_ref_wl, width=8, fg="#263A90",
-                borderwidth=2, relief=RIDGE, background="#FFFFFF"
-            )
+                                  self.box_experimental_ref_wl,
+                                  width = 8,
+                                  fg = "#263A90",
+                                  borderwidth = 2,
+                                  relief = RIDGE,
+                                  background = "#FFFFFF"
+                                )
             entry_wl_exp.pack(side="top", padx=10)
             self.experimental_points_wl.append(entry_wl_exp)
+
         self.box_experimental_ref_wl.pack(side="left", padx=10)
         self.box_experimental_ref_abs = Frame(self.box_experimental_ref,relief=FLAT, borderwidth=0, bg = "#FFFFFF")
         self.experimental_ref_abs_name = Label(
-            self.box_experimental_ref_abs, text="Molar Absortivity\n(L/mol.cm):", bg = "#FFFFFF"
-        )
+                                                self.box_experimental_ref_abs,
+                                                text = "Molar Absortivity\n(L/mol.cm):",
+                                                bg = "#FFFFFF"
+                                              )
         self.experimental_ref_abs_name.pack(side="top", padx=10)
-        for i in range(0, 4, 1):
+        for i in range(0, 4):
             entry_abs_exp = Entry(
-                self.box_experimental_ref_abs, width=8, fg="#263A90",
-                borderwidth=2, relief=RIDGE, background="#FFFFFF"
-            )
+                                   self.box_experimental_ref_abs,
+                                   width = 8,
+                                   fg = "#263A90",
+                                   borderwidth = 2,
+                                   relief = RIDGE,
+                                   background = "#FFFFFF"
+                                 )
             entry_abs_exp.pack(side="top", padx=10)
             self.experimental_points_abs.append(entry_abs_exp)
+
         self.box_experimental_ref_abs.pack(side="left", padx=10)
         self.box_experimental_ref.pack(side="top", pady=10,  anchor=W)
         self.no_experimental_data()
@@ -747,6 +859,11 @@ class Application(Frame):
         self.no_experimental_data_ref()
 
     def experimental_data_type(self):
+
+        '''
+           configures box information in relation to the experimental data.
+        '''
+
         self.experimental_type_curve_bt.config(state=NORMAL)
         self.experimental_type_ref_bt.config(state=NORMAL)
         self.entry_color_exp.config(state=NORMAL)
@@ -786,53 +903,151 @@ class Application(Frame):
             self.experimental_points_wl[i].config(state=DISABLED)
             self.experimental_points_abs[i].config(state=DISABLED)
 
+    #############################################
+    #                                           #
+    #     There is no structure 5.              #
+    #                                           #
+    #     There is no guiTab5.                  #
+    #                                           #
+    #############################################
+
     def guiTab6(self):
+
+        '''
+           This method describes the possible output names of the files and intensity methods.
+           This method describes the possible output names of the files and intensity methods.
+           In this option the user can can choose:
+              - Names of the output data.
+              - Methods of spectrum intensity.
+        '''
+
         self.choice_intensity = IntVar()
         self.choice_intensity.set(1)
-        self.box_container_adv = Frame(self.note6_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
-        self.name_output = Label(self.box_container_adv, text="Base of Output Names:",
-                                 font="Helvetica 14 bold", fg="#DF0027", background="#FFFFFF").pack(side="left")
+
+        self.box_container_adv = Frame(
+                                        self.note6_struct,
+                                        relief = FLAT,
+                                        borderwidth = 0,
+                                        background = "#FFFFFF"
+                                      )
+
+        self.name_output = Label(
+                                  self.box_container_adv,
+                                  text = "Base of Output Names:",
+                                  font = "Helvetica 14 bold",
+                                  fg = "#DF0027",
+                                  background = "#FFFFFF"
+                                ).pack(side="left")
+
         self.output_entry = Entry(
-            self.box_container_adv, width=60, borderwidth=2, relief=RIDGE, background="#FFFFFF")
+                                   self.box_container_adv,
+                                   width = 60,
+                                   borderwidth = 2,
+                                   relief = RIDGE,
+                                   background = "#FFFFFF"
+                                 )
         self.output_entry.pack(side="left")
         self.box_container_adv.pack(side="top", pady=5, anchor=W)
-        self.box_intensity_Choice = Frame(self.note6_struct, relief=FLAT, borderwidth=0, background="#FFFFFF")
+
+        self.box_intensity_Choice = Frame(
+                                           self.note6_struct,
+                                           relief = FLAT,
+                                           borderwidth = 0,
+                                           background = "#FFFFFF"
+                                         )
         self.intensity_Choice = Label(
-            self.box_intensity_Choice, text="Spectrum intensity method:",
-            font="Helvetica 14 bold", fg="#DF0027", background="#FFFFFF"
-        ).pack(side="left")
+                                       self.box_intensity_Choice,
+                                       text = "Spectrum intensity method:",
+                                       font = "Helvetica 14 bold",
+                                       fg = "#DF0027",
+                                       background = "#FFFFFF"
+                                     ).pack(side="left")
+
         self.rb1_choice_intensity = Radiobutton(
-            self.box_intensity_Choice, text="Relative Intensity", variable=self.choice_intensity, value=0, background="#FFFFFF", command = self.expButt
-        )
+                                                 self.box_intensity_Choice,
+                                                 text = "Relative Intensity",
+                                                 variable = self.choice_intensity,
+                                                 value = 0,
+                                                 background = "#FFFFFF",
+                                                 command = self.expButt
+                                               )
         self.rb1_choice_intensity.pack(side="left")
+
         self.rb2_choice_intensity = Radiobutton(
-            self.box_intensity_Choice, text="Estimated Absorbance", variable=self.choice_intensity,
-            value=1, background="#FFFFFF", command = self.expButt
-        )
+                                                 self.box_intensity_Choice,
+                                                 text = "Estimated Absorbance",
+                                                 variable = self.choice_intensity,
+                                                 value = 1,
+                                                 background = "#FFFFFF",
+                                                 command = self.expButt
+                                               )
         self.rb2_choice_intensity.pack(side="left")
         self.box_intensity_Choice.pack(side="top", pady=5, anchor=W)
 
     def guiLogos(self):
         self.all_logos_container = Frame(self.toplevel, background="#8EF0F7", borderwidth=0)
-        self.logo1 = PhotoImage(file=self.src+"icons/sp3ctrum_b.gif")
-        self.logo2 = PhotoImage(file=self.src+"icons/leedmol_b.gif")
-        self.logos_title_container = Frame(self.all_logos_container, background="#8EF0F7", borderwidth=5, width=300)
-        self.lg1_title = Label(self.logos_title_container,   text="UV-Vis", background="#8EF0F7",
-                               font="Helvetica 23 bold italic", fg="#62338C").grid(row=0, column=0)
-        self.lg1_title = Label(self.logos_title_container,   text="Sp3ctrum P4tronus", background="#8EF0F7",
-                               font="Helvetica 23 bold italic", fg="#62338C").grid(row=1, column=0)
-        self.lg2_title = Label(self.logos_title_container,   text="Powered by:", background="#8EF0F7",
-                               font="Helvetica 16 italic", fg="#62338C").grid(row=2, column=0)
-        self.lg2_title = Label(self.logos_title_container,   text="LEEDMOL Group:", background="#8EF0F7",
-                               font="Helvetica 20 bold italic", fg="#62338C").grid(row=3, column=0)
+        self.logo1 = PhotoImage(file=self.src + "icons/sp3ctrum_b.gif")
+        self.logo2 = PhotoImage(file=self.src + "icons/leedmol_b.gif")
+        self.logos_title_container = Frame(
+                                            self.all_logos_container,
+                                            background = "#8EF0F7",
+                                            borderwidth = 5,
+                                            width = 300
+                                          )
+
+        self.lg1_title = Label(
+                                self.logos_title_container,
+                                text = "UV-Vis",
+                                background = "#8EF0F7",
+                                font="Helvetica 23 bold italic",
+                                fg = "#62338C"
+                              ).grid(row=0, column=0)
+
+        self.lg1_title = Label(
+                                self.logos_title_container,
+                                text = "Sp3ctrum P4tronus",
+                                background = "#8EF0F7",
+                                font = "Helvetica 23 bold italic",
+                                fg="#62338C"
+                              ).grid(row=1, column=0)
+
+        self.lg2_title = Label(
+                                 self.logos_title_container,
+                                 text = "Powered by:",
+                                 background = "#8EF0F7",
+                                 font = "Helvetica 16 italic",
+                                 fg = "#62338C"
+                              ).grid(row=2, column=0)
+
+        self.lg2_title = Label(
+                                self.logos_title_container,
+                                text = "LEEDMOL Group:",
+                                background = "#8EF0F7",
+                                font = "Helvetica 20 bold italic",
+                                fg = "#62338C"
+                              ).grid(row=3, column=0)
+
         self.logos_title_container.grid(row=0, column=0)
-        self.lg1 = Label(self.all_logos_container,  image=self.logo1, background="#8EF0F7",
-                         height=150, width=250).grid(row=0, column=1)
-        self.lg2 = Label(self.all_logos_container, image=self.logo2, background="#8EF0F7",
-                         height=150, width=250).grid(row=0, column=2)
+
+        self.lg1 = Label(
+                          self.all_logos_container,
+                          image = self.logo1,
+                          background = "#8EF0F7",
+                          height = 150,
+                          width = 250
+                        ).grid(row=0, column=1)
+
+        self.lg2 = Label(
+                          self.all_logos_container,
+                          image = self.logo2,
+                          background = "#8EF0F7",
+                          height = 150,
+                          width = 250
+                        ).grid(row=0, column=2)
         self.all_logos_container.pack()
 
     def expButt(self):
+
         if self.choice_intensity.get() == 1:
             self.note.tab(self.note4_struct, state="normal")
         else:
@@ -926,12 +1141,20 @@ class Application(Frame):
     def make_spectrum(self):
 
         if self.choice_file_type.get() == 0:
+            # It is the method for Calculate Gaussian convolution with
+            # Independent Files.
             self.makeSpectrum()
         else:
-            # It is the method for Calculate Gaussian convolution with Multiple Files and Multiple files with a logical MD pattern.
+            # It is the method for Calculate Gaussian convolution with
+            # Multiple Files and Multiple files with a logical MD pattern.
             self.makeSpectrumMD()
 
     def getSimpleValues(self):
+
+        '''
+           This method handles the possible errors entered by users within the
+           Spectrum Parameters and returns a Boolean variable..
+        '''
 
         error = False
         start_a = 1
@@ -946,9 +1169,11 @@ class Application(Frame):
         except:
             self.wl_rang_start_entry.configure(bg="#DF0027", fg="#FFFFFF")
             messagebox.showinfo(
-                "Incoherent input values", "One of the wavelength range values does not make sense."
-            )
+                                 "Incoherent input values",
+                                 "One of the wavelength range values does not make sense."
+                               )
             error = True
+
         try:
             end_a = float(self.wl_rang_end_entry.get())
             self.wl_rang_end_entry.configure(fg="#263A90", bg="#FFFFFF")
@@ -993,9 +1218,12 @@ class Application(Frame):
         return error
 
     def makeSpectrumMD(self):
+
+        ''' Compute the convolution considering multiple files. '''
+
         self.pyplot_bt.configure(state=NORMAL)
         self.output_file_names = [self.output_entry.get()]
-        error = self.getSimpleValues()
+        error = self.getSimpleValues()          # self.getSimpleValues() retorna valores de erros
 
         if error == False:
             self.spectrumUnited()
@@ -1005,15 +1233,17 @@ class Application(Frame):
 
     def makeSpectrum(self):
 
+        ''' Compute the convolution considering Independent files. '''
+
         self.pyplot_bt.configure(state=NORMAL)
-        error = self.getSimpleValues()
+        error = self.getSimpleValues()         # self.getSimpleValues() retorna valores de erros
         self.total_oscillators = []
-        self.output_file_names=[]
+        self.output_file_names = []
 
         num = 1
         if error == False:
             for spectrum_divided in self.filenames:
-                self.total_oscillators = Get_Osc([spectrum_divided]).take_osc(float(self.wl_rang[0]) + 20, self.wl_rang[1])
+                self.total_oscillators = Get_Osc([spectrum_divided]).take_osc(float(self.wl_rang[0]), self.wl_rang[1])
                 self.spectrum = Gaussian_Convolution(self.total_oscillators, self.fwhm)
                 self.plot_limits = self.spectrum.make_spectrum(self.wl_rang[0], self.wl_rang[1], self.wl_n_points)
                 self.spectrum.write_spectrum(self.target_dir + "/" + self.output_file_name + "_" + str(num))
@@ -1026,7 +1256,9 @@ class Application(Frame):
 
     def spectrumUnited(self):
 
-        self.total_oscillators = Get_Osc(self.filenames).take_osc(float(self.wl_rang[0]) + 20, self.wl_rang[1])
+        ''' This method is called for from the spectrum Make method. '''
+
+        self.total_oscillators = Get_Osc(self.filenames).take_osc(float(self.wl_rang[0]), self.wl_rang[1])
         self.spectrum = Gaussian_Convolution(self.total_oscillators, self.fwhm)
         self.plot_limits = self.spectrum.make_spectrum(self.wl_rang[0], self.wl_rang[1], self.wl_n_points)
         self.spectrum.write_spectrum(self.target_dir + "/" + self.output_file_name)
@@ -1087,11 +1319,12 @@ class Application(Frame):
 
     def open_experimental_data_file(self):
         messagebox.showinfo(
-                    "Experimental curve file", "The File that contains the experimental spectrum must be a two-column .dat text file.\nThe first column should be the wavelength (nm), while the second should be the Molar Absorptivity (L/mol.cm)."
+                              "Experimental curve file",
+                              "The File that contains the experimental spectrum must be a two-column .dat text file.\nThe first column should be the wavelength (nm), while the second should be the Molar Absorptivity (L/mol.cm)."
                            )
         self.experimental_data_file = filedialog.askopenfilename(
-                initialdir="/", filetypes=[("File Data","*.dat")]
-        )
+                                                                  initialdir="/", filetypes=[("File Data","*.dat")]
+                                                                )
         self.boxList_experimental_plot.insert(0, self.experimental_data_file)
 
     def pyplot(self):
