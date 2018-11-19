@@ -1183,7 +1183,7 @@ class Application(Frame):
                                 "One of the wavelength range values does not make sense.")
             error = True
 
-        self.wl_rang = [start_a, end_a] # Lembrete : Olhar se isso vai para o Print_Spectrum
+        self.wl_rang = [start_a, end_a]
 
         try:
             self.wl_n_points = int(self.wl_n_points_entry.get())
@@ -1341,18 +1341,25 @@ class Application(Frame):
             self.curve_color.append(self.entry_color_curve_list[0].get())
             self.osc_color.append(self.entry_color_drop_list[0].get())
 
-        x = Print_Spectrum(
-                           self.target_dir, self.output_file_names,
-                           self.wl_rang[0], self.wl_rang[1],
-                           self.title_chart, int( self.entry_res.get()),
-                           self.osc_color, self.curve_color,
-                           "0", self.filenames,
-                           self.plottypes.get(), self.exp_abs_lines,
-                           self.exp_wl_lines, self.entry_color_exp.get(),
-                           self.choice_intensity.get()
-                          )
+        plot = Print_Spectrum(
+                              self.target_dir,              # passa o diretório onde será adicionada a curva
+                              self.output_file_names,       # lista com nomes dos arquivos de saida
+                              self.wl_rang[0],              # comprimento de onda Inicial
+                              self.wl_rang[1],              # comprimento de onda Final
+                              self.title_chart,             # caso o usuário queira digitar um  nome para curva
+                              int( self.entry_res.get()),   # caso o usuário queira digitar uma nova resolução para curva
+                              self.osc_color,               # cores do oscilador para o caso Independent Files
+                              self.curve_color,             # cores da curva para o caso Multiple Files
+                              "0",                          # Não sei o que é isso
+                              self.filenames,               # Lista com os arquivos do INPUT
+                              self.plottypes.get(),         # Valores 0 - Independent Plots e 1 - Overlay Plots
+                              self.exp_abs_lines,           # Lista com valores de dados experimentais absolutos
+                              self.exp_wl_lines,            # Lista com valores de dados experimentais de comprimento de onda
+                              self.entry_color_exp.get(),   # Dados de valores de entrada experiemntal
+                              self.choice_intensity.get()   # Define o tipo de método de intensidade. 0 - Relative Intensity e 1 - Estimated Absorbance
+                            )
 
-        x.print_matplotlib()
+        plot.print_matplotlib()
         self.pyplot_bt.configure(state=DISABLED)
 
     def restart(self):
@@ -1387,12 +1394,14 @@ class Application(Frame):
         self.toplevel.destroy()
 
     def show_version(self):
-        text_to_show = "The UV-VIs Sp3trum P4tronum APP is in version {}, released in {}." .format(
+        text_to_show = "The UV-VIs Sp3trum P4tronum APP is in version {}, released in {}.".format(
             __version__, __date__
         )
+
         messagebox.showinfo(
-            "UV-Vis Sp3ctrum P4tronum", text_to_show
-        )
+                            "UV-Vis Sp3ctrum P4tronum",
+                            text_to_show
+                           )
 
     def open_manual(self):
         operational_system = sys.platform
@@ -1413,7 +1422,13 @@ class Application(Frame):
 
 class MDfilenames(Frame):
 
+    '''
+       Essa classe define uma nova caixa de dialogo que será utilizada caso
+       seja escolhido o modo MD Multiple files.
+    '''
+
     def __init__(self, toplevel):
+
         self.toplevel = toplevel
         self.window = Toplevel(self.toplevel)
         self.continue_loop = True
@@ -1422,62 +1437,141 @@ class MDfilenames(Frame):
         self.window.configure(background="#FFFFFF")
         self.window.wm_title("Multiple Files from MD")
         self.text_container=Frame(self.window, background="#FFFFFF")
+
         self.text1= Label(
-            self.text_container, text="For MD frame analysis, it is necessary that all files ",
-            font="Helvetica 14", fg="#263A90", background="#FFFFFF"
-        ).pack(side="top")
+                           self.text_container,
+                           text = "For MD frame analysis, it is necessary that all files ",
+                           font = "Helvetica 14",
+                           fg = "#263A90",
+                           background = "#FFFFFF"
+                         ).pack(side="top")
+
         self.text2 = Label(
-            self.text_container, text="have names with the following names pattern:", font="Helvetica 14",
-            fg="#263A90", background="#FFFFFF"
-        ).pack(side="top")
+                             self.text_container,
+                             text = "have names with the following names pattern:",
+                             font = "Helvetica 14",
+                             fg = "#263A90",
+                             background = "#FFFFFF"
+                          ).pack(side="top")
+
         self.text3 = Label(
-            self.text_container, text="initialName_FRAME_finalName.log", font="Helvetica 14 bold",
-            fg="#263A90", background="#FFFFFF"
-        ).pack(side="top", pady=5)
+                            self.text_container,
+                            text = "initialName_FRAME_finalName.log",
+                            font = "Helvetica 14 bold",
+                            fg = "#263A90",
+                            background = "#FFFFFF"
+                          ).pack(side="top", pady=5)
         self.text_container.pack()
-        self.name_pattern_box = Frame(self.window, borderwidth=2, relief=RIDGE, background="#FFFFFF")
-        self.name_values = Label(self.name_pattern_box, text="Range of Uncorrelated Frames", font="Helvetica",
-                                 fg="#DF0027", bg="#FFFFFF").pack()
+
+        self.name_pattern_box = Frame(
+                                       self.window,
+                                       borderwidth = 2,
+                                       relief = RIDGE,
+                                       background = "#FFFFFF"
+                                     )
+
+        self.name_values = Label(
+                                  self.name_pattern_box,
+                                  text = "Range of Uncorrelated Frames",
+                                  font = "Helvetica",
+                                  fg = "#DF0027",
+                                  bg = "#FFFFFF"
+                                ).pack()
+
         self.name_pattern_box_2 = Frame(self.name_pattern_box, background="#FFFFFF")
+
         self.name_title2_1 = Label(
-            self.name_pattern_box_2, text="Inital:", font="Helvetica", fg="#DF0027", bg="#FFFFFF"
-        ).pack(side = "left", fill=BOTH, padx = 5, pady = 5)
+                                    self.name_pattern_box_2,
+                                    text = "Inital:",
+                                    font = "Helvetica",
+                                    fg = "#DF0027",
+                                    bg = "#FFFFFF"
+                                  ).pack(side = "left", fill=BOTH, padx = 5, pady = 5)
+
         self.step_initial = Entry(
-            self.name_pattern_box_2, fg="#263A90", width=7, borderwidth=2, relief=RIDGE, background="#FFFFFF"
-        )
+                                   self.name_pattern_box_2,
+                                   fg = "#263A90",
+                                   width = 7,
+                                   borderwidth = 2,
+                                   relief = RIDGE,
+                                   background = "#FFFFFF"
+                                 )
         self.step_initial.pack(side="left", anchor=NE, padx=5, pady=5)
+
         self.name_title2_2 = Label(
-            self.name_pattern_box_2, text="Step:", font="Helvetica", fg="#DF0027", bg="#FFFFFF"
-        ).pack(side = "left", fill=BOTH, padx = 5, pady = 5)
+                                    self.name_pattern_box_2,
+                                    text = "Step:",
+                                    font = "Helvetica",
+                                    fg = "#DF0027",
+                                    bg = "#FFFFFF"
+                                  ).pack(side = "left", fill=BOTH, padx = 5, pady = 5)
+
         self.step_step = Entry(
-            self.name_pattern_box_2, fg="#263A90", width=5, borderwidth=2, relief=RIDGE, background="#FFFFFF"
-        )
+                                self.name_pattern_box_2,
+                                fg = "#263A90",
+                                width = 5,
+                                borderwidth = 2,
+                                relief = RIDGE,
+                                background = "#FFFFFF"
+                              )
         self.step_step.pack(side="left", anchor=NE, padx=5, pady=5)
+
         self.name_title2_3 = Label(
-            self.name_pattern_box_2, text="Final:", font="Helvetica", fg="#DF0027", bg="#FFFFFF"
-        ).pack(side = "left", fill=BOTH, padx = 5, pady = 5)
+                                   self.name_pattern_box_2,
+                                   text = "Final:",
+                                   font = "Helvetica",
+                                   fg = "#DF0027",
+                                   bg = "#FFFFFF"
+                                  ).pack(side = "left", fill=BOTH, padx = 5, pady = 5)
+
         self.step_final = Entry(
-            self.name_pattern_box_2, fg="#263A90", width=7, borderwidth=2, relief=RIDGE, background="#FFFFFF"
-        )
+                                 self.name_pattern_box_2,
+                                 fg = "#263A90",
+                                 width = 7,
+                                 borderwidth = 2,
+                                 relief = RIDGE,
+                                 background = "#FFFFFF"
+                                )
         self.step_final.pack(side="left", anchor=NE, padx=5, pady=5)
         self.name_pattern_box_2.pack()
 
         self.name_pattern_box_1 = Frame(self.name_pattern_box, background="#FFFFFF")
         self.name_title1 = Label(
-            self.name_pattern_box_1, text="Inital Name Pattern:", font="Helvetica", fg="#DF0027", bg="#FFFFFF"
-        ).pack(side = "left", fill=BOTH, padx = 5, pady = 5)
+                                  self.name_pattern_box_1,
+                                  text = "Inital Name Pattern:",
+                                  font = "Helvetica",
+                                  fg = "#DF0027",
+                                  bg = "#FFFFFF"
+                                ).pack(side = "left", fill=BOTH, padx = 5, pady = 5)
+
         self.name_initial = Entry(
-            self.name_pattern_box_1, fg="#263A90", width=24, borderwidth=2, relief=RIDGE, background="#FFFFFF"
-        )
+                                   self.name_pattern_box_1,
+                                   fg = "#263A90",
+                                   width = 24,
+                                   borderwidth = 2,
+                                   relief = RIDGE,
+                                   background = "#FFFFFF"
+                                  )
         self.name_initial.pack(side = "left", anchor=NE, padx = 5, pady = 5)
         self.name_pattern_box_1.pack()
         self.name_pattern_box_4 = Frame(self.name_pattern_box, background="#FFFFFF")
+
         self.name_title3 = Label(
-            self.name_pattern_box_4, text="Final Name Pattern:", font="Helvetica", fg="#DF0027", bg="#FFFFFF"
-        ).pack(side = "left", fill=BOTH, padx = 5, pady = 5)
+                                  self.name_pattern_box_4,
+                                  text = "Final Name Pattern:",
+                                  font = "Helvetica",
+                                  fg = "#DF0027",
+                                  bg = "#FFFFFF"
+                                ).pack(side = "left", fill=BOTH, padx = 5, pady = 5)
+
         self.name_final = Entry(
-            self.name_pattern_box_4, fg="#263A90", width=24, borderwidth=2, relief=RIDGE, background="#FFFFFF"
-        )
+                                 self.name_pattern_box_4,
+                                 fg = "#263A90",
+                                 width = 24,
+                                 borderwidth = 2,
+                                 relief = RIDGE,
+                                 background = "#FFFFFF"
+                               )
         self.name_final.pack(side="left", anchor=NE, padx=5, pady=5)
         self.name_pattern_box_4.pack()
         self.name_pattern_box.pack()
@@ -1488,10 +1582,14 @@ class MDfilenames(Frame):
         self.bt_container = Frame(self.window, background="#FFFFFF")
 
         self.folder_bt = Button(
-            self.bt_container, text="Directory files", background="#FFFFFF", font="Helvetica",
-            command=self.openDirectory,
-            highlightbackground="#FFFFFF", pady=2
-        )
+                                 self.bt_container,
+                                 text = "Directory files",
+                                 background = "#FFFFFF",
+                                 font = "Helvetica",
+                                 command = self.openDirectory,
+                                 highlightbackground = "#FFFFFF",
+                                 pady = 2
+                               )
         self.folder_bt.grid(row =0, column =0)
 
         self.submit_bt = Button(
@@ -1512,6 +1610,8 @@ class MDfilenames(Frame):
         self.submit_bt.configure(state=NORMAL)
 
     def submit_md(self):
+
+        ''' Esse método trata os possíveis erros no módulo Multiple Files MD '''
 
         try:
             range_init = int(self.step_initial.get())
@@ -1539,7 +1639,7 @@ class MDfilenames(Frame):
 
         name_init = str(self.name_initial.get()).strip()
         name_end = str(self.name_final.get()).strip()
-        not_find = 0
+        not_find = False
 
         for step in range(range_init, range_end+1, range_step):
             if len(name_end) > 0:
@@ -1553,7 +1653,7 @@ class MDfilenames(Frame):
                         test = open(self.dir + "/" + filename + ".out", encoding="utf8", errors='ignore')
                         self.filenames.append(self.dir + "/" + filename + ".out")
                     except:
-                        not_find += 1
+                        not_find = True
                         print(self.dir + "/" + filename + ".out")
             else:
                 filename = name_init + "_" + str(step)
@@ -1565,9 +1665,10 @@ class MDfilenames(Frame):
                         test = open(self.dir + "/" + filename + ".out", encoding="utf8", errors='ignore')
                         self.filenames.append(self.dir + "/" + filename + ".out")
                     except:
-                        not_find += 1
+                        not_find = True
                         print(self.dir + "/" + filename + ".log")
-        if not_find > 0:
+
+        if not_find == True:
             resp = messagebox.askyesno("Incoherent input values", str(not_find) + " files were not found, do you want to continue? If not, check the file names.")
             if resp == False:
                 pass
