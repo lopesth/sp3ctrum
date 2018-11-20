@@ -52,8 +52,8 @@ class Application(Frame):
 
 
     def setStyle(self):
-        self.style = ttk.Style()
 
+        self.style = ttk.Style()
         self.style.theme_create("leedmol", settings={
             "TNotebook": {
                 "configure": {
@@ -81,43 +81,73 @@ class Application(Frame):
 
     def setMenu(self):
 
+        '''
+          Method that defines the top bar of the interface.
+          The options that are contained in this bar are:
+              - File
+               --> Open
+               --> clear
+               --> exit
+              - UV-vis Sp3ctrum P4tronum
+                --> version
+                --> about us
+             - Help
+                --> manual
+                --> tutorial video
+        '''
+
         self.menu = Menu(self.toplevel)
         self.toplevel.configure(menu=self.menu)
         self.filemenufile= Menu(self.menu, tearoff=0, fg="#62338C")
         self.filemenufile.add_separator()
+
         self.menu.add_cascade(label="File", menu=self.filemenufile)
         self.filemenufile.add_command(label="Open", command=self.select_files)
         self.filemenufile.add_separator()
+
         self.filemenufile.add_command(label="Clear", command=self.restart)
         self.filemenufile.add_separator()
+
         self.filemenufile.add_command(label="Exit", command=self.leave)
+
         self.filemenufilapp = Menu(self.menu, fg="#62338C")
         self.menu.add_cascade(label="UV-vis Sp3ctrum P4tronum", menu=self.filemenufilapp)
         self.filemenufilapp.add_command(label="Version", command=self.show_version)
         self.filemenufilapp.add_command(label="About us", command=Second_Window(self.toplevel, self.src).tell_about_us)
+
         self.filemenufilehelp = Menu(self.menu, fg="#62338C")
         self.menu.add_cascade(label="Help", menu=self.filemenufilehelp)
         self.filemenufilehelp.add_command(label="Manual", command=self.open_manual)
         self.filemenufilehelp.add_command(label="Tutorial Video", command=self.tutorial)
 
     def noteStructures(self):
+
+        ''' Defines all interface structures '''
+
         self.note = ttk.Notebook(self.toplevel, height=400)
         self.note.pack(fill='both', padx=5, pady=5)
+
         self.note1_struct = Frame(self.note, background="#FFFFFF")
         self.note1_struct.pack()
+
         self.note2_struct = Frame(self.note, background="#FFFFFF")
         self.note2_struct.pack()
+
         self.note3_struct = Frame(self.note, background="#FFFFFF")
         self.note3_struct.pack()
+
         self.note4_struct = Frame(self.note, background="#FFFFFF")
         self.note4_struct.pack()
+
         self.note6_struct = Frame(self.note, background="#FFFFFF")
         self.note6_struct.pack()
+
         self.note.add(self.note1_struct, text="Files")
         self.note.add(self.note2_struct, text="Spectrum Parameters")
         self.note.add(self.note3_struct, text="Plot Details")
         self.note.add(self.note4_struct, text="Versus Experimental Values")
         self.note.add(self.note6_struct, text="Advanced Options")
+
         self.note.tab(self.note2_struct, state="disabled")
         self.note.tab(self.note3_struct, state="disabled")
         self.note.tab(self.note4_struct, state="disabled")
@@ -850,6 +880,9 @@ class Application(Frame):
         self.no_experimental_data()
 
     def no_experimental_data(self):
+
+
+
         self.experimental_type_curve_bt.config(state=DISABLED)
         self.experimental_type_ref_bt.config(state=DISABLED)
         self.text_experimental_color.config(fg="#BFBFBF")
@@ -1318,16 +1351,23 @@ class Application(Frame):
                         self.exp_abs_lines.append(float(y))
 
     def open_experimental_data_file(self):
+
+        ''' A method that extracts experimental data values. '''
+
         messagebox.showinfo(
                               "Experimental curve file",
-                              "The File that contains the experimental spectrum must be a two-column .dat text file.\nThe first column should be the wavelength (nm), while the second should be the Molar Absorptivity (L/mol.cm)."
+                              "The File that contains the experimental spectrum must be a two-column .dat text file.\n"
+                              "The first column should be the wavelength (nm), while the second should be the Molar Absorptivity (L/mol.cm)."
                            )
         self.experimental_data_file = filedialog.askopenfilename(
-                                                                  initialdir="/", filetypes=[("File Data","*.dat")]
+                                                                  initialdir = "/",
+                                                                  filetypes = list("File Data","*.dat")
                                                                 )
         self.boxList_experimental_plot.insert(0, self.experimental_data_file)
 
     def pyplot(self):
+
+        ''' This method plots the oscillators and the spectrum. '''
 
         self.get_exp_data()
         self.curve_color = []
@@ -1342,48 +1382,56 @@ class Application(Frame):
             self.osc_color.append(self.entry_color_drop_list[0].get())
 
         plot = Print_Spectrum(
-                              self.target_dir,              # passa o diretório onde será adicionada a curva
-                              self.output_file_names,       # lista com nomes dos arquivos de saida
-                              self.wl_rang[0],              # comprimento de onda Inicial
-                              self.wl_rang[1],              # comprimento de onda Final
-                              self.title_chart,             # caso o usuário queira digitar um  nome para curva
-                              int( self.entry_res.get()),   # caso o usuário queira digitar uma nova resolução para curva
-                              self.osc_color,               # cores do oscilador para o caso Independent Files
-                              self.curve_color,             # cores da curva para o caso Multiple Files
+                              self.target_dir,              # directory path which will be added to the curve.
+                              self.output_file_names,       # list with names of output files.
+                              self.wl_rang[0],              # Initial wavelength.
+                              self.wl_rang[1],              # end wavelength.
+                              self.title_chart,             # if you want to enter a name for the curve.
+                              int( self.entry_res.get()),   # if you want to enter a new resolution for the curve.
+                              self.osc_color,               # Oscillator Colors.
+                              self.curve_color,             # Curve colors.
                               "0",                          # Não sei o que é isso
-                              self.filenames,               # Lista com os arquivos do INPUT
+                              self.filenames,               # List with INPUT files
                               self.plottypes.get(),         # Valores 0 - Independent Plots e 1 - Overlay Plots
-                              self.exp_abs_lines,           # Lista com valores de dados experimentais absolutos
-                              self.exp_wl_lines,            # Lista com valores de dados experimentais de comprimento de onda
-                              self.entry_color_exp.get(),   # Dados de valores de entrada experiemntal
-                              self.choice_intensity.get()   # Define o tipo de método de intensidade. 0 - Relative Intensity e 1 - Estimated Absorbance
+                              self.exp_abs_lines,           # List with absolute experimental data values.
+                              self.exp_wl_lines,            # List with experimental data values of wavelength.
+                              self.entry_color_exp.get(),   # Data of experimental input values.
+                              self.choice_intensity.get()   # Sets the type of intensity method. 0 - Relative Intensity and 1 - Estimated Absorbance
                             )
-
         plot.print_matplotlib()
         self.pyplot_bt.configure(state=DISABLED)
 
     def restart(self):
+
+        ''' Method that restarts the initial conditions '''
+
         self.save_adv_bt.configure(state=DISABLED)
         self.save_simp_bt.configure(state=DISABLED)
         self.pyplot_bt.configure(state=DISABLED)
         self.make_spec_bt.configure(state=DISABLED)
         self.run_call_bt.configure(state=NORMAL)
         self.file_name_box.delete(0, END)
+
         self.wl_rang_start_entry.delete(0, END)
         self.wl_rang_end_entry.delete(0, END)
         self.wl_n_points_entry.delete(0, END)
         self.fwhm_entry.delete(0, END)
+
         self.output_entry.delete(0, END)
         self.title_entry.delete(0, END)
+
         self.wl_rang_start_entry.insert(END, '150')
         self.wl_rang_end_entry.insert(END, '350')
         self.wl_n_points_entry.insert(END, '2000')
         self.fwhm_entry.insert(END, '3226.22')
+
         self.filenames = 0
+
         self.wl_rang_start_entry.configure(fg="#263A90", bg="#FFFFFF")
         self.wl_rang_end_entry.configure(fg="#263A90", bg="#FFFFFF")
         self.wl_n_points_entry.configure(fg="#263A90", bg="#FFFFFF")
         self.fwhm_entry.configure(fg="#263A90", bg="#FFFFFF")
+
         self.note.tab(self.note2_struct, state="disabled")
         self.note.tab(self.note3_struct, state="disabled")
         self.note.tab(self.note4_struct, state="disabled")
@@ -1423,8 +1471,8 @@ class Application(Frame):
 class MDfilenames(Frame):
 
     '''
-       Essa classe define uma nova caixa de dialogo que será utilizada caso
-       seja escolhido o modo MD Multiple files.
+       This class defines a new dialog box that will be used if
+       MD Multiple files mode is selected.
     '''
 
     def __init__(self, toplevel):
@@ -1611,30 +1659,36 @@ class MDfilenames(Frame):
 
     def submit_md(self):
 
-        ''' Esse método trata os possíveis erros no módulo Multiple Files MD '''
+        ''' This method treats the possible errors in the module Multiple Files MD '''
 
         try:
             range_init = int(self.step_initial.get())
             self.step_initial.configure(bg="#FFFFFF", fg="#000000")
         except:
-            messagebox.showinfo("Incoherent input values",
-                                "The starting number of frames range must be integer.")
+            messagebox.showinfo(
+                                "Incoherent input values",
+                                "The starting number of frames range must be integer."
+                               )
             self.step_initial.configure(bg="#DF0027", fg="#FFFFFF")
 
         try:
             range_step = int(self.step_step.get())
             self.step_step.configure(bg="#FFFFFF", fg="#000000")
         except:
-            messagebox.showinfo("Incoherent input values",
-                                "The increment number of the frame range must be integer.")
+            messagebox.showinfo(
+                                "Incoherent input values",
+                                "The increment number of the frame range must be integer."
+                               )
             self.step_step.configure(bg="#DF0027", fg="#FFFFFF")
 
         try:
             range_end =  int(self.step_final.get())
             self.step_final.configure(bg="#FFFFFF", fg="#000000")
         except:
-            messagebox.showinfo("Incoherent input values",
-                                "The final number of frames range must be integer.")
+            messagebox.showinfo(
+                                "Incoherent input values",
+                                "The final number of frames range must be integer."
+                               )
             self.step_final.configure(bg="#DF0027", fg="#FFFFFF")
 
         name_init = str(self.name_initial.get()).strip()
@@ -1669,7 +1723,10 @@ class MDfilenames(Frame):
                         print(self.dir + "/" + filename + ".log")
 
         if not_find == True:
-            resp = messagebox.askyesno("Incoherent input values", str(not_find) + " files were not found, do you want to continue? If not, check the file names.")
+            resp = messagebox.askyesno(
+                                       "Incoherent input values", str(not_find) +
+                                       " files were not found, do you want to continue? If not, check the file names."
+                                      )
             if resp == False:
                 pass
             else:
