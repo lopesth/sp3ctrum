@@ -79,6 +79,39 @@ class Application(Frame):
         })
         self.style.theme_use("leedmol")
 
+    def noteStructures(self):
+
+        ''' Defines all interface structures '''
+
+        self.note = ttk.Notebook(self.toplevel, height=400)
+        self.note.pack(fill='both', padx=5, pady=5)
+
+        self.note1_struct = Frame(self.note, background="#FFFFFF")
+        self.note1_struct.pack()
+
+        self.note2_struct = Frame(self.note, background="#FFFFFF")
+        self.note2_struct.pack()
+
+        self.note3_struct = Frame(self.note, background="#FFFFFF")
+        self.note3_struct.pack()
+
+        self.note4_struct = Frame(self.note, background="#FFFFFF")
+        self.note4_struct.pack()
+
+        self.note6_struct = Frame(self.note, background="#FFFFFF")
+        self.note6_struct.pack()
+
+        self.note.add(self.note1_struct, text="Files")
+        self.note.add(self.note2_struct, text="Spectrum Parameters")
+        self.note.add(self.note3_struct, text="Plot Details")
+        self.note.add(self.note4_struct, text="Versus Experimental Values")
+        self.note.add(self.note6_struct, text="Advanced Options")
+
+        self.note.tab(self.note2_struct, state="disabled")
+        self.note.tab(self.note3_struct, state="disabled")
+        self.note.tab(self.note4_struct, state="disabled")
+        self.note.tab(self.note6_struct, state="disabled")
+
     def setMenu(self):
 
         '''
@@ -119,39 +152,6 @@ class Application(Frame):
         self.menu.add_cascade(label="Help", menu=self.filemenufilehelp)
         self.filemenufilehelp.add_command(label="Manual", command=self.open_manual)
         self.filemenufilehelp.add_command(label="Tutorial Video", command=self.tutorial)
-
-    def noteStructures(self):
-
-        ''' Defines all interface structures '''
-
-        self.note = ttk.Notebook(self.toplevel, height=400)
-        self.note.pack(fill='both', padx=5, pady=5)
-
-        self.note1_struct = Frame(self.note, background="#FFFFFF")
-        self.note1_struct.pack()
-
-        self.note2_struct = Frame(self.note, background="#FFFFFF")
-        self.note2_struct.pack()
-
-        self.note3_struct = Frame(self.note, background="#FFFFFF")
-        self.note3_struct.pack()
-
-        self.note4_struct = Frame(self.note, background="#FFFFFF")
-        self.note4_struct.pack()
-
-        self.note6_struct = Frame(self.note, background="#FFFFFF")
-        self.note6_struct.pack()
-
-        self.note.add(self.note1_struct, text="Files")
-        self.note.add(self.note2_struct, text="Spectrum Parameters")
-        self.note.add(self.note3_struct, text="Plot Details")
-        self.note.add(self.note4_struct, text="Versus Experimental Values")
-        self.note.add(self.note6_struct, text="Advanced Options")
-
-        self.note.tab(self.note2_struct, state="disabled")
-        self.note.tab(self.note3_struct, state="disabled")
-        self.note.tab(self.note4_struct, state="disabled")
-        self.note.tab(self.note6_struct, state="disabled")
 
     def guiButtons(self):
 
@@ -286,24 +286,24 @@ class Application(Frame):
         # choice option Multiple files with a logical MD pattern
         self.rb3_choice_file_type = Radiobutton(
                                                  self.open_files_BT,
-                                                 text="Multiple Files with a Logical MD Pattern",
-                                                 variable=self.choice_file_type,
-                                                 value=2,
-                                                 command=self.enable_file_bt,
-                                                 background="#FFFFFF"
+                                                 text = "Multiple Files with a Logical MD Pattern",
+                                                 variable = self.choice_file_type,
+                                                 value = 2,
+                                                 command = self.enable_file_bt,
+                                                 background = "#FFFFFF"
                                                )
         self.rb3_choice_file_type.pack(side="left")
 
         # choice option Open Files
         self.run_call_bt = Button(
                                    self.open_files_BT,
-                                   text="Open files",
-                                   font="Helvetica",
-                                   state=DISABLED,
-                                   command=self.select_files,
-                                   background="#FFFFFF",
-                                   fg="#000000",
-                                   width=8
+                                   text = "Open files",
+                                   font = "Helvetica",
+                                   state = DISABLED,
+                                   command = self.select_files,
+                                   background = "#FFFFFF",
+                                   fg = "#000000",
+                                   width = 8
                                  )
         self.run_call_bt.pack(side="left")
 
@@ -881,8 +881,6 @@ class Application(Frame):
 
     def no_experimental_data(self):
 
-
-
         self.experimental_type_curve_bt.config(state=DISABLED)
         self.experimental_type_ref_bt.config(state=DISABLED)
         self.text_experimental_color.config(fg="#BFBFBF")
@@ -1027,7 +1025,6 @@ class Application(Frame):
                                             borderwidth = 5,
                                             width = 300
                                           )
-
         self.lg1_title = Label(
                                 self.logos_title_container,
                                 text = "UV-Vis",
@@ -1452,7 +1449,9 @@ class Application(Frame):
                            )
 
     def open_manual(self):
+
         operational_system = sys.platform
+
         if operational_system == 'win32':
             os.system("start .\manual.pdf")
         if operational_system == "darwin":
@@ -1461,11 +1460,25 @@ class Application(Frame):
             os.system("gnome-open manual.pdf")
 
     def tutorial(self):
+
+        '''
+           This method is called inside the  *** Help *** tab.
+          Passing information about using the software in Tutorial Video .
+        '''
+
         webbrowser.open(
-            "https://askubuntu.com/questions/15354/how-to-open-file-with-default-application-from-command-line"
-        )
+                        "https://askubuntu.com/questions/15354/how-to-open-file-with-default-application-from-command-line"
+                       )
 
     def enable_file_bt(self):
+
+        '''
+           Method that calls and rum the user-defined options. These options can be:
+           - Independent files
+           - Multiple Files
+           - Multiple Files with a logical MD Pattern
+        '''
+
         self.run_call_bt.configure(state=NORMAL)
 
 class MDfilenames(Frame):
@@ -1517,7 +1530,6 @@ class MDfilenames(Frame):
                                        relief = RIDGE,
                                        background = "#FFFFFF"
                                      )
-
         self.name_values = Label(
                                   self.name_pattern_box,
                                   text = "Range of Uncorrelated Frames",
@@ -1601,9 +1613,9 @@ class MDfilenames(Frame):
                                    background = "#FFFFFF"
                                   )
         self.name_initial.pack(side = "left", anchor=NE, padx = 5, pady = 5)
+
         self.name_pattern_box_1.pack()
         self.name_pattern_box_4 = Frame(self.name_pattern_box, background="#FFFFFF")
-
         self.name_title3 = Label(
                                   self.name_pattern_box_4,
                                   text = "Final Name Pattern:",
@@ -1623,8 +1635,8 @@ class MDfilenames(Frame):
         self.name_final.pack(side="left", anchor=NE, padx=5, pady=5)
         self.name_pattern_box_4.pack()
         self.name_pattern_box.pack()
-        self.step_pattern_box = Frame(self.window, background="#FFFFFF")
 
+        self.step_pattern_box = Frame(self.window, background="#FFFFFF")
         self.step_pattern_box.pack(pady=5)
 
         self.bt_container = Frame(self.window, background="#FFFFFF")
@@ -1649,8 +1661,8 @@ class MDfilenames(Frame):
                                  highlightbackground = "#FFFFFF",
                                  pady = 2
                                )
-        self.submit_bt.configure(state=DISABLED)
-        self.submit_bt.grid(row =0, column =1)
+        self.submit_bt.configure(state = DISABLED)
+        self.submit_bt.grid(row = 0, column = 1)
         self.bt_container.pack()
 
     def openDirectory(self):
@@ -1739,61 +1751,105 @@ class MDfilenames(Frame):
 
 class Second_Window(Frame):
 
+    '''
+          This class defines the characteristics of the authors and collaborators
+        of the software.
+          Since the window is called on the top flap of the program in
+        UV-vis Sp3ctrum P4tronum.
+    '''
+
     def __init__(self, toplevel, dir):
         self.dir = dir
         self.toplevel = toplevel
 
     def tell_about_us(self):
-        t = Toplevel(self.toplevel)
-        t.configure(width="600",  background="#FFFFFF")
-        t.wm_title("UV-Vis Sp3ctrum P4tronum - About Us")
-        logo1 = PhotoImage(file=self.dir+'/icons/sp3ctrum.gif')
-        logo2 = PhotoImage(file=self.dir+'/icons/leedmol.gif')
-        foto1 = PhotoImage(file=self.dir+"/icons/foto1.gif")
-        foto2 = PhotoImage(file=self.dir+"/icons/foto2.gif")
-        logo_container = Frame(t)
+        top = Toplevel(self.toplevel)
+        top.configure(width="600",  background="#FFFFFF")
+        top.wm_title("UV-Vis Sp3ctrum P4tronum - About Us")
+
+        logo1 = PhotoImage(file=self.dir + '/icons/sp3ctrum.gif')
+        logo2 = PhotoImage(file=self.dir + '/icons/leedmol.gif')
+        foto1 = PhotoImage(file=self.dir + "/icons/foto1.gif")
+        foto2 = PhotoImage(file=self.dir + "/icons/foto2.gif")
+
+        logo_container = Frame(top)
         lg1 = Label(logo_container, image=logo1, background="#FFFFFF")
         lg1.pack(padx=35, pady=60)
+
         lg2 = Label(logo_container, image=logo2, background="#FFFFFF")
         lg2.pack(padx=35, pady=40)
         logo_container.pack(side="left")
-        text_container = Frame(t)
-        l1 = Label(text_container,
-                   text="This program was a collaboration of:", background="#FFFFFF", font="Helvetica 20 bold",
-                                 fg="#020041")
-        author_text = ", \n".join(__author__[0:-1])+"\n and "+__author__[-1]+"."
+
+        text_container = Frame(top)
+        l1 = Label(
+                    text_container,
+                    text = "This program was a collaboration of:",
+                    background = "#FFFFFF",
+                    font = "Helvetica 20 bold",
+                    fg = "#020041"
+                  )
+
+        author_text = ", \n".join(__author__[0:-1]) + "\n and " + __author__[-1] + "."
         credits_text = "\n".join(__credits__)
+
         l1_1 = Label(
-            text_container,
-            text=author_text+"\n",
-            background="#FFFFFF", fg="#DF0027", font="Helvetica 16"
-        )
+                      text_container,
+                      text = author_text + "\n",
+                      background = "#FFFFFF",
+                      fg = "#DF0027",
+                      font = "Helvetica 16"
+                    )
         l1.pack(side="top", padx=40)
         l1_1.pack(side="top", padx=40)
-        l3 = Label(text_container, text="Powered by: ", background="#FFFFFF", font="Helvetica 20 bold",
-                                 fg="#020041")
+
+        l3 = Label(
+                    text_container,
+                    text = "Powered by: ",
+                    background = "#FFFFFF",
+                    font = "Helvetica 20 bold",
+                    fg = "#020041"
+                  )
+
         l3_1 = Label(
-            text_container,
-            text=credits_text+"\n\n",
-            font="Helvetica 16", background="#FFFFFF", fg="#DF0027"
-        )
+                      text_container,
+                      text = credits_text + "\n\n",
+                      font = "Helvetica 16",
+                      background = "#FFFFFF",
+                      fg = "#DF0027"
+                    )
         l3.pack(side="top", padx=40)
         l3_1.pack(side="top", padx=40)
+
         l4 = Label(
-            text_container,text="Adress:", background="#FFFFFF", font="Helvetica 20 bold", fg="#020041"
-        )
+                    text_container,
+                    text = "Adress:",
+                    background = "#FFFFFF",
+                    font = "Helvetica 20 bold",
+                    fg = "#020041"
+                  )
+
         l4_1 = Label(
-            text_container,
-            text="BT-75/3 and BT-79/5\nInstituto de Química\nCampus Universitário Darcy Ribeiro\nUniversidade de Brasília.",
-            background="#FFFFFF", font="Helvetica 16", fg="#DF0027"
-        )
+                      text_container,
+                      text = "BT-75/3 and BT-79/5\nInstituto de Química\nCampus Universitário Darcy Ribeiro\nUniversidade de Brasília.",
+                      background = "#FFFFFF",
+                      font = "Helvetica 16",
+                      fg = "#DF0027"
+                    )
         l4.pack(side="top", padx=40)
         l4_1.pack(side="top", padx=40)
         text_container.pack(side="left")
-        photo_container = Frame(t)
-        p1 = Label(photo_container,image=foto1, background="#FFFFFF")
+        photo_container = Frame(top)
+
+        p1 = Label(photo_container, image=foto1, background="#FFFFFF")
         p1.pack(padx=35, pady=20)
-        p2 =Label(photo_container,image=foto2,background="#FFFFFF")
+
+        p2 =Label(photo_container, image=foto2, background="#FFFFFF")
         p2.pack(padx=35, pady=20)
         photo_container.pack(side="left")
-        Button(t, text = "LEEDMOL Facebook Page", font = "Helvetica", command = self.facebook_buttom)
+
+        Button(
+                top,
+                text = "LEEDMOL Facebook Page",
+                font = "Helvetica",
+                command = self.facebook_buttom
+              )
