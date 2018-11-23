@@ -880,7 +880,6 @@ class Application(Frame):
         self.no_experimental_data()
 
     def no_experimental_data(self):
-
         self.experimental_type_curve_bt.config(state=DISABLED)
         self.experimental_type_ref_bt.config(state=DISABLED)
         self.text_experimental_color.config(fg="#BFBFBF")
@@ -1384,15 +1383,15 @@ class Application(Frame):
                               self.wl_rang[0],              # Initial wavelength.
                               self.wl_rang[1],              # end wavelength.
                               self.title_chart,             # if you want to enter a name for the curve.
-                              int( self.entry_res.get()),   # if you want to enter a new resolution for the curve.
+                              int(self.entry_res.get()),    # if you want to enter a new resolution for the curve.
                               self.osc_color,               # Oscillator Colors.
                               self.curve_color,             # Curve colors.
-                              "0",                          # Não sei o que é isso
+                        #      "0",                          # Não sei o que é isso
                               self.filenames,               # List with INPUT files
-                              self.plottypes.get(),         # Valores 0 - Independent Plots e 1 - Overlay Plots
+                              self.plottypes.get(),         # Values 0 - Independent Plots or 1 - Overlay Plots
                               self.exp_abs_lines,           # List with absolute experimental data values.
                               self.exp_wl_lines,            # List with experimental data values of wavelength.
-                              self.entry_color_exp.get(),   # Data of experimental input values.
+                              self.entry_color_exp.get(),   # Color of experimental input values.
                               self.choice_intensity.get()   # Sets the type of intensity method. 0 - Relative Intensity and 1 - Estimated Absorbance
                             )
         plot.print_matplotlib()

@@ -8,7 +8,7 @@ __version__ = "1.0.0"
 
 import matplotlib
 matplotlib.use("TkAgg")
-from matplotlib import pyplot
+import matplotlib.pyplot as plt
 from os import remove
 from PIL import Image
 from PIL import PngImagePlugin
@@ -20,27 +20,31 @@ from SP3CTRUM.APP.differential import FiniteDifferenceDerivative
 class Print_Spectrum(object):
 
     def __init__(self, dir_target, file_names, start_wl, end_wl, title, resol, osc_color, curve_color,
-                  exp_curv_color, log_names, plottypes, exp_abs_lines, exp_wl_lines, expColor, normalize_osc, numberOfFiles = 1):
+                 filenames, plottypes, exp_abs_lines, exp_wl_lines, expColor, choice_intensity, numberOfFiles = 1):
 
-        self.file_names = file_names
-        self.resol = resol
-        self.start_wl = start_wl
-        self.end_wl = end_wl
-        self.title = title
-        self.dir_target = dir_target
-        self.osc_color = osc_color
-        self.curve_color = curve_color
-        self.exp_curv_color = exp_curv_color
-        self.log_names = log_names
-        self.plottypes = plottypes
-        self.expChoice = len(expColor)
-        self.exp_abs_lines = exp_abs_lines
-        self.exp_wl_lines = exp_wl_lines
-        self.expColor = expColor
-        self.normalize_osc = normalize_osc
+        self.dir_target = dir_target              # directory path which will be added to the curve.
+        self.file_names = file_names              # list with names of output files.
+        self.start_wl = start_wl                  # Initial wavelength.
+        self.end_wl = end_wl                      # end wavelength.
+        self.title = title                        # if you want to enter a name for the curve.
+        self.resol = resol                        # if you want to enter a new resolution for the curve.
+        self.osc_color = osc_color                # Oscillator Colors.
+        self.curve_color = curve_color            # Curve colors.
+
+        self.log_names = filenames                # List with INPUT files
+        #self.exp_curv_color = exp_curv_color
+
+        self.plottypes = plottypes                 # Values 0 - Independent Plots or 1 - Overlay Plots
+
+        #self.expChoice = len(expColor)
+        self.exp_abs_lines = exp_abs_lines         # List with absolute experimental data values.
+        self.exp_wl_lines = exp_wl_lines           # List with experimental data values of wavelength.
+        self.expColor = expColor                   # Color of experimental input values.
+        self.choice_intensity = choice_intensity   # Sets the type of intensity method. 0 - Relative Intensity and 1 - Estimated Absorbance
         self.numberOfFiles = numberOfFiles
 
     def print_matplotlib(self):
+
         if self.plottypes == 0:
             namefiles = []
             for logname in self.log_names:
@@ -51,7 +55,7 @@ class Print_Spectrum(object):
             self.overlayGraph([self.dir_target + "/" + self.dir_target.split("/")[-1] + ".png"])
             self.show(self.graph, [""])
         try:
-            for i in range(0, len(self.file_names), 1):
+            for i in range(0, len(self.file_names)):
                 remove(self.dir_target + "/" + self.file_names[i] + "_spectrum.dat")
                 remove(self.dir_target + "/" + self.file_names[i] + "_rawData.dat")
         except:
@@ -76,57 +80,73 @@ class Print_Spectrum(object):
                 osc_t.append(float(line.split()[1]))
         maxOsc = max(osc_t)
         for osc_element in osc_t:
-            osc.append(osc_element/ maxOsc)
+            osc.append(osc_element/maxOsc)
         return [wl, osc]
 
     def singleGraphs(self, namefiles):
+
+        print(namefiles)
+        print("********************************")
+        print(self.file_names)
+        print("********************************")
+        print(self.dir_target)
+
         self.graph = []
         self.wl_list = []
         self.epslon_list = []
-        for i in range(0, len(self.file_names), 1):
-            self.graph.append(matplotlib.pyplot.figure(figsize=(8, 6)))
-            wl = []
-            epslon = []
-            wl_ref = []
-            osc_ref = []
+
+        for i in range(0, len(self.file_names)):
+            wl = []             # wavelength
+            epslon = []         # Absortivity Molar
             with open(self.dir_target + "/" + self.file_names[i] + "_spectrum.dat") as myFile:
                 for line in myFile:
                     wl.append(float(line.split()[0]))
-                    epslon.append(float(line.split()[1])/self.numberOfFiles)
-            if self.normalize_osc == 0:
+                    epslon.append(float(line.split()[1]))
+            if self.choice_intensity == 0:
                 list_wl_osc = self.take_osc_str_norm(self.dir_target + "/" + self.file_names[i] + "_rawData.dat")
+                wl_ref = list_wl_osc[0]
+                osc_ref = list_wl_osc[1]
             else:
                 list_wl_osc = self.take_osc_str_no_norm(self.dir_target + "/" + self.file_names[i] + "_rawData.dat")
-                with open(self.dir_target+"/"+self.file_names[i]+"_rawData.dat", encoding="utf8", errors='ignore') as myFile:
-                    for line in myFile:
-                        wl_ref.append(float(line.split()[0]))
-                        osc_ref.append(float(line.split()[1]))
-            wl_ref = list_wl_osc[0]
-            osc_ref = list_wl_osc[1]
+                wl_ref = list_wl_osc[0]
+                osc_ref = list_wl_osc[1]
+
+            self.graph.append(plt.figure(figsize=(8, 6)))
             a = self.graph[i].add_subplot(111)
             b = a.twinx()
-            line1, = a.plot(wl, epslon, linestyle='solid', color=self.curve_color[i], fillstyle='none')
-            line2, = b.plot(wl_ref, osc_ref, visible=False)
-            for j in range(len(wl_ref)):
+
+            a.plot(wl, epslon, linestyle='solid', color=self.curve_color[i], fillstyle='none')
+            b.plot(wl_ref, osc_ref, visible=False)
+
+            # plots the colors of the oscillators.
+            for j in range(0, len(wl_ref)):
                 b.vlines(wl_ref[j], 0, osc_ref[j], colors=self.osc_color[i], lw=1)
-            self.graph[i].tight_layout()
+
+            #self.graph[i].tight_layout()
+
             self.wl_list.append(wl)
             self.epslon_list.append(epslon)
-            b.yaxis.set_visible(True)
-            a.yaxis.set_visible(True)
-            if self.normalize_osc == 0:
-                b.set_ylabel("Relative Intensity", size=15)
+            #b.yaxis.set_visible(True)
+            #a.yaxis.set_visible(True)
+
+            if self.choice_intensity == 0:
                 a.yaxis.set_visible(False)
+                b.set_ylabel("Relative Intensity", size=10)
             else:
-                b.set_ylabel("Oscillator Strength (atomic units)", size=15)
-                a.set_ylabel("Molar Absorptivity (L/mol.cm)", size=15)
+                b.set_ylabel("Oscillator Strength (atomic units)", size=10)
+                a.set_ylabel("Molar Absorptivity (L/mol.cm)", size=10)
                 a.yaxis.set_label_position("right")
-            a.set_xlabel("Wavelength (nm)", size=15)
-            b.yaxis.tick_left()
+
+            a.set_xlabel("Wavelength (nm)", size=10)
+
             a.yaxis.tick_right()
+            b.yaxis.tick_left()
+
             b.yaxis.set_label_position("left")
+
             a.tick_params(axis='both', which='major', labelsize=12)
             b.tick_params(axis='both', which='major', labelsize=12)
+
             if 0 < len(self.exp_wl_lines) < 5:
                 for ref_exp in range(0, len(self.exp_wl_lines), 1):
                     a.vlines(self.exp_wl_lines[ref_exp], 0, self.exp_abs_lines[ref_exp], colors=self.expColor, lw=1)
@@ -136,7 +156,7 @@ class Print_Spectrum(object):
             elif len(self.exp_wl_lines) > 4:
                 line3, = a.plot(self.exp_wl_lines, self.exp_abs_lines, linestyle='solid', color=self.expColor, fillstyle='none')
             if len(self.title) > 0:
-                matplotlib.pyplot.title(self.title)
+                plt.title(self.title)
             self.print(self.graph[i], namefiles[i])
             if len(self.file_names) > 1:
                 a.axes.xaxis.set_ticklabels([])
@@ -149,7 +169,7 @@ class Print_Spectrum(object):
         self.wl_list = []
         self.epslon_list = []
         num = 0
-        self.graph = [matplotlib.pyplot.figure(figsize=(8, 6))]
+        self.graph = [plt.figure(figsize=(8, 6))]
         for self.file_name in self.file_names:
             wl = []
             epslon = []
@@ -159,7 +179,7 @@ class Print_Spectrum(object):
                 for line in myFile:
                     wl.append(float(line.split()[0]))
                     epslon.append(float(line.split()[1])/self.numberOfFiles)
-            if self.normalize_osc == 0:
+            if self.choice_intensity == 0:
                 list_wl_osc = self.take_osc_str_norm(self.dir_target + "/" + self.file_name + "_rawData.dat")
             else:
                 list_wl_osc = self.take_osc_str_no_norm(self.dir_target + "/" + self.file_name + "_rawData.dat")
@@ -181,7 +201,7 @@ class Print_Spectrum(object):
             self.epslon_list.append(epslon)
         b.yaxis.set_visible(True)
         a.yaxis.set_visible(True)
-        if self.normalize_osc == 0:
+        if self.choice_intensity == 0:
                 b.set_ylabel("Relative Intensity", size=15)
                 a.yaxis.set_visible(False)
         else:
@@ -193,7 +213,7 @@ class Print_Spectrum(object):
         b.yaxis.set_label_position("left")
         a.set_xlabel("Wavelength (nm)")
         if len(self.title) > 0:
-            matplotlib.pyplot.title(self.title)
+            plt.title(self.title)
         self.print(self.graph[0], namefile[0])
 
     def print(self, graph, name_file):
@@ -285,7 +305,7 @@ class SecondDerivative(object):
             derivative = FiniteDifferenceDerivative(self.epslon[i], self.wl[i])
             wlPeaks = derivative.criticalpoints
             second_der = derivative.secondDerivative
-            graph = matplotlib.pyplot.figure(figsize=(8, 6))
+            graph = plt.figure(figsize=(8, 6))
             counter = 0
             minimalsY = []
             for x in second_der[1]:
