@@ -1386,7 +1386,6 @@ class Application(Frame):
                               int(self.entry_res.get()),    # if you want to enter a new resolution for the curve.
                               self.osc_color,               # Oscillator Colors.
                               self.curve_color,             # Curve colors.
-                        #      "0",                          # Não sei o que é isso
                               self.filenames,               # List with INPUT files
                               self.plottypes.get(),         # Values 0 - Independent Plots or 1 - Overlay Plots
                               self.exp_abs_lines,           # List with absolute experimental data values.

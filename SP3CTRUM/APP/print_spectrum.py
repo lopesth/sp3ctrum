@@ -22,21 +22,16 @@ class Print_Spectrum(object):
     def __init__(self, dir_target, file_names, start_wl, end_wl, title, resol, osc_color, curve_color,
                  filenames, plottypes, exp_abs_lines, exp_wl_lines, expColor, choice_intensity, numberOfFiles = 1):
 
-        self.dir_target = dir_target              # directory path which will be added to the curve.
-        self.file_names = file_names              # list with names of output files.
-        self.start_wl = start_wl                  # Initial wavelength.
-        self.end_wl = end_wl                      # end wavelength.
-        self.title = title                        # if you want to enter a name for the curve.
-        self.resol = resol                        # if you want to enter a new resolution for the curve.
-        self.osc_color = osc_color                # Oscillator Colors.
-        self.curve_color = curve_color            # Curve colors.
-
-        self.log_names = filenames                # List with INPUT files
-        #self.exp_curv_color = exp_curv_color
-
+        self.dir_target = dir_target               # directory path which will be added to the curve.
+        self.file_names = file_names               # list with names of output files.
+        self.start_wl = start_wl                   # Initial wavelength.
+        self.end_wl = end_wl                       # end wavelength.
+        self.title = title                         # if you want to enter a name for the curve.
+        self.resol = resol                         # if you want to enter a new resolution for the curve.
+        self.osc_color = osc_color                 # Oscillator Colors.
+        self.curve_color = curve_color             # Curve colors.
+        self.log_names = filenames                 # List with INPUT files
         self.plottypes = plottypes                 # Values 0 - Independent Plots or 1 - Overlay Plots
-
-        #self.expChoice = len(expColor)
         self.exp_abs_lines = exp_abs_lines         # List with absolute experimental data values.
         self.exp_wl_lines = exp_wl_lines           # List with experimental data values of wavelength.
         self.expColor = expColor                   # Color of experimental input values.
@@ -46,14 +41,16 @@ class Print_Spectrum(object):
     def print_matplotlib(self):
 
         if self.plottypes == 0:
-            namefiles = []
+            namefiles = []   # list whose elements provide the path until you get to the name of the input files.
             for logname in self.log_names:
                 namefiles.append(self.dir_target + "/" + (logname.split("/")[-1]).split(".log")[0] + ".png")
             self.singleGraphs(namefiles)
             self.show(self.graph, ["", "", "", ""])
+
         elif self.plottypes == 1:
             self.overlayGraph([self.dir_target + "/" + self.dir_target.split("/")[-1] + ".png"])
             self.show(self.graph, [""])
+
         try:
             for i in range(0, len(self.file_names)):
                 remove(self.dir_target + "/" + self.file_names[i] + "_spectrum.dat")
@@ -84,12 +81,6 @@ class Print_Spectrum(object):
         return [wl, osc]
 
     def singleGraphs(self, namefiles):
-
-        print(namefiles)
-        print("********************************")
-        print(self.file_names)
-        print("********************************")
-        print(self.dir_target)
 
         self.graph = []
         self.wl_list = []
@@ -131,13 +122,13 @@ class Print_Spectrum(object):
 
             if self.choice_intensity == 0:
                 a.yaxis.set_visible(False)
-                b.set_ylabel("Relative Intensity", size=10)
+                b.set_ylabel("Relative Intensity", size=15)
             else:
-                b.set_ylabel("Oscillator Strength (atomic units)", size=10)
-                a.set_ylabel("Molar Absorptivity (L/mol.cm)", size=10)
+                b.set_ylabel("Oscillator Strength (atomic units)", size=15)
+                a.set_ylabel("Molar Absorptivity (L/mol.cm)", size=15)
                 a.yaxis.set_label_position("right")
 
-            a.set_xlabel("Wavelength (nm)", size=10)
+            a.set_xlabel("Wavelength (nm)", size=15)
 
             a.yaxis.tick_right()
             b.yaxis.tick_left()
@@ -155,9 +146,12 @@ class Print_Spectrum(object):
                     arrowprops=dict(arrowstyle = '->', connectionstyle='arc3,rad=0'))
             elif len(self.exp_wl_lines) > 4:
                 line3, = a.plot(self.exp_wl_lines, self.exp_abs_lines, linestyle='solid', color=self.expColor, fillstyle='none')
+
             if len(self.title) > 0:
                 plt.title(self.title)
+
             self.print(self.graph[i], namefiles[i])
+
             if len(self.file_names) > 1:
                 a.axes.xaxis.set_ticklabels([])
                 a.axes.yaxis.set_ticklabels([])
@@ -222,9 +216,11 @@ class Print_Spectrum(object):
         MetaDataPrint(name_file).reSave()
 
     def show(self, graph, name):
+
         self.root = tk.Tk()
         self.root.protocol("WM_DELETE_WINDOW", self.root_out)
         self.root.title("Graph")
+
         if len(graph) == 1:
             self.graph_window = tk.Frame(self.root)
             canvas = FigureCanvasTkAgg(graph[0], master=self.graph_window)
