@@ -1291,7 +1291,7 @@ class Application(Frame):
         self.spectrum = Gaussian_Convolution(self.total_oscillators, self.fwhm)
         self.plot_limits = self.spectrum.make_spectrum(self.wl_rang[0], self.wl_rang[1], self.wl_n_points)
         self.spectrum.write_spectrum(self.target_dir + "/" + self.output_file_name)
-        self.save_adv_bt.configure(state=NORMAL)
+        self.save_adv_bt.configure(state=DISABLEs)
 
 
     def adv_file(self):
@@ -1338,6 +1338,7 @@ class Application(Frame):
                     pass
             else:
                 self.exp_wl_lines = []
+                self.exp_abs_lines = []
                 for i in range(0, 4):
                     x = self.experimental_points_wl[i].get()
                     if len(x) > 0:
@@ -1357,7 +1358,7 @@ class Application(Frame):
                            )
         self.experimental_data_file = filedialog.askopenfilename(
                                                                   initialdir = "/",
-                                                                  filetypes = list("File Data","*.dat")
+                                                                  filetypes = [("File Data","*.dat")]
                                                                 )
         self.boxList_experimental_plot.insert(0, self.experimental_data_file)
 

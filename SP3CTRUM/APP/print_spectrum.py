@@ -140,7 +140,7 @@ class Print_Spectrum(object):
 
             if 0 < len(self.exp_wl_lines) < 5:
                 for ref_exp in range(0, len(self.exp_wl_lines), 1):
-                    a.vlines(self.exp_wl_lines[ref_exp], 0, self.exp_abs_lines[ref_exp], colors=self.expColor, lw=1)
+                    a.vlines(self.exp_wl_lines[ref_exp], 0, self.exp_abs_lines[ref_exp], colors=self.expColor, linestyles='dotted', lw=3)
                     a.annotate(str(self.exp_wl_lines[ref_exp]) + " nm", xy=(self.exp_wl_lines[ref_exp] +1, self.exp_abs_lines[ref_exp] -1), xytext=(self.exp_wl_lines[ref_exp] +30, self.exp_abs_lines[ref_exp] +100),
                     bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=1.0),
                     arrowprops=dict(arrowstyle = '->', connectionstyle='arc3,rad=0'))

@@ -106,4 +106,7 @@ class saveAdvancedSimple(object):
                 saveFile.write("            (nm)                      (L/mol.cm)\n")
                 for line in myFile:
                     saveFile.write("           %s\n" %("                       ".join(line.split())))
+                stream = open(self.spectrumName.split("_spectrum.dat")[0] + "_spectrum.dat").readlines()
+                for line in stream:
+                    saveFile.write(line)
         saveFile.close()
