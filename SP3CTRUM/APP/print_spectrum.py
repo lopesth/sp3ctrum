@@ -220,6 +220,7 @@ class Print_Spectrum(object):
         self.root = tk.Tk()
         self.root.protocol("WM_DELETE_WINDOW", self.root_out)
         self.root.title("Graph")
+        self.root.configure(bg="#FFFFFF")
 
         if len(graph) == 1:
             self.graph_window = tk.Frame(self.root)
@@ -231,14 +232,18 @@ class Print_Spectrum(object):
 
         else:
             self.graph_window = tk.Frame(self.root)
+            self.graph_window.configure(bg="#FFFFFF")
             self.line1_canvas_container=tk.Frame(self.graph_window)
+            self.line1_canvas_container.configure(bg="#FFFFFF")
             self.canvas1_container = tk.Frame( self.line1_canvas_container)
+            self.canvas1_container.configure(bg="#FFFFFF")
             canvas1 = FigureCanvasTkAgg(graph[0], master=self.canvas1_container)
             canvas1.draw()
             canvas1.get_tk_widget().pack(side="top")
             titlecanvas1 = tk.Label(self.canvas1_container, text=name[0]).pack(side="top")
             self.canvas1_container.pack(side="left")
             self.canvas2_container = tk.Frame(self.line1_canvas_container)
+            self.canvas2_container.configure(bg="#FFFFFF")
             canvas2 = FigureCanvasTkAgg(graph[1], master=self.canvas2_container)
             canvas2.draw()
             canvas2.get_tk_widget().pack(side="top")
@@ -249,6 +254,7 @@ class Print_Spectrum(object):
             if len(graph) > 2:
                 self.line2_canvas_container = tk.Frame(self.graph_window)
                 self.canvas3_container = tk.Frame(self.line2_canvas_container)
+                self.canvas3_container.configure(bg="#FFFFFF")
                 canvas3 = FigureCanvasTkAgg(graph[2], master=self.canvas3_container)
                 canvas3.draw()
                 canvas3.get_tk_widget().pack(side="top")
@@ -264,6 +270,7 @@ class Print_Spectrum(object):
                 self.line2_canvas_container.pack(side="top")
 
         self.button_cont = tk.Frame(self.graph_window)
+        self.button_cont.configure(bg="#FFFFFF")
         self.quit_button = tk.Button(self.button_cont, text="Quit", command=self.root_out)
         self.quit_button.pack(side="left")
         self.second_derivative = tk.Button(self.button_cont, text="Second Derivative Plots",

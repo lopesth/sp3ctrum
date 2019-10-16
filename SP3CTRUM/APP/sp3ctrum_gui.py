@@ -11,6 +11,7 @@ from tkinter import filedialog
 from tkinter import messagebox
 from tkinter import ttk
 from tkinter import Button
+from PIL import ImageTk, Image
 import sys, os, webbrowser
 from SP3CTRUM.APP.gaussian_conv import Gaussian_Convolution
 from SP3CTRUM.APP.get_osc import Get_Osc
@@ -1766,20 +1767,26 @@ class Second_Window(Frame):
         top.configure(width="600",  background="#FFFFFF")
         top.wm_title("UV-Vis Sp3ctrum P4tronum - About Us")
 
-        logo1 = PhotoImage(file=self.dir + '/icons/sp3ctrum.gif')
-        logo2 = PhotoImage(file=self.dir + '/icons/leedmol.gif')
-        foto1 = PhotoImage(file=self.dir + "/icons/foto1.gif")
-        foto2 = PhotoImage(file=self.dir + "/icons/foto2.gif")
+        logo1 = ImageTk.PhotoImage(Image.open(self.dir + '/icons/sp3ctrum.gif'))
+        logo2 = ImageTk.PhotoImage(Image.open(self.dir + '/icons/leedmol.gif'))
+        foto1 = ImageTk.PhotoImage(Image.open(self.dir + "/icons/foto1.gif"))
+        foto2 = ImageTk.PhotoImage(Image.open(self.dir + "/icons/foto2.gif"))
 
         logo_container = Frame(top)
+        logo_container.configure(background="#FFFFFF")
         lg1 = Label(logo_container, image=logo1, background="#FFFFFF")
+        lg1.image = logo1
+        lg1.configure(image = logo1)
         lg1.pack(padx=35, pady=60)
 
         lg2 = Label(logo_container, image=logo2, background="#FFFFFF")
+        lg2.image = logo2
+        lg2.configure(image = logo2)
         lg2.pack(padx=35, pady=40)
         logo_container.pack(side="left")
 
         text_container = Frame(top)
+        text_container.configure( background="#FFFFFF")
         l1 = Label(
                     text_container,
                     text = "This program was a collaboration of:",
@@ -1803,7 +1810,7 @@ class Second_Window(Frame):
 
         l3 = Label(
                     text_container,
-                    text = "Powered by: ",
+                    text = "LEEDMOL - Research Group",
                     background = "#FFFFFF",
                     font = "Helvetica 20 bold",
                     fg = "#020041"
@@ -1811,7 +1818,7 @@ class Second_Window(Frame):
 
         l3_1 = Label(
                       text_container,
-                      text = credits_text + "\n\n",
+                      text = "Laboratório de Estrutura Eletrônica e Dinâmica Molecular\nInstituto de Química\nCampus Universitário Samabaia\nUniversidade Federal de Goiás.\n\n",
                       font = "Helvetica 16",
                       background = "#FFFFFF",
                       fg = "#DF0027"
@@ -1821,7 +1828,7 @@ class Second_Window(Frame):
 
         l4 = Label(
                     text_container,
-                    text = "Adress:",
+                    text = "LMSC - Research Group",
                     background = "#FFFFFF",
                     font = "Helvetica 20 bold",
                     fg = "#020041"
@@ -1829,7 +1836,7 @@ class Second_Window(Frame):
 
         l4_1 = Label(
                       text_container,
-                      text = "BT-75/3 and BT-79/5\nInstituto de Química\nCampus Universitário Darcy Ribeiro\nUniversidade de Brasília.",
+                      text = "Laboratório de Modelagem de Sistemas Complexos\nInstituto de Química\nCampus Universitário Darcy Ribeiro\nUniversidade de Brasília.",
                       background = "#FFFFFF",
                       font = "Helvetica 16",
                       fg = "#DF0027"
@@ -1838,17 +1845,16 @@ class Second_Window(Frame):
         l4_1.pack(side="top", padx=40)
         text_container.pack(side="left")
         photo_container = Frame(top)
+        photo_container.configure( background="#FFFFFF")
 
         p1 = Label(photo_container, image=foto1, background="#FFFFFF")
+        p1.image = foto1
+        p1.configure(image=foto1)
         p1.pack(padx=35, pady=20)
 
         p2 =Label(photo_container, image=foto2, background="#FFFFFF")
+        p2.image = foto2
+        p2.configure(image=foto2)
         p2.pack(padx=35, pady=20)
         photo_container.pack(side="left")
 
-        Button(
-                top,
-                text = "LEEDMOL Facebook Page",
-                font = "Helvetica",
-                command = self.facebook_buttom
-              )
