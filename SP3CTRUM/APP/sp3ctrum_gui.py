@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
-__author__ = ["Sandro Brito", "Mateus Barbosa", "Ueslei Vasconcelos", "Daniel Machado", "Thiago Lopes", "Heibbe Oliveira"]
+__author__ = ["Sandro Brito", "Mateus Barbosa", "Daniel Machado", "Thiago Lopes", "Heibbe Oliveira"]
 __credits__ = ["LEEDMOL Research group", "Institute of Chemistry at Universidade de Brasilia", "Institute of Chemistry at Universidade Federal de Goiás"]
-__maintainer__ = ["Thiago Lopes", "Sandro Brito"]
-__email__ = ["lopes.th.o@gmail.com", "brittosandro@gmail.com"]
-__date__ = "Set 28 of 2018"
-__version__ = "1.0.0"
+__date__ = "Oct 16 of 2019"
+__version__ = "1.0.1"
 
 from tkinter import *
 from tkinter import filedialog
@@ -1051,7 +1049,7 @@ class Application(Frame):
 
         self.lg2_title = Label(
                                 self.logos_title_container,
-                                text = "LEEDMOL Group:",
+                                text = "LEEDMOL",
                                 background = "#8EF0F7",
                                 font = "Helvetica 20 bold italic",
                                 fg = "#62338C"
@@ -1769,8 +1767,6 @@ class Second_Window(Frame):
 
         logo1 = ImageTk.PhotoImage(Image.open(self.dir + '/icons/sp3ctrum.gif'))
         logo2 = ImageTk.PhotoImage(Image.open(self.dir + '/icons/leedmol.gif'))
-        foto1 = ImageTk.PhotoImage(Image.open(self.dir + "/icons/foto1.gif"))
-        foto2 = ImageTk.PhotoImage(Image.open(self.dir + "/icons/foto2.gif"))
 
         logo_container = Frame(top)
         logo_container.configure(background="#FFFFFF")
@@ -1844,17 +1840,4 @@ class Second_Window(Frame):
         l4.pack(side="top", padx=40)
         l4_1.pack(side="top", padx=40)
         text_container.pack(side="left")
-        photo_container = Frame(top)
-        photo_container.configure( background="#FFFFFF")
-
-        p1 = Label(photo_container, image=foto1, background="#FFFFFF")
-        p1.image = foto1
-        p1.configure(image=foto1)
-        p1.pack(padx=35, pady=20)
-
-        p2 =Label(photo_container, image=foto2, background="#FFFFFF")
-        p2.image = foto2
-        p2.configure(image=foto2)
-        p2.pack(padx=35, pady=20)
-        photo_container.pack(side="left")
 
