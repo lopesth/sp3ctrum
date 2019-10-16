@@ -17,6 +17,8 @@ from SP3CTRUM.APP.print_spectrum import Print_Spectrum
 from SP3CTRUM.APP.plotTransitions import PlotTransitions
 from SP3CTRUM.APP.advancedSave import saveAdvancedSimple
 
+stdColorCurve = ["#E01E23", "#573280", "#945055", "#005CB8", "#29000A"]
+
 class Application(Frame):
 
     def __init__(self, toplevel):
@@ -48,7 +50,6 @@ class Application(Frame):
         self.guiLogos()
         self.exp_abs_lines = []
         self.exp_wl_lines = []
-
 
     def setStyle(self):
 
@@ -568,11 +569,47 @@ class Application(Frame):
                                         relief=RIDGE,
                                         background="#FFFFFF"
                                      )
-            entry_color_curve1.insert(END, '#020041')
+            entry_color_curve1.insert(END, stdColorCurve[i])
             entry_color_curve1.pack(side="left", padx=5)
             self.entry_color_curve_list.append(entry_color_curve1)
 
         self.box_container_curve_colors.pack(side="top", pady=5, anchor=W, padx=10)
+
+        self.checkbutton_hide_osc_box = Frame(
+                                         self.note3_struct,
+                                         relief = FLAT,
+                                         borderwidth = 0,
+                                         background = "#FFFFFF"
+                                        )
+        self.hideOscValue = IntVar(0)
+
+        self.checkbuttonHideOsc = Label(
+                                           self.checkbutton_hide_osc_box,
+                                           text = "Hide the Theoretical Oscillators?",
+                                           fg = "#DF0027",
+                                           background = "#FFFFFF"
+                                          ).pack(side="left")
+
+        self.checkbutton_hide_osc2 = Radiobutton(
+                                             self.checkbutton_hide_osc_box,
+                                             text = "Yes",
+                                             variable = self.hideOscValue,
+                                             value = 1,
+                                             background = "#FFFFFF",
+                                             command = self.hideOsc
+                                            )
+        self.checkbutton_hide_osc1 = Radiobutton(
+                                             self.checkbutton_hide_osc_box,
+                                             text = "No",
+                                             variable = self.hideOscValue,
+                                             value = 0,
+                                             background = "#FFFFFF",
+                                             command = self.notHideOsc
+                                            )
+
+        self.checkbutton_hide_osc1.pack(side="left")
+        self.checkbutton_hide_osc2.pack(side="left")
+        self.checkbutton_hide_osc_box.pack(side="top", pady=5, anchor=W, padx=10)
 
         # colors of each Oscillators
         self.box_container_drop_colors = Frame(
@@ -599,7 +636,7 @@ class Application(Frame):
                                       relief = RIDGE,
                                       background = "#FFFFFF"
                                     )
-            entry_color_drop.insert(END, '#4F4233')
+            entry_color_drop.insert(END, stdColorCurve[i])
             entry_color_drop.pack(side="left", padx=5)
             self.entry_color_drop_list.append(entry_color_drop)
 
@@ -663,9 +700,22 @@ class Application(Frame):
         self.checkbuttonplot2.pack(side="left")
         self.checkbuttonplot_box.pack(side="top", pady=5, anchor=W, padx=10)
 
+    def hideOsc(self):
+        print(self.hideOscValue.get(), "hide")
+        for i in range(0, 5):
+            self.entry_color_drop_list[i].delete(0, END)
+            self.entry_color_drop_list[i].configure(state="disabled", borderwidth=2)
+ 
+    def notHideOsc(self):
+        print(self.hideOscValue.get(), "not hide")
+        for i in range(0, 5):
+            self.entry_color_drop_list[i].delete(0, END)
+        for i in range(0, len(self.filenames)):
+            self.entry_color_drop_list[i].configure(state="normal", borderwidth=2)
+            self.entry_color_drop_list[i].insert(END, stdColorCurve[i])
 
     def clean_color_box(self, firstItem):
-
+        
         '''
            This method removes the information that was entered by the user in relation to the colors of the curves,
            as well as the colors of the oscillators.
@@ -1111,8 +1161,8 @@ class Application(Frame):
                 self.entry_color_drop_list[i].configure(state="normal", borderwidth=2)
                 self.entry_color_curve_list[i].delete(0, END)
                 self.entry_color_drop_list[i].delete(0, END)
-                self.entry_color_curve_list[i].insert(END, '#020041')
-                self.entry_color_drop_list[i].insert(END, '#4F4233') # define a cor do oscilador
+                self.entry_color_curve_list[i].insert(END, stdColorCurve[i])
+                self.entry_color_drop_list[i].insert(END, stdColorCurve[i]) # define a cor do oscilador
 
         # mode multiple files
         elif self.choice_file_type.get() == 1:
@@ -1127,8 +1177,8 @@ class Application(Frame):
                 self.filenames.append(filename)
 
             self.clean_color_box(1)
-            self.entry_color_curve_list[1].insert(END, '#020041')
-            self.entry_color_drop_list[1].insert(END, '#4F4233')
+            self.entry_color_curve_list[1].insert(END, stdColorCurve[0])
+            self.entry_color_drop_list[1].insert(END, stdColorCurve[0])
 
 
         elif self.choice_file_type.get() == 2:
@@ -1137,8 +1187,8 @@ class Application(Frame):
             self.filenames = self.md.returnFileNames()
             self.clean_color_box(1)
 
-            self.entry_color_curve_list[1].insert(END, '#020041')
-            self.entry_color_drop_list[1].insert(END, '#4F4233')
+            self.entry_color_curve_list[1].insert(END, stdColorCurve[0])
+            self.entry_color_drop_list[1].insert(END, stdColorCurve[0])
 
         for filename in self.filenames:
             fn_div = filename.split('/')
@@ -1376,7 +1426,6 @@ class Application(Frame):
         else:
             self.curve_color.append(self.entry_color_curve_list[0].get())
             self.osc_color.append(self.entry_color_drop_list[0].get())
-
         plot = Print_Spectrum(
                               self.target_dir,              # directory path which will be added to the curve.
                               self.output_file_names,       # list with names of output files.

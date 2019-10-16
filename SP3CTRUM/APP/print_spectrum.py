@@ -191,6 +191,7 @@ class Print_Spectrum(object):
             b.yaxis.set_visible(False)
             self.wl_list.append(wl)
             self.epslon_list.append(epslon)
+            num = num+1
         b.yaxis.set_visible(True)
         a.yaxis.set_visible(True)
         if self.choice_intensity == 0:
@@ -204,6 +205,7 @@ class Print_Spectrum(object):
         a.yaxis.tick_right()
         b.yaxis.set_label_position("left")
         a.set_xlabel("Wavelength (nm)")
+
         if len(self.title) > 0:
             plt.title(self.title)
         self.print(self.graph[0], namefile[0])
