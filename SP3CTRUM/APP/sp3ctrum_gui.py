@@ -1192,8 +1192,24 @@ class Application(Frame):
 
         for filename in self.filenames:
             fn_div = filename.split('/')
-            self.file_name_box.insert(
-                                      END, ".../"+fn_div[-4]+"/"+fn_div[-3]+"/"+fn_div[-2]+"/"+fn_div[-1]
+            if len(fn_div) > 3:
+                self.file_name_box.insert(
+                                      END, ".../"+fn_div[-3]+"/"+fn_div[-2]+"/"+fn_div[-1]
+                                     )
+            else:
+                if len(fn_div) > 2:
+                    self.file_name_box.insert(
+                                      END, ".../"+fn_div[-2]+"/"+fn_div[-1]
+                                     )
+                else:
+                    operational_system = sys.platform
+                    if operational_system == 'win32':
+                        self.file_name_box.insert(
+                                      END, fn_div[-2]+"/"+fn_div[-1]
+                                     )
+                    else:
+                        self.file_name_box.insert(
+                                      END, "/"+fn_div[-2]+"/"+fn_div[-1]
                                      )
         self.target_dir = "/".join(self.filenames[-1].split("/")[0:-1])
         self.note.tab(self.note2_struct, state="normal")
@@ -1214,7 +1230,11 @@ class Application(Frame):
         self.note.tab(self.note6_struct, state="normal")
         self.make_spec_bt.configure(state=NORMAL)
         self.output_entry.delete(0, END)
-        self.output_entry.insert(0, self.filenames[-1].split("/")[-2].lower())
+        operational_system = sys.platform
+        filenameTemp = self.filenames[-1].split("/")[-2].lower()
+        if operational_system == 'win32':
+            filenameTemp = filenameTemp.split(":")[0]
+        self.output_entry.insert(0, filenameTemp)
 
     def make_spectrum(self):
 
@@ -1342,8 +1362,8 @@ class Application(Frame):
         self.spectrum.write_spectrum(self.target_dir + "/" + self.output_file_name)
         self.save_adv_bt.configure(state=DISABLEs)
 
-
     def adv_file(self):
+        print(self.target_dir)
 
         try:
             os.remove(self.target_dir + "/" + self.output_file_name + "_advancedData.dat")
@@ -1352,6 +1372,7 @@ class Application(Frame):
 
         if self.choice_file_type.get() == 0:
             for i in range(0, len(self.filenames)):
+                print(self.target_dir + "/" + self.output_file_names[i] + "_spectrum.dat")
                 toSave = saveAdvancedSimple(self.filenames[i], self.target_dir + "/" + self.output_file_names[i] + "_spectrum.dat")
         else:
             for i in range(0, len(self.filenames)):
