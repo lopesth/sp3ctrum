@@ -686,7 +686,8 @@ class Application(Frame):
                                              text = "Independent Plots",
                                              variable = self.plottypes,
                                              value = 0,
-                                             background = "#FFFFFF"
+                                             background = "#FFFFFF",
+                                             command = self.overlayBoxDisable
                                             )
 
         self.checkbuttonplot2 = Radiobutton(
@@ -694,20 +695,74 @@ class Application(Frame):
                                              text = "Overlay Plots",
                                              variable = self.plottypes,
                                              value = 1,
-                                             background = "#FFFFFF"
+                                             background = "#FFFFFF",
+                                             command = self.overlayBoxEnable
                                             )
         self.checkbuttonplot1.pack(side="left")
         self.checkbuttonplot2.pack(side="left")
         self.checkbuttonplot_box.pack(side="top", pady=5, anchor=W, padx=10)
+        
+        self.overlayButton_box = Frame(
+                                         self.note3_struct,
+                                         relief = FLAT,
+                                         borderwidth = 0,
+                                         background = "#FFFFFF"
+                                        )
+        self.overlayOptionsVar = IntVar(0)
+
+        self.overlayButton_boxName = Label(
+                                           self.overlayButton_box,
+                                           text = "Plot Labellings?",
+                                           fg = "#DF0027",
+                                           background = "#FFFFFF"
+                                          ).pack(side="left")
+
+        self.overlayButton_box1 = Radiobutton(
+                                             self.overlayButton_box,
+                                             text = "No",
+                                             variable = self.overlayOptionsVar,
+                                             value = 0,
+                                             background = "#FFFFFF"
+                                            )
+
+        self.overlayButton_box2 = Radiobutton(
+                                             self.overlayButton_box,
+                                             text = "Yes",
+                                             variable = self.overlayOptionsVar,
+                                             value = 1,
+                                             background = "#FFFFFF"
+                                            )
+        self.overlayButton_box1.pack(side="left")
+        self.overlayButton_box2.pack(side="left")
+        self.overlayButton_box.pack(side="top", pady=5, anchor=W, padx=10)
+        self.overlayBoxDisable()
+
+    def overlayBoxEnable(self):
+        self.overlayButton_box1.configure(state="normal")
+        self.overlayButton_box2.configure(state="normal")
+        self.overlayOptionsVar.set(0)
+    
+    def overlayBoxDisable(self):
+        self.overlayButton_box1.configure(state="disabled")
+        self.overlayButton_box2.configure(state="disabled")
+        self.overlayOptionsVar.set(0)
+
+    def disableCheckButtonPlot(self):
+        self.checkbuttonplot1.configure(state="disabled")
+        self.checkbuttonplot2.configure(state="disabled")
+        self.plottypes.set(0)
+        
+    def enableCheckButtonPlot(self):
+        self.checkbuttonplot1.configure(state="normal")
+        self.checkbuttonplot2.configure(state="normal")
+        self.plottypes.set(0)
 
     def hideOsc(self):
-        print(self.hideOscValue.get(), "hide")
         for i in range(0, 5):
             self.entry_color_drop_list[i].delete(0, END)
             self.entry_color_drop_list[i].configure(state="disabled", borderwidth=2)
  
     def notHideOsc(self):
-        print(self.hideOscValue.get(), "not hide")
         for i in range(0, 5):
             self.entry_color_drop_list[i].delete(0, END)
         for i in range(0, len(self.filenames)):
@@ -1145,7 +1200,12 @@ class Application(Frame):
                                                           initialdir="/",
                                                           filetypes=[("Gaussian LOG files","*.log"), ("Gaussian OUTPUTS files","*.out")]
                                                          )
-            if len(self.filenames_) > 4:
+            if len(self.filenames_) == 1:
+                self.disableCheckButtonPlot()
+            else:
+                self.enableCheckButtonPlot()
+            
+            if len(self.filenames_) > 5:
                 messagebox.showinfo(
                                     "Maximum number of files", "Let's use only the first 5 files of the input."
                                    )
