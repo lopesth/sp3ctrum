@@ -45,7 +45,7 @@ class Application(Frame):
         self.guiTab2()
         self.guiTab3()
         self.guiTab4()
-        self.guiTab6()
+        self.guiTab5()
         self.guiButtons()
         self.guiLogos()
         self.exp_abs_lines = []
@@ -98,19 +98,19 @@ class Application(Frame):
         self.note4_struct = Frame(self.note, background="#FFFFFF")
         self.note4_struct.pack()
 
-        self.note6_struct = Frame(self.note, background="#FFFFFF")
-        self.note6_struct.pack()
+        self.note5_struct = Frame(self.note, background="#FFFFFF")
+        self.note5_struct.pack()
 
         self.note.add(self.note1_struct, text="Files")
         self.note.add(self.note2_struct, text="Spectrum Parameters")
         self.note.add(self.note3_struct, text="Plot Details")
         self.note.add(self.note4_struct, text="Versus Experimental Values")
-        self.note.add(self.note6_struct, text="Advanced Options")
+        self.note.add(self.note5_struct, text="Advanced Options")
 
         self.note.tab(self.note2_struct, state="disabled")
         self.note.tab(self.note3_struct, state="disabled")
         self.note.tab(self.note4_struct, state="disabled")
-        self.note.tab(self.note6_struct, state="disabled")
+        self.note.tab(self.note5_struct, state="disabled")
 
     def setMenu(self):
 
@@ -236,7 +236,7 @@ class Application(Frame):
                                      text = "Output Type Files:",
                                      font = "Helvetica 14 bold",
                                      fg = "#263A90",
-                                     background = "#FFFFFF"
+                                     background = "#FFFFFF",
                                     ).pack(anchor=NW, pady=5, padx=20)
 
         # chooses the Gaussian(G09 and G16) attribute
@@ -275,7 +275,7 @@ class Application(Frame):
         # choice option multiple Files
         self.rb2_choice_file_type = Radiobutton(
                                                 self.open_files_BT,
-                                                text = "Multiple Files",
+                                                text = "Multiple Files as Snapshots",
                                                 variable = self.choice_file_type,
                                                 value = 1,
                                                 command = self.enable_file_bt,
@@ -302,7 +302,6 @@ class Application(Frame):
                                    state = DISABLED,
                                    command = self.select_files,
                                    background = "#FFFFFF",
-                                   fg = "#000000",
                                    width = 8
                                  )
         self.run_call_bt.pack(side="left")
@@ -1037,15 +1036,8 @@ class Application(Frame):
             self.experimental_points_wl[i].config(state=DISABLED)
             self.experimental_points_abs[i].config(state=DISABLED)
 
-    #############################################
-    #                                           #
-    #     There is no structure 5.              #
-    #                                           #
-    #     There is no guiTab5.                  #
-    #                                           #
-    #############################################
 
-    def guiTab6(self):
+    def guiTab5(self):
 
         '''
            This method describes the possible output names of the files and intensity methods.
@@ -1056,10 +1048,10 @@ class Application(Frame):
         '''
 
         self.choice_intensity = IntVar()
-        self.choice_intensity.set(1)
+        self.choice_intensity.set(0)
 
         self.box_container_adv = Frame(
-                                        self.note6_struct,
+                                        self.note5_struct,
                                         relief = FLAT,
                                         borderwidth = 0,
                                         background = "#FFFFFF"
@@ -1084,7 +1076,7 @@ class Application(Frame):
         self.box_container_adv.pack(side="top", pady=5, anchor=W)
 
         self.box_intensity_Choice = Frame(
-                                           self.note6_struct,
+                                           self.note5_struct,
                                            relief = FLAT,
                                            borderwidth = 0,
                                            background = "#FFFFFF"
@@ -1287,7 +1279,7 @@ class Application(Frame):
             self.checkbuttonplot1.configure(state = DISABLED)
             self.checkbuttonplot2.configure(state = DISABLED)
 
-        self.note.tab(self.note6_struct, state="normal")
+        self.note.tab(self.note5_struct, state="normal")
         self.make_spec_bt.configure(state=NORMAL)
         self.output_entry.delete(0, END)
         operational_system = sys.platform
@@ -1521,8 +1513,9 @@ class Application(Frame):
                               self.exp_abs_lines,           # List with absolute experimental data values.
                               self.exp_wl_lines,            # List with experimental data values of wavelength.
                               self.entry_color_exp.get(),   # Color of experimental input values.
+                              self.overlayOptionsVar.get(),
                               self.choice_intensity.get()   # Sets the type of intensity method. 0 - Relative Intensity and 1 - Estimated Absorbance
-                            )
+                              )
         plot.print_matplotlib()
         self.pyplot_bt.configure(state=DISABLED)
 
@@ -1560,7 +1553,7 @@ class Application(Frame):
         self.note.tab(self.note2_struct, state="disabled")
         self.note.tab(self.note3_struct, state="disabled")
         self.note.tab(self.note4_struct, state="disabled")
-        self.note.tab(self.note6_struct, state="disabled")
+        self.note.tab(self.note5_struct, state="disabled")
 
     def leave(self):
         self.toplevel.quit()

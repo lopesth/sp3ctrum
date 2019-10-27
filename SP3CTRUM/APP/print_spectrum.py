@@ -13,13 +13,15 @@ from PIL import PngImagePlugin
 import tkinter as tk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from SP3CTRUM.APP.differential import FiniteDifferenceDerivative
+from matplotlib.lines import Line2D
 
 
 class Print_Spectrum(object):
 
     def __init__(self, dir_target, file_names, start_wl, end_wl, title, resol, osc_color, curve_color,
-                 filenames, plottypes, exp_abs_lines, exp_wl_lines, expColor, choice_intensity, numberOfFiles = 1):
-
+                 filenames, plottypes, exp_abs_lines, exp_wl_lines, expColor, labelsChoice, choice_intensity, numberOfFiles = 1):
+        
+        self.labelsChoice = labelsChoice
         self.dir_target = dir_target               # directory path which will be added to the curve.
         self.file_names = file_names               # list with names of output files.
         self.start_wl = start_wl                   # Initial wavelength.
@@ -30,11 +32,16 @@ class Print_Spectrum(object):
         self.curve_color = curve_color             # Curve colors.
         self.log_names = filenames                 # List with INPUT files
         self.plottypes = plottypes                 # Values 0 - Independent Plots or 1 - Overlay Plots
-        self.exp_abs_lines = exp_abs_lines         # List with absolute experimental data values.
         self.exp_wl_lines = exp_wl_lines           # List with experimental data values of wavelength.
         self.expColor = expColor                   # Color of experimental input values.
         self.choice_intensity = choice_intensity   # Sets the type of intensity method. 0 - Relative Intensity and 1 - Estimated Absorbance
         self.numberOfFiles = numberOfFiles
+        if self.choice_intensity == 0:
+            self.exp_abs_lines = []
+            for exp in exp_abs_lines:
+                self.exp_abs_lines.append(exp/max(exp_abs_lines))
+        else:
+            self.exp_abs_lines = exp_abs_lines
 
     def print_matplotlib(self):
 
@@ -111,12 +118,8 @@ class Print_Spectrum(object):
             for j in range(0, len(wl_ref)):
                 b.vlines(wl_ref[j], 0, osc_ref[j], colors=self.osc_color[i], lw=1)
 
-            #self.graph[i].tight_layout()
-
             self.wl_list.append(wl)
             self.epslon_list.append(epslon)
-            #b.yaxis.set_visible(True)
-            #a.yaxis.set_visible(True)
 
             if self.choice_intensity == 0:
                 a.yaxis.set_visible(False)
@@ -138,8 +141,8 @@ class Print_Spectrum(object):
 
             if 0 < len(self.exp_wl_lines) < 5:
                 for ref_exp in range(0, len(self.exp_wl_lines), 1):
-                    a.vlines(self.exp_wl_lines[ref_exp], 0, self.exp_abs_lines[ref_exp], colors=self.expColor, linestyles='dotted', lw=3)
-                    a.annotate(str(self.exp_wl_lines[ref_exp]) + " nm", xy=(self.exp_wl_lines[ref_exp] +1, self.exp_abs_lines[ref_exp] -1), xytext=(self.exp_wl_lines[ref_exp] +30, self.exp_abs_lines[ref_exp] +100),
+                    a.vlines(self.exp_wl_lines[ref_exp], 0, self.exp_abs_lines[ref_exp]*max(epslon), colors=self.expColor, linestyles='dotted', lw=3)
+                    a.annotate(str(self.exp_wl_lines[ref_exp]) + " nm", xy=(self.exp_wl_lines[ref_exp] +1, self.exp_abs_lines[ref_exp]*max(epslon) -1), xytext=(self.exp_wl_lines[ref_exp] +30, self.exp_abs_lines[ref_exp]*max(epslon) +100),
                     bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=1.0),
                     arrowprops=dict(arrowstyle = '->', connectionstyle='arc3,rad=0'))
             elif len(self.exp_wl_lines) > 4:
@@ -161,8 +164,12 @@ class Print_Spectrum(object):
         self.wl_list = []
         self.epslon_list = []
         num = 0
+        linesLabelColor = []
+        linesLabelName = []
         self.graph = [plt.figure(figsize=(8, 6))]
         for self.file_name in self.file_names:
+            linesLabelColor.append(Line2D([0], [0], color=self.curve_color[num], lw=1.5))
+            linesLabelName.append(self.file_name)
             wl = []
             epslon = []
             wl_ref = []
@@ -205,7 +212,10 @@ class Print_Spectrum(object):
         a.yaxis.tick_right()
         b.yaxis.set_label_position("left")
         a.set_xlabel("Wavelength (nm)")
-
+        if self.labelsChoice == 1:
+            a.legend(linesLabelColor, linesLabelName)
+        else:
+            pass
         if len(self.title) > 0:
             plt.title(self.title)
         self.print(self.graph[0], namefile[0])
