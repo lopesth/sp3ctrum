@@ -1095,7 +1095,6 @@ class Application(Frame):
                                                  variable = self.choice_intensity,
                                                  value = 0,
                                                  background = "#FFFFFF",
-                                                 command = self.expButt
                                                )
         self.rb1_choice_intensity.pack(side="left")
 
@@ -1105,7 +1104,6 @@ class Application(Frame):
                                                  variable = self.choice_intensity,
                                                  value = 1,
                                                  background = "#FFFFFF",
-                                                 command = self.expButt
                                                )
         self.rb2_choice_intensity.pack(side="left")
         self.box_intensity_Choice.pack(side="top", pady=5, anchor=W)
@@ -1171,22 +1169,52 @@ class Application(Frame):
                         ).grid(row=0, column=2)
         self.all_logos_container.pack()
 
-    def expButt(self):
-
-        if self.choice_intensity.get() == 1:
-            self.note.tab(self.note4_struct, state="normal")
+    def OffAbsOptions(self,io):
+        if io == True:
+            self.choice_intensity.set(0)
+            self.rb1_choice_intensity.configure(state="disabled")
+            self.rb2_choice_intensity.configure(state="disabled")
         else:
-            self.note.tab(self.note4_struct, state="disable")
+            self.rb2_choice_intensity.configure(state="normal")
+            self.rb1_choice_intensity.configure(state="normal")
+            self.choice_intensity.set(0)
 
     def select_files(self):
-
         self.save_adv_bt.configure(state="disable")
         self.pyplot_bt.configure(state="disable")
         self.file_name_box.delete(0, END)
         self.operationMode = self.choice_file_type.get()
 
-        # mode Independent files
-        if self.choice_file_type.get() == 0:
+        # mode multiple files
+        if self.choice_file_type.get() == 1:
+            self.OffAbsOptions(True)
+            self.filenames = []
+
+            self.filenames_m = filedialog.askopenfilenames(
+                                                           initialdir="/",
+                                                           filetypes=[("Gaussian LOG files","*.log"), ("Gaussian OUTPUTS files","*.out")]
+                                                          )
+
+            for filename in self.filenames_m:
+                self.filenames.append(filename)
+
+            self.clean_color_box(1)
+            self.entry_color_curve_list[1].insert(END, stdColorCurve[0])
+            self.entry_color_drop_list[1].insert(END, stdColorCurve[0])
+
+
+        elif self.choice_file_type.get() == 2:
+            self.OffAbsOptions(True)
+            self.md = MDfilenames(self)
+            self.toplevel.wait_window(self.md.window)
+            self.filenames = self.md.returnFileNames()
+            self.clean_color_box(1)
+
+            self.entry_color_curve_list[1].insert(END, stdColorCurve[0])
+            self.entry_color_drop_list[1].insert(END, stdColorCurve[0])
+
+        else:
+            self.OffAbsOptions(False)
             self.filenames = []
             self.filenames_ = filedialog.askopenfilenames(
                                                           initialdir="/",
@@ -1215,32 +1243,6 @@ class Application(Frame):
                 self.entry_color_drop_list[i].delete(0, END)
                 self.entry_color_curve_list[i].insert(END, stdColorCurve[i])
                 self.entry_color_drop_list[i].insert(END, stdColorCurve[i]) # define a cor do oscilador
-
-        # mode multiple files
-        elif self.choice_file_type.get() == 1:
-            self.filenames = []
-
-            self.filenames_m = filedialog.askopenfilenames(
-                                                           initialdir="/",
-                                                           filetypes=[("Gaussian LOG files","*.log"), ("Gaussian OUTPUTS files","*.out")]
-                                                          )
-
-            for filename in self.filenames_m:
-                self.filenames.append(filename)
-
-            self.clean_color_box(1)
-            self.entry_color_curve_list[1].insert(END, stdColorCurve[0])
-            self.entry_color_drop_list[1].insert(END, stdColorCurve[0])
-
-
-        elif self.choice_file_type.get() == 2:
-            self.md = MDfilenames(self)
-            self.toplevel.wait_window(self.md.window)
-            self.filenames = self.md.returnFileNames()
-            self.clean_color_box(1)
-
-            self.entry_color_curve_list[1].insert(END, stdColorCurve[0])
-            self.entry_color_drop_list[1].insert(END, stdColorCurve[0])
 
         for filename in self.filenames:
             fn_div = filename.split('/')
