@@ -444,7 +444,7 @@ class Application(Frame):
                                         relief = RIDGE,
                                         background = "#FFFFFF"
                                       )
-        self.wl_n_points_entry.insert(END, '10000')
+        self.wl_n_points_entry.insert(END, '1000')
         self.wl_n_points_entry.pack()
 
         self.box_container_line1_2.pack()
@@ -764,9 +764,13 @@ class Application(Frame):
     def notHideOsc(self):
         for i in range(0, 5):
             self.entry_color_drop_list[i].delete(0, END)
-        for i in range(0, len(self.filenames)):
-            self.entry_color_drop_list[i].configure(state="normal", borderwidth=2)
-            self.entry_color_drop_list[i].insert(END, stdColorCurve[i])
+        if self.choice_file_type.get() == 0:
+            for i in range(0, len(self.filenames)):
+                self.entry_color_drop_list[i].configure(state="normal", borderwidth=2)
+                self.entry_color_drop_list[i].insert(END, stdColorCurve[i])
+        else:
+            self.entry_color_drop_list[0].configure(state="normal", borderwidth=2)
+            self.entry_color_drop_list[0].insert(END, stdColorCurve[i])
 
     def clean_color_box(self, firstItem):
         
@@ -1268,16 +1272,12 @@ class Application(Frame):
         self.target_dir = "/".join(self.filenames[-1].split("/")[0:-1])
         self.note.tab(self.note2_struct, state="normal")
         self.note.tab(self.note3_struct, state="normal")
+        self.note.tab(self.note4_struct, state="normal")
 
         # representa diferenças entre Independent files e multiple files
         if self.choice_file_type.get() == 0:
-            self.note.tab(self.note4_struct, state="normal")
-
+            pass
         else:
-            if self.choice_file_type.get() == 1:
-                self.note.tab(self.note4_struct, state="disable")
-            if self.choice_file_type.get() == 2:
-                self.note.tab(self.note4_struct, state="disable")
             self.checkbuttonplot1.configure(state = DISABLED)
             self.checkbuttonplot2.configure(state = DISABLED)
 
@@ -1391,6 +1391,8 @@ class Application(Frame):
         error = self.getSimpleValues()         # self.getSimpleValues() retorna valores de erros
         self.total_oscillators = []
         self.output_file_names = []
+        
+        
 
         num = 1
         if error == False:
@@ -1414,7 +1416,7 @@ class Application(Frame):
         self.spectrum = Gaussian_Convolution(self.total_oscillators, self.fwhm)
         self.plot_limits = self.spectrum.make_spectrum(self.wl_rang[0], self.wl_rang[1], self.wl_n_points)
         self.spectrum.write_spectrum(self.target_dir + "/" + self.output_file_name)
-        self.save_adv_bt.configure(state=DISABLEs)
+        self.save_adv_bt.configure(state="disabled")
 
     def adv_file(self):
         print(self.target_dir)
