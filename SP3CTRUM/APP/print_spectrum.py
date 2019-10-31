@@ -19,7 +19,7 @@ from matplotlib.lines import Line2D
 class Print_Spectrum(object):
 
     def __init__(self, dir_target, file_names, start_wl, end_wl, title, resol, osc_color, curve_color,
-                 filenames, plottypes, exp_abs_lines, exp_wl_lines, expColor, labelsChoice, choice_intensity, numberOfFiles = 1):
+                 filenames, plottypes, exp_abs_lines, exp_wl_lines, expColor, labelsChoice, choice_intensity, conc = None, optPath = None):
         
         self.labelsChoice = labelsChoice
         self.dir_target = dir_target               # directory path which will be added to the curve.
@@ -35,13 +35,15 @@ class Print_Spectrum(object):
         self.exp_wl_lines = exp_wl_lines           # List with experimental data values of wavelength.
         self.expColor = expColor                   # Color of experimental input values.
         self.choice_intensity = choice_intensity   # Sets the type of intensity method. 0 - Relative Intensity and 1 - Estimated Absorbance
-        self.numberOfFiles = numberOfFiles
+        self.numberOfFiles = 1
         if self.choice_intensity == 0:
             self.exp_abs_lines = []
             for exp in exp_abs_lines:
                 self.exp_abs_lines.append(exp/max(exp_abs_lines))
         else:
             self.exp_abs_lines = exp_abs_lines
+        self.conc = conc
+        self.optPath = optPath
 
     def print_matplotlib(self):
 
@@ -97,7 +99,10 @@ class Print_Spectrum(object):
             with open(self.dir_target + "/" + self.file_names[i] + "_spectrum.dat") as myFile:
                 for line in myFile:
                     wl.append(float(line.split()[0]))
-                    epslon.append(float(line.split()[1]))
+                    if self.choice_intensity == 2:
+                        epslon.append(float(line.split()[1]) * self.conc * self.optPath)
+                    else:
+                        epslon.append(float(line.split()[1]))
             if self.choice_intensity == 0:
                 list_wl_osc = self.take_osc_str_norm(self.dir_target + "/" + self.file_names[i] + "_rawData.dat")
                 wl_ref = list_wl_osc[0]
@@ -126,7 +131,10 @@ class Print_Spectrum(object):
                 b.set_ylabel("Relative Intensity", size=15)
             else:
                 b.set_ylabel("Oscillator Strength (atomic units)", size=15)
-                a.set_ylabel("Molar Absorptivity (L/mol.cm)", size=15)
+                if self.choice_intensity == 2:
+                    a.set_ylabel("Absorbance", size=15)
+                else:
+                    a.set_ylabel("Molar Absorptivity (L/mol.cm)", size=15)
                 a.yaxis.set_label_position("right")
 
             a.set_xlabel("Wavelength (nm)", size=15)
@@ -177,7 +185,10 @@ class Print_Spectrum(object):
             with open(self.dir_target + "/" + self.file_name + "_spectrum.dat", encoding="utf8", errors='ignore') as myFile:
                 for line in myFile:
                     wl.append(float(line.split()[0]))
-                    epslon.append(float(line.split()[1])/self.numberOfFiles)
+                    if self.choice_intensity == 2:
+                        epslon.append(float(line.split()[1]) * self.conc * self.optPath /self.numberOfFiles)
+                    else:
+                        epslon.append(float(line.split()[1])/self.numberOfFiles)
             if self.choice_intensity == 0:
                 list_wl_osc = self.take_osc_str_norm(self.dir_target + "/" + self.file_name + "_rawData.dat")
             else:
@@ -201,13 +212,8 @@ class Print_Spectrum(object):
             num = num+1
         b.yaxis.set_visible(True)
         a.yaxis.set_visible(True)
-        if self.choice_intensity == 0:
-                b.set_ylabel("Relative Intensity", size=15)
-                a.yaxis.set_visible(False)
-        else:
-            b.set_ylabel("Oscillator Strength (atomic units)", size=15)
-            a.set_ylabel("Molar Absorptivity (L/mol.cm)", size=15)
-            a.yaxis.set_label_position("right")
+        b.set_ylabel("Relative Intensity", size=15)
+        a.yaxis.set_visible(False)
         b.yaxis.tick_left()
         a.yaxis.tick_right()
         b.yaxis.set_label_position("left")

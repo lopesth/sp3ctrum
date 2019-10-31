@@ -1098,19 +1098,114 @@ class Application(Frame):
                                                  text = "Relative Intensity",
                                                  variable = self.choice_intensity,
                                                  value = 0,
+                                                 command = self.turnOffBeer,
                                                  background = "#FFFFFF",
                                                )
         self.rb1_choice_intensity.pack(side="left")
 
         self.rb2_choice_intensity = Radiobutton(
                                                  self.box_intensity_Choice,
-                                                 text = "Estimated Absorbance",
+                                                 text = "Estimated Molar Attenuation Coefficient",
                                                  variable = self.choice_intensity,
                                                  value = 1,
+                                                 command = self.turnOffBeer,
                                                  background = "#FFFFFF",
                                                )
         self.rb2_choice_intensity.pack(side="left")
+        
+        self.rb3_choice_intensity = Radiobutton(
+                                                 self.box_intensity_Choice,
+                                                 text = "Estimated Absorbance",
+                                                 variable = self.choice_intensity,
+                                                 value = 2,
+                                                 command = self.turnOnBeer,
+                                                 background = "#FFFFFF",
+                                               )
+        self.rb3_choice_intensity.pack(side="left")
         self.box_intensity_Choice.pack(side="top", pady=5, anchor=W)
+        
+        self.box_beer = Frame(
+                                           self.note5_struct,
+                                           relief = FLAT,
+                                           borderwidth = 0,
+                                           background = "#FFFFFF"
+                                         )
+        self.box_beerText = Label(
+                                       self.box_beer,
+                                       text = "Beer's Law Parameters:",
+                                       font = "Helvetica 14 bold",
+                                       fg = "#DF0027",
+                                       background = "#FFFFFF"
+                                     )
+        self.box_beerText.pack(side="left")
+        self.concentrationText1 = Label(
+                                       self.box_beer,
+                                       text = "Concentration (mol/L):",
+                                       background = "#FFFFFF"
+                                     )
+        self.concentrationText1.pack(side="left")
+        self.concentrationValue1 = Entry(
+                                        self.box_beer,
+                                        width=4,
+                                        fg="#263A90",
+                                        borderwidth=2,
+                                        relief=RIDGE,
+                                        background="#FFFFFF"
+                                     )
+        self.concentrationValue1.pack(side="left", pady=5, anchor=W)
+        self.concentrationText2 = Label(
+                                       self.box_beer,
+                                       text = "x 10 ^",
+                                       background = "#FFFFFF"
+                                     )
+        self.concentrationText2.pack(side="left")
+        self.concentrationValue2 = Entry(
+                                        self.box_beer,
+                                        width=4,
+                                        fg="#263A90",
+                                        borderwidth=2,
+                                        relief=RIDGE,
+                                        background="#FFFFFF"
+                                     )
+        self.concentrationValue2.pack(side="left", pady=5, anchor=W)
+        self.pathText = Label(
+                                       self.box_beer,
+                                       text = "Pathlength (cm):",
+                                       background = "#FFFFFF"
+                                     )
+        self.pathText.pack(side="left")
+        self.pathValue = Entry(
+                                        self.box_beer,
+                                        width=4,
+                                        fg="#263A90",
+                                        borderwidth=2,
+                                        relief=RIDGE,
+                                        background="#FFFFFF"
+                                     )
+        self.pathValue.pack(side="left", pady=5, anchor=W)
+        self.concentrationValue1.insert(END, '1.00')
+        self.concentrationValue2.insert(END, '-2')
+        self.pathValue.insert(END, '1.00')
+        self.turnOffBeer()
+        self.box_beer.pack(side="top", pady=5, anchor=W)
+
+    def turnOffBeer(self):
+        self.concentrationText1.configure(fg="#BFBFBF")
+        self.concentrationText2.configure(fg="#BFBFBF")
+        self.box_beerText.configure(fg="#D4494C")
+        self.pathText.configure(fg="#BFBFBF")
+        self.concentrationValue1.configure(state="disabled")
+        self.concentrationValue2.configure(state="disabled")
+        self.pathValue.configure(state="disabled")
+    
+    def turnOnBeer(self):
+        self.concentrationText1.configure(fg="#000000")
+        self.concentrationText2.configure(fg="#000000")
+        self.pathText.configure(fg="#000000")
+        self.box_beerText.configure(fg="#DF0027")
+        self.concentrationValue1.configure(state="normal")
+        self.concentrationValue2.configure(state="normal")
+        self.pathValue.configure(state="normal")
 
     def guiLogos(self):
         self.all_logos_container = Frame(self.toplevel, background="#8EF0F7", borderwidth=0)
@@ -1178,9 +1273,11 @@ class Application(Frame):
             self.choice_intensity.set(0)
             self.rb1_choice_intensity.configure(state="disabled")
             self.rb2_choice_intensity.configure(state="disabled")
+            self.rb3_choice_intensity.configure(state="disabled")
         else:
             self.rb2_choice_intensity.configure(state="normal")
             self.rb1_choice_intensity.configure(state="normal")
+            self.rb3_choice_intensity.configure(state="normal")
             self.choice_intensity.set(0)
 
     def select_files(self):
@@ -1518,7 +1615,9 @@ class Application(Frame):
                               self.exp_wl_lines,            # List with experimental data values of wavelength.
                               self.entry_color_exp.get(),   # Color of experimental input values.
                               self.overlayOptionsVar.get(),
-                              self.choice_intensity.get()   # Sets the type of intensity method. 0 - Relative Intensity and 1 - Estimated Absorbance
+                              self.choice_intensity.get(),   # Sets the type of intensity method. 0 - Relative Intensity and 1 - Estimated Absorbance
+                              (float(self.concentrationValue1.get()) * (10 ** int(self.concentrationValue2.get()))),
+                              float(self.pathValue.get())
                               )
         plot.print_matplotlib()
         self.pyplot_bt.configure(state=DISABLED)
