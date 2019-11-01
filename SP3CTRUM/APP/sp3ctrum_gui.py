@@ -36,7 +36,7 @@ class Application(Frame):
         self.dir = os.getcwd()
         self.filenames = []
         self.toplevel.config()
-        self.toplevel.geometry("800x650")
+        self.toplevel.geometry("800x655")
         self.toplevel.resizable(width=False, height=False)
         self.setMenu()
         self.setStyle()
@@ -1211,6 +1211,15 @@ class Application(Frame):
         self.all_logos_container = Frame(self.toplevel, background="#8EF0F7", borderwidth=0)
         self.logo1 = PhotoImage(file=self.src + "icons/sp3ctrum_b.gif")
         self.logo2 = PhotoImage(file=self.src + "icons/leedmol_b.gif")
+
+        self.lg1 = Label(
+                          self.all_logos_container,
+                          image = self.logo1,
+                          background = "#8EF0F7",
+                          height = 150,
+                          width = 250
+                        ).grid(row=0, column=0)
+
         self.logos_title_container = Frame(
                                             self.all_logos_container,
                                             background = "#8EF0F7",
@@ -1233,32 +1242,8 @@ class Application(Frame):
                                 fg="#62338C"
                               ).grid(row=1, column=0)
 
-        self.lg2_title = Label(
-                                 self.logos_title_container,
-                                 text = "Powered by:",
-                                 background = "#8EF0F7",
-                                 font = "Helvetica 16 italic",
-                                 fg = "#62338C"
-                              ).grid(row=2, column=0)
-
-        self.lg2_title = Label(
-                                self.logos_title_container,
-                                text = "LEEDMOL",
-                                background = "#8EF0F7",
-                                font = "Helvetica 20 bold italic",
-                                fg = "#62338C"
-                              ).grid(row=3, column=0)
-
-        self.logos_title_container.grid(row=0, column=0)
-
-        self.lg1 = Label(
-                          self.all_logos_container,
-                          image = self.logo1,
-                          background = "#8EF0F7",
-                          height = 150,
-                          width = 250
-                        ).grid(row=0, column=1)
-
+        self.logos_title_container.grid(row=0, column=1)
+        
         self.lg2 = Label(
                           self.all_logos_container,
                           image = self.logo2,
