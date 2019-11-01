@@ -1509,7 +1509,13 @@ class Application(Frame):
 
         try:
             self.fwhm = float(self.fwhm_entry.get())
-            self.fwhm_entry.configure(fg="#263A90", bg="#FFFFFF")
+            if self.fwhm < 0:
+                messagebox.showinfo("Incoherent input values",
+                                "The value of FWHM does not make sense.")
+                self.fwhm_entry.configure(bg ="#DF0027", fg="#FFFFFF")
+                error = True
+            else:
+                self.fwhm_entry.configure(fg="#263A90", bg="#FFFFFF")
         except:
             messagebox.showinfo("Incoherent input values",
                                 "The value of FWHM does not make sense.")
