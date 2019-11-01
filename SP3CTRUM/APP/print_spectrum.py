@@ -233,6 +233,7 @@ class Print_Spectrum(object):
         self.root = tk.Tk()
         self.root.protocol("WM_DELETE_WINDOW", self.root_out)
         self.root.title("Graph")
+        self.root.config()
         self.root.configure(bg="#FFFFFF")
 
         if len(graph) == 1:
@@ -241,9 +242,6 @@ class Print_Spectrum(object):
             canvas = FigureCanvasTkAgg(graph[0], master=self.graph_window)
             canvas.draw()
             canvas.get_tk_widget().pack(side="top")
-            titlecanvas = tk.Label(self.graph_window, text=name[0]).pack(side="top")
-            self.button_cont = tk.Frame(self.graph_window)
-            self.button_cont.configure(bg="#FFFFFF")
 
         else:
             self.graph_window = tk.Frame(self.root)
@@ -254,15 +252,13 @@ class Print_Spectrum(object):
             self.canvas1_container.configure(bg="#FFFFFF")
             canvas1 = FigureCanvasTkAgg(graph[0], master=self.canvas1_container)
             canvas1.draw()
-            canvas1.get_tk_widget().pack(side="top")
-            titlecanvas1 = tk.Label(self.canvas1_container, text=name[0]).pack(side="top")
+            canvas1.get_tk_widget().pack(side="top", fill=tk.BOTH, expand=True)
             self.canvas1_container.pack(side="left")
             self.canvas2_container = tk.Frame(self.line1_canvas_container)
             self.canvas2_container.configure(bg="#FFFFFF")
             canvas2 = FigureCanvasTkAgg(graph[1], master=self.canvas2_container)
             canvas2.draw()
-            canvas2.get_tk_widget().pack(side="top")
-            titlecanvas2 = tk.Label(self.canvas2_container, text=name[1]).pack(side="top")
+            canvas2.get_tk_widget().pack(side="top", fill=tk.BOTH, expand=True)
             self.canvas2_container.pack(side="left")
             self.line1_canvas_container.pack(side="top")
 
@@ -273,16 +269,14 @@ class Print_Spectrum(object):
                 self.canvas3_container.configure(bg="#FFFFFF")
                 canvas3 = FigureCanvasTkAgg(graph[2], master=self.canvas3_container)
                 canvas3.draw()
-                canvas3.get_tk_widget().pack(side="top")
-                titlecanvas3 = tk.Label(self.canvas3_container, text=name[2]).pack(side="top")
+                canvas3.get_tk_widget().pack(side="top", fill=tk.BOTH, expand=True)
                 self.canvas3_container.pack(side="left")
                 if len(graph) > 3:
                     self.canvas4_container = tk.Frame(self.line2_canvas_container)
-                    elf.canvas4_container.configure(bg="#FFFFFF")
+                    self.canvas4_container.configure(bg="#FFFFFF")
                     canvas4 = FigureCanvasTkAgg(graph[3], master=self.canvas4_container)
                     canvas4.draw()
-                    canvas4.get_tk_widget().pack(side="top")
-                    titlecanvas4 = tk.Label(self.canvas4_container, text=name[3]).pack(side="top")
+                    canvas4.get_tk_widget().pack(side="top", fill=tk.BOTH, expand=True)
                     self.canvas4_container.pack(side="left")
                 self.line2_canvas_container.pack(side="top")
 
