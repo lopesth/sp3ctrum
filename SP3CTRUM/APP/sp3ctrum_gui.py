@@ -305,7 +305,7 @@ class Application(Frame):
         # choice option Multiple files with a logical MD pattern
         self.rb3_choice_file_type = Radiobutton(
                                                  self.open_files_BT,
-                                                 text = "Multiple Files with a Logical MD Pattern",
+                                                 text = "Multiple Files with a Logical Pattern",
                                                  variable = self.choice_file_type,
                                                  value = 2,
                                                  command = self.enable_file_bt,
@@ -1510,15 +1510,15 @@ class Application(Frame):
         try:
             self.fwhm = float(self.fwhm_entry.get())
             if self.fwhm < 0:
-                messagebox.showinfo("Incoherent input values",
-                                "The value of FWHM does not make sense.")
-                self.fwhm_entry.configure(bg ="#DF0027", fg="#FFFFFF")
+                self.errorFWHM()
+                error = True
+            elif self.fwhm == 0:
+                self.errorFWHM()
                 error = True
             else:
                 self.fwhm_entry.configure(fg="#263A90", bg="#FFFFFF")
         except:
-            messagebox.showinfo("Incoherent input values",
-                                "The value of FWHM does not make sense.")
+            self.errorFWHM()
             self.fwhm_entry.configure(bg ="#DF0027", fg="#FFFFFF")
             error = True
 
@@ -1528,6 +1528,11 @@ class Application(Frame):
         self.title_chart = self.title_entry.get()
 
         return error
+
+    def errorFWHM(self):
+        messagebox.showinfo("Incoherent input values",
+                                "The value of FWHM does not make sense.")
+        self.fwhm_entry.configure(bg ="#DF0027", fg="#FFFFFF")
 
     def makeSpectrumMD(self):
 
@@ -1818,7 +1823,7 @@ class MDfilenames(Frame):
 
         self.text3 = Label(
                             self.text_container,
-                            text = "initialName_FRAME_finalName.log",
+                            text = "initialName+FRAME+finalName",
                             font = "Helvetica 14 bold",
                             fg = "#263A90",
                             background = "#FFFFFF"
@@ -2004,33 +2009,22 @@ class MDfilenames(Frame):
                                )
             self.step_final.configure(bg="#DF0027", fg="#FFFFFF")
 
-        name_init = str(self.name_initial.get()).strip()
-        name_end = str(self.name_final.get()).strip()
+        name_init = str(self.name_initial.get().strip())
+        name_end = str(self.name_final.get().strip())
+        
         not_find = False
 
         for step in range(range_init, range_end+1, range_step):
-            if len(name_end) > 0:
-                filename = name_init + "_" + str(step) + "_" + name_end
+            filename = name_init + str(step) + name_end
+            try:
+                test = open(self.dir + "/" + filename + ".log", encoding="utf8", errors='ignore')
+                self.filenames.append(self.dir + "/" + filename + ".log")
+            except:
                 try:
-                    test = open(self.dir + "/" + filename + ".log", encoding="utf8", errors='ignore')
-                    self.filenames.append(self.dir + "/" + filename + ".log")
+                    test = open(self.dir + "/" + filename + ".out", encoding="utf8", errors='ignore')
+                    self.filenames.append(self.dir + "/" + filename + ".out")
                 except:
-                    try:
-                        test = open(self.dir + "/" + filename + ".out", encoding="utf8", errors='ignore')
-                        self.filenames.append(self.dir + "/" + filename + ".out")
-                    except:
-                        not_find = True
-            else:
-                filename = name_init + "_" + str(step)
-                try:
-                    test = open(self.dir + "/" + filename + ".log", encoding="utf8", errors='ignore')
-                    self.filenames.append(self.dir + "/" + filename + ".log")
-                except:
-                    try:
-                        test = open(self.dir + "/" + filename + ".out", encoding="utf8", errors='ignore')
-                        self.filenames.append(self.dir + "/" + filename + ".out")
-                    except:
-                        not_find = True
+                    not_find = True
 
         if not_find == True:
             resp = messagebox.askyesno(
