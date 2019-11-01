@@ -13,6 +13,8 @@ class Gaussian_Convolution(object):
         self.std_wl = std_wl_cm
 
     def make_spectrum(self, start, end, number_of_points):
+        if start == 0:
+            start = 1
         std_wl_nm = 1 / self.std_wl
         std_wl_cm = np.power(10, 7) / self.std_wl
         A = 2.174*np.power(10, 8)

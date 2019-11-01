@@ -1383,6 +1383,22 @@ class Application(Frame):
             # Multiple Files and Multiple files with a logical MD pattern.
             self.makeSpectrumMD()
 
+    def recuseWLdata(self, place, value = "else"):
+        if place =="start":
+            self.wl_rang_start_entry.configure(bg="#DF0027", fg="#FFFFFF")
+        else:
+            self.wl_rang_end_entry.configure(bg="#DF0027", fg="#FFFFFF")
+            if value == "max":
+                messagebox.showinfo(
+                            "Incoherent input values",
+                            "The maximum value of wavelength is 1000nm."
+                               )
+            else:
+                messagebox.showinfo(
+                            "Incoherent input values",
+                            "One of the wavelength range values does not make sense."
+                               )
+            
     def getSimpleValues(self):
 
         '''
@@ -1399,22 +1415,25 @@ class Application(Frame):
 
         try:
             start_a = float(self.wl_rang_start_entry.get())
+            if start_a < 0:
+                self.recuseWLdata("start")
+                error = True
             self.wl_rang_start_entry.configure(fg="#263A90", bg="#FFFFFF")
         except:
-            self.wl_rang_start_entry.configure(bg="#DF0027", fg="#FFFFFF")
-            messagebox.showinfo(
-                                 "Incoherent input values",
-                                 "One of the wavelength range values does not make sense."
-                               )
+            self.recuseWLdata("start")
             error = True
 
         try:
             end_a = float(self.wl_rang_end_entry.get())
+            if end_a < 0:
+                self.recuseWLdata("end")
+                error = True
+            if end_a > 1000:
+                self.recuseWLdata("end", "max")
+                error = True
             self.wl_rang_end_entry.configure(fg="#263A90", bg="#FFFFFF")
         except:
-            self.wl_rang_end_entry.configure(bg="#DF0027", fg="#FFFFFF")
-            messagebox.showinfo("Incoherent input values",
-                                "One of the wavelength range values does not make sense.")
+            self.recuseWLdata("end")
             error = True
 
         self.wl_rang = [start_a, end_a]
@@ -1423,11 +1442,11 @@ class Application(Frame):
             self.wl_n_points = int(self.wl_n_points_entry.get())
             self.wl_n_points_entry.configure(fg="#263A90", bg="#FFFFFF")
 
-            if self.wl_n_points < 500:
+            if self.wl_n_points < 250:
 
                 error = True
                 messagebox.showinfo("Incoherent input values",
-                                    "The minimum number of points in wavelength range is 500.")
+                                    "The minimum number of points in wavelength range is 250.")
                 self.wl_n_points_entry.configure(bg="#DF0027", fg="#FFFFFF")
         except:
             messagebox.showinfo("Incoherent input values",
@@ -1455,40 +1474,47 @@ class Application(Frame):
 
         ''' Compute the convolution considering multiple files. '''
 
-        self.pyplot_bt.configure(state=NORMAL)
         self.output_file_names = [self.output_entry.get()]
         error = self.getSimpleValues()          # self.getSimpleValues() retorna valores de erros
-
         if error == False:
             self.spectrumUnited()
+            self.pyplot_bt.configure(state=NORMAL)
         else:
             messagebox.showinfo("Error in user-fed values",
                                 "Please correct the marked values.")
+            self.pyplot_bt.configure(state=DISABLED)
+            self.save_adv_bt.configure(state=DISABLED)
+
+    def mkspectrum(self):
+    
+        self.total_oscillators = []
+        self.output_file_names = []
+        
+        num = 1
+        for spectrum_divided in self.filenames:
+            self.total_oscillators = Get_Osc([spectrum_divided]).take_osc(float(self.wl_rang[0]), self.wl_rang[1])
+            self.spectrum = Gaussian_Convolution(self.total_oscillators, self.fwhm)
+            self.plot_limits = self.spectrum.make_spectrum(self.wl_rang[0], self.wl_rang[1], self.wl_n_points)
+            self.spectrum.write_spectrum(self.target_dir + "/" + self.output_file_name + "_" + str(num))
+            self.output_file_names.append(self.output_file_name + "_" + str(num))
+            num += 1
+        self.save_adv_bt.configure(state=NORMAL)
+            
 
     def makeSpectrum(self):
 
         ''' Compute the convolution considering Independent files. '''
-
-        self.pyplot_bt.configure(state=NORMAL)
+        
         error = self.getSimpleValues()         # self.getSimpleValues() retorna valores de erros
-        self.total_oscillators = []
-        self.output_file_names = []
-        
-        
-
-        num = 1
         if error == False:
-            for spectrum_divided in self.filenames:
-                self.total_oscillators = Get_Osc([spectrum_divided]).take_osc(float(self.wl_rang[0]), self.wl_rang[1])
-                self.spectrum = Gaussian_Convolution(self.total_oscillators, self.fwhm)
-                self.plot_limits = self.spectrum.make_spectrum(self.wl_rang[0], self.wl_rang[1], self.wl_n_points)
-                self.spectrum.write_spectrum(self.target_dir + "/" + self.output_file_name + "_" + str(num))
-                self.output_file_names.append(self.output_file_name + "_" + str(num))
-                num += 1
-            self.save_adv_bt.configure(state=NORMAL)
+            self.mkspectrum()
+            self.pyplot_bt.configure(state=NORMAL)
         else:
             messagebox.showinfo("Error in user-fed values",
                                 "Please correct the marked values.")
+            self.pyplot_bt.configure(state=DISABLED)
+            self.save_adv_bt.configure(state=DISABLED)
+            
 
     def spectrumUnited(self):
 
