@@ -1709,7 +1709,6 @@ class Application(Frame):
         ''' Method that restarts the initial conditions '''
 
         self.disableSaveAdvButton()
-        self.save_simp_bt.configure(state=DISABLED)
         self.disablePyplotButton()
         self.make_spec_bt.configure(state=DISABLED)
         self.run_call_bt.configure(state=NORMAL)
