@@ -11,6 +11,8 @@ from os import remove
 from PIL import Image
 from PIL import PngImagePlugin
 import tkinter as tk
+from numpy import random
+from time import monotonic
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from SP3CTRUM.APP.differential import FiniteDifferenceDerivative
 from matplotlib.lines import Line2D
@@ -44,6 +46,7 @@ class Print_Spectrum(object):
             self.exp_abs_lines = exp_abs_lines
         self.conc = conc
         self.optPath = optPath
+        self.macosc = 0
 
     def print_matplotlib(self):
 
@@ -77,7 +80,7 @@ class Print_Spectrum(object):
                 osc_t.append(float(line.split()[1]))
         maxOsc = max(osc_t)
         for osc_element in osc_t:
-            osc.append(osc_element/maxOsc)
+            osc.append(osc_element/(maxOsc))
         return [wl, osc]
 
     def singleGraphs(self, namefiles):
@@ -89,13 +92,7 @@ class Print_Spectrum(object):
         for i in range(0, len(self.file_names)):
             wl = []             # wavelength
             epslon = []         # Absortivity Molar
-            with open(self.dir_target + "/" + self.file_names[i] + "_spectrum.dat") as myFile:
-                for line in myFile:
-                    wl.append(float(line.split()[0]))
-                    if self.choice_intensity == 2:
-                        epslon.append(float(line.split()[1]) * self.conc * self.optPath)
-                    else:
-                        epslon.append(float(line.split()[1]))
+            epslon, wl = self.takeEpslon(self.file_names[i], False)
             if self.choice_intensity == 0:
                 list_wl_osc = self.take_osc_str_norm(self.dir_target + "/" + self.file_names[i] + "_rawData.dat")
                 wl_ref = list_wl_osc[0]
@@ -106,7 +103,7 @@ class Print_Spectrum(object):
                 osc_ref = list_wl_osc[1]
 
             self.graph.append(plt.figure(figsize=(8, 6)))
-            a = self.graph[i].add_subplot(111)
+            a = self.graph[i].add_subplot(111, label=str(random.randint(monotonic())))
             b = a.twinx()
 
             a.plot(wl, epslon, linestyle='solid', color=self.curve_color[i], fillstyle='none')
@@ -161,6 +158,21 @@ class Print_Spectrum(object):
                 self.graph[i].set_size_inches(4.0, 3.0)
 
 
+    def takeEpslon(self, file_name, norm):
+        epslon = []
+        wl = []
+        with open(self.dir_target + "/" + file_name + "_spectrum.dat", encoding="utf8", errors='ignore') as myFile:
+            for line in myFile:
+                wl.append(float(line.split()[0]))
+                if self.choice_intensity == 2:
+                    epslon.append(float(line.split()[1]) * self.conc * self.optPath /self.numberOfFiles)
+                else:
+                    epslon.append(float(line.split()[1])/self.numberOfFiles)
+        if norm:
+            return [x/max(epslon) for x in epslon], wl
+        else:
+            return epslon, wl
+
     def overlayGraph(self, namefile):
         self.wl_list = []
         self.epslon_list = []
@@ -168,34 +180,26 @@ class Print_Spectrum(object):
         linesLabelColor = []
         linesLabelName = []
         self.graph = [plt.figure(figsize=(8, 6))]
+        a = self.graph[0].add_subplot(111)
+        b = a.twinx()
         for self.file_name in self.file_names:
             linesLabelColor.append(Line2D([0], [0], color=self.curve_color[num], lw=1.5))
             linesLabelName.append(self.file_name)
-            wl = []
-            epslon = []
             wl_ref = []
             osc_ref = []
-            with open(self.dir_target + "/" + self.file_name + "_spectrum.dat", encoding="utf8", errors='ignore') as myFile:
-                for line in myFile:
-                    wl.append(float(line.split()[0]))
-                    if self.choice_intensity == 2:
-                        epslon.append(float(line.split()[1]) * self.conc * self.optPath /self.numberOfFiles)
-                    else:
-                        epslon.append(float(line.split()[1])/self.numberOfFiles)
             if self.choice_intensity == 0:
                 list_wl_osc = self.take_osc_str_norm(self.dir_target + "/" + self.file_name + "_rawData.dat")
+                epslon, wl = self.takeEpslon(self.file_name, True)
             else:
                 list_wl_osc = self.take_osc_str_no_norm(self.dir_target + "/" + self.file_name + "_rawData.dat")
+                epslon, wl = self.takeEpslon(self.file_name, False)
                 with open(self.dir_target+"/"+self.file_name+"_rawData.dat", encoding="utf8", errors='ignore') as myFile:
                     for line in myFile:
                         wl_ref.append(float(line.split()[0]))
                         osc_ref.append(float(line.split()[1]))
             wl_ref = list_wl_osc[0]
             osc_ref = list_wl_osc[1]
-            a = self.graph[0].add_subplot(111)
-            b = a.twinx()
             line1, = a.plot(wl, epslon, linestyle='solid', color=self.curve_color[num], fillstyle ='none')
-            line2, = b.plot(wl_ref, osc_ref, visible = False)
             for i in range(len(wl_ref)):
                 b.vlines(wl_ref[i], 0, osc_ref[i], colors=self.osc_color[num], lw =1)
             self.graph[0].tight_layout()
@@ -324,7 +328,7 @@ class SecondDerivative(object):
                 counter +=1
                 if x  in wlPeaks:
                     minimalsY.append(second_der[0][counter])
-            a = graph.add_subplot(111)
+            a = graph.add_subplot(111, label=random.randint(monotonic()))
             a.plot(second_der[1], second_der[0], linestyle='solid', color=self.curve_color[i], fillstyle='none')
             for minimalX, minimalY in zip(wlPeaks, minimalsY):
                 a.plot(minimalX, minimalY,'ro')

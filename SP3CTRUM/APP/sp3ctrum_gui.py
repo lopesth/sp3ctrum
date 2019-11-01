@@ -1552,7 +1552,7 @@ class Application(Frame):
     
         self.total_oscillators = []
         self.output_file_names = []
-        
+        osc = []
         num = 1
         for spectrum_divided in self.filenames:
             self.total_oscillators = Get_Osc([spectrum_divided]).take_osc(float(self.wl_rang[0]), self.wl_rang[1])
@@ -1665,7 +1665,6 @@ class Application(Frame):
         self.boxList_experimental_plot.insert(0, self.experimental_data_file)
 
     def pyplot(self):
-
         ''' This method plots the oscillators and the spectrum. '''
         if self.checkEntryChange() == False:
             messagebox.showinfo(
@@ -1699,7 +1698,7 @@ class Application(Frame):
                                   self.exp_wl_lines,            # List with experimental data values of wavelength.
                                   self.entry_color_exp.get(),   # Color of experimental input values.
                                   self.overlayOptionsVar.get(),
-                                  self.choice_intensity.get(),   # Sets the type of intensity method. 0 - Relative Intensity and 1 - Estimated Absorbance
+                                  self.choice_intensity.get(),# Sets the type of intensity method. 0 - Relative Intensity and 1 - Estimated Absorbance
                                   (float(self.concentrationValue1.get()) * (10 ** int(self.concentrationValue2.get()))),
                                   float(self.pathValue.get())
                                   )
