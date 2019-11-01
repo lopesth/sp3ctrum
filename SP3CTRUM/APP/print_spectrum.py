@@ -237,11 +237,13 @@ class Print_Spectrum(object):
 
         if len(graph) == 1:
             self.graph_window = tk.Frame(self.root)
+            self.graph_window.configure(bg="#FFFFFF")
             canvas = FigureCanvasTkAgg(graph[0], master=self.graph_window)
             canvas.draw()
             canvas.get_tk_widget().pack(side="top")
             titlecanvas = tk.Label(self.graph_window, text=name[0]).pack(side="top")
             self.button_cont = tk.Frame(self.graph_window)
+            self.button_cont.configure(bg="#FFFFFF")
 
         else:
             self.graph_window = tk.Frame(self.root)
@@ -266,6 +268,7 @@ class Print_Spectrum(object):
 
             if len(graph) > 2:
                 self.line2_canvas_container = tk.Frame(self.graph_window)
+                self.line2_canvas_container.configure(bg="#FFFFFF")
                 self.canvas3_container = tk.Frame(self.line2_canvas_container)
                 self.canvas3_container.configure(bg="#FFFFFF")
                 canvas3 = FigureCanvasTkAgg(graph[2], master=self.canvas3_container)
@@ -275,6 +278,7 @@ class Print_Spectrum(object):
                 self.canvas3_container.pack(side="left")
                 if len(graph) > 3:
                     self.canvas4_container = tk.Frame(self.line2_canvas_container)
+                    elf.canvas4_container.configure(bg="#FFFFFF")
                     canvas4 = FigureCanvasTkAgg(graph[3], master=self.canvas4_container)
                     canvas4.draw()
                     canvas4.get_tk_widget().pack(side="top")
