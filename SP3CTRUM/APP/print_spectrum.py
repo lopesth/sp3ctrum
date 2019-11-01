@@ -58,13 +58,6 @@ class Print_Spectrum(object):
             self.overlayGraph([self.dir_target + "/" + self.dir_target.split("/")[-1] + ".png"])
             self.show(self.graph, [""])
 
-        try:
-            for i in range(0, len(self.file_names)):
-                remove(self.dir_target + "/" + self.file_names[i] + "_spectrum.dat")
-                remove(self.dir_target + "/" + self.file_names[i] + "_rawData.dat")
-        except:
-            pass
-
     def take_osc_str_no_norm(self, name):
         wl = []
         osc = []

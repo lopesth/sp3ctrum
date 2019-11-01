@@ -17,6 +17,7 @@ from SP3CTRUM.APP.print_spectrum import Print_Spectrum
 from SP3CTRUM.APP.plotTransitions import PlotTransitions
 from SP3CTRUM.APP.advancedSave import saveAdvancedSimple
 
+
 stdColorCurve = ["#E01E23", "#573280", "#945055", "#005CB8", "#29000A"]
 
 class Application(Frame):
@@ -50,6 +51,11 @@ class Application(Frame):
         self.guiLogos()
         self.exp_abs_lines = []
         self.exp_wl_lines = []
+        self.fwhm_old = 0
+        self.wl_n_point_old = 0
+        self.wl_end_old = 0
+        self.wl_start_old = 0
+        self.firstTime = True
 
     def setStyle(self):
 
@@ -192,7 +198,7 @@ class Application(Frame):
                                   relief = FLAT
                                  )
 
-        self.save_adv_bt.configure(state=DISABLED)
+        self.disableSaveAdvButton()
         self.save_adv_bt.grid(row = 0, column = 1, padx=5)
 
         # choice option Plot Spectrum
@@ -205,10 +211,22 @@ class Application(Frame):
                                 pady = 2,
                                 relief = FLAT
                                )
-        self.pyplot_bt.configure(state=DISABLED)
         self.pyplot_bt.grid(row = 0, column = 4, padx=5)
+        self.disablePyplotButton()
 
         self.run_but_container.pack()
+
+    def disablePyplotButton(self):
+        self.pyplot_bt.configure(state=DISABLED)
+        
+    def disableSaveAdvButton(self):
+        self.save_adv_bt.configure(state=DISABLED)
+    
+    def enableSaveAdvButton(self):
+        self.save_adv_bt.configure(state=NORMAL)
+        
+    def enablePyPlotButton(self):
+        self.pyplot_bt.configure(state=NORMAL)
 
     def guiTab1(self):
 
@@ -245,7 +263,8 @@ class Application(Frame):
                                                text = "Gaussian (G09 and G16)",
                                                variable = self.choice_log_type,
                                                value = 0,
-                                               background = "#FFFFFF"
+                                               background = "#FFFFFF",
+                                               command = self.disableSaveNPyplot
                                               )
         self.rb1_choice_log_type.pack(anchor=NW, padx=20)
         self.rb1_choice_log_type.select()
@@ -279,7 +298,7 @@ class Application(Frame):
                                                 variable = self.choice_file_type,
                                                 value = 1,
                                                 command = self.enable_file_bt,
-                                                background = "#FFFFFF"
+                                                background = "#FFFFFF",
                                                )
         self.rb2_choice_file_type.pack(side="left")
 
@@ -331,6 +350,10 @@ class Application(Frame):
                                     )
         self.file_name_box.pack(anchor=NW, pady=5, padx=20)
         self.file_container.pack()
+
+    def disableSaveNPyplot(self):
+        self.disablePyplotButton()
+        self.disableSaveAdvButton()
 
     def guiTab2(self):
 
@@ -501,6 +524,29 @@ class Application(Frame):
         self.box_container_in1.grid(row=0)
         self.box_container_out.pack()
 
+    def checkEntryChange(self):
+        
+        if self.firstTime:
+            self.firstTime = False               
+        else:
+            if self.fwhm_entry.get() == self.fwhm_old:
+                if self.wl_n_points_entry.get() == self.wl_n_point_old:
+                    if self.wl_rang_end_entry.get() == self.wl_end_old:
+                        if self.wl_rang_start_entry.get() == self.wl_start_old:
+                            return True
+                        else:
+                            self.disableSaveNPyplot()
+                            return False
+                    else:
+                        self.disableSaveNPyplot()
+                        return False
+                else:
+                    self.disableSaveNPyplot()   
+                    return False
+            else:
+                self.disableSaveNPyplot()
+                return False
+    
     def guiTab3(self):
 
         '''
@@ -1373,15 +1419,22 @@ class Application(Frame):
         self.output_entry.insert(0, filenameTemp)
 
     def make_spectrum(self):
-
         if self.choice_file_type.get() == 0:
             # It is the method for Calculate Gaussian convolution with
             # Independent Files.
             self.makeSpectrum()
+            self.setOldValues()
         else:
             # It is the method for Calculate Gaussian convolution with
             # Multiple Files and Multiple files with a logical MD pattern.
             self.makeSpectrumMD()
+            self.setOldValues()
+
+    def setOldValues(self):
+        self.fwhm_old = self.fwhm_entry.get()
+        self.wl_n_point_old = self.wl_n_points_entry.get()
+        self.wl_end_old = self.wl_rang_end_entry.get()
+        self.wl_start_old = self.wl_rang_start_entry.get()
 
     def recuseWLdata(self, place, value = "else"):
         if place =="start":
@@ -1478,12 +1531,11 @@ class Application(Frame):
         error = self.getSimpleValues()          # self.getSimpleValues() retorna valores de erros
         if error == False:
             self.spectrumUnited()
-            self.pyplot_bt.configure(state=NORMAL)
         else:
             messagebox.showinfo("Error in user-fed values",
                                 "Please correct the marked values.")
-            self.pyplot_bt.configure(state=DISABLED)
-            self.save_adv_bt.configure(state=DISABLED)
+            self.disablePyplotButton()
+            self.disableSaveAdvButton()
 
     def mkspectrum(self):
     
@@ -1498,7 +1550,8 @@ class Application(Frame):
             self.spectrum.write_spectrum(self.target_dir + "/" + self.output_file_name + "_" + str(num))
             self.output_file_names.append(self.output_file_name + "_" + str(num))
             num += 1
-        self.save_adv_bt.configure(state=NORMAL)
+        self.enableSaveAdvButton()
+        self.enablePyPlotButton()
             
 
     def makeSpectrum(self):
@@ -1508,12 +1561,11 @@ class Application(Frame):
         error = self.getSimpleValues()         # self.getSimpleValues() retorna valores de erros
         if error == False:
             self.mkspectrum()
-            self.pyplot_bt.configure(state=NORMAL)
         else:
             messagebox.showinfo("Error in user-fed values",
                                 "Please correct the marked values.")
-            self.pyplot_bt.configure(state=DISABLED)
-            self.save_adv_bt.configure(state=DISABLED)
+            self.disablePyplotButton()
+            self.disableSaveAdvButton()
             
 
     def spectrumUnited(self):
@@ -1524,31 +1576,36 @@ class Application(Frame):
         self.spectrum = Gaussian_Convolution(self.total_oscillators, self.fwhm)
         self.plot_limits = self.spectrum.make_spectrum(self.wl_rang[0], self.wl_rang[1], self.wl_n_points)
         self.spectrum.write_spectrum(self.target_dir + "/" + self.output_file_name)
-        self.save_adv_bt.configure(state="disabled")
+        self.enablePyPlotButton()
+        self.disableSaveAdvButton()
 
     def adv_file(self):
-        print(self.target_dir)
-
-        try:
-            os.remove(self.target_dir + "/" + self.output_file_name + "_advancedData.dat")
-        except:
-            pass
-
-        if self.choice_file_type.get() == 0:
-            for i in range(0, len(self.filenames)):
-                print(self.target_dir + "/" + self.output_file_names[i] + "_spectrum.dat")
-                toSave = saveAdvancedSimple(self.filenames[i], self.target_dir + "/" + self.output_file_names[i] + "_spectrum.dat")
+        if self.checkEntryChange() == False:
+            messagebox.showinfo(
+                            "You change the \"Spectrum Parameters\"",
+                            "You must Calculate the Spectrum Again."
+                               )
         else:
-            for i in range(0, len(self.filenames)):
-                if i == len(self.filenames) - 1:
-                    toSave = saveAdvancedSimple(self.filenames[i], self.target_dir + "/" + self.output_file_name + "_spectrum.dat", False)
-                else:
-                    toSave = saveAdvancedSimple(self.filenames[i], self.target_dir + "/" + self.output_file_name + "_spectrum.dat", False, False)
 
-        concordPlural = (False if len(self.filenames) == 1 or self.choice_file_type.get() != 0 else True)
-        titSave = ("Files Saved" if concordPlural else "File Saved")
-        messagSave = ("All files have" if concordPlural else "The file has")
-        messagebox.showinfo(titSave, messagSave + " already been saved in the working directory")
+            try:
+                os.remove(self.target_dir + "/" + self.output_file_name + "_advancedData.dat")
+            except:
+                pass
+
+            if self.choice_file_type.get() == 0:
+                for i in range(0, len(self.filenames)):
+                    toSave = saveAdvancedSimple(self.filenames[i], self.target_dir + "/" + self.output_file_names[i] + "_spectrum.dat")
+            else:
+                for i in range(0, len(self.filenames)):
+                    if i == len(self.filenames) - 1:
+                        toSave = saveAdvancedSimple(self.filenames[i], self.target_dir + "/" + self.output_file_name + "_spectrum.dat", False)
+                    else:
+                        toSave = saveAdvancedSimple(self.filenames[i], self.target_dir + "/" + self.output_file_name + "_spectrum.dat", False, False)
+
+            concordPlural = (False if len(self.filenames) == 1 or self.choice_file_type.get() != 0 else True)
+            titSave = ("Files Saved" if concordPlural else "File Saved")
+            messagSave = ("All files have" if concordPlural else "The file has")
+            messagebox.showinfo(titSave, messagSave + " already been saved in the working directory")
 
     def get_exp_data(self):
 
@@ -1599,47 +1656,51 @@ class Application(Frame):
     def pyplot(self):
 
         ''' This method plots the oscillators and the spectrum. '''
-
-        self.get_exp_data()
-        self.curve_color = []
-        self.osc_color = []
-
-        if self.choice_file_type.get() == 0:
-            for i in range(0, len(self.filenames)):
-                self.curve_color.append(self.entry_color_curve_list[i].get())
-                self.osc_color.append(self.entry_color_drop_list[i].get())
+        if self.checkEntryChange() == False:
+            messagebox.showinfo(
+                            "You change the \"Spectrum Parameters\"",
+                            "You must Calculate the Spectrum Again."
+                               )
         else:
-            self.curve_color.append(self.entry_color_curve_list[0].get())
-            self.osc_color.append(self.entry_color_drop_list[0].get())
-        plot = Print_Spectrum(
-                              self.target_dir,              # directory path which will be added to the curve.
-                              self.output_file_names,       # list with names of output files.
-                              self.wl_rang[0],              # Initial wavelength.
-                              self.wl_rang[1],              # end wavelength.
-                              self.title_chart,             # if you want to enter a name for the curve.
-                              int(self.entry_res.get()),    # if you want to enter a new resolution for the curve.
-                              self.osc_color,               # Oscillator Colors.
-                              self.curve_color,             # Curve colors.
-                              self.filenames,               # List with INPUT files
-                              self.plottypes.get(),         # Values 0 - Independent Plots or 1 - Overlay Plots
-                              self.exp_abs_lines,           # List with absolute experimental data values.
-                              self.exp_wl_lines,            # List with experimental data values of wavelength.
-                              self.entry_color_exp.get(),   # Color of experimental input values.
-                              self.overlayOptionsVar.get(),
-                              self.choice_intensity.get(),   # Sets the type of intensity method. 0 - Relative Intensity and 1 - Estimated Absorbance
-                              (float(self.concentrationValue1.get()) * (10 ** int(self.concentrationValue2.get()))),
-                              float(self.pathValue.get())
-                              )
-        plot.print_matplotlib()
-        self.pyplot_bt.configure(state=DISABLED)
+            self.get_exp_data()
+            self.curve_color = []
+            self.osc_color = []
+
+            if self.choice_file_type.get() == 0:
+                for i in range(0, len(self.filenames)):
+                    self.curve_color.append(self.entry_color_curve_list[i].get())
+                    self.osc_color.append(self.entry_color_drop_list[i].get())
+            else:
+                self.curve_color.append(self.entry_color_curve_list[0].get())
+                self.osc_color.append(self.entry_color_drop_list[0].get())
+            plot = Print_Spectrum(
+                                  self.target_dir,              # directory path which will be added to the curve.
+                                  self.output_file_names,       # list with names of output files.
+                                  self.wl_rang[0],              # Initial wavelength.
+                                  self.wl_rang[1],              # end wavelength.
+                                  self.title_chart,             # if you want to enter a name for the curve.
+                                  int(self.entry_res.get()),    # if you want to enter a new resolution for the curve.
+                                  self.osc_color,               # Oscillator Colors.
+                                  self.curve_color,             # Curve colors.
+                                  self.filenames,               # List with INPUT files
+                                  self.plottypes.get(),         # Values 0 - Independent Plots or 1 - Overlay Plots
+                                  self.exp_abs_lines,           # List with absolute experimental data values.
+                                  self.exp_wl_lines,            # List with experimental data values of wavelength.
+                                  self.entry_color_exp.get(),   # Color of experimental input values.
+                                  self.overlayOptionsVar.get(),
+                                  self.choice_intensity.get(),   # Sets the type of intensity method. 0 - Relative Intensity and 1 - Estimated Absorbance
+                                  (float(self.concentrationValue1.get()) * (10 ** int(self.concentrationValue2.get()))),
+                                  float(self.pathValue.get())
+                                  )
+            plot.print_matplotlib()
 
     def restart(self):
 
         ''' Method that restarts the initial conditions '''
 
-        self.save_adv_bt.configure(state=DISABLED)
+        self.disableSaveAdvButton()
         self.save_simp_bt.configure(state=DISABLED)
-        self.pyplot_bt.configure(state=DISABLED)
+        self.disablePyplotButton()
         self.make_spec_bt.configure(state=DISABLED)
         self.run_call_bt.configure(state=NORMAL)
         self.file_name_box.delete(0, END)
@@ -1700,9 +1761,8 @@ class Application(Frame):
            This method is called inside the  *** Help *** tab.
           Passing information about using the software in Tutorial Video .
         '''
-
         webbrowser.open(
-                        "https://askubuntu.com/questions/15354/how-to-open-file-with-default-application-from-command-line"
+                        "http://www.leedmol.com"
                        )
 
     def enable_file_bt(self):
@@ -1713,7 +1773,7 @@ class Application(Frame):
            - Multiple Files
            - Multiple Files with a logical MD Pattern
         '''
-
+        self.disableSaveNPyplot()
         self.run_call_bt.configure(state=NORMAL)
 
 class MDfilenames(Frame):
@@ -1945,7 +2005,6 @@ class MDfilenames(Frame):
         for step in range(range_init, range_end+1, range_step):
             if len(name_end) > 0:
                 filename = name_init + "_" + str(step) + "_" + name_end
-
                 try:
                     test = open(self.dir + "/" + filename + ".log", encoding="utf8", errors='ignore')
                     self.filenames.append(self.dir + "/" + filename + ".log")
@@ -1955,7 +2014,6 @@ class MDfilenames(Frame):
                         self.filenames.append(self.dir + "/" + filename + ".out")
                     except:
                         not_find = True
-                        print(self.dir + "/" + filename + ".out")
             else:
                 filename = name_init + "_" + str(step)
                 try:
@@ -1967,7 +2025,6 @@ class MDfilenames(Frame):
                         self.filenames.append(self.dir + "/" + filename + ".out")
                     except:
                         not_find = True
-                        print(self.dir + "/" + filename + ".log")
 
         if not_find == True:
             resp = messagebox.askyesno(
