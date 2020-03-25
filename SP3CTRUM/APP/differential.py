@@ -4,23 +4,22 @@ __credits__ = ["LEEDMOL Research group", "Institute of Chemistry at Universidade
 __date__ = "Oct 16 of 2019"
 __version__ = "1.0.1"
 
+from numpy import gradient, array
+
 class FiniteDifferenceDerivative(object):
 
     def __init__(self, y_values, x_values):
         f_x = y_values
         x = x_values
-        h = abs(x[-2] - x[-1])
-        self.firstDerivative = self.__Derivative(f_x, x, h)
-        self.secondDerivative = self.__Derivative(self.firstDerivative[0], self.firstDerivative[1], h)
+        self.firstDerivative = self.__Derivative(f_x, x)
+        self.secondDerivative = self.__Derivative(self.firstDerivative[0], self.firstDerivative[1])
         self.criticalpoints = self.__CP(self.secondDerivative[0], x_values)
 
 
-    def __Derivative(self, f_x, x, h):
-        f_line_x = []
-        for i in range(0, len(f_x)-1, 1):
-            f_line = (f_x[i + 1] - f_x[i]) / (h)
-            f_line_x.append(f_line)
-        return [f_line_x, x[0:-1]]
+    def __Derivative(self, f_x, x):
+        y = array(f_x)
+        x = array(x)
+        return gradient(y, x, edge_order=2), x
 
     def __near(self, lista, rangeAc):
         test = []
