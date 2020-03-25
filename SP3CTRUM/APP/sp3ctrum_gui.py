@@ -840,6 +840,7 @@ class Application(Frame):
 
         self.option_experimental = IntVar(0)
         self.experimental_type = IntVar(0)
+        self.fwhmQuestion_asw = IntVar(0)
         self.experimental_points_wl = []
         self.experimental_points_abs = []
 
@@ -937,6 +938,38 @@ class Application(Frame):
         self.experimental_type_ref_bt.pack(side="left", padx=10)
         self.box_experimental_types.pack(side="top", pady=10,  anchor=W)
 
+        self.fwhmQuestion = Frame(
+                                            self.note4_struct,
+                                            relief = FLAT,
+                                            borderwidth = 0,
+                                            bg = "#FFFFFF"
+                                          )
+        self.fwhmQuestionName = Label(
+                                             self.fwhmQuestion,
+                                             text = "Find the best FWHM for the theoretical values that fits the experimental values?",
+                                             bg = "#FFFFFF"
+                                            )
+        self.fwhmQuestionName.pack(side="left", padx=10)
+        self.fwhmQuestionName_btN = Radiobutton(
+                                                       self.fwhmQuestion,
+                                                       text = "No",
+                                                       variable = self.fwhmQuestion_asw,
+                                                       value = 0,
+                                                       background = "#FFFFFF", command = self.FWHM_box
+                                                     )
+        self.fwhmQuestionName_btN.pack(side="left", padx=10)
+        self.fwhmQuestionName_btY = Radiobutton(
+                                                       self.fwhmQuestion,
+                                                       text = "Yes",
+                                                       variable = self.fwhmQuestion_asw,
+                                                       value = 1,
+                                                       background = "#FFFFFF",
+                                                       command = self.no_FWHM_box
+                                                     )
+        self.fwhmQuestionName_btY.pack(side="left", padx=10)
+        
+        self.fwhmQuestion.pack(side="top", pady=10,  anchor=W)
+    
         self.box_experimental_plot = Frame(
                                             self.note4_struct,
                                             relief = FLAT,
@@ -1035,6 +1068,12 @@ class Application(Frame):
     def no_experimental_data(self):
         self.experimental_type_curve_bt.config(state=DISABLED)
         self.experimental_type_ref_bt.config(state=DISABLED)
+        self.fwhmQuestionName_btN.select()
+        self.fwhmQuestion_asw = 0
+        self.FWHM_box()
+        self.fwhmQuestionName_btY.config(state=DISABLED)
+        self.fwhmQuestionName_btN.config(state=DISABLED)
+        self.fwhmQuestionName.config(fg="#BFBFBF")
         self.text_experimental_color.config(fg="#BFBFBF")
         self.text_experimental_types.config(fg="#BFBFBF")
         self.entry_color_exp.config(state="disable")
@@ -1055,17 +1094,40 @@ class Application(Frame):
         self.text_experimental_types.config(fg="#000000")
         self.text_experimental_color.config(fg="#000000")
 
+    def no_FWHM_box(self):
+        self.fwhm_entry.delete(0, END)
+        self.fwhm_entry.insert(END, 'Auto')
+        self.fwhm_entry.config(state=DISABLED)
+    
+    def FWHM_box(self):
+        self.fwhm_entry.config(state=NORMAL)
+        self.fwhm_entry.delete(0, END)
+        self.fwhm_entry.insert(END, '3226.22')
+    
+
     def experimental_data_curve(self):
         self.no_experimental_data_ref()
         self.text_experimental_plot.config(fg="#000000")
+        self.fwhmQuestionName.config(fg="#000000")
         self.buttom_experimental_plot.config(state=NORMAL)
         self.boxList_experimental_plot.config(state=NORMAL)
+        self.fwhmQuestionName_btN.config(state=NORMAL)
+        self.fwhmQuestionName_btY.config(state=NORMAL)
+        self.fwhmQuestionName_btN.select()
+        self.fwhmQuestion_asw = 0
+        self.FWHM_box()
 
     def no_experimental_data_curve(self):
         self.text_experimental_plot.config(fg="#BFBFBF")
+        self.fwhmQuestionName_btN.select()
+        self.fwhmQuestion_asw = 0
+        self.FWHM_box()
         self.buttom_experimental_plot.config(state=DISABLED)
         self.boxList_experimental_plot.delete(0, END)
         self.boxList_experimental_plot.config(state=DISABLED)
+        self.fwhmQuestionName_btN.config(state=DISABLED)
+        self.fwhmQuestionName_btY.config(state=DISABLED)
+        self.fwhmQuestionName.config(fg="#BFBFBF")
 
     def experimental_data_ref(self):
         self.no_experimental_data_curve()
