@@ -1,0 +1,8 @@
+
+
+
+QTabBar::tab:selected 
+{
+    /*border-color: #9B9B9B;*/
+}
+

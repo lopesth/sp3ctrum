@@ -1,0 +1,25 @@
+
+QWidget {
+  background-color: #FFE5DD;
+  border-radius: 20px;
+  color: #3B3292;
+}
+
+QGroupBox  {
+    border: 0px;
+    margin-top: 25px;
+    font-size: 14px;
+    border-radius: 20px;
+    background-color: #91ABE1;
+}
+
+QGroupBox::title  {
+    subcontrol-origin: margin;
+    subcontrol-position: top ,left;
+}
+
+QRadioButton{
+    color: #E22230;
+    background-color: #91ABE1;
+}
+
