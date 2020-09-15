@@ -16,19 +16,21 @@ class MainWindow(QMainWindow):
      def __init__(self, os_name, controller, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
         self.setWindowTitle("Sp3ctrum Wizard")
-        self.table_widget = MyTableWidget(self)
+        self.table_widget = MyTableWidget(self, controller)
         self.setCentralWidget(self.table_widget)
-        self.table_widget.add_new_tab(Table1(controller), "Files") # Table 0 in table_list
-        self.table_widget.add_new_tab(Table1(controller), "Spectrum Parameters") # Table 1 in table_list
-        self.table_widget.add_new_tab(Table1(controller), "Plot Details") # Table 2 in table_list
-        self.table_widget.add_new_tab(Table1(controller), "Versus Experimental Values") # Table 3 in table_list
-        self.table_widget.add_new_tab(Table1(controller), "Advanced Options")# Table 4 in table_list
+        self.table_widget.add_new_tab(Table1, "Files") # Table 0 in table_list
+        self.table_widget.add_new_tab(Table1, "Spectrum Parameters") # Table 1 in table_list
+        self.table_widget.add_new_tab(Table1, "Plot Details") # Table 2 in table_list
+        self.table_widget.add_new_tab(Table1, "Versus Experimental Values") # Table 3 in table_list
+        self.table_widget.add_new_tab(Table1, "Advanced Options")# Table 4 in table_list
         layout = QGridLayout()
         
 class MyTableWidget(QWidget):
     
-    def __init__(self, parent):
+    def __init__(self, parent, controller):
         super(QWidget, self).__init__(parent)
+        self.control = controller
+        self.control.def_prime_guide(self)
         self.layout = QVBoxLayout(self)
         self.tabs = QTabWidget()
         self.tab_list = []
@@ -36,7 +38,7 @@ class MyTableWidget(QWidget):
         self.__make_final_buttons_area()
         
     def add_new_tab(self, tab, tab_name):
-        self.tab_list.append(tab)
+        self.tab_list.append(tab(self.control))
         self.tabs.addTab(self.tab_list[-1],tab_name)
 
     def __buildTabs(self):
@@ -72,6 +74,12 @@ class MyTableWidget(QWidget):
         layout.addWidget(self.button_plot_results)
         layout.addWidget(self.button_save_data)
         layout.addWidget(self.button_save_analysis_s)
+
+
+        self.button_make_analysis.setEnabled(False)
+        self.button_plot_results.setEnabled(False)
+        self.button_save_data.setEnabled(False)
+
 
         self.buttons_part.setLayout(layout)
         self.layout.addWidget(self.buttons_part)
@@ -171,6 +179,7 @@ class Table1(QWidget):
         fname = QFileDialog.getOpenFileNames(self, 'Open file', '', files_to_take)
         self.__clear_file_list()
         self.__fill_file_list(fname[:-1][0])
+        self.control.set_analysis_button_state('on')
         
     def __clear_file_list(self):
         self.fileList.clear()
