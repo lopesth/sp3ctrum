@@ -232,15 +232,15 @@ class Table3(QWidget):
     @property
     def fig_format(self):
         if self.__file_form_b1.isChecked():
-            return "png"
+            return 0
         elif self.__file_form_b2.isChecked():
-            return "pdf"
+            return 1
         elif self.__file_form_b3.isChecked():
-            return "ps"
+            return 2
         elif self.__file_form_b4.isChecked():
-            return "eps"
+            return 3
         else:
-            return "svg"
+            return 4
         
     @property
     def show_oscillators(self):
