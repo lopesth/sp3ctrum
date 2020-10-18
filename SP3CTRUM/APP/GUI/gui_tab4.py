@@ -6,38 +6,37 @@ from PyQt5.QtGui import QIntValidator, QDoubleValidator
 
 box_title = "QGroupBox::title  { subcontrol-origin: margin; font-size: 12px; subcontrol-position: top ,left; }"
 
-text_chosen = "Chosen file: "
+
+exp_box_title = "Experimental Plot Settings"
+text_chosen = "Chosen file"
 text_choose_the_exp_file = "Choose the file with the Experimental data"
-text_plot_overlap = "Plot with overlapping experimental data?"
+text_plot_overlap = "Plot with overlapping experimental data"
 text_yes = "Yes"
 text_no = "No"
 text_open_file = "Open file"
 text_no_exp_file_selected = "No files with experimental data were selected"
-text_type_files_exp_data = "Files with experimental data (*.dat *csv *txt)"
-text_exp_type = "Type of experimental data to be plotted?"
+text_type_files_exp_data = "Files with experimental data"
+text_exp_type = "Type of experimental data to be plotted"
 text_exp_data_plot_color = "Experimental data plot color"
 text_curve_plot_tooltip = "Curve plot"
 text_ref_plot_tooltip = "Plot of maximum intensity droplets"
 text_curve_plot = "Curve"
 text_ref_plot = "Reference"
-fwhm_search = "Find the best FWHM for the theoretical values that fits the experimental values?"
-pt_exp_values_label = "Points of the experimental values:"
-wl_label = "Wavelength:"
-wl_label_unit = "(nm)"
-molar_abs_label = "Molar Absortivity:"
-molar_abs_label_unit = "(L/mol.cm)"
+fwhm_search = "Find the best FWHM for the theoretical values that fits the experimental values"
+pt_exp_values_label = "Points of the experimental values"
+wl_label = "Wavelength"
+molar_abs_label = "Molar Absortivity"
 
 class Table4(QWidget):
     
     def __init__(self, parent_guide):
         super(QWidget, self).__init__()
         self.parent = parent_guide
-        self.tab = QGroupBox("Experimental Plot Settings")
+        self.tab = QGroupBox(exp_box_title)
         self.layout = QVBoxLayout()
         self.layout_top = QVBoxLayout()
         self.layout_top.addStretch()
         self.__question_exp_data()
-        self.__exp_file = ""
         self.__fwhm_search()
         self.__exp_plot_settings()
         self.__pts_exp_values()
@@ -48,16 +47,16 @@ class Table4(QWidget):
         self.setStyleSheet(box_title)
         self.__self_turn_off_exp_file()
         self.__turn_pt_exp_value_off()
+        self.refresh_values_tab()
         
     def __question_exp_data(self):
         layout = QHBoxLayout()
         tab_part = QWidget()
         tab_part.setStyleSheet(box_title)
         label = QLabel()
-        label.setText(text_plot_overlap)
+        label.setText(text_plot_overlap+"?")
         self.__exp_data_yes = QRadioButton(text_yes)
         self.__exp_data_no = QRadioButton(text_no)
-        self.__exp_data_no.setChecked(True)
         self.__exp_data_yes.clicked.connect(self.__self_turn_on_exp_file)
         self.__exp_data_no.clicked.connect(self.__self_turn_off_exp_file)
         
@@ -89,10 +88,9 @@ class Table4(QWidget):
         tab_part = QWidget()
         tab_part.setStyleSheet(box_title)
         self.__label_fwhm = QLabel()
-        self.__label_fwhm.setText(fwhm_search)
+        self.__label_fwhm.setText(fwhm_search+"?")
         self.__fwhm_s_yes = QRadioButton(text_yes)
         self.__fwhm_s_no = QRadioButton(text_no)
-        self.__fwhm_s_no.setChecked(True)
         self.__fwhm_s_yes.clicked.connect(self.__fwhm_turn_off)
         self.__fwhm_s_no.clicked.connect(self.__fwhm_turn_on)
         layout.addStretch()
@@ -109,7 +107,7 @@ class Table4(QWidget):
         tab_part.setStyleSheet(box_title)
         self.__label_exp_plot_settings, self.__label_color_exp = QLabel(), QLabel()
         self.__label_color_exp.setText(text_exp_data_plot_color)
-        self.__label_exp_plot_settings.setText(text_exp_type)
+        self.__label_exp_plot_settings.setText(text_exp_type+"?")
         self.__exp_type_button_curve = QRadioButton(text_curve_plot)
         self.__exp_type_button_ref = QRadioButton(text_ref_plot)
         self.__exp_type_button_curve.setToolTip(text_curve_plot_tooltip)
@@ -141,7 +139,7 @@ class Table4(QWidget):
         tab_part = QWidget()
         tab_part.setStyleSheet(box_title)
         self.__points_exp_values = QLabel()
-        self.__points_exp_values.setText(pt_exp_values_label)
+        self.__points_exp_values.setText(pt_exp_values_label+":")
         layout.setAlignment(Qt.AlignCenter)
         
         layout1 = QVBoxLayout()
@@ -160,11 +158,11 @@ class Table4(QWidget):
         layout2.addStretch()
         self.__wl_label = QLabel()
         
-        self.__wl_label.setText(wl_label)
+        self.__wl_label.setText(wl_label+":")
         self.__wl_label.setAlignment(Qt.AlignCenter)
         self.__wl_entries = []
         self.__wl_unit_label = QLabel()
-        self.__wl_unit_label.setText(wl_label_unit)
+        self.__wl_unit_label.setText("(nm)")
         self.__wl_unit_label.setAlignment(Qt.AlignCenter)
         layout2.addWidget(self.__wl_label)
         layout2.addWidget(self.__wl_unit_label)
@@ -184,10 +182,10 @@ class Table4(QWidget):
         layout3.addStretch()
         layout3.setAlignment(Qt.AlignCenter)
         self.__ma_label = QLabel()
-        self.__ma_label.setText(molar_abs_label)
+        self.__ma_label.setText(molar_abs_label+":")
         self.__ma_label.setAlignment(Qt.AlignCenter)
         self.__ma_unit_label = QLabel()
-        self.__ma_unit_label.setText(molar_abs_label_unit)
+        self.__ma_unit_label.setText("(L/mol.cm)")
         self.__ma_unit_label.setAlignment(Qt.AlignCenter)
         self.__abs_entries = []
         layout3.addWidget(self.__ma_label)
@@ -240,10 +238,8 @@ class Table4(QWidget):
         self.__label_color_exp.setEnabled(True)
         self.__exp_type_button_curve.setEnabled(True)
         self.__exp_type_button_ref.setEnabled(True)
-        self.__exp_type_button_curve.setChecked(True)
         self.__label_fwhm.setEnabled(True)
         self.__fwhm_s_no.setEnabled(True)
-        self.__fwhm_s_no.setChecked(True)
         self.__color.setEnabled(True)
         self.__fwhm_s_yes.setEnabled(True)
             
@@ -263,14 +259,13 @@ class Table4(QWidget):
     
     def __choosen_exp_file(self):
         self.__clean_choose_file_text_label()
-        fname = QFileDialog.getOpenFileName(self, text_open_file, '', text_type_files_exp_data)
-        print(fname)
-        self.__exp_file = fname[0]
-        self.__label_choose_file.setText(text_chosen + "..." + self.__exp_file[-30:])
+        fname = QFileDialog.getOpenFileName(self, text_open_file, '', text_type_files_exp_data + " (*.dat *csv *txt)")
+        self.parent.analysis_settings.filename_exp_data_file = fname[0]
+        self.__label_choose_file.setText(text_chosen + ": ... " + self.parent.analysis_settings.filename_exp_data_file[-30:])
         
     def __clean_choose_file_text_label(self):
         self.__label_choose_file.setText(text_no_exp_file_selected)
-        self.__exp_file = ""
+        self.parent.analysis_settings.filename_exp_data_file = ""
         
     def __fwhm_turn_on(self):
         self.parent.tab2.fhwm_turn_on_off(True)
@@ -278,34 +273,27 @@ class Table4(QWidget):
     def __fwhm_turn_off(self):
         self.parent.tab2.fhwm_turn_on_off(False)
     
-    @property
-    def exp_data(self):
-        return self.__exp_data_yes.isChecked()
-    
-    @property
-    def exp_file(self):
-        if self.__exp_file == "":
-            return None
-        return self.__exp_file
-    
-    @property
-    def fwhm_search(self):
-        self.__fwhm_s_yes.isChecked()
-        
-    @property
-    def type_exp_data(self):
-        return self.__exp_data_yes.isChecked()
-    
-    @property
-    def exp_dat_color(self):
-        return self.__color.text()
-    
-    @property
-    def points_exp_values(self):
-        result = {}
-        for i in range(4):
-            result.update({self.__wl_entries[i] : self.__abs_entries[i]})
-        return result
-        
-    
-    
+    def refresh_values_tab(self):
+        if self.parent.analysis_settings.overlapping_exp_data_answer:
+            self.__exp_data_yes.setChecked(True)
+        else:
+            self.__exp_data_no.setChecked(True)
+        if self.parent.analysis_settings.find_fwhm_answer:
+            self.__fwhm_s_yes.setChecked(True)
+        else:
+            self.__fwhm_s_no.setChecked(True)
+        if self.parent.analysis_settings.plot_exp_data_as_a_curve:
+            self.__exp_type_button_curve.setChecked(True)
+        else:
+            self.__exp_type_button_ref.setChecked(True)
+        self.__color.setText(self.parent.analysis_settings.exp_plot_color)
+        for i in range(len(self.__abs_entries)):
+            if self.parent.analysis_settings.exp_molar_abs_points[i] == None:
+                pass
+            else:
+                self.__abs_entries[i].setText(str(self.parent.analysis_settings.exp_molar_abs_points[i]))
+        for i in range(len(self.__wl_entries)):
+            if self.parent.analysis_settings.exp_wl_points[i] == None:
+                pass
+            else:
+                self.__wl_entries[i].setText(str(self.parent.analysis_settings.exp_wl_points[i]))

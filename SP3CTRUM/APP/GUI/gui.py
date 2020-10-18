@@ -95,14 +95,14 @@ class MyTableWidget(QWidget):
         for i in range(1, len(self.__tab_list)):
             self.__tab_list[i].setEnabled(on)
         if on:
-            if self.__tab_list[0].dependence_of_files:
+            if self.__set.dependence_input_files:
                 self.__tab_list[2].n_plots = 1
             else:
                 self.__tab_list[2].n_plots = len(self.__set.files)
             self.__tab_list[2].switch_on_curve_colors()
 
     def __make_analysis(self) -> None:
-        if self.__tab_list[0].dependence_of_files:
+        if self.__set.dependence_input_files:
             asw = self.__dependent_analysis()
         else:
             asw = self.__independent_analysis()

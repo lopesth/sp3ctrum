@@ -23,7 +23,7 @@ class Analysis_Settings(object):
         ####
         
         self.__plot_overl_exp_data = False
-        self.__exp_file_data_name = None
+        self.__exp_file_data_name = ""
         self.__find_fwhm = False
         self.__plot_exp_data_curve = True
         self.__exp_data_color = '#E01E23'
@@ -187,11 +187,11 @@ class Analysis_Settings(object):
         self.__plot_overl_exp_data = value
 
     @property
-    def filenam_exp_data_file(self):
+    def filename_exp_data_file(self):
         return self.__exp_file_data_name
 
-    @filenam_exp_data_file.setter
-    def filenam_exp_data_file(self, value):
+    @filename_exp_data_file.setter
+    def filename_exp_data_file(self, value):
         self.__exp_file_data_name = value
 
     @property
